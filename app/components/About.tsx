@@ -1,0 +1,102 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { HeartOutline } from './Icons';
+import { TextReveal, WordByWord } from './TextReveal';
+
+interface AboutProps {
+  lang: 'sv' | 'en';
+}
+
+const content = {
+  sv: {
+    eyebrow: 'Om oss',
+    heading: 'Ett kök. Ett löfte. Ett Göteborg.',
+    paragraphs: [
+      'Mjuk Lov började i ett litet kök i Linnéstaden. Inte som ett företag, utan som ett svar på en fråga: vad händer när du ger bort något du bakat själv?',
+      'Svaret var enkelt. Folk blir glada. Inte för att det är perfekt, utan för att det är personligt. För att någon tänkte på dem.',
+      'Idag bakar vi fortfarande i samma kök. Vi har vuxit, men aldrig bort från grundtanken. Allt vi gör är mjukt. Mjukt i smaken, mjukt i formen, mjukt i löftet. Hembakat, för dig.'
+    ]
+  },
+  en: {
+    eyebrow: 'About us',
+    heading: 'One kitchen. One promise. One Gothenburg.',
+    paragraphs: [
+      'Mjuk Lov started in a small kitchen in Linnéstaden. Not as a business, but as an answer to a question: what happens when you give away something you baked yourself?',
+      'The answer was simple. People become happy. Not because it is perfect, but because it is personal. Because someone thought of them.',
+      'Today we still bake in the same kitchen. We have grown, but never away from the basic idea. Everything we do is soft. Soft in taste, soft in form, soft in promise. Home baked, for you.'
+    ]
+  }
+};
+
+export const About = ({ lang }: AboutProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const t = content[lang];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.2 }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section
+      id="about"
+      ref={ref}
+      className="py-[clamp(6rem,12vw,12rem)] px-4 md:px-8"
+      style={{ backgroundColor: 'var(--vanilla-cream)' }}
+    >
+      <div className="max-w-[720px] mx-auto">
+        <div
+          className={`text-center mb-6 opacity-60 transition-all duration-700 ${
+            isVisible ? 'opacity-60 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+          style={{
+            fontFamily: 'var(--font-inter), sans-serif',
+            textTransform: 'uppercase',
+            letterSpacing: '0.18em',
+            fontSize: '0.75rem'
+          }}
+        >
+          {t.eyebrow}
+        </div>
+
+        <WordByWord
+          text={t.heading}
+          delay={150}
+          className="text-center mb-12"
+          style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', lineHeight: '1.3' }}
+        />
+
+        <div className="space-y-6 mb-12">
+          {t.paragraphs.map((para, i) => (
+            <TextReveal
+              key={i}
+              delay={(i + 2) * 150}
+              className="opacity-80"
+              style={{
+                fontSize: 'clamp(1.125rem, 2vw, 1.25rem)',
+                lineHeight: '1.7'
+              }}
+            >
+              {para}
+            </TextReveal>
+          ))}
+        </div>
+
+        <div className="flex justify-center group cursor-pointer">
+          <div className="transform group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
+            <HeartOutline className="w-6 h-6 group-hover:fill-current" style={{ color: 'var(--dusty-terracotta)' }} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};

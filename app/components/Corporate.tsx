@@ -1,0 +1,177 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { MagneticButton } from './MagneticButton';
+
+interface CorporateProps {
+  lang: 'sv' | 'en';
+}
+
+const content = {
+  sv: {
+    heading: 'Företagsprenumerationer',
+    footnote: 'Leverans inom Göteborg. Faktura månadsvis.',
+    cta: 'Hör av dig',
+    tiers: [
+      {
+        name: 'Liten',
+        portions: '12 portioner/månad',
+        price: '890 kr',
+        description: 'Fredagsfika för teamet. Varje vecka.'
+      },
+      {
+        name: 'Medium',
+        portions: '24 portioner/månad',
+        price: '1 590 kr',
+        description: 'Veckomöten, kundbesök, spontana fikapauser.',
+        popular: true
+      },
+      {
+        name: 'Stor',
+        portions: '40 portioner/månad',
+        price: '2 390 kr',
+        description: 'För kontoret som tar fika på allvar.'
+      }
+    ]
+  },
+  en: {
+    heading: 'Corporate Subscriptions',
+    footnote: 'Delivery within Gothenburg. Monthly invoicing.',
+    cta: 'Get in touch',
+    tiers: [
+      {
+        name: 'Small',
+        portions: '12 portions/month',
+        price: '890 kr',
+        description: 'Friday fika for the team. Every week.'
+      },
+      {
+        name: 'Medium',
+        portions: '24 portions/month',
+        price: '1,590 kr',
+        description: 'Weekly meetings, client visits, spontaneous breaks.',
+        popular: true
+      },
+      {
+        name: 'Large',
+        portions: '40 portions/month',
+        price: '2,390 kr',
+        description: 'For the office that takes fika seriously.'
+      }
+    ]
+  }
+};
+
+export const Corporate = ({ lang }: CorporateProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const t = content[lang];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section
+      id="corporate"
+      ref={ref}
+      className="py-[clamp(6rem,12vw,12rem)] px-4 md:px-8"
+      style={{ backgroundColor: 'var(--vanilla-cream)' }}
+    >
+      <div className="max-w-[1200px] mx-auto">
+        <h2
+          className={`text-center mb-16 md:mb-20 transition-all duration-700 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+          style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}
+        >
+          {t.heading}
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {t.tiers.map((tier, i) => (
+            <div
+              key={i}
+              className={`p-8 md:p-10 transition-all duration-700 group cursor-default hover:scale-105 ${
+                tier.popular
+                  ? 'md:-translate-y-4 hover:shadow-2xl'
+                  : 'hover:shadow-xl'
+              } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+              style={{
+                backgroundColor: tier.popular ? 'var(--warm-cocoa)' : 'var(--soft-peach)',
+                color: tier.popular ? 'var(--vanilla-cream)' : 'var(--warm-cocoa)',
+                transitionDelay: `${(i + 1) * 150}ms`,
+                boxShadow: tier.popular ? '0 10px 40px rgba(61, 42, 34, 0.15)' : 'none'
+              }}
+            >
+              {tier.popular && (
+                <div
+                  className="italic mb-6 text-center opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ fontSize: '0.875rem' }}
+                >
+                  — populärast —
+                </div>
+              )}
+
+              <h3 className="text-center mb-3 group-hover:scale-110 transition-transform duration-300" style={{ fontSize: 'clamp(1.75rem, 3vw, 2.25rem)' }}>
+                {tier.name}
+              </h3>
+
+              <div
+                className="text-center mb-2 opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ fontSize: '1rem' }}
+              >
+                {tier.portions}
+              </div>
+
+              <div
+                className="text-center mb-6"
+                style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)' }}
+              >
+                {tier.price}
+              </div>
+
+              <p
+                className={`text-center mb-8 ${tier.popular ? 'opacity-90' : 'opacity-80'} group-hover:opacity-100 transition-opacity duration-300`}
+                style={{ fontSize: '1rem', lineHeight: '1.6' }}
+              >
+                {tier.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <p className="italic mb-8 opacity-70" style={{ fontSize: '0.95rem' }}>
+            {t.footnote}
+          </p>
+
+          <MagneticButton
+            onClick={() => {
+              const orderSection = document.getElementById('order');
+              if (orderSection) orderSection.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="px-8 py-3 transition-all duration-300 hover:bg-[var(--warm-peach)] hover:shadow-lg"
+            style={{
+              fontFamily: 'var(--font-inter), sans-serif',
+              textTransform: 'uppercase',
+              letterSpacing: '0.18em',
+              fontSize: '0.75rem',
+              border: '1px solid var(--warm-cocoa)'
+            }}
+          >
+            {t.cta}
+          </MagneticButton>
+        </div>
+      </div>
+    </section>
+  );
+};

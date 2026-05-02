@@ -1,26 +1,120 @@
-@import "tailwindcss";
+/* ============================================================
+   Mjuk Lov — Next.js global stylesheet
+   Combines Figma's tailwind.css + theme.css + fonts.css.
+   This is the ONLY CSS file Next.js loads (imported in app/layout.tsx).
+   ============================================================ */
+
+/* Fonts are self-hosted by next/font/google in app/layout.tsx
+   (Cormorant Garamond → --font-cormorant, Inter → --font-inter). */
+
+/* Tailwind v4 entry */
+@import 'tailwindcss';
+
+/* Optional animation utilities used by Figma's tw-animate-css preset */
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-size: 16px;
+
+  /* Mjuk Lov brand colors — locked palette */
+  --vanilla-cream: #FCF2E4;
+  --soft-peach: #F4D9B8;
+  --warm-peach: #E8B89A;
+  --dusty-terracotta: #A85D4E;
+  --dusty-wine: #5A2A35;
+  --warm-cocoa: #3D2A22;
+
+  /* Semantic role tokens (mapped to brand colors) */
+  --background: var(--vanilla-cream);
+  --foreground: var(--warm-cocoa);
+  --primary: var(--dusty-terracotta);
+  --primary-foreground: var(--vanilla-cream);
+  --secondary: var(--soft-peach);
+  --secondary-foreground: var(--warm-cocoa);
+  --accent: var(--warm-peach);
+  --accent-foreground: var(--warm-cocoa);
+  --muted: var(--soft-peach);
+  --muted-foreground: var(--dusty-wine);
+
+  --border: rgba(61, 42, 34, 0.1);
+  --input: transparent;
+  --ring: var(--dusty-terracotta);
+
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+
+  /* Editorial restraint — no rounded corners anywhere */
+  --radius: 0rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-cormorant), serif;
+  }
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  /* Default heading sizes — Tailwind utility classes still override these */
+  h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+  h4 {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  label,
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
 }
