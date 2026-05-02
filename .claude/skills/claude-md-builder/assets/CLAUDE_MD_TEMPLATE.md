@@ -1,0 +1,27 @@
+# {{PROJECT_NAME}}
+
+{{ONE_LINE_PURPOSE}}
+
+## Tech Stack
+{{TECH_STACK_ITEMS}}
+
+## Commands
+{{COMMANDS_WITH_COMMENTS}}
+
+## Conventions
+{{NON_DEFAULT_CONVENTIONS}}
+
+## Workflow
+{{DEVELOPMENT_WORKFLOW}}
+
+## Verification
+{{VERIFICATION_STEPS}}
+
+## Anti-Patterns
+{{ANTI_PATTERNS_NEVER_DO_LIST}}
+
+## Rules
+{{CRITICAL_RULES_AND_GOTCHAS}}
+
+## References
+{{AT_IMPORTS_AND_REFERENCES}}

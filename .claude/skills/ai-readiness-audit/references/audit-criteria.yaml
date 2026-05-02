@@ -1,0 +1,412 @@
+version: "1.0"
+last_updated: "2026-03-04"
+
+# AI-Readiness Audit Criteria
+# Each check has: id, category, title, description, points, check_type, remediation
+# check_type: binary (pass/fail) | graduated (pass/partial/fail)
+
+categories:
+  documentation:
+    name: "Documentation & Agent Instructions"
+    default_weight: 20
+  structure:
+    name: "Code Structure & Discoverability"
+    default_weight: 20
+  testing:
+    name: "Testing & Quality Gates"
+    default_weight: 15
+  context:
+    name: "Context & Token Efficiency"
+    default_weight: 10
+  ai_tooling:
+    name: "AI Tooling & Configuration"
+    default_weight: 15
+  version_control:
+    name: "Version Control & Workflow"
+    default_weight: 10
+  safety:
+    name: "Safety & Guardrails"
+    default_weight: 10
+
+checks:
+  # ===== DOCUMENTATION & AGENT INSTRUCTIONS =====
+  - id: DOC-001
+    category: documentation
+    title: "CLAUDE.md or equivalent AI instruction file exists"
+    description: "Repo has a CLAUDE.md, AGENTS.md, .cursorrules, or copilot-instructions.md at root"
+    points: 10
+    check_type: graduated
+    pass: "CLAUDE.md or AGENTS.md exists with >50 lines of substantive content"
+    partial: "File exists but is minimal (<50 lines) or only has a basic AI instruction file"
+    fail: "No AI instruction file present"
+    remediation: "Create a CLAUDE.md at repo root with project context, conventions, key commands, and architecture overview. This is the single highest-impact action for AI readiness."
+    effort: quick_win
+
+  - id: DOC-002
+    category: documentation
+    title: "README.md with project overview"
+    description: "Comprehensive README covering purpose, setup, architecture, and contributing"
+    points: 6
+    check_type: graduated
+    pass: "README has >100 lines covering purpose, setup instructions, and architecture"
+    partial: "README exists but is minimal or missing key sections"
+    fail: "No README.md"
+    remediation: "Add sections for: project purpose, quick start, architecture overview, key commands, and contributing guidelines."
+    effort: short_term
+
+  - id: DOC-003
+    category: documentation
+    title: "Code comments on complex logic"
+    description: "Non-obvious functions and algorithms have explanatory comments"
+    points: 4
+    check_type: graduated
+    pass: "Complex functions consistently have doc comments or inline explanations"
+    partial: "Some comments present but inconsistent"
+    fail: "No meaningful comments on complex code"
+    remediation: "Add JSDoc/docstrings to exported functions and comments on non-obvious logic. Focus on 'why' not 'what'."
+    effort: short_term
+
+  - id: DOC-004
+    category: documentation
+    title: "Cross-references between related files"
+    description: "Related files reference each other (e.g., 'See also: utils/validation.ts')"
+    points: 3
+    check_type: binary
+    pass: "Files cross-reference related modules or documentation"
+    fail: "No cross-references between related code"
+    remediation: "Add 'See also' comments linking related files, especially for split concerns across multiple files."
+    effort: strategic
+
+  - id: DOC-005
+    category: documentation
+    title: "Progressive disclosure in documentation"
+    description: "Docs structured from high-level overview to implementation details"
+    points: 3
+    check_type: binary
+    pass: "Documentation follows a clear hierarchy (overview -> details -> edge cases)"
+    fail: "Documentation is flat or disorganized"
+    remediation: "Structure docs with clear headings: Overview, Key Concepts, Detailed API, Edge Cases."
+    effort: strategic
+
+  # ===== CODE STRUCTURE & DISCOVERABILITY =====
+  - id: STR-001
+    category: structure
+    title: "Consistent file naming conventions"
+    description: "Files follow a consistent naming pattern (kebab-case, PascalCase, etc.)"
+    points: 6
+    check_type: graduated
+    pass: "Consistent naming pattern across >90% of files"
+    partial: "Mostly consistent with some exceptions"
+    fail: "Mixed naming conventions"
+    remediation: "Adopt a single naming convention and document it in CLAUDE.md. Common: kebab-case for files, PascalCase for components."
+    effort: strategic
+
+  - id: STR-002
+    category: structure
+    title: "No files over 500 lines"
+    description: "Large files are hard for AI to process in a single context window"
+    points: 6
+    check_type: graduated
+    pass: "No source files exceed 500 lines"
+    partial: "<5% of files exceed 500 lines"
+    fail: ">5% of source files exceed 500 lines"
+    remediation: "Split large files into focused modules. AI assistants work best with files under 300 lines."
+    effort: short_term
+
+  - id: STR-003
+    category: structure
+    title: "No duplicate filenames across directories"
+    description: "Unique filenames help AI navigate without ambiguity"
+    points: 4
+    check_type: graduated
+    pass: "No duplicate filenames (excluding index files)"
+    partial: "1-3 duplicate filenames"
+    fail: ">3 sets of duplicate filenames"
+    remediation: "Rename duplicates to include their domain/context (e.g., user-utils.ts vs payment-utils.ts)."
+    effort: short_term
+
+  - id: STR-004
+    category: structure
+    title: "Logical folder structure"
+    description: "Code organized in predictable folders matching the domain"
+    points: 5
+    check_type: graduated
+    pass: "Clear, domain-driven folder structure with <3 levels of nesting"
+    partial: "Mostly organized but some catch-all folders"
+    fail: "Flat or deeply nested structure with no clear organization"
+    remediation: "Organize by feature/domain rather than by type. Keep nesting to 2-3 levels max."
+    effort: strategic
+
+  - id: STR-005
+    category: structure
+    title: "Architecture Decision Records (ADRs)"
+    description: "Key technical decisions documented for AI context"
+    points: 3
+    check_type: binary
+    pass: "ADR folder exists with at least 2 documented decisions"
+    fail: "No ADRs present"
+    remediation: "Create docs/adr/ folder and document key architectural decisions using the ADR template."
+    effort: short_term
+
+  - id: STR-006
+    category: structure
+    title: "Clear entry points"
+    description: "Main entry files are obvious and well-documented"
+    points: 2
+    check_type: binary
+    pass: "Entry points (main, index, app) are clearly identifiable and documented"
+    fail: "Entry points are unclear or undocumented"
+    remediation: "Document main entry points in README or CLAUDE.md."
+    effort: quick_win
+
+  # ===== TESTING & QUALITY GATES =====
+  - id: TST-001
+    category: testing
+    title: "Test files exist"
+    description: "Repository has test files (.test., .spec., or test/ directories)"
+    points: 8
+    check_type: graduated
+    pass: "Test file count is >20% of source file count"
+    partial: "Some tests exist but coverage is <20% of source files"
+    fail: "No test files found"
+    remediation: "Add test files co-located with source files. Start with critical paths and utility functions."
+    effort: strategic
+
+  - id: TST-002
+    category: testing
+    title: "Fine-grained test commands"
+    description: "Package scripts allow running specific test subsets"
+    points: 4
+    check_type: graduated
+    pass: "Has commands for: all tests, single file, watch mode"
+    partial: "Has a test command but no fine-grained options"
+    fail: "No test commands configured"
+    remediation: "Add scripts: test, test:watch, test:coverage. AI agents need to run targeted tests."
+    effort: quick_win
+
+  - id: TST-003
+    category: testing
+    title: "CI/CD pipeline configured"
+    description: "Automated checks run on PRs (GitHub Actions, etc.)"
+    points: 5
+    check_type: graduated
+    pass: "CI runs tests, lint, and type-check on PRs"
+    partial: "CI exists but only runs a subset of checks"
+    fail: "No CI/CD configuration"
+    remediation: "Add GitHub Actions workflow for PR checks: lint, typecheck, test."
+    effort: short_term
+
+  - id: TST-004
+    category: testing
+    title: "Pre-commit hooks or linting"
+    description: "Automated code quality checks before commit"
+    points: 3
+    check_type: binary
+    pass: "Has pre-commit hooks (husky) or lint-staged configuration"
+    fail: "No automated pre-commit checks"
+    remediation: "Add husky + lint-staged for pre-commit linting and formatting."
+    effort: quick_win
+
+  - id: TST-005
+    category: testing
+    title: "Type checking configured"
+    description: "TypeScript, mypy, or equivalent static typing"
+    points: 4
+    check_type: binary
+    pass: "tsconfig.json, mypy.ini, or equivalent type checker configured"
+    fail: "No type checking configured"
+    remediation: "Add TypeScript or equivalent type checking. Type info dramatically helps AI understand code."
+    effort: short_term
+
+  # ===== CONTEXT & TOKEN EFFICIENCY =====
+  - id: CTX-001
+    category: context
+    title: "Functions under 50 lines"
+    description: "Small functions fit in AI context windows and are easier to reason about"
+    points: 6
+    check_type: graduated
+    pass: "<10% of sampled functions exceed 50 lines"
+    partial: "10-25% of sampled functions exceed 50 lines"
+    fail: ">25% of sampled functions exceed 50 lines"
+    remediation: "Break large functions into smaller, well-named sub-functions. Aim for <50 lines per function."
+    effort: strategic
+
+  - id: CTX-002
+    category: context
+    title: "Clean imports (no barrel files or circular deps)"
+    description: "Barrel files (index.ts re-exports) and circular dependencies confuse AI navigation"
+    points: 4
+    check_type: graduated
+    pass: "Direct imports, no barrel file patterns, no circular dependencies"
+    partial: "Some barrel files but no circular dependencies"
+    fail: "Heavy barrel file usage or circular dependencies detected"
+    remediation: "Use direct imports instead of barrel files. AI tools follow imports to understand code."
+    effort: short_term
+
+  - id: CTX-003
+    category: context
+    title: "Minimal dead code"
+    description: "Commented-out code and unused exports waste AI context tokens"
+    points: 3
+    check_type: graduated
+    pass: "No significant commented-out code blocks or unused exports"
+    partial: "Some commented-out code present"
+    fail: "Significant dead code or commented-out blocks throughout"
+    remediation: "Remove commented-out code and unused exports. Use git history instead of code comments for backup."
+    effort: quick_win
+
+  - id: CTX-004
+    category: context
+    title: "Separation of concerns"
+    description: "Business logic, UI, and data access are in separate modules"
+    points: 4
+    check_type: graduated
+    pass: "Clear separation between layers/concerns"
+    partial: "Mostly separated with some mixed files"
+    fail: "Business logic, UI, and data access tangled together"
+    remediation: "Extract business logic into pure functions, keep UI thin, and isolate data access."
+    effort: strategic
+
+  # ===== AI TOOLING & CONFIGURATION =====
+  - id: AIT-001
+    category: ai_tooling
+    title: "Claude Code skills or commands"
+    description: "Custom skills/commands defined for common workflows"
+    points: 8
+    check_type: graduated
+    pass: "Has 3+ custom skills or commands covering key workflows"
+    partial: "Has 1-2 custom skills or commands"
+    fail: "No custom skills or commands"
+    remediation: "Create .claude/commands/ for common tasks (deploy, test, review) and .claude/skills/ for complex workflows."
+    effort: short_term
+
+  - id: AIT-002
+    category: ai_tooling
+    title: "MCP server integrations"
+    description: "Model Context Protocol servers configured for external tool access"
+    points: 4
+    check_type: graduated
+    pass: "MCP configuration with relevant integrations (database, API docs, etc.)"
+    partial: "Basic MCP configuration"
+    fail: "No MCP configuration"
+    remediation: "Add .claude/settings.local.json with MCP servers for your key services (database, docs, etc.)."
+    effort: short_term
+
+  - id: AIT-003
+    category: ai_tooling
+    title: "AI rules or context files"
+    description: "Any form of AI-specific rules (.cursorrules, .github/copilot-instructions.md)"
+    points: 4
+    check_type: graduated
+    pass: "Multiple AI tool configurations present (CLAUDE.md + cursorrules, etc.)"
+    partial: "At least one AI configuration file"
+    fail: "No AI-specific configuration files"
+    remediation: "Add configuration files for AI tools your team uses. Start with CLAUDE.md."
+    effort: quick_win
+
+  - id: AIT-004
+    category: ai_tooling
+    title: "Agent hooks or automation"
+    description: "Pre/post hooks for AI agent actions (e.g., auto-lint, auto-test)"
+    points: 3
+    check_type: binary
+    pass: "Agent hooks configured for automated actions"
+    fail: "No agent hooks"
+    remediation: "Add hooks in .claude/settings.local.json for automated linting/testing after AI edits."
+    effort: short_term
+
+  # ===== VERSION CONTROL & WORKFLOW =====
+  - id: VCS-001
+    category: version_control
+    title: "Descriptive commit messages"
+    description: "Commits follow conventional format and describe changes clearly"
+    points: 5
+    check_type: graduated
+    pass: "Commits follow conventional commits or similar structured format"
+    partial: "Commits are descriptive but lack consistent format"
+    fail: "Commits are vague (e.g., 'fix', 'update', 'wip')"
+    remediation: "Adopt conventional commits (feat:, fix:, chore:). AI agents generate better commits with a clear convention."
+    effort: quick_win
+
+  - id: VCS-002
+    category: version_control
+    title: "Branch naming convention"
+    description: "Branches follow a consistent naming pattern"
+    points: 3
+    check_type: graduated
+    pass: "Branches follow pattern like type/description or type/ticket-description"
+    partial: "Some pattern visible but inconsistent"
+    fail: "No consistent branch naming"
+    remediation: "Document branch naming convention in CLAUDE.md (e.g., feat/add-auth, fix/login-bug)."
+    effort: quick_win
+
+  - id: VCS-003
+    category: version_control
+    title: "PR template configured"
+    description: "Pull request template guides consistent PR descriptions"
+    points: 3
+    check_type: binary
+    pass: "PR template exists in .github/"
+    fail: "No PR template"
+    remediation: "Add .github/pull_request_template.md with sections for summary, changes, testing, and review notes."
+    effort: quick_win
+
+  - id: VCS-004
+    category: version_control
+    title: "Git hooks for quality gates"
+    description: "Git hooks enforce standards before push/commit"
+    points: 3
+    check_type: binary
+    pass: "Git hooks configured (husky, pre-commit, etc.)"
+    fail: "No git hooks"
+    remediation: "Add git hooks to catch issues before they reach CI. Husky is popular for Node projects."
+    effort: quick_win
+
+  # ===== SAFETY & GUARDRAILS =====
+  - id: SAF-001
+    category: safety
+    title: ".env files excluded from version control"
+    description: ".gitignore prevents committing secrets"
+    points: 5
+    check_type: graduated
+    pass: ".gitignore excludes .env files AND .env.example exists for reference"
+    partial: ".gitignore excludes .env but no .env.example"
+    fail: ".env files not in .gitignore or no .gitignore"
+    remediation: "Add .env* to .gitignore and create .env.example with dummy values for onboarding."
+    effort: quick_win
+
+  - id: SAF-002
+    category: safety
+    title: "Permission boundaries documented"
+    description: "AI agent permissions and restrictions are defined"
+    points: 4
+    check_type: graduated
+    pass: "CLAUDE.md or equivalent defines what AI should NOT do (forbidden actions)"
+    partial: "Some restrictions mentioned but not comprehensive"
+    fail: "No permission boundaries defined"
+    remediation: "Add a Safety section to CLAUDE.md listing forbidden actions (e.g., never force-push, never modify production data)."
+    effort: quick_win
+
+  - id: SAF-003
+    category: safety
+    title: "Destructive operation safeguards"
+    description: "Dangerous operations (delete, drop, force-push) have confirmation mechanisms"
+    points: 4
+    check_type: graduated
+    pass: "Destructive operations require confirmation or are blocked by hooks/CI"
+    partial: "Some safeguards in place"
+    fail: "No safeguards against destructive operations"
+    remediation: "Add branch protection rules, require PR reviews, and document dangerous operations in CLAUDE.md."
+    effort: short_term
+
+  - id: SAF-004
+    category: safety
+    title: "Sensitive file patterns in .gitignore"
+    description: ".gitignore covers common sensitive file patterns"
+    points: 3
+    check_type: graduated
+    pass: ".gitignore covers .env, credentials, keys, and build artifacts comprehensively"
+    partial: "Basic .gitignore but missing some sensitive patterns"
+    fail: "No .gitignore or very minimal"
+    remediation: "Use a comprehensive .gitignore from gitignore.io for your stack."
+    effort: quick_win
