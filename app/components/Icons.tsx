@@ -116,13 +116,13 @@ export const Packing = (p: IconProps) => (
   <Illustration src="/icons/packing.svg" alt="" {...p} />
 );
 export const Craft = (p: IconProps) => (
-  <Illustration src="/icons/craft.svg" alt="" {...p} />
+  <Illustration src="/icons/CRAFT.svg" alt="" {...p} />
 );
 export const Season = (p: IconProps) => (
   <Illustration src="/icons/season.svg" alt="" {...p} />
 );
 export const Personal = (p: IconProps) => (
-  <Illustration src="/icons/personal.svg" alt="" {...p} />
+  <Illustration src="/icons/PERSONAL.svg" alt="" {...p} />
 );
 export const Standard = (p: IconProps) => (
   <Illustration src="/icons/standard.svg" alt="" {...p} />
