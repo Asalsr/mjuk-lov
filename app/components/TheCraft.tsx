@@ -9,44 +9,44 @@ interface TheCraftProps {
 
 const content = {
   sv: {
-    heading: 'Hantverket',
+    heading: 'Så enkelt är det faktiskt.',
     steps: [
       {
-        label: 'Säsongen väljer',
-        body: 'Vi börjar med vad som är i säsong. Lokalodlat när vi kan.'
+        label: 'Vi väljer',
+        body: 'Säsongens bästa råvaror. Lokalodlat när vi kan.'
       },
       {
         label: 'Vi bakar',
-        body: 'Från grunden, med tid. Inga genvägar, inga halvmesyrer.'
+        body: 'Från grunden, med tid. Din kakbotten är klar när du beställer.'
       },
       {
         label: 'Vi paketerar',
-        body: 'Kakbotten, spritspåsar, smaksättningar, ljus — allt packas noggrant. Instruktioner inkluderade.'
+        body: 'Spritspåsar, smaksättningar, ljus — allt på plats. Du öppnar och börjar.'
       },
       {
-        label: 'Du dekorerar',
-        body: 'Hemma, i ditt eget kök. Spritsa smörkrämen, välj din stil. Ingen kan göra det precis som du.'
+        label: 'Du tar över',
+        body: 'Det här är din del. Och det är den bästa delen.'
       }
     ]
   },
   en: {
-    heading: 'The Craft',
+    heading: 'It really is this simple.',
     steps: [
       {
-        label: 'The season chooses',
-        body: 'We start with what is in season. Locally grown when possible.'
+        label: 'We choose',
+        body: 'The best seasonal ingredients. Locally grown when we can.'
       },
       {
         label: 'We bake',
-        body: 'From scratch, with time. No shortcuts, no half measures.'
+        body: 'From scratch, with time. Your base is ready when you order.'
       },
       {
         label: 'We package',
-        body: 'Cake base, piping bags, flavours, candles — everything carefully packed. Instructions included.'
+        body: 'Piping bags, flavours, candles — everything in place. You open and start.'
       },
       {
-        label: 'You decorate',
-        body: 'At home, in your own kitchen. Pipe the buttercream, choose your style. No one can do it quite like you.'
+        label: 'You take over',
+        body: 'This is your part. And it is the best part.'
       }
     ]
   }

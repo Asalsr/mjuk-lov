@@ -10,11 +10,11 @@ interface HeroProps {
 
 const content = {
   sv: {
-    promise: 'Vi bakar. Du dekorerar. Ditt sätt, din stil, din tårta.',
+    promise: 'Du behöver inte kunna baka. Du behöver bara vilja.',
     scroll: 'Rulla ner'
   },
   en: {
-    promise: 'We bake. You decorate. Your way, your style, your cake.',
+    promise: 'You don\'t need to know how to bake. You just need to want to.',
     scroll: 'Scroll down'
   }
 };

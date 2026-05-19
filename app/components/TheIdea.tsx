@@ -9,36 +9,36 @@ interface TheIdeaProps {
 
 const content = {
   sv: {
-    heading: 'Du bakar inte från grunden. Du skapar något eget.',
+    heading: 'Vi tar det svåra. Du tar äran.',
     pillars: [
       {
-        label: 'Vi bakar åt dig',
-        body: 'Kakbottnen är klar. Vi har tagit hand om det svåra — smör, mjöl, ugn, timing. Nu börjar den roliga delen.'
+        label: 'Vi bakar',
+        body: 'Kakbottnen är färdig. Smörkrämen är klar. Du öppnar lådan och det luktar redan gott.'
       },
       {
-        label: 'Du väljer smak och färg',
-        body: 'Tre smörkrämssprits med valda färger. Choklad, vanilj eller hallonsmak. Du väljer kombinationen.'
+        label: 'Du väljer',
+        body: 'Tre spritspåsar. Dina färger. Din smak. Ingen kan göra det precis som du.'
       },
       {
-        label: 'Du dekorerar',
-        body: 'Spritsa, forma, skapa. Resultatet är ditt. Och det ser ut precis som du tänkte dig — eller bättre.'
+        label: 'Du skapar',
+        body: 'Spritsa, swirla, strö. Det finns inget rätt eller fel. Resultatet är alltid ditt.'
       }
     ]
   },
   en: {
-    heading: "You don't bake from scratch. You create something yours.",
+    heading: 'We take the hard part. You take the credit.',
     pillars: [
       {
-        label: 'We bake for you',
-        body: 'The cake base is ready. We handled the hard part — butter, flour, oven, timing. Now the fun part begins.'
+        label: 'We bake',
+        body: 'The base is done. The buttercream is ready. You open the box and it already smells incredible.'
       },
       {
-        label: 'You choose flavour and colour',
-        body: 'Three buttercream piping bags in your chosen colours. Chocolate, vanilla or raspberry. You pick the combination.'
+        label: 'You choose',
+        body: 'Three piping bags. Your colours. Your flavour. No one can do it quite like you.'
       },
       {
-        label: 'You decorate',
-        body: 'Pipe, shape, create. The result is yours. And it looks exactly how you imagined — or better.'
+        label: 'You create',
+        body: 'Pipe, swirl, scatter. There is no right or wrong. The result is always yours.'
       }
     ]
   }

@@ -11,20 +11,20 @@ interface AboutProps {
 const content = {
   sv: {
     eyebrow: 'Om oss',
-    heading: 'Ett kök. Ett löfte. Ett Göteborg.',
+    heading: 'Ett kök. En idé. Ganska mycket smör.',
     paragraphs: [
-      'Mjuk Lov började med en enkel idé: tänk om vi tar bort det jobbiga med att baka — men lämnar kvar det roliga?',
-      'Vi bakar kakbottnen. Vi förbereder smörkrämerna. Vi paketerar allt. Sedan lämnar vi resten till dig.',
-      'Det är din tårta. Din stil. Ditt ögonblick när någon tar första tuggan och undrar: vem bakade det här? Du.'
+      'Mjuk Lov började med en enkel frustration: varför är det så svårt att ge någon en riktigt bra tårta? Konditoriet är dyrt. Att baka är tidskrävande. Och resultatet är sällan personligt.',
+      'Svaret var att dela upp det. Vi gör det vi är bra på. Du gör det som gör tårtan till din.',
+      'Varje kit bakas när du beställer. Inte för att det är trendig att säga det — utan för att det faktiskt smakar bättre så.'
     ]
   },
   en: {
     eyebrow: 'About us',
-    heading: 'One kitchen. One promise. One Gothenburg.',
+    heading: 'One kitchen. One idea. Quite a lot of butter.',
     paragraphs: [
-      'Mjuk Lov started with a simple idea: what if we remove the hard part of baking — but keep the fun part?',
-      'We bake the base. We prepare the buttercreams. We pack everything. Then we leave the rest to you.',
-      "It's your cake. Your style. Your moment when someone takes the first bite and asks: who made this? You."
+      'Mjuk Lov started with a simple frustration: why is it so hard to give someone a really good cake? Bakeries are expensive. Baking takes time. And the result is rarely personal.',
+      'The answer was to split it. We do what we are good at. You do what makes the cake yours.',
+      'Every kit is baked when you order. Not because it sounds good to say — but because it actually tastes better that way.'
     ]
   }
 };
