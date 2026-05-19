@@ -21,11 +21,11 @@ const content = {
       },
       {
         label: 'Vi paketerar',
-        body: 'Allt du behöver, noggrant förpackat. Instruktioner inkluderade.'
+        body: 'Kakbotten, spritspåsar, smaksättningar, ljus — allt packas noggrant. Instruktioner inkluderade.'
       },
       {
-        label: 'Du njuter',
-        body: 'Hemma, i ditt eget kök. Med dina händer, ditt sätt.'
+        label: 'Du dekorerar',
+        body: 'Hemma, i ditt eget kök. Spritsa smörkrämen, välj din stil. Ingen kan göra det precis som du.'
       }
     ]
   },
@@ -42,11 +42,11 @@ const content = {
       },
       {
         label: 'We package',
-        body: 'Everything you need, carefully packed. Instructions included.'
+        body: 'Cake base, piping bags, flavours, candles — everything carefully packed. Instructions included.'
       },
       {
-        label: 'You enjoy',
-        body: 'At home, in your own kitchen. With your hands, your way.'
+        label: 'You decorate',
+        body: 'At home, in your own kitchen. Pipe the buttercream, choose your style. No one can do it quite like you.'
       }
     ]
   }
