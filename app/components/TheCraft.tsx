@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Leaf, Pour, Packing, CakeStand } from './Icons';
+import { Leaf, Pour, Packing, YouDesign } from './Icons';
 
 interface TheCraftProps {
   lang: 'sv' | 'en';
@@ -52,7 +52,7 @@ const content = {
   }
 };
 
-const icons = [Leaf, Pour, Packing, CakeStand];
+const icons = [Leaf, Pour, Packing, YouDesign];
 
 export const TheCraft = ({ lang }: TheCraftProps) => {
   const ref = useRef<HTMLDivElement>(null);

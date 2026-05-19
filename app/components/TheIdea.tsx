@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Craft, Season, Personal } from './Icons';
+import { WeBake, PickColor, YouDesign } from './Icons';
 
 interface TheIdeaProps {
   lang: 'sv' | 'en';
@@ -44,7 +44,7 @@ const content = {
   }
 };
 
-const icons = [Craft, Season, Personal];
+const icons = [WeBake, PickColor, YouDesign];
 
 export const TheIdea = ({ lang }: TheIdeaProps) => {
   const ref = useRef<HTMLDivElement>(null);
