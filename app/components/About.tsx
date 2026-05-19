@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { HeartOutline } from './Icons';
+import { Magnolia } from './Icons';
 import { TextReveal, WordByWord } from './TextReveal';
 
 interface AboutProps {
@@ -59,7 +59,7 @@ export const About = ({ lang }: AboutProps) => {
             isVisible ? 'opacity-60 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
           style={{
-            fontFamily: 'var(--font-inter), sans-serif',
+            fontFamily: 'Inter, sans-serif',
             textTransform: 'uppercase',
             letterSpacing: '0.18em',
             fontSize: '0.75rem'
@@ -91,9 +91,10 @@ export const About = ({ lang }: AboutProps) => {
           ))}
         </div>
 
+        {/* Watercolor magnolia replaces the old heart icon */}
         <div className="flex justify-center group cursor-pointer">
-          <div className="transform group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
-            <HeartOutline className="w-6 h-6 group-hover:fill-current" style={{ color: 'var(--dusty-terracotta)' }} />
+          <div className="transform group-hover:scale-110 transition-transform duration-500">
+            <Magnolia className="w-[4.2rem] h-[4.2rem]" />
           </div>
         </div>
       </div>

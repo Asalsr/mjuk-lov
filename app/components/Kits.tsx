@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { WaxSeal } from './WaxSeal';
+import { CakeSlice, CakeStand, Packing } from './Icons';
 import { MagneticButton } from './MagneticButton';
 
 interface KitsProps {
@@ -59,6 +59,8 @@ const content = {
   }
 };
 
+const kitIcons = [CakeSlice, CakeStand, Packing];
+
 export const Kits = ({ lang }: KitsProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -94,7 +96,9 @@ export const Kits = ({ lang }: KitsProps) => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-          {t.kits.map((kit, i) => (
+          {t.kits.map((kit, i) => {
+            const Icon = kitIcons[i];
+            return (
             <div
               key={i}
               className={`bg-[var(--vanilla-cream)] transition-all duration-700 group hover:-translate-y-2 hover:shadow-2xl ${
@@ -108,8 +112,9 @@ export const Kits = ({ lang }: KitsProps) => {
               <div
                 className="relative aspect-[4/5] bg-[var(--warm-peach)]/20 flex items-center justify-center overflow-hidden group-hover:bg-[var(--warm-peach)]/30 transition-colors duration-500"
               >
-                <WaxSeal size={80} interactive />
+                <Icon className="w-1/2 h-1/2 transform group-hover:scale-110 transition-transform duration-500" />
               </div>
+
 
               <div className="p-6 md:p-8">
                 <div
@@ -149,7 +154,8 @@ export const Kits = ({ lang }: KitsProps) => {
                 </MagneticButton>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

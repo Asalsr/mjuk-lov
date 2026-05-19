@@ -1,8 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { DotsCluster, Flame, Pour } from './Icons';
+import { FlourSack, Spices, Butter } from './Icons';
 
+/**
+ * Floating decorative illustrations in the background, parallax on scroll.
+ *
+ * Note: the old monoline icons sat at 5% opacity. Watercolor illustrations
+ * become muddy at that opacity, so I've raised it to ~12% — still soft and
+ * background, but the artwork remains readable. Tune the opacity values
+ * below to taste. Setting them to 0 hides this element entirely.
+ */
 export const FloatingElements = () => {
   const [scrollY, setScrollY] = useState(0);
 
@@ -17,39 +25,39 @@ export const FloatingElements = () => {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden hidden lg:block">
       <div
-        className="absolute opacity-5"
+        className="absolute"
         style={{
           top: '30%',
-          right: '5%',
+          right: '4%',
+          opacity: 0.12,
           transform: `translateY(${scrollY * 0.15}px) rotate(${scrollY * 0.05}deg)`,
-          color: 'var(--dusty-terracotta)'
         }}
       >
-        <DotsCluster className="w-20 h-20" />
+        <FlourSack className="w-48 h-48" />
       </div>
 
       <div
-        className="absolute opacity-5"
+        className="absolute"
         style={{
           top: '60%',
-          left: '8%',
+          left: '5%',
+          opacity: 0.12,
           transform: `translateY(${scrollY * -0.1}px) rotate(${-scrollY * 0.03}deg)`,
-          color: 'var(--dusty-terracotta)'
         }}
       >
-        <Flame className="w-16 h-16" />
+        <Spices className="w-36 h-36" />
       </div>
 
       <div
-        className="absolute opacity-5"
+        className="absolute"
         style={{
-          top: '80%',
-          right: '12%',
+          top: '82%',
+          right: '8%',
+          opacity: 0.12,
           transform: `translateY(${scrollY * 0.08}px) rotate(${scrollY * 0.02}deg)`,
-          color: 'var(--dusty-terracotta)'
         }}
       >
-        <Pour className="w-18 h-18" />
+        <Butter className="w-32 h-32" />
       </div>
     </div>
   );

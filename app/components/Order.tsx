@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState, FormEvent } from 'react';
-import { WaxSeal } from './WaxSeal';
 import { MagneticButton } from './MagneticButton';
 
 interface OrderProps {
@@ -94,8 +93,6 @@ export const Order = ({ lang }: OrderProps) => {
               <p className="italic mb-12 opacity-80" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.25rem)' }}>
                 {t.lede}
               </p>
-
-              <WaxSeal size={100} interactive />
             </div>
 
             <form
@@ -212,9 +209,6 @@ export const Order = ({ lang }: OrderProps) => {
           </div>
         ) : (
           <div className="text-center py-16">
-            <div className="mb-8 flex justify-center animate-pulse">
-              <WaxSeal size={120} interactive />
-            </div>
             <h2 className="mb-4" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}>
               {t.successHeading}
             </h2>

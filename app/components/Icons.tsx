@@ -1,76 +1,126 @@
 'use client';
 
-import type { SVGProps } from 'react';
+/**
+ * Mjuk Lov illustrated icons.
+ *
+ * Watercolor illustrations stored as SVG (with embedded raster) in /public/icons/.
+ * They have their own baked-in colors, so `style.color` is ignored.
+ *
+ * Old export names are preserved as aliases so existing imports keep working:
+ *   PipingCurl, CardamomPod, Candle, Leaf, HeartOutline,
+ *   Flame, Pour, DotsCluster
+ */
 
-type IconProps = SVGProps<SVGSVGElement> & { className?: string };
+import type { CSSProperties } from 'react';
 
-export const PipingCurl = ({ className = 'w-12 h-12', ...rest }: IconProps) => (
-  <svg viewBox="0 0 48 48" fill="none" className={className} stroke="currentColor" strokeWidth="1.5" {...rest}>
-    <path d="M12 36 Q12 24, 24 24 Q36 24, 36 12" strokeLinecap="round" />
-    <path d="M24 24 Q30 20, 34 16" strokeLinecap="round" />
-  </svg>
-);
+interface IconProps {
+  className?: string;
+  style?: CSSProperties;
+}
 
-export const CardamomPod = ({ className = 'w-12 h-12', ...rest }: IconProps) => (
-  <svg viewBox="0 0 48 48" fill="none" className={className} stroke="currentColor" strokeWidth="1.5" {...rest}>
-    <ellipse cx="24" cy="24" rx="6" ry="12" strokeLinecap="round" />
-    <line x1="24" y1="12" x2="24" y2="36" strokeLinecap="round" />
-    <line x1="20" y1="20" x2="28" y2="20" strokeLinecap="round" />
-    <line x1="20" y1="28" x2="28" y2="28" strokeLinecap="round" />
-  </svg>
-);
-
-export const Candle = ({ className = 'w-12 h-12', ...rest }: IconProps) => (
-  <svg viewBox="0 0 48 48" fill="none" className={className} stroke="currentColor" strokeWidth="1.5" {...rest}>
-    <rect x="18" y="20" width="12" height="20" rx="1" strokeLinecap="round" />
-    <path d="M24 16 Q26 14, 26 12 Q26 10, 24 10 Q22 10, 22 12 Q22 14, 24 16" strokeLinecap="round" />
-    <line x1="24" y1="16" x2="24" y2="20" strokeLinecap="round" />
-  </svg>
-);
-
-export const Leaf = ({ className = 'w-12 h-12', ...rest }: IconProps) => (
-  <svg viewBox="0 0 48 48" fill="none" className={className} stroke="currentColor" strokeWidth="1.5" {...rest}>
-    <path d="M12 36 Q12 20, 24 12 Q36 20, 36 36" strokeLinecap="round" />
-    <path d="M24 12 L24 36" strokeLinecap="round" />
-    <path d="M24 20 Q30 22, 32 28" strokeLinecap="round" />
-    <path d="M24 28 Q18 30, 16 34" strokeLinecap="round" />
-  </svg>
-);
-
-export const HeartOutline = ({ className = 'w-12 h-12', ...rest }: IconProps) => (
-  <svg viewBox="0 0 48 48" fill="none" className={className} stroke="currentColor" strokeWidth="1.5" {...rest}>
-    <path
-      d="M24 40 C14 32, 8 26, 8 18 C8 12, 12 8, 16 8 C20 8, 22 10, 24 14 C26 10, 28 8, 32 8 C36 8, 40 12, 40 18 C40 26, 34 32, 24 40 Z"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+const Illustration = ({
+  src,
+  alt,
+  className = 'w-12 h-12',
+  style,
+}: IconProps & { src: string; alt: string }) => {
+  const { color: _color, ...safeStyle } = style ?? {};
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      style={{ objectFit: 'contain', ...safeStyle }}
+      draggable={false}
     />
-  </svg>
+  );
+};
+
+// =======================================================================
+// Legacy aliases — existing imports continue to work.
+// =======================================================================
+
+export const PipingCurl = (p: IconProps) => (
+  <Illustration src="/icons/piping-bag.svg" alt="" {...p} />
 );
 
-export const Flame = ({ className = 'w-12 h-12', ...rest }: IconProps) => (
-  <svg viewBox="0 0 48 48" fill="none" className={className} stroke="currentColor" strokeWidth="1.5" {...rest}>
-    <path d="M24 8 Q28 16, 28 24 Q28 32, 24 36 Q20 32, 20 24 Q20 16, 24 8 Z" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M24 20 Q26 24, 26 28 Q26 32, 24 34 Q22 32, 22 28 Q22 24, 24 20" strokeLinecap="round" />
-  </svg>
+export const CardamomPod = (p: IconProps) => (
+  <Illustration src="/icons/spices.svg" alt="" {...p} />
 );
 
-export const Pour = ({ className = 'w-12 h-12', ...rest }: IconProps) => (
-  <svg viewBox="0 0 48 48" fill="none" className={className} stroke="currentColor" strokeWidth="1.5" {...rest}>
-    <path d="M28 12 L32 12 Q34 12, 34 14 L32 20" strokeLinecap="round" strokeLinejoin="round" />
-    <rect x="20" y="12" width="8" height="4" rx="1" strokeLinecap="round" />
-    <path d="M26 20 Q30 24, 30 28 L30 32" strokeLinecap="round" />
-    <circle cx="30" cy="34" r="2" />
-  </svg>
+export const Candle = (p: IconProps) => (
+  <Illustration src="/icons/cake-stand.svg" alt="" {...p} />
 );
 
-export const DotsCluster = ({ className = 'w-12 h-12', ...rest }: IconProps) => (
-  <svg viewBox="0 0 48 48" fill="none" className={className} stroke="currentColor" strokeWidth="1.5" {...rest}>
-    <circle cx="24" cy="24" r="2" fill="currentColor" />
-    <circle cx="18" cy="20" r="1.5" fill="currentColor" />
-    <circle cx="30" cy="20" r="1.5" fill="currentColor" />
-    <circle cx="18" cy="28" r="1.5" fill="currentColor" />
-    <circle cx="30" cy="28" r="1.5" fill="currentColor" />
-    <circle cx="24" cy="16" r="1" fill="currentColor" />
-    <circle cx="24" cy="32" r="1" fill="currentColor" />
-  </svg>
+export const Leaf = (p: IconProps) => (
+  <Illustration src="/icons/berries.svg" alt="" {...p} />
+);
+
+export const HeartOutline = (p: IconProps) => (
+  <Illustration src="/icons/magnolia.svg" alt="" {...p} />
+);
+
+export const Flame = (p: IconProps) => (
+  <Illustration src="/icons/truffles.svg" alt="" {...p} />
+);
+
+export const Pour = (p: IconProps) => (
+  <Illustration src="/icons/pour-milk.svg" alt="" {...p} />
+);
+
+export const DotsCluster = (p: IconProps) => (
+  <Illustration src="/icons/truffles.svg" alt="" {...p} />
+);
+
+// =======================================================================
+// Descriptive exports — prefer these in new code.
+// =======================================================================
+
+export const CakeStand = (p: IconProps) => (
+  <Illustration src="/icons/cake-stand.svg" alt="" {...p} />
+);
+export const CakeSlice = (p: IconProps) => (
+  <Illustration src="/icons/cake-slice.svg" alt="" {...p} />
+);
+export const FlourSack = (p: IconProps) => (
+  <Illustration src="/icons/flour-sack.svg" alt="" {...p} />
+);
+export const Spices = (p: IconProps) => (
+  <Illustration src="/icons/spices.svg" alt="" {...p} />
+);
+export const Truffles = (p: IconProps) => (
+  <Illustration src="/icons/truffles.svg" alt="" {...p} />
+);
+export const PourMilk = (p: IconProps) => (
+  <Illustration src="/icons/pour-milk.svg" alt="" {...p} />
+);
+export const Berries = (p: IconProps) => (
+  <Illustration src="/icons/berries.svg" alt="" {...p} />
+);
+export const Butter = (p: IconProps) => (
+  <Illustration src="/icons/butter.svg" alt="" {...p} />
+);
+export const BowlSpoon = (p: IconProps) => (
+  <Illustration src="/icons/bowl-spoon.svg" alt="" {...p} />
+);
+export const Magnolia = (p: IconProps) => (
+  <Illustration src="/icons/magnolia.svg" alt="" {...p} />
+);
+export const PipingBag = (p: IconProps) => (
+  <Illustration src="/icons/piping-bag.svg" alt="" {...p} />
+);
+export const WhiskBowl = (p: IconProps) => (
+  <Illustration src="/icons/whisk-bowl.svg" alt="" {...p} />
+);
+export const Packing = (p: IconProps) => (
+  <Illustration src="/icons/packing.svg" alt="" {...p} />
+);
+export const Craft = (p: IconProps) => (
+  <Illustration src="/icons/craft.svg" alt="" {...p} />
+);
+export const Season = (p: IconProps) => (
+  <Illustration src="/icons/season.svg" alt="" {...p} />
+);
+export const Personal = (p: IconProps) => (
+  <Illustration src="/icons/personal.svg" alt="" {...p} />
 );

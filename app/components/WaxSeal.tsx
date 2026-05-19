@@ -21,15 +21,17 @@ export const WaxSeal = ({ size = 64, className = "", interactive = false }: { si
       onMouseEnter={() => interactive && setRotation(15)}
       onMouseLeave={() => interactive && setRotation(0)}
     >
-      <span
-        className="italic select-none"
+      <img
+        src="/icons/magnolia.svg"
+        alt=""
+        draggable={false}
+        className="select-none pointer-events-none"
         style={{
-          fontSize: size * 0.4,
-          letterSpacing: '0.02em'
+          width: size * 0.75,
+          height: size * 0.75,
+          objectFit: 'contain'
         }}
-      >
-        ml
-      </span>
+      />
     </div>
   );
 };

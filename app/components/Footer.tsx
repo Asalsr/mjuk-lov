@@ -1,12 +1,18 @@
 'use client';
 
+import { Logo } from './Logo';
+
 interface FooterProps {
   lang: 'sv' | 'en';
 }
 
+// NOTE: Replace placeholder values before launch:
+//  - phone: real number once registered
+//  - email: confirm hej@mjuklov.se / hello@mjuklov.se inboxes are live
+//  - location.line1: neighborhood (Linnéstaden is a placeholder)
+//  - allergen: confirm full list once recipe range is fixed
 const content = {
   sv: {
-    tagline: 'ett mjukt löfte · a soft promise',
     location: {
       title: 'Plats',
       line1: 'Linnéstaden',
@@ -15,13 +21,12 @@ const content = {
     contact: {
       title: 'Kontakt',
       email: 'hej@mjuklov.se',
-      phone: '+46 31 123 45 67'
+      phone: '+46 31 123 45 67' // PLACEHOLDER
     },
-    allergen: 'Vi hanterar gluten, mjölk, ägg, mandel och hasselnötter.',
+    allergen: 'Vårt kök hanterar gluten, mjölk, ägg, mandel och hasselnötter. Fråga gärna om annat.',
     copyright: '© 2026 Mjuk Lov'
   },
   en: {
-    tagline: 'ett mjukt löfte · a soft promise',
     location: {
       title: 'Location',
       line1: 'Linnéstaden',
@@ -30,9 +35,9 @@ const content = {
     contact: {
       title: 'Contact',
       email: 'hello@mjuklov.se',
-      phone: '+46 31 123 45 67'
+      phone: '+46 31 123 45 67' // PLACEHOLDER
     },
-    allergen: 'We handle gluten, milk, eggs, almonds and hazelnuts.',
+    allergen: 'Our kitchen handles gluten, milk, eggs, almonds and hazelnuts. Ask us about anything else.',
     copyright: '© 2026 Mjuk Lov'
   }
 };
@@ -50,23 +55,16 @@ export const Footer = ({ lang }: FooterProps) => {
     >
       <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          <div className="group cursor-default">
-            <div
-              className="lowercase italic mb-2 group-hover:tracking-wider transition-all duration-300"
-              style={{ fontSize: '1.25rem', letterSpacing: '0.04em' }}
-            >
-              mjuk lov
-            </div>
-            <div className="opacity-60 group-hover:opacity-100 transition-opacity duration-300" style={{ fontSize: '0.875rem' }}>
-              {t.tagline}
-            </div>
+          <div>
+            {/* Logo replaces the old text wordmark + tagline. Logo already includes "A SOFT PROMISE". */}
+            <Logo height={115} />
           </div>
 
           <div>
             <div
               className="mb-3 opacity-60"
               style={{
-                fontFamily: 'var(--font-inter), sans-serif',
+                fontFamily: 'Inter, sans-serif',
                 textTransform: 'uppercase',
                 letterSpacing: '0.18em',
                 fontSize: '0.7rem'
@@ -85,7 +83,7 @@ export const Footer = ({ lang }: FooterProps) => {
             <div
               className="mb-3 opacity-60"
               style={{
-                fontFamily: 'var(--font-inter), sans-serif',
+                fontFamily: 'Inter, sans-serif',
                 textTransform: 'uppercase',
                 letterSpacing: '0.18em',
                 fontSize: '0.7rem'

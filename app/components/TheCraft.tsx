@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Leaf, Pour, Candle, HeartOutline } from './Icons';
+import { Leaf, Pour, Packing, CakeStand } from './Icons';
 
 interface TheCraftProps {
   lang: 'sv' | 'en';
@@ -52,7 +52,7 @@ const content = {
   }
 };
 
-const icons = [Leaf, Pour, Candle, HeartOutline];
+const icons = [Leaf, Pour, Packing, CakeStand];
 
 export const TheCraft = ({ lang }: TheCraftProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -81,9 +81,9 @@ export const TheCraft = ({ lang }: TheCraftProps) => {
       <div className="max-w-[1200px] mx-auto">
         <h2
           className={`text-center mb-16 md:mb-24 transition-all duration-700 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            isVisible ? 'opacity-80 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
-          style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}
+          style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: '#a85d4e', fontWeight: 600 }}
         >
           {t.heading}
         </h2>
@@ -114,16 +114,9 @@ export const TheCraft = ({ lang }: TheCraftProps) => {
                 style={{ transitionDelay: `${(i + 1) * 150}ms` }}
               >
                 <div
-                  className="inline-flex items-center justify-center mb-6 rounded-full relative z-10 transform group-hover:scale-125 group-hover:rotate-12 transition-all duration-500"
-                  style={{
-                    width: '80px',
-                    height: '80px',
-                    backgroundColor: 'var(--vanilla-cream)',
-                    color: 'var(--dusty-terracotta)',
-                    boxShadow: '0 4px 15px rgba(168, 93, 78, 0.1)'
-                  }}
+                  className="inline-flex items-center justify-center mb-6 relative z-10 transform group-hover:scale-125 group-hover:rotate-12 transition-all duration-500"
                 >
-                  <Icon className="w-10 h-10" />
+                  <Icon className="w-[10.5rem] h-[10.5rem]" />
                 </div>
 
                 <div

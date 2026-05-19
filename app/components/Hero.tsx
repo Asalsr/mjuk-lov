@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { PipingCurl, CardamomPod } from './Icons';
+import { CardamomPod, Magnolia } from './Icons';
+import { Logo } from './Logo';
 
 interface HeroProps {
   lang: 'sv' | 'en';
@@ -9,13 +10,11 @@ interface HeroProps {
 
 const content = {
   sv: {
-    tagline: 'ett mjukt löfte',
-    promise: 'Hembakat i Göteborg. För ordinära onsdagar och alldeles speciella tillfällen.',
+    promise: 'Hembakat i Göteborg. För vanliga onsdagar och tillfällen som förtjänar mer.',
     scroll: 'Rulla ner'
   },
   en: {
-    tagline: 'a soft promise',
-    promise: 'Home baked in Gothenburg. For ordinary Wednesdays and very special occasions.',
+    promise: 'Home baked in Gothenburg. For ordinary Wednesdays and occasions that deserve more.',
     scroll: 'Scroll down'
   }
 };
@@ -42,49 +41,36 @@ export const Hero = ({ lang }: HeroProps) => {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Decorative watercolor corners — raised opacity to 25% because
+          full-color illustrations look muddy at the old 10%. Adjust to taste. */}
       <div className="absolute inset-0 hidden md:block pointer-events-none">
         <div
-          className="absolute top-8 left-8 opacity-10 transition-transform duration-700 ease-out"
+          className="absolute top-12 left-12 opacity-25 transition-transform duration-700 ease-out"
           style={{
             transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px) rotate(${mousePos.x * 0.5}deg)`
           }}
         >
-          <CardamomPod className="w-24 h-24 text-[var(--dusty-terracotta)]" />
+          <CardamomPod className="w-[9.8rem] h-[9.8rem]" />
         </div>
         <div
-          className="absolute bottom-8 right-8 opacity-10 transition-transform duration-700 ease-out"
+          className="absolute bottom-12 right-12 opacity-25 transition-transform duration-700 ease-out"
           style={{
             transform: `translate(${-mousePos.x * 0.3}px, ${-mousePos.y * 0.3}px) rotate(${-mousePos.x * 0.3}deg)`
           }}
         >
-          <PipingCurl className="w-24 h-24 text-[var(--dusty-terracotta)]" />
+          <Magnolia className="w-[9.8rem] h-[9.8rem]" />
         </div>
       </div>
 
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+        {/* Big logo as the hero wordmark — replaces the old "mjuk lov" text */}
         <div
-          className={`italic mb-6 transition-all duration-700 ${
+          className={`flex justify-center mb-10 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
-          style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)' }}
         >
-          {t.tagline}
+          <Logo height={324} />
         </div>
-
-        <h1
-          className={`lowercase mb-8 transition-all duration-700 delay-300 hover:tracking-wider ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-          style={{
-            fontSize: 'clamp(4rem, 12vw, 9rem)',
-            letterSpacing: '0.04em',
-            lineHeight: '0.95',
-            transition: 'letter-spacing 0.5s ease, opacity 0.7s, transform 0.7s',
-            cursor: 'default'
-          }}
-        >
-          mjuk lov
-        </h1>
 
         <p
           className={`max-w-2xl mx-auto transition-all duration-700 delay-[600ms] ${

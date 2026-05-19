@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { MagneticButton } from './MagneticButton';
+import { Logo } from './Logo';
 
 interface HeaderProps {
   lang: 'sv' | 'en';
@@ -47,14 +48,9 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
         isScrolled ? 'bg-[var(--vanilla-cream)]/95 backdrop-blur-sm shadow-sm' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-4 md:py-6 flex items-center justify-between">
-        <div
-          className="lowercase italic cursor-pointer"
-          style={{ letterSpacing: '0.04em', fontSize: 'clamp(1.25rem, 3vw, 1.5rem)' }}
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        >
-          mjuk lov
-        </div>
+      <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-3 md:py-4 flex items-center justify-between">
+        {/* Logo — replaces the old text wordmark */}
+        <Logo height={isScrolled ? 65 : 79} asButton />
 
         <nav className="hidden md:flex items-center gap-8">
           {t.nav.map((item, i) => (
@@ -77,7 +73,7 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
             onClick={() => scrollToSection(5)}
             className="hidden md:block px-6 py-2 transition-all duration-300 hover:bg-[var(--warm-peach)] hover:shadow-md"
             style={{
-              fontFamily: 'var(--font-inter), sans-serif',
+              fontFamily: 'Inter, sans-serif',
               textTransform: 'uppercase',
               letterSpacing: '0.18em',
               fontSize: '0.75rem',
@@ -91,7 +87,7 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
             onClick={onLangToggle}
             className="px-3 py-1 transition-colors hover:text-[var(--dusty-terracotta)]"
             style={{
-              fontFamily: 'var(--font-inter), sans-serif',
+              fontFamily: 'Inter, sans-serif',
               textTransform: 'uppercase',
               letterSpacing: '0.1em',
               fontSize: '0.75rem'
@@ -128,7 +124,7 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
               onClick={() => scrollToSection(5)}
               className="mt-2 px-6 py-3 text-center transition-all duration-300 hover:bg-[var(--warm-peach)]"
               style={{
-                fontFamily: 'var(--font-inter), sans-serif',
+                fontFamily: 'Inter, sans-serif',
                 textTransform: 'uppercase',
                 letterSpacing: '0.18em',
                 fontSize: '0.75rem',

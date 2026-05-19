@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { HeartOutline, Leaf, Candle } from './Icons';
+import { Craft, Season, Personal } from './Icons';
 
 interface TheIdeaProps {
   lang: 'sv' | 'en';
@@ -44,7 +44,7 @@ const content = {
   }
 };
 
-const icons = [HeartOutline, Leaf, Candle];
+const icons = [Craft, Season, Personal];
 
 export const TheIdea = ({ lang }: TheIdeaProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -95,7 +95,7 @@ export const TheIdea = ({ lang }: TheIdeaProps) => {
                   className="inline-flex items-center justify-center mb-6 transform group-hover:scale-125 group-hover:-rotate-6 transition-all duration-500"
                   style={{ color: 'var(--dusty-terracotta)' }}
                 >
-                  <Icon className="w-16 h-16" />
+                  <Icon className="w-[5.6rem] h-[5.6rem]" />
                 </div>
 
                 <div

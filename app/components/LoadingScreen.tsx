@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { WaxSeal } from './WaxSeal';
+import { Logo } from './Logo';
 
 interface LoadingScreenProps {
   onComplete: () => void;
@@ -34,18 +34,8 @@ export const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
       }`}
       style={{ backgroundColor: 'var(--vanilla-cream)' }}
     >
-      <div className="mb-8 transform" style={{ animation: 'pulse 2s ease-in-out infinite' }}>
-        <WaxSeal size={120} interactive />
-      </div>
-
-      <div
-        className="lowercase italic mb-4"
-        style={{
-          fontSize: 'clamp(2rem, 5vw, 3rem)',
-          letterSpacing: '0.04em'
-        }}
-      >
-        mjuk lov
+      <div className="mb-10" style={{ animation: 'pulse 2s ease-in-out infinite' }}>
+        <Logo height={216} />
       </div>
 
       <div className="w-64 h-1 bg-[var(--soft-peach)] rounded-full overflow-hidden">
