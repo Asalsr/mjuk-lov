@@ -113,7 +113,7 @@ export const WhiskBowl = (p: IconProps) => (
   <Illustration src="/icons/whisk-bowl.svg" alt="" {...p} />
 );
 export const Packing = (p: IconProps) => (
-  <Illustration src="/icons/packing.svg" alt="" {...p} />
+  <Illustration src="/icons/PACKING.svg" alt="" {...p} />
 );
 export const Craft = (p: IconProps) => (
   <Illustration src="/icons/CRAFT.svg" alt="" {...p} />
@@ -128,7 +128,7 @@ export const Standard = (p: IconProps) => (
   <Illustration src="/icons/standard.svg" alt="" {...p} />
 );
 export const Deluxe = (p: IconProps) => (
-  <Illustration src="/icons/deluxe.svg" alt="" {...p} />
+  <Illustration src="/icons/Deluxe.svg" alt="" {...p} />
 );
 export const GiftEdition = (p: IconProps) => (
   <Illustration src="/icons/gift-edition.svg" alt="" {...p} />
