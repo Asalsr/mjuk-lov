@@ -133,3 +133,12 @@ export const Deluxe = (p: IconProps) => (
 export const GiftEdition = (p: IconProps) => (
   <Illustration src="/icons/gift-edition.svg" alt="" {...p} />
 );
+export const WeBake = (p: IconProps) => (
+  <Illustration src="/icons/WEBAKE.svg" alt="" {...p} />
+);
+export const PickColor = (p: IconProps) => (
+  <Illustration src="/icons/PICKCOLOR.svg" alt="" {...p} />
+);
+export const YouDesign = (p: IconProps) => (
+  <Illustration src="/icons/YOUDESIGN.svg" alt="" {...p} />
+);
