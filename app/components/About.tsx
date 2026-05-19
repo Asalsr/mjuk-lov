@@ -13,18 +13,18 @@ const content = {
     eyebrow: 'Om oss',
     heading: 'Ett kök. Ett löfte. Ett Göteborg.',
     paragraphs: [
-      'Mjuk Lov började med en enkel idé: tänk om vi tar bort det jobbiga med att baka — men lämnar kvar det roliga?',
-      'Vi bakar kakbottnen. Vi förbereder smörkrämerna. Vi paketerar allt. Sedan lämnar vi resten till dig.',
-      'Det är din tårta. Din stil. Ditt ögonblick när någon tar första tuggan och undrar: vem bakade det här? Du.'
+      'Mjuk Lov började i ett litet kök i Linnéstaden. Inte som ett företag, utan som ett svar på en fråga: vad händer när du ger bort något du bakat själv?',
+      'Svaret var enkelt. Folk blir glada. Inte för att det är perfekt, utan för att det är personligt. För att någon tänkte på dem.',
+      'Idag bakar vi fortfarande i samma kök. Vi har vuxit, men aldrig bort från grundtanken. Allt vi gör är mjukt. Mjukt i smaken, mjukt i formen, mjukt i löftet. Hembakat, för dig.'
     ]
   },
   en: {
     eyebrow: 'About us',
     heading: 'One kitchen. One promise. One Gothenburg.',
     paragraphs: [
-      'Mjuk Lov started with a simple idea: what if we remove the hard part of baking — but keep the fun part?',
-      'We bake the base. We prepare the buttercreams. We pack everything. Then we leave the rest to you.',
-      "It's your cake. Your style. Your moment when someone takes the first bite and asks: who made this? You."
+      'Mjuk Lov started in a small kitchen in Linnéstaden. Not as a business, but as an answer to a question: what happens when you give away something you baked yourself?',
+      'The answer was simple. People become happy. Not because it is perfect, but because it is personal. Because someone thought of them.',
+      'Today we still bake in the same kitchen. We have grown, but never away from the basic idea. Everything we do is soft. Soft in taste, soft in form, soft in promise. Home baked, for you.'
     ]
   }
 };

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Leaf, Pour, Packing, YouDesign } from './Icons';
+import { Leaf, Pour, Packing, CakeStand } from './Icons';
 
 interface TheCraftProps {
   lang: 'sv' | 'en';
@@ -21,11 +21,11 @@ const content = {
       },
       {
         label: 'Vi paketerar',
-        body: 'Kakbotten, spritspåsar, smaksättningar, ljus — allt packas noggrant. Instruktioner inkluderade.'
+        body: 'Allt du behöver, noggrant förpackat. Instruktioner inkluderade.'
       },
       {
-        label: 'Du dekorerar',
-        body: 'Hemma, i ditt eget kök. Spritsa smörkrämen, välj din stil. Ingen kan göra det precis som du.'
+        label: 'Du njuter',
+        body: 'Hemma, i ditt eget kök. Med dina händer, ditt sätt.'
       }
     ]
   },
@@ -42,17 +42,17 @@ const content = {
       },
       {
         label: 'We package',
-        body: 'Cake base, piping bags, flavours, candles — everything carefully packed. Instructions included.'
+        body: 'Everything you need, carefully packed. Instructions included.'
       },
       {
-        label: 'You decorate',
-        body: 'At home, in your own kitchen. Pipe the buttercream, choose your style. No one can do it quite like you.'
+        label: 'You enjoy',
+        body: 'At home, in your own kitchen. With your hands, your way.'
       }
     ]
   }
 };
 
-const icons = [Leaf, Pour, Packing, YouDesign];
+const icons = [Leaf, Pour, Packing, CakeStand];
 
 export const TheCraft = ({ lang }: TheCraftProps) => {
   const ref = useRef<HTMLDivElement>(null);
