@@ -16,19 +16,19 @@ const content = {
         name: 'Standard',
         size: '15 cm',
         price: '345 kr',
-        description: 'Kakbotten + 3 spritspåsar med smörkräm i valda färger + 3 smaksättningar + ljus. Allt du behöver för att dekorera.'
+        description: 'Perfekt för 6-8 personer. Allt du behöver för att skapa din tårta hemma.'
       },
       {
         name: 'Deluxe',
         size: '20 cm',
         price: '445 kr',
-        description: 'Större kakbotten för 10–12 personer. Samma kit — mer tårta, mer smörkräm, mer att dekorera.'
+        description: 'För 10-12 personer. Extra höjd, extra smak, extra allt.'
       },
       {
         name: 'Presentupplaga',
         size: '15 cm',
         price: '395 kr',
-        description: 'Standard-kitet i presentask med handskriven hälsning. Perfekt att ge bort — de gör resten själva.'
+        description: 'Som Standard, men i vacker presentask med dedikation.'
       }
     ],
     cta: 'Beställ'
@@ -40,19 +40,19 @@ const content = {
         name: 'Standard',
         size: '15 cm',
         price: '345 kr',
-        description: 'Cake base + 3 buttercream piping bags in chosen colours + 3 flavour options + candles. Everything you need to decorate.'
+        description: 'Perfect for 6-8 people. Everything you need to create your cake at home.'
       },
       {
         name: 'Deluxe',
         size: '20 cm',
         price: '445 kr',
-        description: 'Larger base for 10–12 people. Same kit — more cake, more buttercream, more to decorate.'
+        description: 'For 10-12 people. Extra height, extra flavor, extra everything.'
       },
       {
         name: 'Gift Edition',
         size: '15 cm',
         price: '395 kr',
-        description: 'Standard kit in a gift box with handwritten note. Perfect to give — they do the rest themselves.'
+        description: 'Like Standard, but in a beautiful gift box with dedication.'
       }
     ],
     cta: 'Order'

@@ -10,11 +10,11 @@ interface HeroProps {
 
 const content = {
   sv: {
-    promise: 'Vi bakar. Du dekorerar. Ditt sätt, din stil, din tårta.',
+    promise: 'Hembakat i Göteborg. För vanliga onsdagar och tillfällen som förtjänar mer.',
     scroll: 'Rulla ner'
   },
   en: {
-    promise: 'We bake. You decorate. Your way, your style, your cake.',
+    promise: 'Home baked in Gothenburg. For ordinary Wednesdays and occasions that deserve more.',
     scroll: 'Scroll down'
   }
 };

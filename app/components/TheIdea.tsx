@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { WeBake, PickColor, YouDesign } from './Icons';
+import { Craft, Season, Personal } from './Icons';
 
 interface TheIdeaProps {
   lang: 'sv' | 'en';
@@ -9,42 +9,42 @@ interface TheIdeaProps {
 
 const content = {
   sv: {
-    heading: 'Du bakar inte från grunden. Du skapar något eget.',
+    heading: 'Två sätt att njuta. Ett löfte.',
     pillars: [
       {
-        label: 'Vi bakar åt dig',
-        body: 'Kakbottnen är klar. Vi har tagit hand om det svåra — smör, mjöl, ugn, timing. Nu börjar den roliga delen.'
+        label: 'Handgjort',
+        body: 'Allt bakas från grunden i vårt kök i Göteborg. Inga genvägar.'
       },
       {
-        label: 'Du väljer smak och färg',
-        body: 'Tre smörkrämssprits med valda färger. Choklad, vanilj eller hallonsmak. Du väljer kombinationen.'
+        label: 'Säsongsbaserat',
+        body: 'Vi följer säsongen. Rabarber på våren, hallon på sommaren, päron på hösten.'
       },
       {
-        label: 'Du dekorerar',
-        body: 'Spritsa, forma, skapa. Resultatet är ditt. Och det ser ut precis som du tänkte dig — eller bättre.'
+        label: 'Personligt',
+        body: 'Varje tårta, varje dessert är just din. Vi lyssnar, anpassar, levererar.'
       }
     ]
   },
   en: {
-    heading: "You don't bake from scratch. You create something yours.",
+    heading: 'Two ways to enjoy. One promise.',
     pillars: [
       {
-        label: 'We bake for you',
-        body: 'The cake base is ready. We handled the hard part — butter, flour, oven, timing. Now the fun part begins.'
+        label: 'Handmade',
+        body: 'Everything is baked from scratch in our Gothenburg kitchen. No shortcuts.'
       },
       {
-        label: 'You choose flavour and colour',
-        body: 'Three buttercream piping bags in your chosen colours. Chocolate, vanilla or raspberry. You pick the combination.'
+        label: 'Seasonal',
+        body: 'We follow the seasons. Rhubarb in spring, raspberries in summer, pears in autumn.'
       },
       {
-        label: 'You decorate',
-        body: 'Pipe, shape, create. The result is yours. And it looks exactly how you imagined — or better.'
+        label: 'Personal',
+        body: 'Every cake, every dessert is uniquely yours. We listen, adapt, deliver.'
       }
     ]
   }
 };
 
-const icons = [WeBake, PickColor, YouDesign];
+const icons = [Craft, Season, Personal];
 
 export const TheIdea = ({ lang }: TheIdeaProps) => {
   const ref = useRef<HTMLDivElement>(null);
