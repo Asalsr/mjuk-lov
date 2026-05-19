@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { CakeSlice, CakeStand, Packing } from './Icons';
+import { Standard, Deluxe, GiftEdition } from './Icons';
 import { MagneticButton } from './MagneticButton';
 
 interface KitsProps {
@@ -59,7 +59,7 @@ const content = {
   }
 };
 
-const kitIcons = [CakeSlice, CakeStand, Packing];
+const kitIcons = [Standard, Deluxe, GiftEdition];
 
 export const Kits = ({ lang }: KitsProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -112,7 +112,7 @@ export const Kits = ({ lang }: KitsProps) => {
               <div
                 className="relative aspect-[4/5] bg-[var(--warm-peach)]/20 flex items-center justify-center overflow-hidden group-hover:bg-[var(--warm-peach)]/30 transition-colors duration-500"
               >
-                <Icon className="w-1/2 h-1/2 transform group-hover:scale-110 transition-transform duration-500" />
+                <Icon className="w-full h-full transform group-hover:scale-110 transition-transform duration-500" />
               </div>
 
 

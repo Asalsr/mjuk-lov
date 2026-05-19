@@ -124,3 +124,12 @@ export const Season = (p: IconProps) => (
 export const Personal = (p: IconProps) => (
   <Illustration src="/icons/personal.svg" alt="" {...p} />
 );
+export const Standard = (p: IconProps) => (
+  <Illustration src="/icons/standard.svg" alt="" {...p} />
+);
+export const Deluxe = (p: IconProps) => (
+  <Illustration src="/icons/deluxe.svg" alt="" {...p} />
+);
+export const GiftEdition = (p: IconProps) => (
+  <Illustration src="/icons/gift-edition.svg" alt="" {...p} />
+);
