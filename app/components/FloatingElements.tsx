@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { FlourSack, Spices, Butter } from './Icons';
+import { FlourSack, Truffles, Butter } from './Icons';
 
 /**
  * Floating decorative illustrations in the background, parallax on scroll.
@@ -45,7 +45,7 @@ export const FloatingElements = () => {
           transform: `translateY(${scrollY * -0.1}px) rotate(${-scrollY * 0.03}deg)`,
         }}
       >
-        <Spices className="w-36 h-36" />
+        <Truffles className="w-36 h-36" />
       </div>
 
       <div
