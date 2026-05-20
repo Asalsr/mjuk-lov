@@ -119,14 +119,7 @@ export const TheCraft = ({ lang }: TheCraftProps) => {
                   <Icon className="w-[10.5rem] h-[10.5rem]" />
                 </div>
 
-                <div
-                  className="mb-3 opacity-30 group-hover:opacity-60 transition-opacity duration-300"
-                  style={{
-                    fontFamily: 'var(--font-inter), sans-serif',
-                    fontSize: '0.75rem',
-                    letterSpacing: '0.18em'
-                  }}
-                >
+                <div className="type-caps mb-3 opacity-30 group-hover:opacity-60 transition-opacity duration-300">
                   {String(i + 1).padStart(2, '0')}
                 </div>
 
@@ -134,7 +127,7 @@ export const TheCraft = ({ lang }: TheCraftProps) => {
                   {step.label}
                 </h3>
 
-                <p className="opacity-80 group-hover:opacity-100 transition-opacity duration-300" style={{ fontSize: '0.95rem', lineHeight: '1.6' }}>
+                <p className="type-body opacity-80 group-hover:opacity-100 transition-opacity duration-300">
                   {step.body}
                 </p>
               </div>

@@ -117,10 +117,7 @@ export const Kits = ({ lang }: KitsProps) => {
 
 
               <div className="p-6 md:p-8">
-                <div
-                  className="mb-2 opacity-50"
-                  style={{ fontSize: '0.875rem' }}
-                >
+                <div className="type-caps mb-2 opacity-50">
                   {kit.size}
                 </div>
 
@@ -128,11 +125,11 @@ export const Kits = ({ lang }: KitsProps) => {
                   {kit.name}
                 </h3>
 
-                <p className="mb-4 opacity-80" style={{ fontSize: '1rem', lineHeight: '1.6' }}>
+                <p className="type-body mb-4 opacity-80">
                   {kit.description}
                 </p>
 
-                <div className="mb-6" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)' }}>
+                <div className="type-serif mb-6" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)' }}>
                   {kit.price}
                 </div>
 
@@ -141,14 +138,8 @@ export const Kits = ({ lang }: KitsProps) => {
                     const orderSection = document.getElementById('order');
                     if (orderSection) orderSection.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="w-full px-6 py-3 transition-all duration-300 hover:bg-[var(--warm-peach)] hover:shadow-lg relative overflow-hidden"
-                  style={{
-                    fontFamily: 'var(--font-inter), sans-serif',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.18em',
-                    fontSize: '0.75rem',
-                    border: '1px solid var(--warm-cocoa)'
-                  }}
+                  className="type-caps w-full px-6 py-3 transition-all duration-300 hover:bg-[var(--warm-peach)] hover:shadow-lg relative overflow-hidden"
+                  style={{ border: '1px solid var(--warm-cocoa)' }}
                 >
                   <span className="relative z-10">{t.cta}</span>
                 </MagneticButton>

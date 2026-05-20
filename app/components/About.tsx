@@ -55,15 +55,9 @@ export const About = ({ lang }: AboutProps) => {
     >
       <div className="max-w-[720px] mx-auto">
         <div
-          className={`text-center mb-6 opacity-60 transition-all duration-700 ${
+          className={`type-caps text-center mb-6 opacity-60 transition-all duration-700 ${
             isVisible ? 'opacity-60 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
-          style={{
-            fontFamily: 'Inter, sans-serif',
-            textTransform: 'uppercase',
-            letterSpacing: '0.18em',
-            fontSize: '0.75rem'
-          }}
         >
           {t.eyebrow}
         </div>
@@ -80,11 +74,8 @@ export const About = ({ lang }: AboutProps) => {
             <TextReveal
               key={i}
               delay={(i + 2) * 150}
-              className="opacity-80"
-              style={{
-                fontSize: 'clamp(1.125rem, 2vw, 1.25rem)',
-                lineHeight: '1.7'
-              }}
+              className="type-body opacity-80"
+              style={{ lineHeight: '1.7' }}
             >
               {para}
             </TextReveal>

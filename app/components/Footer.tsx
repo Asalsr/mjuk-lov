@@ -21,7 +21,7 @@ const content = {
     contact: {
       title: 'Kontakt',
       email: 'hej@mjuklov.se',
-      phone: '+46 31 123 45 67' // PLACEHOLDER
+      phone: '+46 324 082 4383' // PLACEHOLDER
     },
     allergen: 'Vårt kök hanterar gluten, mjölk, ägg, mandel och hasselnötter. Fråga gärna om annat.',
     copyright: '© 2026 Mjuk Lov'
@@ -35,7 +35,7 @@ const content = {
     contact: {
       title: 'Contact',
       email: 'hello@mjuklov.se',
-      phone: '+46 31 123 45 67' // PLACEHOLDER
+      phone: '+46 324 082 4383' // PLACEHOLDER
     },
     allergen: 'Our kitchen handles gluten, milk, eggs, almonds and hazelnuts. Ask us about anything else.',
     copyright: '© 2026 Mjuk Lov'
@@ -61,18 +61,10 @@ export const Footer = ({ lang }: FooterProps) => {
           </div>
 
           <div>
-            <div
-              className="mb-3 opacity-60"
-              style={{
-                fontFamily: 'Inter, sans-serif',
-                textTransform: 'uppercase',
-                letterSpacing: '0.18em',
-                fontSize: '0.7rem'
-              }}
-            >
+            <div className="type-caps mb-3 opacity-60">
               {t.location.title}
             </div>
-            <div style={{ fontSize: '0.95rem' }}>
+            <div className="type-body">
               {t.location.line1}
               <br />
               {t.location.line2}
@@ -80,18 +72,10 @@ export const Footer = ({ lang }: FooterProps) => {
           </div>
 
           <div>
-            <div
-              className="mb-3 opacity-60"
-              style={{
-                fontFamily: 'Inter, sans-serif',
-                textTransform: 'uppercase',
-                letterSpacing: '0.18em',
-                fontSize: '0.7rem'
-              }}
-            >
+            <div className="type-caps mb-3 opacity-60">
               {t.contact.title}
             </div>
-            <div style={{ fontSize: '0.95rem' }}>
+            <div className="type-body">
               <a
                 href={`mailto:${t.contact.email}`}
                 className="block mb-1 transition-all duration-300 hover:text-[var(--dusty-terracotta)] hover:translate-x-1"
@@ -109,11 +93,8 @@ export const Footer = ({ lang }: FooterProps) => {
         </div>
 
         <div
-          className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t opacity-60"
-          style={{
-            borderColor: 'rgba(61, 42, 34, 0.1)',
-            fontSize: '0.85rem'
-          }}
+          className="type-body flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t opacity-60"
+          style={{ borderColor: 'rgba(61, 42, 34, 0.1)' }}
         >
           <div>{t.allergen}</div>
           <div>{t.copyright}</div>

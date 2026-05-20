@@ -98,14 +98,7 @@ export const TheIdea = ({ lang }: TheIdeaProps) => {
                   <Icon className="w-[5.6rem] h-[5.6rem]" />
                 </div>
 
-                <div
-                  className="mb-4 opacity-30 group-hover:opacity-60 transition-opacity duration-300"
-                  style={{
-                    fontFamily: 'var(--font-inter), sans-serif',
-                    fontSize: '0.75rem',
-                    letterSpacing: '0.18em'
-                  }}
-                >
+                <div className="type-caps mb-4 opacity-30 group-hover:opacity-60 transition-opacity duration-300">
                   {String(i + 1).padStart(2, '0')}
                 </div>
 
@@ -113,7 +106,7 @@ export const TheIdea = ({ lang }: TheIdeaProps) => {
                   {pillar.label}
                 </h3>
 
-                <p className="opacity-80 group-hover:opacity-100 transition-opacity duration-300" style={{ fontSize: 'clamp(1rem, 2vw, 1.125rem)', lineHeight: '1.6' }}>
+                <p className="type-body opacity-80 group-hover:opacity-100 transition-opacity duration-300">
                   {pillar.body}
                 </p>
               </div>

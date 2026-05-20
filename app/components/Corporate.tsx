@@ -113,10 +113,7 @@ export const Corporate = ({ lang }: CorporateProps) => {
               }}
             >
               {tier.popular && (
-                <div
-                  className="italic mb-6 text-center opacity-70 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ fontSize: '0.875rem' }}
-                >
+                <div className="type-caps italic mb-6 text-center opacity-70 group-hover:opacity-100 transition-opacity duration-300">
                   — populärast —
                 </div>
               )}
@@ -125,23 +122,19 @@ export const Corporate = ({ lang }: CorporateProps) => {
                 {tier.name}
               </h3>
 
-              <div
-                className="text-center mb-2 opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ fontSize: '1rem' }}
-              >
+              <div className="type-body text-center mb-2 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
                 {tier.portions}
               </div>
 
               <div
-                className="text-center mb-6"
+                className="type-serif text-center mb-6"
                 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)' }}
               >
                 {tier.price}
               </div>
 
               <p
-                className={`text-center mb-8 ${tier.popular ? 'opacity-90' : 'opacity-80'} group-hover:opacity-100 transition-opacity duration-300`}
-                style={{ fontSize: '1rem', lineHeight: '1.6' }}
+                className={`type-body text-center mb-8 ${tier.popular ? 'opacity-90' : 'opacity-80'} group-hover:opacity-100 transition-opacity duration-300`}
               >
                 {tier.description}
               </p>
@@ -150,7 +143,7 @@ export const Corporate = ({ lang }: CorporateProps) => {
         </div>
 
         <div className="text-center mt-12">
-          <p className="italic mb-8 opacity-70" style={{ fontSize: '0.95rem' }}>
+          <p className="type-body italic mb-8 opacity-70">
             {t.footnote}
           </p>
 
@@ -159,14 +152,8 @@ export const Corporate = ({ lang }: CorporateProps) => {
               const orderSection = document.getElementById('order');
               if (orderSection) orderSection.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-8 py-3 transition-all duration-300 hover:bg-[var(--warm-peach)] hover:shadow-lg"
-            style={{
-              fontFamily: 'var(--font-inter), sans-serif',
-              textTransform: 'uppercase',
-              letterSpacing: '0.18em',
-              fontSize: '0.75rem',
-              border: '1px solid var(--warm-cocoa)'
-            }}
+            className="type-caps px-8 py-3 transition-all duration-300 hover:bg-[var(--warm-peach)] hover:shadow-lg"
+            style={{ border: '1px solid var(--warm-cocoa)' }}
           >
             {t.cta}
           </MagneticButton>

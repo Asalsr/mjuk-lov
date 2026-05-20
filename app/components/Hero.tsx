@@ -73,10 +73,9 @@ export const Hero = ({ lang }: HeroProps) => {
         </div>
 
         <p
-          className={`max-w-2xl mx-auto transition-all duration-700 delay-[600ms] ${
+          className={`type-body max-w-2xl mx-auto transition-all duration-700 delay-[600ms] ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
-          style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', lineHeight: '1.6' }}
         >
           {t.promise}
         </p>
@@ -90,7 +89,7 @@ export const Hero = ({ lang }: HeroProps) => {
         className="absolute bottom-12 left-1/2 -translate-x-1/2 group cursor-pointer"
       >
         <div className="flex flex-col items-center gap-2 opacity-40 group-hover:opacity-100 transition-all duration-300">
-          <span style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>{t.scroll}</span>
+          <span className="type-caps">{t.scroll}</span>
           <div className="w-0.5 h-12 bg-current group-hover:h-16 transition-all duration-500" />
         </div>
       </button>

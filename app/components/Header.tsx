@@ -57,8 +57,7 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
             <button
               key={item}
               onClick={() => scrollToSection(i)}
-              className="relative transition-colors hover:text-[var(--dusty-terracotta)] group"
-              style={{ fontSize: '0.95rem' }}
+              className="type-caps relative transition-colors hover:text-[var(--dusty-terracotta)] group"
             >
               {item}
               <span
@@ -71,27 +70,15 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
         <div className="flex items-center gap-4">
           <MagneticButton
             onClick={() => scrollToSection(5)}
-            className="hidden md:block px-6 py-2 transition-all duration-300 hover:bg-[var(--warm-peach)] hover:shadow-md"
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              textTransform: 'uppercase',
-              letterSpacing: '0.18em',
-              fontSize: '0.75rem',
-              border: '1px solid var(--warm-cocoa)'
-            }}
+            className="type-caps hidden md:block px-6 py-2 transition-all duration-300 hover:bg-[var(--warm-peach)] hover:shadow-md"
+            style={{ border: '1px solid var(--warm-cocoa)' }}
           >
             {t.order}
           </MagneticButton>
 
           <button
             onClick={onLangToggle}
-            className="px-3 py-1 transition-colors hover:text-[var(--dusty-terracotta)]"
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              textTransform: 'uppercase',
-              letterSpacing: '0.1em',
-              fontSize: '0.75rem'
-            }}
+            className="type-caps px-3 py-1 transition-colors hover:text-[var(--dusty-terracotta)]"
           >
             {lang === 'sv' ? 'EN' : 'SV'}
           </button>
@@ -115,21 +102,15 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
               <button
                 key={item}
                 onClick={() => scrollToSection(i)}
-                className="text-left py-2 transition-colors hover:text-[var(--dusty-terracotta)]"
+                className="type-caps text-left py-2 transition-colors hover:text-[var(--dusty-terracotta)]"
               >
                 {item}
               </button>
             ))}
             <button
               onClick={() => scrollToSection(5)}
-              className="mt-2 px-6 py-3 text-center transition-all duration-300 hover:bg-[var(--warm-peach)]"
-              style={{
-                fontFamily: 'Inter, sans-serif',
-                textTransform: 'uppercase',
-                letterSpacing: '0.18em',
-                fontSize: '0.75rem',
-                border: '1px solid var(--warm-cocoa)'
-              }}
+              className="type-caps mt-2 px-6 py-3 text-center transition-all duration-300 hover:bg-[var(--warm-peach)]"
+              style={{ border: '1px solid var(--warm-cocoa)' }}
             >
               {t.order}
             </button>

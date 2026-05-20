@@ -90,7 +90,7 @@ export const Order = ({ lang }: OrderProps) => {
                 {t.heading}
               </h2>
 
-              <p className="italic mb-12 opacity-80" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.25rem)' }}>
+              <p className="type-body italic mb-12 opacity-80">
                 {t.lede}
               </p>
             </div>
@@ -102,7 +102,7 @@ export const Order = ({ lang }: OrderProps) => {
               }`}
             >
               <div>
-                <label className="block mb-3 opacity-80" style={{ fontSize: '0.95rem' }}>
+                <label className="type-caps block mb-3 opacity-80">
                   {t.typeLabel}
                 </label>
                 <select
@@ -125,7 +125,7 @@ export const Order = ({ lang }: OrderProps) => {
               </div>
 
               <div>
-                <label className="block mb-3 opacity-80" style={{ fontSize: '0.95rem' }}>
+                <label className="type-caps block mb-3 opacity-80">
                   {t.productLabel}
                 </label>
                 <input
@@ -142,7 +142,7 @@ export const Order = ({ lang }: OrderProps) => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div>
-                  <label className="block mb-3 opacity-80" style={{ fontSize: '0.95rem' }}>
+                  <label className="type-caps block mb-3 opacity-80">
                     {t.nameLabel}
                   </label>
                   <input
@@ -159,7 +159,7 @@ export const Order = ({ lang }: OrderProps) => {
                 </div>
 
                 <div>
-                  <label className="block mb-3 opacity-80" style={{ fontSize: '0.95rem' }}>
+                  <label className="type-caps block mb-3 opacity-80">
                     {t.emailLabel}
                   </label>
                   <input
@@ -177,7 +177,7 @@ export const Order = ({ lang }: OrderProps) => {
               </div>
 
               <div>
-                <label className="block mb-3 opacity-80" style={{ fontSize: '0.95rem' }}>
+                <label className="type-caps block mb-3 opacity-80">
                   {t.messageLabel}
                 </label>
                 <textarea
@@ -194,14 +194,8 @@ export const Order = ({ lang }: OrderProps) => {
 
               <MagneticButton
                 type="submit"
-                className="px-8 py-3 transition-all duration-300 hover:bg-[var(--vanilla-cream)] hover:text-[var(--warm-cocoa)] hover:shadow-xl"
-                style={{
-                  fontFamily: 'var(--font-inter), sans-serif',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.18em',
-                  fontSize: '0.75rem',
-                  border: '1px solid var(--vanilla-cream)'
-                }}
+                className="type-caps px-8 py-3 transition-all duration-300 hover:bg-[var(--vanilla-cream)] hover:text-[var(--warm-cocoa)] hover:shadow-xl"
+                style={{ border: '1px solid var(--vanilla-cream)' }}
               >
                 {t.submit}
               </MagneticButton>
@@ -212,7 +206,7 @@ export const Order = ({ lang }: OrderProps) => {
             <h2 className="mb-4" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}>
               {t.successHeading}
             </h2>
-            <p className="italic opacity-80" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.25rem)' }}>
+            <p className="type-body italic opacity-80">
               {t.successMessage}
             </p>
           </div>

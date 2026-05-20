@@ -100,24 +100,22 @@
     font-size: var(--font-size);
   }
 
-  /* h1 → Display Serif: 48–72px, lowercase, tight leading. */
+  /* h1 → Display Serif: 48–72px, tight leading. Casing preserved from content. */
   h1 {
     font-family: var(--font-cormorant), 'Cormorant Garamond', Garamond, serif;
     font-size: clamp(3rem, 6vw, 4.5rem);
     font-weight: var(--font-weight-normal);
     line-height: 1.05;
     letter-spacing: -0.01em;
-    text-transform: lowercase;
   }
 
-  /* h2–h4 → Body Serif: 24–36px, lowercase, generous leading (1.4–1.6). */
+  /* h2–h4 → Body Serif: 24–36px, generous leading (1.4–1.6). Casing preserved. */
   h2,
   h3,
   h4 {
     font-family: var(--font-cormorant), 'Cormorant Garamond', Garamond, serif;
     font-weight: var(--font-weight-normal);
     line-height: 1.45;
-    text-transform: lowercase;
   }
 
   h2 {
@@ -160,7 +158,6 @@
   font-size: clamp(3rem, 6vw, 4.5rem);
   line-height: 1.05;
   letter-spacing: -0.01em;
-  text-transform: lowercase;
   font-weight: var(--font-weight-normal);
 }
 
@@ -168,7 +165,6 @@
   font-family: var(--font-cormorant), 'Cormorant Garamond', Garamond, serif;
   font-size: clamp(1.5rem, 3vw, 2.25rem);
   line-height: 1.5;
-  text-transform: lowercase;
   font-weight: var(--font-weight-normal);
 }
 
