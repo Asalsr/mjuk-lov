@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Inter } from 'next/font/google';
+import { Cormorant_Garamond, Inter, Didact_Gothic } from 'next/font/google';
 import './globals.css';
 
 const cormorant = Cormorant_Garamond({
@@ -14,6 +14,13 @@ const inter = Inter({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
   variable: '--font-inter',
+  display: 'swap',
+});
+
+const didact = Didact_Gothic({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-didact',
   display: 'swap',
 });
 
@@ -44,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="sv" className={`${cormorant.variable} ${inter.variable}`}>
+    <html lang="sv" className={`${cormorant.variable} ${inter.variable} ${didact.variable}`}>
       <body>{children}</body>
     </html>
   );

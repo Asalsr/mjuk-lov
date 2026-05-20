@@ -4,8 +4,10 @@
    This is the ONLY CSS file Next.js loads (imported in app/layout.tsx).
    ============================================================ */
 
-/* Fonts are self-hosted by next/font/google in app/layout.tsx
-   (Cormorant Garamond → --font-cormorant, Inter → --font-inter). */
+/* Fonts are self-hosted by next/font/google in app/layout.tsx:
+     Cormorant Garamond → --font-cormorant  (display + body serif)
+     Inter              → --font-inter      (spaced caps)
+     Didact Gothic      → --font-didact     (body sans / utility) */
 
 /* Tailwind v4 entry */
 @import 'tailwindcss';
@@ -20,11 +22,11 @@
 
   /* Mjuk Lov brand colors — locked palette */
   --vanilla-cream: #FCF2E4;
-  --soft-peach: #F4D9B8;
-  --warm-peach: #E8B89A;
+  --soft-peach: #FAF3E2;
+  --warm-peach: #D9B7A8;
   --dusty-terracotta: #A85D4E;
-  --dusty-wine: #5A2A35;
-  --warm-cocoa: #3D2A22;
+  --dusty-wine: #7A3A40;
+  --warm-cocoa: #5C3D2E;
 
   /* Semantic role tokens (mapped to brand colors) */
   --background: var(--vanilla-cream);
@@ -67,6 +69,16 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Typography roles — exposed as Tailwind utilities:
+       font-display  → oversized wordmark / hero headlines
+       font-serif    → subheadings, product names, quotes
+       font-caps     → spaced uppercase labels, nav, CTAs
+       font-sans     → body copy, descriptions, captions (default body) */
+  --font-display: var(--font-cormorant), 'Cormorant Garamond', Garamond, serif;
+  --font-serif: var(--font-cormorant), 'Cormorant Garamond', Garamond, serif;
+  --font-caps: var(--font-inter), 'Inter', system-ui, sans-serif;
+  --font-sans: var(--font-didact), 'Didact Gothic', system-ui, sans-serif;
 }
 
 @layer base {
@@ -74,47 +86,104 @@
     @apply border-border outline-ring/50;
   }
 
+  /* Body defaults to Body Sans (Didact Gothic), 16–20px, line-height 1.6.
+     Headings switch to the serif family below. */
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-cormorant), serif;
+    font-family: var(--font-didact), 'Didact Gothic', system-ui, sans-serif;
+    font-size: clamp(1rem, 1.05vw, 1.25rem);
+    line-height: 1.6;
+    font-weight: var(--font-weight-normal);
   }
 
   html {
     font-size: var(--font-size);
   }
 
-  /* Default heading sizes — Tailwind utility classes still override these */
+  /* h1 → Display Serif: 48–72px, lowercase, tight leading. */
   h1 {
-    font-size: var(--text-2xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+    font-family: var(--font-cormorant), 'Cormorant Garamond', Garamond, serif;
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
   }
+
+  /* h2–h4 → Body Serif: 24–36px, lowercase, generous leading (1.4–1.6). */
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-cormorant), 'Cormorant Garamond', Garamond, serif;
+    font-weight: var(--font-weight-normal);
+    line-height: 1.45;
+    text-transform: lowercase;
+  }
+
   h2 {
-    font-size: var(--text-xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
   }
   h3 {
-    font-size: var(--text-lg);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+    font-size: clamp(1.375rem, 2.5vw, 1.75rem);
   }
   h4 {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
   }
 
+  /* Buttons / labels default to Spaced Caps so CTAs are consistent. */
   label,
   button {
-    font-size: var(--text-base);
+    font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+    font-size: 0.875rem;
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
-  input {
-    font-size: var(--text-base);
+  input,
+  textarea,
+  select {
+    font-family: var(--font-didact), 'Didact Gothic', system-ui, sans-serif;
+    font-size: 1rem;
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
   }
+}
+
+/* ============================================================
+   Typography utility classes — apply directly to elements.
+   Hierarchy: Display (48–72) → Serif (24–36) → Caps (12–16) → Body (16–20)
+   Rule: never mix more than two of these on one section.
+   ============================================================ */
+
+.type-display {
+  font-family: var(--font-cormorant), 'Cormorant Garamond', Garamond, serif;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: lowercase;
+  font-weight: var(--font-weight-normal);
+}
+
+.type-serif {
+  font-family: var(--font-cormorant), 'Cormorant Garamond', Garamond, serif;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.5;
+  text-transform: lowercase;
+  font-weight: var(--font-weight-normal);
+}
+
+.type-caps {
+  font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.4;
+}
+
+.type-body {
+  font-family: var(--font-didact), 'Didact Gothic', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.05vw, 1.25rem);
+  line-height: 1.6;
+  font-weight: var(--font-weight-normal);
 }
