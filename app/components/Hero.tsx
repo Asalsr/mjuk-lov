@@ -72,7 +72,7 @@ export const Hero = ({ lang }: HeroProps) => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          <Logo className="h-32 sm:h-44 md:h-64 lg:h-80" />
+          <Logo className="h-80 sm:h-80 md:h-96 lg:h-[28rem]" />
         </div>
 
         <p

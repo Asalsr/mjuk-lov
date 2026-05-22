@@ -95,7 +95,7 @@ export const TheIdea = ({ lang }: TheIdeaProps) => {
                   className="inline-flex items-center justify-center mb-6 transform group-hover:scale-125 group-hover:-rotate-6 transition-all duration-500"
                   style={{ color: 'var(--dusty-terracotta)' }}
                 >
-                  <Icon className="w-16 h-16 md:w-[5.6rem] md:h-[5.6rem]" />
+                  <Icon className="w-48 h-48 md:w-[5.6rem] md:h-[5.6rem]" />
                 </div>
 
                 <div className="type-caps mb-4 opacity-30 group-hover:opacity-60 transition-opacity duration-300">

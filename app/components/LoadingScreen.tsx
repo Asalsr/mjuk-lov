@@ -7,7 +7,7 @@ interface LoadingScreenProps {
   onComplete: () => void;
 }
 
-const VISIBLE_DURATION_MS = 2000;
+const VISIBLE_DURATION_MS = 3500;
 const EXIT_TRANSITION_MS = 350;
 
 export const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
