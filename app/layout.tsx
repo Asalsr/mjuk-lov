@@ -52,6 +52,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="sv" className={`${cormorant.variable} ${inter.variable} ${didact.variable}`}>
+      <head>
+        <link rel="preload" as="video" href="/videos/loading-bg.mp4" type="video/mp4" />
+      </head>
       <body>{children}</body>
     </html>
   );

@@ -47,32 +47,31 @@ export default function Page() {
     }
   }, []);
 
-  if (isLoading) {
-    return <LoadingScreen onComplete={() => setIsLoading(false)} />;
-  }
-
   return (
-    <div className="min-h-screen relative md:cursor-none" style={{ scrollBehavior: 'smooth' }}>
-      <ScrollProgress />
-      <NoiseTexture />
-      <CustomCursor />
-      <FloatingElements />
-      <BackToTop />
-      <Header lang={lang} onLangToggle={toggleLang} />
-      <Hero lang={lang} />
-      <TheIdea lang={lang} />
-      <SectionDivider fromColor="var(--vanilla-cream)" toColor="var(--soft-peach)" />
-      <Kits lang={lang} />
-      <WaveDivider fromColor="var(--soft-peach)" toColor="var(--vanilla-cream)" />
-      <Corporate lang={lang} />
-      <SectionDivider fromColor="var(--vanilla-cream)" toColor="rgba(232, 184, 154, 0.2)" />
-      <TheCraft lang={lang} />
-      <WaveDivider fromColor="rgba(232, 184, 154, 0.2)" toColor="var(--vanilla-cream)" />
-      <About lang={lang} />
-      <SectionDivider fromColor="var(--vanilla-cream)" toColor="var(--warm-cocoa)" />
-      <Order lang={lang} />
-      <WaveDivider fromColor="var(--warm-cocoa)" toColor="var(--vanilla-cream)" />
-      <Footer lang={lang} />
-    </div>
+    <>
+      {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+      <div className="min-h-screen relative" style={{ scrollBehavior: 'smooth' }}>
+        <ScrollProgress />
+        <NoiseTexture />
+        <CustomCursor />
+        <FloatingElements />
+        <BackToTop />
+        <Header lang={lang} onLangToggle={toggleLang} />
+        <Hero lang={lang} />
+        <TheIdea lang={lang} />
+        <SectionDivider fromColor="var(--vanilla-cream)" toColor="var(--soft-peach)" />
+        <Kits lang={lang} />
+        <WaveDivider fromColor="var(--soft-peach)" toColor="var(--vanilla-cream)" />
+        <Corporate lang={lang} />
+        <SectionDivider fromColor="var(--vanilla-cream)" toColor="rgba(232, 184, 154, 0.2)" />
+        <TheCraft lang={lang} />
+        <WaveDivider fromColor="rgba(232, 184, 154, 0.2)" toColor="var(--vanilla-cream)" />
+        <About lang={lang} />
+        <SectionDivider fromColor="var(--vanilla-cream)" toColor="var(--warm-cocoa)" />
+        <Order lang={lang} />
+        <WaveDivider fromColor="var(--warm-cocoa)" toColor="var(--vanilla-cream)" />
+        <Footer lang={lang} />
+      </div>
+    </>
   );
 }

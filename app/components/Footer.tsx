@@ -57,7 +57,7 @@ export const Footer = ({ lang }: FooterProps) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div>
             {/* Logo replaces the old text wordmark + tagline. Logo already includes "A SOFT PROMISE". */}
-            <Logo height={115} />
+            <Logo className="h-20 md:h-24 lg:h-28" />
           </div>
 
           <div>

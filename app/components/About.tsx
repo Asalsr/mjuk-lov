@@ -85,7 +85,7 @@ export const About = ({ lang }: AboutProps) => {
         {/* Watercolor magnolia replaces the old heart icon */}
         <div className="flex justify-center group cursor-pointer">
           <div className="transform group-hover:scale-110 transition-transform duration-500">
-            <Magnolia className="w-[4.2rem] h-[4.2rem]" />
+            <Magnolia className="w-12 h-12 md:w-[4.2rem] md:h-[4.2rem]" />
           </div>
         </div>
       </div>

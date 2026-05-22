@@ -2,6 +2,12 @@
    Mjuk Lov — Next.js global stylesheet
    Combines Figma's tailwind.css + theme.css + fonts.css.
    This is the ONLY CSS file Next.js loads (imported in app/layout.tsx).
+
+   Responsive convention: MOBILE-FIRST.
+   - Default (no-prefix) classes target the smallest viewport (~360 px wide).
+   - sm: ≥ 640 px, md: ≥ 768 px, lg: ≥ 1024 px, xl: ≥ 1280 px scale UP.
+   - Never use max-width media queries — always add features at wider breakpoints.
+   - Touch target minimum: 44 × 44 px (use the `.tap` utility).
    ============================================================ */
 
 /* Fonts are self-hosted by next/font/google in app/layout.tsx:
@@ -98,6 +104,11 @@
 
   html {
     font-size: var(--font-size);
+    overflow-x: clip;
+  }
+
+  body {
+    overflow-x: clip;
   }
 
   /* h1 → Display Serif: 48–72px, tight leading. Casing preserved from content. */
@@ -182,4 +193,25 @@
   font-size: clamp(1rem, 1.05vw, 1.25rem);
   line-height: 1.6;
   font-weight: var(--font-weight-normal);
+}
+
+/* ============================================================
+   Touch / responsive utilities
+   ============================================================ */
+
+/* 44 × 44 px minimum hit area for interactive elements (WCAG 2.5.5). */
+.tap {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* On touch devices, reveal-on-hover states should default to visible —
+   touch users never trigger :hover, so they'd otherwise miss the content. */
+@media (pointer: coarse) {
+  [class*="group-hover:opacity-100"] {
+    opacity: 1 !important;
+  }
 }

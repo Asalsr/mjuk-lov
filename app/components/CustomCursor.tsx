@@ -1,12 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useIsTouch } from '../hooks/useIsTouch';
 
 export const CustomCursor = () => {
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
+  const isTouch = useIsTouch();
 
   useEffect(() => {
+    if (isTouch) return;
+
     const updateCursor = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
     };
@@ -25,19 +29,23 @@ export const CustomCursor = () => {
       }
     };
 
+    document.documentElement.style.cursor = 'none';
     window.addEventListener('mousemove', updateCursor);
     window.addEventListener('mouseover', handleMouseOver);
 
     return () => {
+      document.documentElement.style.cursor = '';
       window.removeEventListener('mousemove', updateCursor);
       window.removeEventListener('mouseover', handleMouseOver);
     };
-  }, []);
+  }, [isTouch]);
+
+  if (isTouch) return null;
 
   return (
     <>
       <div
-        className="fixed pointer-events-none z-[9999] hidden md:block transition-transform duration-100 ease-out"
+        className="fixed pointer-events-none z-[9999] transition-transform duration-100 ease-out"
         style={{
           left: position.x,
           top: position.y,
@@ -50,7 +58,7 @@ export const CustomCursor = () => {
         }}
       />
       <div
-        className="fixed pointer-events-none z-[9998] hidden md:block transition-all duration-300 ease-out"
+        className="fixed pointer-events-none z-[9998] transition-all duration-300 ease-out"
         style={{
           left: position.x,
           top: position.y,

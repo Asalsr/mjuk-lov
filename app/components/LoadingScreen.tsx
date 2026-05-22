@@ -7,29 +7,25 @@ interface LoadingScreenProps {
   onComplete: () => void;
 }
 
+const VISIBLE_DURATION_MS = 2000;
+const EXIT_TRANSITION_MS = 350;
+
 export const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
-  const [progress, setProgress] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => setIsExiting(true), 300);
-          setTimeout(onComplete, 1000);
-          return 100;
-        }
-        return prev + 2;
-      });
-    }, 30);
+    const exitTimer = setTimeout(() => setIsExiting(true), VISIBLE_DURATION_MS);
+    const completeTimer = setTimeout(onComplete, VISIBLE_DURATION_MS + EXIT_TRANSITION_MS);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(exitTimer);
+      clearTimeout(completeTimer);
+    };
   }, [onComplete]);
 
   return (
     <div
-      className={`fixed inset-0 z-[10000] flex flex-col items-center justify-center overflow-hidden transition-all duration-1000 ${
+      className={`fixed inset-0 z-[10000] flex flex-col items-center overflow-hidden transition-opacity duration-[350ms] ${
         isExiting ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
       style={{ backgroundColor: 'var(--vanilla-cream)' }}
@@ -45,18 +41,11 @@ export const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
         <source src="/videos/loading-bg.mp4" type="video/mp4" />
       </video>
 
-      <div className="relative z-10 mb-10" style={{ animation: 'pulse 2s ease-in-out infinite' }}>
-        <Logo height={216} />
-      </div>
-
-      <div className="relative z-10 w-64 h-1 bg-[var(--soft-peach)] rounded-full overflow-hidden">
-        <div
-          className="h-full transition-all duration-300"
-          style={{
-            width: `${progress}%`,
-            backgroundColor: 'var(--dusty-terracotta)'
-          }}
-        />
+      <div
+        className="relative z-10"
+        style={{ marginTop: '2.5vh', animation: 'pulse 2s ease-in-out infinite' }}
+      >
+        <Logo className="h-48 sm:h-72 md:h-96 lg:h-[524px]" />
       </div>
     </div>
   );

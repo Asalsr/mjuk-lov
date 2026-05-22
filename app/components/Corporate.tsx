@@ -96,14 +96,14 @@ export const Corporate = ({ lang }: CorporateProps) => {
           {t.heading}
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {t.tiers.map((tier, i) => (
             <div
               key={i}
-              className={`p-8 md:p-10 transition-all duration-700 group cursor-default hover:scale-105 ${
+              className={`p-8 md:p-10 transition-all duration-700 group cursor-default md:hover:scale-105 ${
                 tier.popular
-                  ? 'md:-translate-y-4 hover:shadow-2xl'
-                  : 'hover:shadow-xl'
+                  ? 'md:-translate-y-4 md:hover:shadow-2xl'
+                  : 'md:hover:shadow-xl'
               } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
               style={{
                 backgroundColor: tier.popular ? 'var(--warm-cocoa)' : 'var(--soft-peach)',

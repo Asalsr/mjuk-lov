@@ -95,13 +95,13 @@ export const Kits = ({ lang }: KitsProps) => {
           {t.heading}
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
           {t.kits.map((kit, i) => {
             const Icon = kitIcons[i];
             return (
             <div
               key={i}
-              className={`bg-[var(--vanilla-cream)] transition-all duration-700 group hover:-translate-y-2 hover:shadow-2xl ${
+              className={`bg-[var(--vanilla-cream)] transition-all duration-700 group md:hover:-translate-y-2 md:hover:shadow-2xl ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
               style={{
@@ -110,7 +110,7 @@ export const Kits = ({ lang }: KitsProps) => {
               }}
             >
               <div
-                className="relative aspect-[4/5] bg-[var(--warm-peach)]/20 flex items-center justify-center overflow-hidden group-hover:bg-[var(--warm-peach)]/30 transition-colors duration-500"
+                className="relative aspect-[4/3] sm:aspect-[4/5] bg-[var(--warm-peach)]/20 flex items-center justify-center overflow-hidden group-hover:bg-[var(--warm-peach)]/30 transition-colors duration-500"
               >
                 <Icon className="w-full h-full transform group-hover:scale-110 transition-transform duration-500" />
               </div>

@@ -7,7 +7,7 @@ interface SectionDividerProps {
 
 export const SectionDivider = ({ fromColor, toColor }: SectionDividerProps) => {
   return (
-    <div className="relative h-24 overflow-hidden" style={{ backgroundColor: fromColor }}>
+    <div className="relative h-12 md:h-24 overflow-hidden" style={{ backgroundColor: fromColor }}>
       <svg
         viewBox="0 0 1200 120"
         preserveAspectRatio="none"
@@ -25,7 +25,7 @@ export const SectionDivider = ({ fromColor, toColor }: SectionDividerProps) => {
 
 export const WaveDivider = ({ fromColor, toColor }: SectionDividerProps) => {
   return (
-    <div className="relative h-20 overflow-hidden" style={{ backgroundColor: fromColor }}>
+    <div className="relative h-10 md:h-20 overflow-hidden" style={{ backgroundColor: fromColor }}>
       <svg
         viewBox="0 0 1200 120"
         preserveAspectRatio="none"

@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, MouseEvent, ReactNode } from 'react';
+import { useIsTouch } from '../hooks/useIsTouch';
 
 interface MagneticButtonProps {
   children: ReactNode;
@@ -13,9 +14,10 @@ interface MagneticButtonProps {
 export const MagneticButton = ({ children, className = '', style, onClick, type = 'button' }: MagneticButtonProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const isTouch = useIsTouch();
 
   const handleMouseMove = (e: MouseEvent<HTMLButtonElement>) => {
-    if (!buttonRef.current) return;
+    if (isTouch || !buttonRef.current) return;
 
     const rect = buttonRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
@@ -38,7 +40,7 @@ export const MagneticButton = ({ children, className = '', style, onClick, type 
       className={`transition-transform duration-300 ${className}`}
       style={{
         ...style,
-        transform: `translate(${position.x}px, ${position.y}px)`
+        transform: isTouch ? undefined : `translate(${position.x}px, ${position.y}px)`
       }}
     >
       {children}

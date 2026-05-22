@@ -28,10 +28,12 @@ export const BackToTop = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-8 right-8 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 z-50 hover:scale-110 hover:rotate-180 ${
+      className={`fixed w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 z-50 hover:scale-110 hover:rotate-180 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'
       }`}
       style={{
+        bottom: 'calc(2rem + env(safe-area-inset-bottom))',
+        right: 'calc(2rem + env(safe-area-inset-right))',
         backgroundColor: 'var(--dusty-terracotta)',
         color: 'var(--vanilla-cream)',
         boxShadow: '0 4px 20px rgba(168, 93, 78, 0.3)'

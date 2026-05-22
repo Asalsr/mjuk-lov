@@ -88,7 +88,7 @@ export const TheCraft = ({ lang }: TheCraftProps) => {
           {t.heading}
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 relative">
           <div className="hidden md:block absolute top-1/2 left-0 right-0 h-px opacity-20">
             <svg className="w-full h-full" preserveAspectRatio="none">
               <line
@@ -116,7 +116,7 @@ export const TheCraft = ({ lang }: TheCraftProps) => {
                 <div
                   className="inline-flex items-center justify-center mb-6 relative z-10 transform group-hover:scale-125 group-hover:rotate-12 transition-all duration-500"
                 >
-                  <Icon className="w-[10.5rem] h-[10.5rem]" />
+                  <Icon className="w-24 h-24 sm:w-32 sm:h-32 md:w-[10.5rem] md:h-[10.5rem]" />
                 </div>
 
                 <div className="type-caps mb-3 opacity-30 group-hover:opacity-60 transition-opacity duration-300">

@@ -2,7 +2,7 @@
 
 export const NoiseTexture = () => {
   return (
-    <div className="fixed inset-0 pointer-events-none opacity-[0.015] mix-blend-overlay z-50">
+    <div className="fixed inset-0 pointer-events-none opacity-[0.015] mix-blend-overlay z-50 hidden md:block">
       <svg width="100%" height="100%">
         <filter id="noise">
           <feTurbulence

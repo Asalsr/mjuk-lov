@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { CardamomPod, Magnolia } from './Icons';
 import { Logo } from './Logo';
+import { useIsTouch } from '../hooks/useIsTouch';
 
 interface HeroProps {
   lang: 'sv' | 'en';
@@ -22,6 +23,7 @@ const content = {
 export const Hero = ({ lang }: HeroProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const isTouch = useIsTouch();
   const t = content[lang];
 
   useEffect(() => {
@@ -29,6 +31,7 @@ export const Hero = ({ lang }: HeroProps) => {
   }, []);
 
   useEffect(() => {
+    if (isTouch) return;
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({
         x: (e.clientX / window.innerWidth - 0.5) * 20,
@@ -37,10 +40,10 @@ export const Hero = ({ lang }: HeroProps) => {
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isTouch]);
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
       {/* Decorative watercolor corners — raised opacity to 25% because
           full-color illustrations look muddy at the old 10%. Adjust to taste. */}
       <div className="absolute inset-0 hidden md:block pointer-events-none">
@@ -50,7 +53,7 @@ export const Hero = ({ lang }: HeroProps) => {
             transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px) rotate(${mousePos.x * 0.5}deg)`
           }}
         >
-          <CardamomPod className="w-[9.8rem] h-[9.8rem]" />
+          <CardamomPod className="w-24 h-24 lg:w-32 lg:h-32 xl:w-[9.8rem] xl:h-[9.8rem]" />
         </div>
         <div
           className="absolute bottom-12 right-12 opacity-25 transition-transform duration-700 ease-out"
@@ -58,7 +61,7 @@ export const Hero = ({ lang }: HeroProps) => {
             transform: `translate(${-mousePos.x * 0.3}px, ${-mousePos.y * 0.3}px) rotate(${-mousePos.x * 0.3}deg)`
           }}
         >
-          <Magnolia className="w-[9.8rem] h-[9.8rem]" />
+          <Magnolia className="w-24 h-24 lg:w-32 lg:h-32 xl:w-[9.8rem] xl:h-[9.8rem]" />
         </div>
       </div>
 
@@ -69,7 +72,7 @@ export const Hero = ({ lang }: HeroProps) => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          <Logo height={324} />
+          <Logo className="h-32 sm:h-44 md:h-64 lg:h-80" />
         </div>
 
         <p
@@ -86,7 +89,8 @@ export const Hero = ({ lang }: HeroProps) => {
           const ideaSection = document.getElementById('idea');
           if (ideaSection) ideaSection.scrollIntoView({ behavior: 'smooth' });
         }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 group cursor-pointer"
+        className="absolute left-1/2 -translate-x-1/2 group cursor-pointer p-2"
+        style={{ bottom: 'calc(2rem + env(safe-area-inset-bottom))' }}
       >
         <div className="flex flex-col items-center gap-2 opacity-40 group-hover:opacity-100 transition-all duration-300">
           <span className="type-caps">{t.scroll}</span>

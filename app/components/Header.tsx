@@ -50,7 +50,12 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
     >
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-3 md:py-4 flex items-center justify-between">
         {/* Logo — replaces the old text wordmark */}
-        <Logo height={isScrolled ? 65 : 79} asButton />
+        <Logo
+          className={isScrolled
+            ? 'h-10 md:h-12 lg:h-14'
+            : 'h-12 md:h-16 lg:h-20'}
+          asButton
+        />
 
         <nav className="hidden md:flex items-center gap-8">
           {t.nav.map((item, i) => (
@@ -78,44 +83,55 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
 
           <button
             onClick={onLangToggle}
-            className="type-caps px-3 py-1 transition-colors hover:text-[var(--dusty-terracotta)]"
+            className="type-caps tap transition-colors hover:text-[var(--dusty-terracotta)]"
           >
             {lang === 'sv' ? 'EN' : 'SV'}
           </button>
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden flex flex-col gap-1.5 w-6"
+            className="md:hidden tap"
             aria-label="Menu"
+            aria-expanded={isMobileMenuOpen}
           >
-            <span className={`h-0.5 bg-current transition-transform ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`h-0.5 bg-current transition-opacity ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
-            <span className={`h-0.5 bg-current transition-transform ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            <span className="flex flex-col gap-1.5 w-6" aria-hidden="true">
+              <span className={`h-0.5 bg-current transition-transform ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+              <span className={`h-0.5 bg-current transition-opacity ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
+              <span className={`h-0.5 bg-current transition-transform ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            </span>
           </button>
         </div>
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-[var(--vanilla-cream)] border-t border-[var(--warm-cocoa)]/10">
-          <nav className="px-4 py-6 flex flex-col gap-4">
-            {t.nav.map((item, i) => (
+        <>
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="md:hidden fixed inset-0 z-[-1] bg-transparent cursor-default"
+          />
+          <div className="md:hidden bg-[var(--vanilla-cream)] border-t border-[var(--warm-cocoa)]/10 max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <nav className="px-4 py-6 flex flex-col gap-2">
+              {t.nav.map((item, i) => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(i)}
+                  className="type-caps text-left min-h-11 flex items-center transition-colors hover:text-[var(--dusty-terracotta)]"
+                >
+                  {item}
+                </button>
+              ))}
               <button
-                key={item}
-                onClick={() => scrollToSection(i)}
-                className="type-caps text-left py-2 transition-colors hover:text-[var(--dusty-terracotta)]"
+                onClick={() => scrollToSection(5)}
+                className="type-caps mt-2 px-6 min-h-11 text-center transition-all duration-300 hover:bg-[var(--warm-peach)]"
+                style={{ border: '1px solid var(--warm-cocoa)' }}
               >
-                {item}
+                {t.order}
               </button>
-            ))}
-            <button
-              onClick={() => scrollToSection(5)}
-              className="type-caps mt-2 px-6 py-3 text-center transition-all duration-300 hover:bg-[var(--warm-peach)]"
-              style={{ border: '1px solid var(--warm-cocoa)' }}
-            >
-              {t.order}
-            </button>
-          </nav>
-        </div>
+            </nav>
+          </div>
+        </>
       )}
     </header>
   );

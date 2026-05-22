@@ -86,7 +86,7 @@ export const Order = ({ lang }: OrderProps) => {
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
             >
-              <h2 className="mb-6" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}>
+              <h2 className="mb-6" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
                 {t.heading}
               </h2>
 
@@ -109,7 +109,7 @@ export const Order = ({ lang }: OrderProps) => {
                   required
                   value={formData.type}
                   onChange={(e) => handleChange('type', e.target.value)}
-                  className="w-full bg-transparent border-b pb-3 outline-none transition-all duration-300 focus:border-opacity-100 focus:scale-105 focus:translate-x-2"
+                  className="w-full bg-transparent border-b pb-3 outline-none transition-all duration-300 focus:border-opacity-100 md:focus:scale-105 md:focus:translate-x-2"
                   style={{
                     borderColor: 'rgba(252, 242, 228, 0.3)',
                     fontSize: '1.125rem'
@@ -132,7 +132,7 @@ export const Order = ({ lang }: OrderProps) => {
                   type="text"
                   value={formData.product}
                   onChange={(e) => handleChange('product', e.target.value)}
-                  className="w-full bg-transparent border-b pb-3 outline-none transition-all duration-300 focus:border-opacity-100 focus:scale-105 focus:translate-x-2"
+                  className="w-full bg-transparent border-b pb-3 outline-none transition-all duration-300 focus:border-opacity-100 md:focus:scale-105 md:focus:translate-x-2"
                   style={{
                     borderColor: 'rgba(252, 242, 228, 0.3)',
                     fontSize: '1.125rem'
@@ -150,7 +150,7 @@ export const Order = ({ lang }: OrderProps) => {
                     required
                     value={formData.name}
                     onChange={(e) => handleChange('name', e.target.value)}
-                    className="w-full bg-transparent border-b pb-3 outline-none transition-all duration-300 focus:border-opacity-100 focus:scale-105"
+                    className="w-full bg-transparent border-b pb-3 outline-none transition-all duration-300 focus:border-opacity-100 md:focus:scale-105"
                     style={{
                       borderColor: 'rgba(252, 242, 228, 0.3)',
                       fontSize: '1.125rem'
@@ -167,7 +167,7 @@ export const Order = ({ lang }: OrderProps) => {
                     required
                     value={formData.email}
                     onChange={(e) => handleChange('email', e.target.value)}
-                    className="w-full bg-transparent border-b pb-3 outline-none transition-all duration-300 focus:border-opacity-100 focus:scale-105"
+                    className="w-full bg-transparent border-b pb-3 outline-none transition-all duration-300 focus:border-opacity-100 md:focus:scale-105"
                     style={{
                       borderColor: 'rgba(252, 242, 228, 0.3)',
                       fontSize: '1.125rem'
@@ -184,7 +184,7 @@ export const Order = ({ lang }: OrderProps) => {
                   rows={4}
                   value={formData.message}
                   onChange={(e) => handleChange('message', e.target.value)}
-                  className="w-full bg-transparent border-b pb-3 outline-none resize-none transition-all duration-300 focus:border-opacity-100 focus:scale-105 focus:translate-x-2"
+                  className="w-full bg-transparent border-b pb-3 outline-none resize-none transition-all duration-300 focus:border-opacity-100 md:focus:scale-105 md:focus:translate-x-2"
                   style={{
                     borderColor: 'rgba(252, 242, 228, 0.3)',
                     fontSize: '1.125rem'
@@ -203,7 +203,7 @@ export const Order = ({ lang }: OrderProps) => {
           </div>
         ) : (
           <div className="text-center py-16">
-            <h2 className="mb-4" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}>
+            <h2 className="mb-4" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
               {t.successHeading}
             </h2>
             <p className="type-body italic opacity-80">
