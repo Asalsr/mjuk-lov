@@ -29,16 +29,27 @@ export const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[10000] flex flex-col items-center justify-center transition-all duration-1000 ${
+      className={`fixed inset-0 z-[10000] flex flex-col items-center justify-center overflow-hidden transition-all duration-1000 ${
         isExiting ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
       style={{ backgroundColor: 'var(--vanilla-cream)' }}
     >
-      <div className="mb-10" style={{ animation: 'pulse 2s ease-in-out infinite' }}>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/videos/loading-bg.mp4" type="video/mp4" />
+      </video>
+
+      <div className="relative z-10 mb-10" style={{ animation: 'pulse 2s ease-in-out infinite' }}>
         <Logo height={216} />
       </div>
 
-      <div className="w-64 h-1 bg-[var(--soft-peach)] rounded-full overflow-hidden">
+      <div className="relative z-10 w-64 h-1 bg-[var(--soft-peach)] rounded-full overflow-hidden">
         <div
           className="h-full transition-all duration-300"
           style={{
