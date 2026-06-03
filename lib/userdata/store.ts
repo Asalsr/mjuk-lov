@@ -1,33 +1,39 @@
 import { useSyncExternalStore } from "react";
 import type { AllergenCode, DietTag, Recipe } from "@/lib/recipes/schema";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { createClient } from "@/lib/supabase/client";
 
-// Device-local user data. This is the swappable layer: Phase 2 replaces read/
-// write with Supabase calls keyed to the logged-in user, and exportAll/importAll
-// become the migration path (push local data into the account on first login).
+// Device-local user data with write-through to Supabase when logged in.
+// Guests use localStorage only; on login the AutoSync component pulls/merges the
+// account data, and from then on every action persists to the account too.
 
 export type UserData = {
   profile: {
+    fullName: string;
+    address: string;
     diet: DietTag[];
     allergies: AllergenCode[]; // allergens to avoid
-    consentAi: boolean; // GDPR: may we send diet/allergy data to the AI (M4)
+    consentAi: boolean; // GDPR: may we send diet/allergy data to the AI
   };
-  favorites: string[]; // recipe slugs
+  favorites: string[]; // "likes" — recipe slugs
+  wishlist: string[]; // recipes to try later
   notes: Record<string, string>; // slug -> personal note
   history: { slug: string; cookedAt: string }[];
-  myRecipes: Recipe[]; // reserved for the user's own recipes (future)
+  myRecipes: Recipe[];
 };
 
 const KEY = "mjuklov_userdata";
 
 const DEFAULT: UserData = {
-  profile: { diet: [], allergies: [], consentAi: false },
+  profile: { fullName: "", address: "", diet: [], allergies: [], consentAi: false },
   favorites: [],
+  wishlist: [],
   notes: {},
   history: [],
   myRecipes: [],
 };
 
-// --- cached snapshot so useSyncExternalStore stays referentially stable -------
+// --- cached snapshot for useSyncExternalStore --------------------------------
 let cache: UserData | null = null;
 
 function read(): UserData {
@@ -52,23 +58,21 @@ function write(next: UserData) {
     try {
       localStorage.setItem(KEY, JSON.stringify(next));
     } catch {
-      /* quota / private mode — ignore */
+      /* ignore */
     }
   }
   emit();
 }
 
-// --- subscription (in-app + cross-tab) ---------------------------------------
 const listeners = new Set<() => void>();
 function emit() {
   listeners.forEach((l) => l());
 }
-
 function subscribe(cb: () => void): () => void {
   listeners.add(cb);
   const onStorage = (e: StorageEvent) => {
     if (e.key === KEY) {
-      cache = null; // another tab changed it — re-read on next snapshot
+      cache = null;
       emit();
     }
   };
@@ -79,18 +83,90 @@ function subscribe(cb: () => void): () => void {
   };
 }
 
-/** Reactive read of the whole user-data object. */
 export function useUserData(): UserData {
   return useSyncExternalStore(subscribe, read, () => DEFAULT);
 }
 
-// --- actions (immutable updates → new reference → re-render) -----------------
+export function getUserData(): UserData {
+  return read();
+}
+
+/** Subscribe to local changes (used by AutoSync). */
+export function subscribeUserData(cb: () => void): () => void {
+  return subscribe(cb);
+}
+
+// --- Supabase write-through (fire-and-forget; no-ops for guests) -------------
+let _sb: ReturnType<typeof createClient> | null = null;
+function sb() {
+  if (!isSupabaseConfigured) return null;
+  if (!_sb) _sb = createClient();
+  return _sb;
+}
+
+async function withUser<T>(fn: (supabase: NonNullable<ReturnType<typeof sb>>, userId: string) => Promise<T>) {
+  try {
+    const supabase = sb();
+    if (!supabase) return;
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    if (!session) return;
+    await fn(supabase, session.user.id);
+  } catch {
+    /* offline / RLS / not-logged-in — local stays the source of truth */
+  }
+}
+
+function persistFavorite(slug: string, on: boolean) {
+  void withUser(async (s, uid) => {
+    if (on) await s.from("favorites").upsert({ user_id: uid, slug }, { onConflict: "user_id,slug", ignoreDuplicates: true });
+    else await s.from("favorites").delete().eq("user_id", uid).eq("slug", slug);
+  });
+}
+function persistWishlist(slug: string, on: boolean) {
+  void withUser(async (s, uid) => {
+    if (on) await s.from("wishlist").upsert({ user_id: uid, slug }, { onConflict: "user_id,slug", ignoreDuplicates: true });
+    else await s.from("wishlist").delete().eq("user_id", uid).eq("slug", slug);
+  });
+}
+function persistNote(slug: string, body: string) {
+  void withUser(async (s, uid) => {
+    if (body.trim() === "") await s.from("notes").delete().eq("user_id", uid).eq("slug", slug);
+    else await s.from("notes").upsert({ user_id: uid, slug, body }, { onConflict: "user_id,slug" });
+  });
+}
+function persistHistory(slug: string, cookedAt: string) {
+  void withUser(async (s, uid) => {
+    await s.from("cooking_history").insert({ user_id: uid, slug, cooked_at: cookedAt });
+  });
+}
+function persistProfile(p: UserData["profile"]) {
+  void withUser(async (s, uid) => {
+    await s.from("profiles").upsert({
+      id: uid,
+      full_name: p.fullName,
+      address: p.address,
+      diet: p.diet,
+      allergies: p.allergies,
+      consent_ai: p.consentAi,
+    });
+  });
+}
+
+// --- actions (local write + write-through) -----------------------------------
 export function toggleFavorite(slug: string) {
   const d = read();
-  const favorites = d.favorites.includes(slug)
-    ? d.favorites.filter((s) => s !== slug)
-    : [...d.favorites, slug];
-  write({ ...d, favorites });
+  const has = d.favorites.includes(slug);
+  write({ ...d, favorites: has ? d.favorites.filter((s) => s !== slug) : [...d.favorites, slug] });
+  persistFavorite(slug, !has);
+}
+
+export function toggleWishlist(slug: string) {
+  const d = read();
+  const has = d.wishlist.includes(slug);
+  write({ ...d, wishlist: has ? d.wishlist.filter((s) => s !== slug) : [...d.wishlist, slug] });
+  persistWishlist(slug, !has);
 }
 
 export function saveNote(slug: string, text: string) {
@@ -99,11 +175,13 @@ export function saveNote(slug: string, text: string) {
   if (text.trim() === "") delete notes[slug];
   else notes[slug] = text;
   write({ ...d, notes });
+  persistNote(slug, text);
 }
 
 export function logCooked(slug: string, cookedAt: string) {
   const d = read();
   write({ ...d, history: [...d.history, { slug, cookedAt }] });
+  persistHistory(slug, cookedAt);
 }
 
 export function cookedCount(d: UserData, slug: string): number {
@@ -112,42 +190,64 @@ export function cookedCount(d: UserData, slug: string): number {
 
 export function setProfile(patch: Partial<UserData["profile"]>) {
   const d = read();
-  write({ ...d, profile: { ...d.profile, ...patch } });
+  const profile = { ...d.profile, ...patch };
+  write({ ...d, profile });
+  persistProfile(profile);
 }
 
 export function toggleAllergy(code: AllergenCode) {
   const d = read();
-  const allergies = d.profile.allergies.includes(code)
-    ? d.profile.allergies.filter((c) => c !== code)
-    : [...d.profile.allergies, code];
-  setProfile({ allergies });
+  setProfile({
+    allergies: d.profile.allergies.includes(code)
+      ? d.profile.allergies.filter((c) => c !== code)
+      : [...d.profile.allergies, code],
+  });
 }
 
 export function toggleDiet(tag: DietTag) {
   const d = read();
-  const diet = d.profile.diet.includes(tag)
-    ? d.profile.diet.filter((t) => t !== tag)
-    : [...d.profile.diet, tag];
-  setProfile({ diet });
+  setProfile({
+    diet: d.profile.diet.includes(tag) ? d.profile.diet.filter((t) => t !== tag) : [...d.profile.diet, tag],
+  });
 }
 
 export function clearFilters() {
   setProfile({ diet: [], allergies: [] });
 }
 
+/** Merge account data (pulled on login) into the local store — additive, no deletes. */
+export function mergeRemote(remote: Partial<UserData>) {
+  const d = read();
+  const union = (a: string[], b: string[] = []) => Array.from(new Set([...a, ...b]));
+  const seen = new Set(d.history.map((h) => `${h.slug}|${h.cookedAt}`));
+  const mergedHistory = [
+    ...d.history,
+    ...(remote.history ?? []).filter((h) => !seen.has(`${h.slug}|${h.cookedAt}`)),
+  ];
+  write({
+    ...d,
+    profile: {
+      ...d.profile,
+      ...remote.profile,
+      // keep local sets as a union so nothing the guest set is lost
+      diet: union(d.profile.diet, remote.profile?.diet) as DietTag[],
+      allergies: union(d.profile.allergies, remote.profile?.allergies) as AllergenCode[],
+    },
+    favorites: union(d.favorites, remote.favorites),
+    wishlist: union(d.wishlist, remote.wishlist),
+    notes: { ...remote.notes, ...d.notes },
+    history: mergedHistory,
+  });
+}
+
 // --- backup / migration ------------------------------------------------------
 export function exportAll(): string {
   return JSON.stringify(read(), null, 2);
 }
-
 export function importAll(json: string): boolean {
   try {
     const parsed = JSON.parse(json);
-    write({
-      ...DEFAULT,
-      ...parsed,
-      profile: { ...DEFAULT.profile, ...(parsed.profile ?? {}) },
-    });
+    write({ ...DEFAULT, ...parsed, profile: { ...DEFAULT.profile, ...(parsed.profile ?? {}) } });
     return true;
   } catch {
     return false;

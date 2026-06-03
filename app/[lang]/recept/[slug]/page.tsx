@@ -8,6 +8,7 @@ import { YouTubeEmbed } from "@/app/components/recipe/YouTubeEmbed";
 import { IngredientList } from "@/app/components/recipe/IngredientList";
 import { AllergenBlock } from "@/app/components/recipe/AllergenBadge";
 import { SaveButton } from "@/app/components/personal/SaveButton";
+import { WishlistButton } from "@/app/components/personal/WishlistButton";
 import { MadeItButton } from "@/app/components/personal/MadeItButton";
 import { NoteEditor } from "@/app/components/personal/NoteEditor";
 import { AdaptButton } from "@/app/components/personal/AdaptButton";
@@ -110,6 +111,7 @@ export default async function Page({
 
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <SaveButton slug={slug} lang={lang} />
+            <WishlistButton slug={slug} lang={lang} />
             <MadeItButton slug={slug} lang={lang} />
           </div>
 

@@ -224,6 +224,7 @@ When the brand launches / personalization proves valuable:
 - **Shopping**: products + orders tables, **Stripe checkout** (handbook scopes `app/api/checkout`).
 - **DIY-kit QR companion**: step-by-step video/illustration per kit.
 - **Persian (RTL)** locale.
+- **Personalized offers & discounts** (user 2026-06-03): use each user's profile + likes + cooking history to target offers and discount codes; ties into ordering/subscriptions and the AI assistant. Requires explicit **marketing consent** (GDPR) separate from the AI consent.
 
 ---
 

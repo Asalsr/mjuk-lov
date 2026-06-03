@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, Inter, Didact_Gothic } from 'next/font/google';
 import './globals.css';
+import { AutoSync } from './components/auth/AutoSync';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -55,7 +56,10 @@ export default function RootLayout({
       <head>
         <link rel="preload" as="video" href="/videos/loading-bg.mp4" type="video/mp4" />
       </head>
-      <body>{children}</body>
+      <body>
+        <AutoSync />
+        {children}
+      </body>
     </html>
   );
 }

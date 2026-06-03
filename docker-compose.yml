@@ -1,0 +1,17 @@
+# Run the app on your desktop with Docker:
+#   docker compose up --build
+# Reads .env for both the build-time NEXT_PUBLIC_* vars and runtime secrets.
+services:
+  web:
+    build:
+      context: .
+      args:
+        # Build-time: inlined into the browser bundle.
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY}
+    ports:
+      - "3000:3000"
+    # Runtime secrets (OPENAI_API_KEY, etc.) — passed to the container, not baked into the image.
+    env_file:
+      - .env
+    restart: unless-stopped

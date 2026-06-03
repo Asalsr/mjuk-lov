@@ -15,6 +15,9 @@ export function RecipeHeader({ lang, altHref }: { lang: Lang; altHref: string })
           <Link href="/" className="type-caps transition-colors hover:text-primary">
             {t.home}
           </Link>
+          <Link href={`/${lang}/min-sida`} className="type-caps transition-colors hover:text-primary">
+            {t.myPage}
+          </Link>
           <Link href={altHref} className="type-caps tap transition-colors hover:text-primary">
             {lang === "sv" ? "EN" : "SV"}
           </Link>

@@ -15,12 +15,14 @@ const content = {
   sv: {
     nav: ['Idén', 'Tårtkit', 'Företag', 'Hantverket', 'Om', 'Kontakt'],
     order: 'Beställ',
-    recipes: 'Recept'
+    recipes: 'Recept',
+    myPage: 'Min sida'
   },
   en: {
     nav: ['The Idea', 'Kits', 'Corporate', 'The Craft', 'About', 'Contact'],
     order: 'Order',
-    recipes: 'Recipes'
+    recipes: 'Recipes',
+    myPage: 'My page'
   }
 };
 
@@ -90,6 +92,13 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
             {t.recipes}
           </Link>
 
+          <Link
+            href={`/${lang}/min-sida`}
+            className="type-caps hidden md:block relative transition-colors hover:text-[var(--dusty-terracotta)]"
+          >
+            {t.myPage}
+          </Link>
+
           <MagneticButton
             onClick={() => scrollToSection(5)}
             className="type-caps hidden md:block px-6 py-2 transition-all duration-300 hover:bg-[var(--warm-peach)] hover:shadow-md"
@@ -145,6 +154,13 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
                 className="type-caps text-left min-h-11 flex items-center transition-colors hover:text-[var(--dusty-terracotta)]"
               >
                 {t.recipes}
+              </Link>
+              <Link
+                href={`/${lang}/min-sida`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="type-caps text-left min-h-11 flex items-center transition-colors hover:text-[var(--dusty-terracotta)]"
+              >
+                {t.myPage}
               </Link>
               <button
                 onClick={() => scrollToSection(5)}
