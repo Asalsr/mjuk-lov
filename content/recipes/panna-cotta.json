@@ -1,0 +1,106 @@
+{
+  "slug": "panna-cotta",
+  "title": {
+    "sv": "Panna cotta med hallon",
+    "en": "Panna cotta with raspberries"
+  },
+  "headnote": {
+    "sv": "Len, vaniljdoftande panna cotta som darrar precis lagom, med en syrlig hallonsås. Stillsam elegans — ett mjukt löfte i en form.",
+    "en": "Silky, vanilla-scented panna cotta with just the right wobble, under a tart raspberry sauce. Quiet elegance — a soft promise set in a mould."
+  },
+  "servings": 4,
+  "time": {
+    "prepMin": 20,
+    "totalMin": 260
+  },
+  "youtubeId": null,
+  "ingredients": [
+    {
+      "qty": "5 dl",
+      "item": {
+        "sv": "vispgrädde",
+        "en": "double cream"
+      }
+    },
+    {
+      "qty": "1 dl",
+      "item": {
+        "sv": "mjölk",
+        "en": "milk"
+      }
+    },
+    {
+      "qty": "75 g",
+      "item": {
+        "sv": "strösocker",
+        "en": "caster sugar"
+      }
+    },
+    {
+      "qty": "1",
+      "item": {
+        "sv": "vaniljstång",
+        "en": "vanilla pod"
+      }
+    },
+    {
+      "qty": "2 g",
+      "item": {
+        "sv": "agar-agar",
+        "en": "agar-agar"
+      }
+    },
+    {
+      "qty": "250 g",
+      "item": {
+        "sv": "färska hallon",
+        "en": "fresh raspberries"
+      }
+    },
+    {
+      "qty": "1 msk",
+      "item": {
+        "sv": "florsocker",
+        "en": "icing sugar"
+      }
+    }
+  ],
+  "diet": [
+    "vegetarian"
+  ],
+  "steps": [
+    {
+      "sv": "Snitta vaniljstången och skrapa ur fröna. Lägg frön och stång i en kastrull med grädde, mjölk och socker.",
+      "en": "Split the vanilla pod and scrape out the seeds. Add seeds and pod to a pan with the cream, milk and sugar."
+    },
+    {
+      "sv": "Vispa ner agar-agar. Koka upp under omrörning och låt sjuda i 2 minuter.",
+      "en": "Whisk in the agar-agar. Bring to a boil while stirring and let simmer for 2 minutes."
+    },
+    {
+      "sv": "Ta bort vaniljstången. Häll i fyra formar och kyl minst 4 timmar.",
+      "en": "Remove the vanilla pod. Pour into four moulds and chill at least 4 hours."
+    },
+    {
+      "sv": "Mosa hälften av hallonen med florsocker till en sås. Servera panna cottan med sås och hela hallon.",
+      "en": "Crush half the raspberries with the icing sugar into a sauce. Serve the panna cotta with the sauce and whole raspberries."
+    }
+  ],
+  "notes": {
+    "sv": "Agar-agar ger en vegetarisk panna cotta. Den stelnar i rumstemperatur, så arbeta någorlunda snabbt.",
+    "en": "Agar-agar makes this a vegetarian panna cotta. It sets at room temperature, so work reasonably quickly."
+  },
+  "allergens": {
+    "codes": [
+      "milk"
+    ],
+    "declaration": {
+      "sv": "Innehåller: mjölk",
+      "en": "Contains: milk"
+    },
+    "needsReview": [],
+    "approvedBy": "saeedeh",
+    "approvedAt": "2026-06-03"
+  },
+  "published": true
+}

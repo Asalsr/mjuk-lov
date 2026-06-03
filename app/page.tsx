@@ -32,6 +32,12 @@ export default function Page() {
         setLang('en');
       }
     }
+
+    // Intro loading screen plays only the first time the app is opened,
+    // not on every home-page visit.
+    if (localStorage.getItem('mjuklov_intro_seen')) {
+      setIsLoading(false);
+    }
   }, []);
 
   const toggleLang = () => {
@@ -49,7 +55,18 @@ export default function Page() {
 
   return (
     <>
-      {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+      {isLoading && (
+        <LoadingScreen
+          onComplete={() => {
+            try {
+              localStorage.setItem('mjuklov_intro_seen', '1');
+            } catch {
+              /* ignore */
+            }
+            setIsLoading(false);
+          }}
+        />
+      )}
       <div className="min-h-screen relative" style={{ scrollBehavior: 'smooth' }}>
         <ScrollProgress />
         <NoiseTexture />

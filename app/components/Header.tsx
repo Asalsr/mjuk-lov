@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { MagneticButton } from './MagneticButton';
 import { Logo } from './Logo';
 
@@ -12,17 +14,20 @@ interface HeaderProps {
 const content = {
   sv: {
     nav: ['Idén', 'Tårtkit', 'Företag', 'Hantverket', 'Om', 'Kontakt'],
-    order: 'Beställ'
+    order: 'Beställ',
+    recipes: 'Recept'
   },
   en: {
     nav: ['The Idea', 'Kits', 'Corporate', 'The Craft', 'About', 'Contact'],
-    order: 'Order'
+    order: 'Order',
+    recipes: 'Recipes'
   }
 };
 
 export const Header = ({ lang, onLangToggle }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter();
   const t = content[lang];
 
   useEffect(() => {
@@ -35,11 +40,16 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
 
   const scrollToSection = (index: number) => {
     const sections = ['idea', 'kits', 'corporate', 'craft', 'about', 'order'];
-    const element = document.getElementById(sections[index]);
+    const id = sections[index];
+    const element = typeof document !== 'undefined' ? document.getElementById(id) : null;
     if (element) {
+      // On the home page the section exists — smooth-scroll to it.
       element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
+    } else {
+      // On other routes (e.g. /recept) navigate home to that section.
+      router.push(`/#${id}`);
     }
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -73,6 +83,13 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
         </nav>
 
         <div className="flex items-center gap-4">
+          <Link
+            href={`/${lang}/recept`}
+            className="type-caps hidden md:block relative transition-colors hover:text-[var(--dusty-terracotta)]"
+          >
+            {t.recipes}
+          </Link>
+
           <MagneticButton
             onClick={() => scrollToSection(5)}
             className="type-caps hidden md:block px-6 py-2 transition-all duration-300 hover:bg-[var(--warm-peach)] hover:shadow-md"
@@ -122,6 +139,13 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
                   {item}
                 </button>
               ))}
+              <Link
+                href={`/${lang}/recept`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="type-caps text-left min-h-11 flex items-center transition-colors hover:text-[var(--dusty-terracotta)]"
+              >
+                {t.recipes}
+              </Link>
               <button
                 onClick={() => scrollToSection(5)}
                 className="type-caps mt-2 px-6 min-h-11 text-center transition-all duration-300 hover:bg-[var(--warm-peach)]"

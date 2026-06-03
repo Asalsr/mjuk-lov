@@ -1,0 +1,116 @@
+{
+  "slug": "tiramisu",
+  "title": {
+    "sv": "Tiramisu",
+    "en": "Tiramisu"
+  },
+  "headnote": {
+    "sv": "Vår signaturdessert i glasburk — silkeslen mascarponekräm över espressodoppade savoiardi. Ett mjukt löfte, sked för sked.",
+    "en": "Our signature dessert in a glass jar — silken mascarpone cream over espresso-dipped savoiardi. A soft promise, spoonful by spoonful."
+  },
+  "servings": 8,
+  "time": {
+    "prepMin": 30,
+    "totalMin": 240
+  },
+  "youtubeId": null,
+  "ingredients": [
+    {
+      "qty": "300 g",
+      "item": {
+        "sv": "savoiardi",
+        "en": "ladyfingers"
+      }
+    },
+    {
+      "qty": "4",
+      "item": {
+        "sv": "ägg",
+        "en": "eggs"
+      }
+    },
+    {
+      "qty": "500 g",
+      "item": {
+        "sv": "mascarpone",
+        "en": "mascarpone"
+      }
+    },
+    {
+      "qty": "100 g",
+      "item": {
+        "sv": "strösocker",
+        "en": "caster sugar"
+      }
+    },
+    {
+      "qty": "3 dl",
+      "item": {
+        "sv": "starkt espresso, kallt",
+        "en": "strong espresso, cooled"
+      }
+    },
+    {
+      "qty": "4 msk",
+      "item": {
+        "sv": "marsala",
+        "en": "marsala"
+      }
+    },
+    {
+      "qty": "till garnering",
+      "item": {
+        "sv": "kakao",
+        "en": "cocoa"
+      }
+    }
+  ],
+  "diet": [
+    "vegetarian"
+  ],
+  "steps": [
+    {
+      "sv": "Dela äggen. Vispa gulorna med sockret till en ljus, fluffig kräm.",
+      "en": "Separate the eggs. Whisk the yolks with the sugar until pale and fluffy."
+    },
+    {
+      "sv": "Rör ner mascarponen i gulorna tills slät. Vispa vitorna till hårt skum och vänd försiktigt ner.",
+      "en": "Fold the mascarpone into the yolks until smooth. Whip the whites to stiff peaks and fold in gently."
+    },
+    {
+      "sv": "Blanda espresso och marsala. Doppa savoiardi snabbt — de ska vara fuktiga, inte blöta.",
+      "en": "Combine the espresso and marsala. Dip the savoiardi briefly — moist, not soggy."
+    },
+    {
+      "sv": "Varva savoiardi och kräm i glasburkar. Avsluta med ett lager kräm.",
+      "en": "Layer savoiardi and cream in glass jars. Finish with a layer of cream."
+    },
+    {
+      "sv": "Kyl minst 3 timmar. Damma med kakao precis innan servering.",
+      "en": "Chill at least 3 hours. Dust with cocoa just before serving."
+    }
+  ],
+  "notes": {
+    "sv": "Tips: kyl över natten för bästa konsistens. Använd rumstempererade ägg för luftigast kräm.",
+    "en": "Tip: chill overnight for the best texture. Use room-temperature eggs for the airiest cream."
+  },
+  "allergens": {
+    "codes": [
+      "gluten",
+      "egg",
+      "milk",
+      "sulphites"
+    ],
+    "declaration": {
+      "sv": "Innehåller: gluten, ägg, mjölk, sulfiter",
+      "en": "Contains: gluten, egg, milk, sulphites"
+    },
+    "needsReview": [
+      "marsala may contain sulphites",
+      "fortified wine → sulphites (rule)"
+    ],
+    "approvedBy": "saeedeh",
+    "approvedAt": "2026-06-02"
+  },
+  "published": true
+}

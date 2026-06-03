@@ -1,0 +1,107 @@
+{
+  "slug": "rabarberpaj",
+  "title": {
+    "sv": "Rabarberpaj med smul",
+    "en": "Rhubarb crumble"
+  },
+  "headnote": {
+    "sv": "Vårens första rabarber under ett gyllene smultäcke. Syrligt möter sött, varmt möter svalt — servera ljummen med en klick grädde.",
+    "en": "The first rhubarb of spring under a golden crumble. Tart meets sweet, warm meets cool — serve lukewarm with a spoon of cream."
+  },
+  "servings": 6,
+  "time": {
+    "prepMin": 20,
+    "totalMin": 65
+  },
+  "youtubeId": null,
+  "ingredients": [
+    {
+      "qty": "500 g",
+      "item": {
+        "sv": "rabarber",
+        "en": "rhubarb"
+      }
+    },
+    {
+      "qty": "100 g",
+      "item": {
+        "sv": "strösocker",
+        "en": "caster sugar"
+      }
+    },
+    {
+      "qty": "150 g",
+      "item": {
+        "sv": "vetemjöl",
+        "en": "wheat flour"
+      }
+    },
+    {
+      "qty": "100 g",
+      "item": {
+        "sv": "smör",
+        "en": "butter"
+      }
+    },
+    {
+      "qty": "75 g",
+      "item": {
+        "sv": "havregryn",
+        "en": "rolled oats"
+      }
+    },
+    {
+      "qty": "50 g",
+      "item": {
+        "sv": "farinsocker",
+        "en": "brown sugar"
+      }
+    },
+    {
+      "qty": "1 tsk",
+      "item": {
+        "sv": "kanel",
+        "en": "cinnamon"
+      }
+    }
+  ],
+  "diet": [
+    "vegetarian"
+  ],
+  "steps": [
+    {
+      "sv": "Skär rabarbern i bitar och blanda med strösocker. Fördela i en smord form.",
+      "en": "Cut the rhubarb into pieces and toss with the caster sugar. Spread in a buttered dish."
+    },
+    {
+      "sv": "Nyp samman mjöl, smör, havregryn, farinsocker och kanel till en smulig deg.",
+      "en": "Rub together the flour, butter, oats, brown sugar and cinnamon into a crumbly mixture."
+    },
+    {
+      "sv": "Strö smulet över rabarbern. Grädda i 200°C i ca 25 minuter tills gyllene.",
+      "en": "Scatter the crumble over the rhubarb. Bake at 200°C for about 25 minutes until golden."
+    },
+    {
+      "sv": "Låt svalna något och servera ljummen, gärna med vaniljgrädde.",
+      "en": "Let cool slightly and serve lukewarm, ideally with vanilla cream."
+    }
+  ],
+  "notes": {
+    "sv": "Funkar lika bra med äpple eller plommon på hösten. Havregryn kan innehålla gluten.",
+    "en": "Works just as well with apple or plum in autumn. Oats may contain gluten."
+  },
+  "allergens": {
+    "codes": [
+      "gluten",
+      "milk"
+    ],
+    "declaration": {
+      "sv": "Innehåller: gluten, mjölk",
+      "en": "Contains: gluten, milk"
+    },
+    "needsReview": [],
+    "approvedBy": "saeedeh",
+    "approvedAt": "2026-06-03"
+  },
+  "published": true
+}

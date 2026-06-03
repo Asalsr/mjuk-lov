@@ -1,0 +1,95 @@
+{
+  "slug": "chokladmousse",
+  "title": {
+    "sv": "Mörk chokladmousse",
+    "en": "Dark chocolate mousse"
+  },
+  "headnote": {
+    "sv": "Djup, nästan allvarlig chokladmousse — luftig men intensiv. Få ingredienser, ingenstans att gömma sig. Använd choklad du tycker om.",
+    "en": "Deep, almost serious chocolate mousse — airy yet intense. Few ingredients, nowhere to hide. Use a chocolate you love."
+  },
+  "servings": 6,
+  "time": {
+    "prepMin": 25,
+    "totalMin": 180
+  },
+  "youtubeId": null,
+  "ingredients": [
+    {
+      "qty": "200 g",
+      "item": {
+        "sv": "mörk choklad (70 %)",
+        "en": "dark chocolate (70%)"
+      }
+    },
+    {
+      "qty": "4",
+      "item": {
+        "sv": "ägg",
+        "en": "eggs"
+      }
+    },
+    {
+      "qty": "50 g",
+      "item": {
+        "sv": "strösocker",
+        "en": "caster sugar"
+      }
+    },
+    {
+      "qty": "2 dl",
+      "item": {
+        "sv": "vispgrädde",
+        "en": "double cream"
+      }
+    },
+    {
+      "qty": "1 krm",
+      "item": {
+        "sv": "flingsalt",
+        "en": "flaky salt"
+      }
+    }
+  ],
+  "diet": [
+    "vegetarian"
+  ],
+  "steps": [
+    {
+      "sv": "Smält chokladen försiktigt över vattenbad. Låt svalna något.",
+      "en": "Melt the chocolate gently over a water bath. Let cool slightly."
+    },
+    {
+      "sv": "Dela äggen. Vispa gulorna med hälften av sockret pösigt och rör ner i chokladen.",
+      "en": "Separate the eggs. Whisk the yolks with half the sugar until fluffy and fold into the chocolate."
+    },
+    {
+      "sv": "Vispa grädden. Vispa vitorna med resten av sockret till hårt skum.",
+      "en": "Whip the cream. Whip the whites with the rest of the sugar to stiff peaks."
+    },
+    {
+      "sv": "Vänd först ner grädden, sedan vitorna, i chokladsmeten. Fördela i glas och kyl minst 2 timmar. Toppa med flingsalt.",
+      "en": "Fold in the cream first, then the whites, into the chocolate. Divide into glasses and chill at least 2 hours. Top with flaky salt."
+    }
+  ],
+  "notes": {
+    "sv": "Innehåller rå äggvita — använd färska ägg och servera kyld. Mörk choklad kan innehålla spår av soja och mjölk; läs förpackningen.",
+    "en": "Contains raw egg white — use fresh eggs and serve chilled. Dark chocolate may contain traces of soy and milk; check the label."
+  },
+  "allergens": {
+    "codes": [
+      "egg",
+      "milk"
+    ],
+    "declaration": {
+      "sv": "Innehåller: ägg, mjölk",
+      "en": "Contains: egg, milk"
+    },
+    "needsReview": [
+      "dark chocolate may contain soy/milk"
+    ],
+    "approvedBy": "saeedeh",
+    "approvedAt": "2026-06-03"
+  },
+  "published": true
+}

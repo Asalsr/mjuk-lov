@@ -1,0 +1,108 @@
+{
+  "slug": "kantuccini",
+  "title": {
+    "sv": "Kantuccini",
+    "en": "Almond biscotti"
+  },
+  "headnote": {
+    "sv": "Dubbelbakta mandelskorpor, knapriga och nötiga — gjorda för att doppas i kaffe eller ett glas vin santo. De håller länge, om de får.",
+    "en": "Twice-baked almond biscotti, crisp and nutty — made for dipping in coffee or a glass of vin santo. They keep well, if you let them."
+  },
+  "servings": 30,
+  "time": {
+    "prepMin": 20,
+    "totalMin": 75
+  },
+  "youtubeId": null,
+  "ingredients": [
+    {
+      "qty": "250 g",
+      "item": {
+        "sv": "vetemjöl",
+        "en": "wheat flour"
+      }
+    },
+    {
+      "qty": "200 g",
+      "item": {
+        "sv": "strösocker",
+        "en": "caster sugar"
+      }
+    },
+    {
+      "qty": "2",
+      "item": {
+        "sv": "ägg",
+        "en": "eggs"
+      }
+    },
+    {
+      "qty": "150 g",
+      "item": {
+        "sv": "hela mandlar",
+        "en": "whole almonds"
+      }
+    },
+    {
+      "qty": "1 tsk",
+      "item": {
+        "sv": "bakpulver",
+        "en": "baking powder"
+      }
+    },
+    {
+      "qty": "1 krm",
+      "item": {
+        "sv": "salt",
+        "en": "salt"
+      }
+    },
+    {
+      "qty": "1 tsk",
+      "item": {
+        "sv": "vaniljsocker",
+        "en": "vanilla sugar"
+      }
+    }
+  ],
+  "diet": [
+    "vegetarian"
+  ],
+  "steps": [
+    {
+      "sv": "Blanda mjöl, socker, bakpulver, salt och vaniljsocker. Tillsätt äggen och arbeta till en deg.",
+      "en": "Mix flour, sugar, baking powder, salt and vanilla sugar. Add the eggs and work into a dough."
+    },
+    {
+      "sv": "Arbeta in mandlarna. Forma två avlånga längder på en plåt med bakplåtspapper.",
+      "en": "Work in the almonds. Shape into two long logs on a lined baking tray."
+    },
+    {
+      "sv": "Grädda i 175°C i ca 25 minuter. Låt svalna något.",
+      "en": "Bake at 175°C for about 25 minutes. Let cool slightly."
+    },
+    {
+      "sv": "Skär längderna snett i 1,5 cm skivor. Lägg ner dem och grädda 10 minuter till tills knapriga.",
+      "en": "Cut the logs diagonally into 1.5 cm slices. Lay them flat and bake another 10 minutes until crisp."
+    }
+  ],
+  "notes": {
+    "sv": "Byt gärna mandlar mot hasselnötter eller pistage. Förvaras lufttätt.",
+    "en": "Swap the almonds for hazelnuts or pistachios if you like. Store airtight."
+  },
+  "allergens": {
+    "codes": [
+      "gluten",
+      "egg",
+      "nuts"
+    ],
+    "declaration": {
+      "sv": "Innehåller: gluten, ägg, nötter",
+      "en": "Contains: gluten, egg, tree nuts"
+    },
+    "needsReview": [],
+    "approvedBy": "saeedeh",
+    "approvedAt": "2026-06-03"
+  },
+  "published": true
+}
