@@ -36,6 +36,7 @@ const content = {
 
 export const Header = ({ lang, onLangToggle }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
@@ -72,6 +73,7 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
     } else {
       router.push(`/#${id}`);
     }
+    setIsMobileMenuOpen(false);
   };
 
   // Recipes / Shop / My page — the app links shown in the profile dropdown.
@@ -177,8 +179,46 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
           >
             {lang === 'sv' ? 'EN' : 'SV'}
           </button>
+
+          {/* Hamburger — MOBILE ONLY (no section nav bar on mobile); hidden on desktop */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden tap"
+            aria-label="Menu"
+            aria-expanded={isMobileMenuOpen}
+          >
+            <span className="flex flex-col gap-1.5 w-6" aria-hidden="true">
+              <span className={`h-0.5 bg-current transition-transform ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+              <span className={`h-0.5 bg-current transition-opacity ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
+              <span className={`h-0.5 bg-current transition-transform ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            </span>
+          </button>
         </div>
       </div>
+
+      {isMobileMenuOpen && (
+        <>
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="md:hidden fixed inset-0 z-[-1] bg-transparent cursor-default"
+          />
+          <div className="md:hidden bg-[var(--vanilla-cream)] border-t border-[var(--warm-cocoa)]/10 max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <nav className="px-4 py-6 flex flex-col gap-2">
+              {t.nav.map((item, i) => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(i)}
+                  className="type-caps text-left min-h-11 flex items-center transition-colors hover:text-[var(--dusty-terracotta)]"
+                >
+                  {item}
+                </button>
+              ))}
+            </nav>
+          </div>
+        </>
+      )}
     </header>
   );
 };
