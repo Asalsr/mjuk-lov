@@ -12,6 +12,10 @@ services:
     ports:
       - "3000:3000"
     # Runtime secrets (OPENAI_API_KEY, etc.) — passed to the container, not baked into the image.
+    # spike/.env is where the OpenAI key lives during development; both are optional.
     env_file:
-      - .env
+      - path: .env
+        required: false
+      - path: spike/.env
+        required: false
     restart: unless-stopped

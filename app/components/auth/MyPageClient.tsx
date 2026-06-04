@@ -119,14 +119,14 @@ export function MyPageClient({
 
       <h2 className="type-caps opacity-50 mb-3">{t.mySaved}</h2>
       {favorites.length ? (
-        <ul className="type-body mb-10 list-disc pl-5">{favorites.map((s) => <li key={s}>{titleOf(s)}</li>)}</ul>
+        <ul className="type-body mb-10 list-disc pl-5">{favorites.map((s) => <li key={s}><Link href={`/${lang}/recept/${s}`} className="transition-colors hover:text-[var(--dusty-terracotta)]">{titleOf(s)}</Link></li>)}</ul>
       ) : (
         <p className="type-body opacity-60 mb-10">{t.nothingYet}</p>
       )}
 
       <h2 className="type-caps opacity-50 mb-3">{t.myWishlist}</h2>
       {wishlist.length ? (
-        <ul className="type-body mb-10 list-disc pl-5">{wishlist.map((s) => <li key={s}>{titleOf(s)}</li>)}</ul>
+        <ul className="type-body mb-10 list-disc pl-5">{wishlist.map((s) => <li key={s}><Link href={`/${lang}/recept/${s}`} className="transition-colors hover:text-[var(--dusty-terracotta)]">{titleOf(s)}</Link></li>)}</ul>
       ) : (
         <p className="type-body opacity-60 mb-10">{t.nothingYet}</p>
       )}
@@ -136,7 +136,10 @@ export function MyPageClient({
         <ul className="type-body mb-10 space-y-2">
           {notes.map((n) => (
             <li key={n.slug}>
-              <span className="opacity-60">{titleOf(n.slug)}:</span> {n.body}
+              <Link href={`/${lang}/recept/${n.slug}`} className="opacity-60 transition-colors hover:text-[var(--dusty-terracotta)]">
+                {titleOf(n.slug)}:
+              </Link>{" "}
+              {n.body}
             </li>
           ))}
         </ul>
@@ -146,7 +149,7 @@ export function MyPageClient({
 
       <h2 className="type-caps opacity-50 mb-3">{t.myHistory}</h2>
       {made.length ? (
-        <ul className="type-body list-disc pl-5">{made.map((s) => <li key={s}>{titleOf(s)}</li>)}</ul>
+        <ul className="type-body list-disc pl-5">{made.map((s) => <li key={s}><Link href={`/${lang}/recept/${s}`} className="transition-colors hover:text-[var(--dusty-terracotta)]">{titleOf(s)}</Link></li>)}</ul>
       ) : (
         <p className="type-body opacity-60">{t.nothingYet}</p>
       )}
