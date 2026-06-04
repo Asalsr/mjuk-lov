@@ -180,10 +180,11 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
             {lang === 'sv' ? 'EN' : 'SV'}
           </button>
 
-          {/* Hamburger — MOBILE ONLY (no section nav bar on mobile); hidden on desktop */}
+          {/* Hamburger — MOBILE ONLY. Use Tailwind display utils (not .tap, which
+              forces display and would override md:hidden, leaking onto desktop). */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden tap"
+            className="md:hidden inline-flex items-center justify-center min-w-11 min-h-11"
             aria-label="Menu"
             aria-expanded={isMobileMenuOpen}
           >

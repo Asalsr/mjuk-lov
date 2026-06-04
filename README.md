@@ -6,6 +6,16 @@ A bilingual (Swedish / English) website and **AI-powered dessert mini-app** for 
 
 ---
 
+## 📸 Screenshots
+
+| Home | Recipes — with diet + allergy filter |
+|---|---|
+| ![Home](docs/screenshots/01-home.png) | ![Recipes](docs/screenshots/02-recipes.png) |
+| **Recipe** — allergen label, ingredients, AI adapt | **Shop** — DIY cake kits |
+| ![Recipe](docs/screenshots/03-recipe.png) | ![Shop](docs/screenshots/04-shop.png) |
+
+---
+
 ## ✨ Features
 
 **Recipes**
@@ -112,4 +122,3 @@ supabase/migrations/ # SQL schema + RLS
 
 Active build. Core product (recipes, personalization, AI, accounts, request-to-order, admin) works in dev. Roadmap: real payments, corporate subscriptions, personalized offers, Persian (RTL) locale.
 
-*Built with [Claude Code](https://claude.com/claude-code).*
