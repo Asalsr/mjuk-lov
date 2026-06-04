@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { MagneticButton } from './MagneticButton';
 import { Logo } from './Logo';
+import { CartBadge } from './shop/CartBadge';
 
 interface HeaderProps {
   lang: 'sv' | 'en';
@@ -16,13 +17,15 @@ const content = {
     nav: ['Idén', 'Tårtkit', 'Företag', 'Hantverket', 'Om', 'Kontakt'],
     order: 'Beställ',
     recipes: 'Recept',
-    myPage: 'Min sida'
+    myPage: 'Min sida',
+    shop: 'Butik'
   },
   en: {
     nav: ['The Idea', 'Kits', 'Corporate', 'The Craft', 'About', 'Contact'],
     order: 'Order',
     recipes: 'Recipes',
-    myPage: 'My page'
+    myPage: 'My page',
+    shop: 'Shop'
   }
 };
 
@@ -93,11 +96,20 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
           </Link>
 
           <Link
+            href={`/${lang}/butik`}
+            className="type-caps hidden md:block relative transition-colors hover:text-[var(--dusty-terracotta)]"
+          >
+            {t.shop}
+          </Link>
+
+          <Link
             href={`/${lang}/min-sida`}
             className="type-caps hidden md:block relative transition-colors hover:text-[var(--dusty-terracotta)]"
           >
             {t.myPage}
           </Link>
+
+          <CartBadge lang={lang} className="hidden md:block" />
 
           <MagneticButton
             onClick={() => scrollToSection(5)}
@@ -156,12 +168,20 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
                 {t.recipes}
               </Link>
               <Link
+                href={`/${lang}/butik`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="type-caps text-left min-h-11 flex items-center transition-colors hover:text-[var(--dusty-terracotta)]"
+              >
+                {t.shop}
+              </Link>
+              <Link
                 href={`/${lang}/min-sida`}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="type-caps text-left min-h-11 flex items-center transition-colors hover:text-[var(--dusty-terracotta)]"
               >
                 {t.myPage}
               </Link>
+              <CartBadge lang={lang} className="min-h-11 flex items-center" />
               <button
                 onClick={() => scrollToSection(5)}
                 className="type-caps mt-2 px-6 min-h-11 text-center transition-all duration-300 hover:bg-[var(--warm-peach)]"

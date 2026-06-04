@@ -13,7 +13,8 @@ export function MyPageClient({
   favorites,
   wishlist,
   notes,
-  history,
+  made,
+  orders,
   titles,
 }: {
   lang: Lang;
@@ -22,7 +23,14 @@ export function MyPageClient({
   favorites: string[];
   wishlist: string[];
   notes: { slug: string; body: string }[];
-  history: number;
+  made: string[];
+  orders: {
+    id: string;
+    status: string;
+    created_at: string;
+    desired_date: string | null;
+    items: { qty: number; name: string; nameSv: string }[] | null;
+  }[];
   titles: Record<string, string>;
 }) {
   const t = ui[lang];
@@ -74,6 +82,27 @@ export function MyPageClient({
       {msg && <p className="type-body opacity-70 mb-2">{msg}</p>}
       <p className="type-caps opacity-40 mb-12" style={{ fontSize: "0.625rem" }}>{t.autoSyncNote}</p>
 
+      {orders.length > 0 && (
+        <>
+          <h2 className="type-caps opacity-50 mb-3">{t.orders}</h2>
+          <ul className="type-body mb-10 space-y-3">
+            {orders.map((o) => (
+              <li key={o.id} className="flex flex-col">
+                <span>
+                  {(o.items ?? []).map((it) => `${it.qty}× ${lang === "sv" ? it.nameSv : it.name}`).join(", ") || "—"}
+                </span>
+                <span className="type-caps opacity-50" style={{ fontSize: "0.625rem" }}>
+                  {new Date(o.created_at).toLocaleDateString(lang === "sv" ? "sv-SE" : "en-GB")}
+                  {" · "}
+                  {o.status === "requested" ? t.statusRequested : o.status}
+                  {o.desired_date ? ` · ${o.desired_date}` : ""}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
       <h2 className="type-caps opacity-50 mb-3">{t.mySaved}</h2>
       {favorites.length ? (
         <ul className="type-body mb-10 list-disc pl-5">{favorites.map((s) => <li key={s}>{titleOf(s)}</li>)}</ul>
@@ -102,7 +131,11 @@ export function MyPageClient({
       )}
 
       <h2 className="type-caps opacity-50 mb-3">{t.myHistory}</h2>
-      <p className="type-body opacity-80">{history > 0 ? `${history}×` : t.nothingYet}</p>
+      {made.length ? (
+        <ul className="type-body list-disc pl-5">{made.map((s) => <li key={s}>{titleOf(s)}</li>)}</ul>
+      ) : (
+        <p className="type-body opacity-60">{t.nothingYet}</p>
+      )}
     </div>
   );
 }

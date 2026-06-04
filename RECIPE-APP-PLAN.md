@@ -218,6 +218,13 @@ Reuse fonts, palette, `NoiseTexture`, `SectionDivider`, `WaxSeal`, `MagneticButt
 When the brand launches / personalization proves valuable:
 
 - **Supabase**: Auth (accounts) + Postgres + Row-Level Security + Storage.
+- **Account signup flow (to refine — user 2026-06-04):** switch the current passwordless
+  magic-link to **email + password** signup with a **one-time email-confirmation link**
+  (double opt-in — the link only verifies the address, it isn't the login each time).
+  After the user confirms, show an **onboarding step** to collect profile details —
+  **name, address, and other fields, most of them optional**. Login afterwards is
+  email + password. (Supabase `signUp({email, password})` with "Confirm email" enabled +
+  a confirmation redirect → onboarding; replaces the `signInWithOtp` magic-link.)
 - **Migrate device-local → account**: on first login, `importAll` pushes the user's local data into their row (upsert). Same `lib/userdata` interface, new backend — no UI rewrite.
 - **Server-side AI memory**: durable, cross-device history; richer personalization than per-request context.
 - **GDPR Art. 9 done properly**: explicit consent records, encryption, data-export & deletion (right to erasure), processor agreement with the AI vendor.

@@ -8,6 +8,14 @@ import { MyPageClient } from "@/app/components/auth/MyPageClient";
 
 export const dynamic = "force-dynamic";
 
+type OrderRow = {
+  id: string;
+  status: string;
+  created_at: string;
+  desired_date: string | null;
+  items: { qty: number; name: string; nameSv: string }[] | null;
+};
+
 export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
   const { lang: raw } = await params;
   if (!isLang(raw)) notFound();
@@ -22,23 +30,26 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   let favorites: string[] = [];
   let wishlist: string[] = [];
   let notes: { slug: string; body: string }[] = [];
-  let history = 0;
+  let made: string[] = [];
   let profile = { fullName: "", address: "" };
+  let orders: OrderRow[] = [];
 
   if (user) {
-    const [f, w, n, h, p] = await Promise.all([
+    const [f, w, n, h, p, o] = await Promise.all([
       supabase.from("favorites").select("slug"),
       supabase.from("wishlist").select("slug"),
       supabase.from("notes").select("slug, body"),
       supabase.from("cooking_history").select("slug"),
       supabase.from("profiles").select("full_name, address").eq("id", user.id).maybeSingle(),
+      supabase.from("orders").select("id, status, created_at, desired_date, items").order("created_at", { ascending: false }),
     ]);
     favorites = (f.data ?? []).map((r: { slug: string }) => r.slug);
     wishlist = (w.data ?? []).map((r: { slug: string }) => r.slug);
     notes = (n.data ?? []) as { slug: string; body: string }[];
-    history = (h.data ?? []).length;
+    made = Array.from(new Set((h.data ?? []).map((r: { slug: string }) => r.slug)));
     const pd = p.data as { full_name: string | null; address: string | null } | null;
     profile = { fullName: pd?.full_name ?? "", address: pd?.address ?? "" };
+    orders = (o.data ?? []) as OrderRow[];
   }
 
   const titles: Record<string, string> = Object.fromEntries(
@@ -61,7 +72,8 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               favorites={favorites}
               wishlist={wishlist}
               notes={notes}
-              history={history}
+              made={made}
+              orders={orders}
               titles={titles}
             />
           ) : (

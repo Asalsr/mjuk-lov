@@ -2,6 +2,7 @@
 
 import { useUserData, toggleWishlist } from "@/lib/userdata/store";
 import { ui, type Lang } from "@/lib/i18n";
+import { IconAction } from "./IconAction";
 
 export function WishlistButton({ slug, lang }: { slug: string; lang: Lang }) {
   const data = useUserData();
@@ -9,22 +10,16 @@ export function WishlistButton({ slug, lang }: { slug: string; lang: Lang }) {
   const t = ui[lang];
 
   return (
-    <button
-      type="button"
-      aria-pressed={inList}
+    <IconAction
+      icon={inList ? "★" : "☆"}
+      label={inList ? t.inWishlist : t.addToWishlist}
+      ariaLabel={inList ? t.inWishlist : t.addToWishlist}
+      active={inList}
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
         toggleWishlist(slug);
       }}
-      className="type-caps tap inline-flex items-center gap-2 px-4 transition-colors hover:text-[var(--dusty-terracotta)]"
-      style={{
-        border: "1px solid rgba(61, 42, 34, 0.2)",
-        backgroundColor: inList ? "var(--warm-peach)" : "transparent",
-      }}
-    >
-      <span aria-hidden style={{ color: "var(--dusty-terracotta)" }}>{inList ? "★" : "☆"}</span>
-      {inList ? t.inWishlist : t.addToWishlist}
-    </button>
+    />
   );
 }

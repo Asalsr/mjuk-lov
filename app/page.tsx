@@ -33,9 +33,9 @@ export default function Page() {
       }
     }
 
-    // Intro loading screen plays only the first time the app is opened,
-    // not on every home-page visit.
-    if (localStorage.getItem('mjuklov_intro_seen')) {
+    // Intro loading screen plays once per browser session — on a fresh visit,
+    // but not on every internal navigation within the same session.
+    if (sessionStorage.getItem('mjuklov_intro_seen')) {
       setIsLoading(false);
     }
   }, []);
@@ -59,7 +59,7 @@ export default function Page() {
         <LoadingScreen
           onComplete={() => {
             try {
-              localStorage.setItem('mjuklov_intro_seen', '1');
+              sessionStorage.setItem('mjuklov_intro_seen', '1');
             } catch {
               /* ignore */
             }

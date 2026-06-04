@@ -136,9 +136,11 @@ function persistNote(slug: string, body: string) {
     else await s.from("notes").upsert({ user_id: uid, slug, body }, { onConflict: "user_id,slug" });
   });
 }
-function persistHistory(slug: string, cookedAt: string) {
+function persistMade(slug: string, made: boolean) {
   void withUser(async (s, uid) => {
-    await s.from("cooking_history").insert({ user_id: uid, slug, cooked_at: cookedAt });
+    // "Made it" is binary: at most one row per recipe.
+    await s.from("cooking_history").delete().eq("user_id", uid).eq("slug", slug);
+    if (made) await s.from("cooking_history").insert({ user_id: uid, slug, cooked_at: new Date().toISOString() });
   });
 }
 function persistProfile(p: UserData["profile"]) {
@@ -178,14 +180,19 @@ export function saveNote(slug: string, text: string) {
   persistNote(slug, text);
 }
 
-export function logCooked(slug: string, cookedAt: string) {
-  const d = read();
-  write({ ...d, history: [...d.history, { slug, cookedAt }] });
-  persistHistory(slug, cookedAt);
+export function isMade(d: UserData, slug: string): boolean {
+  return d.history.some((h) => h.slug === slug);
 }
 
-export function cookedCount(d: UserData, slug: string): number {
-  return d.history.filter((h) => h.slug === slug).length;
+/** Binary "made it" toggle — marks the recipe made, or clears it. */
+export function toggleMade(slug: string) {
+  const d = read();
+  const made = isMade(d, slug);
+  const history = made
+    ? d.history.filter((h) => h.slug !== slug)
+    : [...d.history, { slug, cookedAt: new Date().toISOString() }];
+  write({ ...d, history });
+  persistMade(slug, !made);
 }
 
 export function setProfile(patch: Partial<UserData["profile"]>) {
