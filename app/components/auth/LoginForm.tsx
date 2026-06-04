@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { appOrigin } from "@/lib/site";
 import { ui, type Lang } from "@/lib/i18n";
 
 const inputStyle = { border: "1px solid rgba(61, 42, 34, 0.2)" } as const;
@@ -30,13 +31,13 @@ export function LoginForm({ lang }: { lang: Lang }) {
         const { error } = await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/${lang}/min-sida` },
+          options: { emailRedirectTo: `${appOrigin()}/auth/callback?next=/${lang}/min-sida` },
         });
         if (error) setError(error.message);
         else setNotice(t.confirmEmailSent);
       } else if (mode === "reset") {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: `${window.location.origin}/auth/callback?next=/${lang}/aterstall`,
+          redirectTo: `${appOrigin()}/auth/callback?next=/${lang}/aterstall`,
         });
         if (error) setError(error.message);
         else setNotice(t.resetEmailSent);
