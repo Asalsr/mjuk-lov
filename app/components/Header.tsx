@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Logo } from './Logo';
 import { CartBadge } from './shop/CartBadge';
+import { createClient } from '@/lib/supabase/client';
+import { isSupabaseConfigured } from '@/lib/supabase/config';
 
 interface HeaderProps {
   lang: 'sv' | 'en';
@@ -18,6 +20,8 @@ const content = {
     myPage: 'Min sida',
     shop: 'Butik',
     account: 'Konto',
+    logIn: 'Logga in',
+    logOut: 'Logga ut',
   },
   en: {
     nav: ['The Idea', 'Kits', 'Corporate', 'The Craft', 'About', 'Contact'],
@@ -25,6 +29,8 @@ const content = {
     myPage: 'My page',
     shop: 'Shop',
     account: 'Account',
+    logIn: 'Log in',
+    logOut: 'Log out',
   },
 };
 
@@ -32,6 +38,7 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const t = content[lang];
 
@@ -40,6 +47,22 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured) return;
+    const supabase = createClient();
+    supabase.auth.getSession().then(({ data: { session } }) => setIsLoggedIn(!!session));
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_e, session) => setIsLoggedIn(!!session));
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const signOut = async () => {
+    await createClient().auth.signOut();
+    setIsAccountOpen(false);
+    router.refresh();
+  };
 
   const scrollToSection = (index: number) => {
     const sections = ['idea', 'kits', 'corporate', 'craft', 'about', 'order'];
@@ -126,6 +149,25 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
                     onClick={() => setIsAccountOpen(false)}
                     className="px-5 py-3 hover:bg-[var(--warm-peach)]/40"
                   />
+                  <div style={{ borderTop: '1px solid rgba(61, 42, 34, 0.12)' }}>
+                    {isLoggedIn ? (
+                      <button
+                        type="button"
+                        onClick={signOut}
+                        className="type-caps w-full text-left px-5 py-3 transition-colors hover:bg-[var(--warm-peach)]/40"
+                      >
+                        {t.logOut}
+                      </button>
+                    ) : (
+                      <Link
+                        href={`/${lang}/logga-in`}
+                        onClick={() => setIsAccountOpen(false)}
+                        className="type-caps block px-5 py-3 transition-colors hover:bg-[var(--warm-peach)]/40"
+                      >
+                        {t.logIn}
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </>
             )}

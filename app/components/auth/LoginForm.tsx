@@ -6,33 +6,40 @@ import { createClient } from "@/lib/supabase/client";
 import { ui, type Lang } from "@/lib/i18n";
 
 const inputStyle = { border: "1px solid rgba(61, 42, 34, 0.2)" } as const;
+type Mode = "signin" | "signup" | "reset";
 
 export function LoginForm({ lang }: { lang: Lang }) {
   const t = ui[lang];
   const router = useRouter();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<Mode>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [confirmSent, setConfirmSent] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim() || !password || loading) return;
+    if (loading || !email.trim()) return;
+    if (mode !== "reset" && !password) return;
     setLoading(true);
     setError(null);
     try {
       const supabase = createClient();
       if (mode === "signup") {
-        // Email + password. The one-time link only confirms the address.
         const { error } = await supabase.auth.signUp({
           email,
           password,
           options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/${lang}/min-sida` },
         });
         if (error) setError(error.message);
-        else setConfirmSent(true);
+        else setNotice(t.confirmEmailSent);
+      } else if (mode === "reset") {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/auth/callback?next=/${lang}/aterstall`,
+        });
+        if (error) setError(error.message);
+        else setNotice(t.resetEmailSent);
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) setError(error.message);
@@ -48,7 +55,9 @@ export function LoginForm({ lang }: { lang: Lang }) {
     }
   };
 
-  if (confirmSent) return <p className="type-body">{t.confirmEmailSent}</p>;
+  if (notice) return <p className="type-body">{notice}</p>;
+
+  const cta = mode === "signup" ? t.createAccount : mode === "reset" ? t.sendResetLink : t.signIn;
 
   return (
     <form onSubmit={submit} className="flex flex-col gap-4">
@@ -61,35 +70,50 @@ export function LoginForm({ lang }: { lang: Lang }) {
         className="w-full p-3 type-body bg-transparent"
         style={inputStyle}
       />
-      <input
-        type="password"
-        required
-        minLength={6}
-        placeholder={t.password}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="w-full p-3 type-body bg-transparent"
-        style={inputStyle}
-      />
+      {mode !== "reset" && (
+        <input
+          type="password"
+          required
+          minLength={6}
+          placeholder={t.password}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full p-3 type-body bg-transparent"
+          style={inputStyle}
+        />
+      )}
       <button
         type="submit"
         disabled={loading}
         className="type-caps tap px-6 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
         style={{ border: "1px solid var(--warm-cocoa)" }}
       >
-        {loading ? t.thinking : mode === "signup" ? t.createAccount : t.signIn}
+        {loading ? t.thinking : cta}
       </button>
       {error && <p className="type-body" style={{ color: "var(--dusty-wine)" }}>{error}</p>}
-      <button
-        type="button"
-        onClick={() => {
-          setMode(mode === "signup" ? "signin" : "signup");
-          setError(null);
-        }}
-        className="type-caps opacity-60 self-start transition-colors hover:text-[var(--dusty-terracotta)]"
-      >
-        {mode === "signup" ? t.haveAccount : t.noAccount}
-      </button>
+
+      <div className="flex flex-col gap-1 mt-1">
+        {mode === "signin" && (
+          <>
+            <button type="button" onClick={() => { setMode("reset"); setError(null); }} className="type-caps opacity-60 self-start transition-colors hover:text-[var(--dusty-terracotta)]">
+              {t.forgotPassword}
+            </button>
+            <button type="button" onClick={() => { setMode("signup"); setError(null); }} className="type-caps opacity-60 self-start transition-colors hover:text-[var(--dusty-terracotta)]">
+              {t.noAccount}
+            </button>
+          </>
+        )}
+        {mode === "signup" && (
+          <button type="button" onClick={() => { setMode("signin"); setError(null); }} className="type-caps opacity-60 self-start transition-colors hover:text-[var(--dusty-terracotta)]">
+            {t.haveAccount}
+          </button>
+        )}
+        {mode === "reset" && (
+          <button type="button" onClick={() => { setMode("signin"); setError(null); }} className="type-caps opacity-60 self-start transition-colors hover:text-[var(--dusty-terracotta)]">
+            {t.signIn}
+          </button>
+        )}
+      </div>
     </form>
   );
 }

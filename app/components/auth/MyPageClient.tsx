@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { setProfile } from "@/lib/userdata/store";
@@ -15,10 +16,12 @@ export function MyPageClient({
   notes,
   made,
   orders,
+  isOwner = false,
   titles,
 }: {
   lang: Lang;
   email: string;
+  isOwner?: boolean;
   profile: { fullName: string; address: string };
   favorites: string[];
   wishlist: string[];
@@ -58,12 +61,23 @@ export function MyPageClient({
       <p className="type-caps opacity-60 mb-1">
         {t.loggedInAs} {email}
       </p>
-      <button
-        onClick={signOut}
-        className="type-caps opacity-60 transition-colors hover:text-[var(--dusty-terracotta)] mb-10"
-      >
-        {t.logOut}
-      </button>
+      <div className="flex items-center gap-6 mb-10">
+        <button
+          onClick={signOut}
+          className="type-caps opacity-60 transition-colors hover:text-[var(--dusty-terracotta)]"
+        >
+          {t.logOut}
+        </button>
+        {isOwner && (
+          <Link
+            href={`/${lang}/admin`}
+            className="type-caps transition-colors hover:opacity-70"
+            style={{ color: "var(--dusty-terracotta)" }}
+          >
+            {t.manageOrders} →
+          </Link>
+        )}
+      </div>
 
       <h2 className="type-caps opacity-50 mb-4">{t.profileHeading}</h2>
       <form onSubmit={saveProfile} className="flex flex-col gap-4 mb-3 max-w-[420px]">

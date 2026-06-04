@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getProduct } from "@/lib/products";
 import { LABELS } from "@/lib/allergen/labels";
+import { AddressAutocomplete, type Address } from "./AddressAutocomplete";
 import { ui, type Lang } from "@/lib/i18n";
 
 const inputStyle = { border: "1px solid rgba(61, 42, 34, 0.2)" } as const;
@@ -21,7 +22,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
   const [fulfilment, setFulfilment] = useState<"pickup" | "delivery">("pickup");
-  const [address, setAddress] = useState("");
+  const [addr, setAddr] = useState<Address>({ street: "", postalCode: "", city: "" });
   const [dietary, setDietary] = useState("");
   const [notes, setNotes] = useState("");
   const [sending, setSending] = useState(false);
@@ -31,7 +32,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
   // Prefill from the local profile + the logged-in session (all editable).
   useEffect(() => {
     if (data.profile.fullName) setName((n) => n || data.profile.fullName);
-    if (data.profile.address) setAddress((a) => a || data.profile.address);
+    if (data.profile.address) setAddr((a) => (a.street ? a : { ...a, street: data.profile.address }));
     if (data.profile.allergies.length)
       setDietary((d) => d || data.profile.allergies.map((c) => LABELS[c][lang]).join(", "));
     if (isSupabaseConfigured) {
@@ -59,6 +60,10 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
     setSending(true);
     setError(null);
     try {
+      const address =
+        fulfilment === "delivery"
+          ? [addr.street, [addr.postalCode, addr.city].filter(Boolean).join(" ")].filter(Boolean).join(", ")
+          : "";
       const res = await fetch("/api/order-request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -140,9 +145,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
             {t.delivery}
           </label>
         </div>
-        {fulfilment === "delivery" && (
-          <input placeholder={t.deliveryAddress} value={address} onChange={(e) => setAddress(e.target.value)} className="p-3 type-body bg-transparent" style={inputStyle} />
-        )}
+        {fulfilment === "delivery" && <AddressAutocomplete value={addr} onChange={setAddr} lang={lang} />}
 
         <input placeholder={t.dietaryNeeds} value={dietary} onChange={(e) => setDietary(e.target.value)} className="p-3 type-body bg-transparent" style={inputStyle} />
         <textarea placeholder={t.orderNotes} value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} className="p-3 type-body bg-transparent" style={inputStyle} />

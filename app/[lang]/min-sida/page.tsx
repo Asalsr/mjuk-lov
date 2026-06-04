@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { isLang, ui, type Lang } from "@/lib/i18n";
 import { createClient } from "@/lib/supabase/server";
+import { OWNER_EMAIL } from "@/lib/owner";
 import { getPublishedRecipes } from "@/lib/recipes";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { MyPageClient } from "@/app/components/auth/MyPageClient";
@@ -74,6 +75,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               notes={notes}
               made={made}
               orders={orders}
+              isOwner={user.email === OWNER_EMAIL}
               titles={titles}
             />
           ) : (
