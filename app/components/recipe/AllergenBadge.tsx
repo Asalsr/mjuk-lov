@@ -47,6 +47,9 @@ export function AllergenBlock({
       <p className="type-caps opacity-50 mt-4" style={{ fontSize: "0.6875rem", lineHeight: 1.6 }}>
         {t.crossContamination}
       </p>
+      <p className="type-caps opacity-50 mt-2" style={{ fontSize: "0.6875rem", lineHeight: 1.6 }}>
+        {t.checkPackaging}
+      </p>
     </aside>
   );
 }

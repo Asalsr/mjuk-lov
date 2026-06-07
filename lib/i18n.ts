@@ -22,6 +22,7 @@ export const ui = {
     empty: "Inga recept ännu — kommer snart.",
     // From the handbook §6.7 cross-contamination disclosure.
     crossContamination: "Tillverkad i ett kök som hanterar nötter, mjölk, ägg och gluten.",
+    checkPackaging: "Allergi? Kontrollera alltid förpackningen på de varor du använder — märkningar kan variera mellan märken.",
     save: "Spara",
     saved: "Sparad",
     yourNote: "Din notering",
@@ -143,6 +144,7 @@ export const ui = {
     minutes: (n: number) => `${n} min`,
     empty: "No recipes yet — coming soon.",
     crossContamination: "Produced in a kitchen that handles nuts, milk, eggs and gluten.",
+    checkPackaging: "Allergies? Always check the packaging of the products you use — labels can vary between brands.",
     save: "Save",
     saved: "Saved",
     yourNote: "Your note",
