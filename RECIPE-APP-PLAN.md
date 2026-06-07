@@ -248,6 +248,7 @@ When the brand launches / personalization proves valuable:
 
 - **Richer / more practical detail pages.** User wants recipe pages to be more detailed and practical than the current first pass. Revisit content depth (step images, timings per step, equipment, tips, yield notes) in a later pass.
 - **Ingredient unit conversion.** Let users convert measures (g ↔ oz, dl ↔ ml ↔ cups, °C ↔ °F). Requires a schema change: store quantities as structured `{ value, unit }` (not the current free-text `qty` string) plus an ingredient density table for weight↔volume. Client-side converter component on the detail page. Plan as its own milestone.
+- **YouTube Data API resolver (fill the remaining video IDs).** Only 6 of 40 gallery videos currently embed; the rest are link-only because IDs can't be reliably scraped. Fix: a one-off script (`scripts/resolve-video-ids.ts`) that, given a free **YouTube Data API v3** key (`YOUTUBE_API_KEY` env), iterates `lib/recipeVideos.ts` entries with `youtubeId === null`, calls `search.list` scoped to each entry's `channelId` with the recipe title as query, takes the top result, verifies the returned title reasonably matches, and writes `youtubeId` back into the file (leaving non-matches null for manual review). Turns ~28 link cards into real embeds. **User action needed:** create an API key in Google Cloud Console (YouTube Data API v3 — free tier ~10k units/day; each search costs 100 units → ~100 lookups/day). Then ask Claude to build + run the resolver.
 
 ## 18. Risks
 
