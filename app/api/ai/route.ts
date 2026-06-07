@@ -57,7 +57,8 @@ export async function POST(req: Request) {
     }
 
     if (body.mode === "adapt") {
-      const target = body.target === "vegan" ? "vegan" : "vegetarian";
+      const target =
+        body.target === "vegan" ? "vegan" : body.target === "gluten-free" ? "gluten-free" : "vegetarian";
       const recipe = body.recipe as {
         slug?: string;
         title?: string;
@@ -106,6 +107,7 @@ export async function POST(req: Request) {
         summary: parsed.summary,
         swaps: parsed.swaps,
         adaptedIngredients: parsed.adaptedIngredients,
+        tips: parsed.tips,
         allergens,
       };
 

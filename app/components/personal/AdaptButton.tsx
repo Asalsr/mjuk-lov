@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { ui, type Lang } from "@/lib/i18n";
 
+type Target = "vegan" | "vegetarian" | "gluten-free";
 type Swap = { from: string; to: string; note: string };
 type AdaptResult = {
   summary: string;
   swaps: Swap[];
   adaptedIngredients: { qty: string; item: string }[];
+  tips: string[];
   allergens: { codes: string[]; declaration: { sv: string; en: string } } | null;
 };
 
@@ -23,14 +25,14 @@ export function AdaptButton({
   title: string;
   ingredients: { qty: string; item: string }[];
   /** Which diets to offer — a recipe already satisfying a diet omits it. */
-  targets?: ("vegan" | "vegetarian")[];
+  targets?: Target[];
 }) {
   const t = ui[lang];
-  const [loading, setLoading] = useState<"vegan" | "vegetarian" | null>(null);
+  const [loading, setLoading] = useState<Target | null>(null);
   const [result, setResult] = useState<AdaptResult | null>(null);
   const [error, setError] = useState(false);
 
-  const adapt = async (target: "vegan" | "vegetarian") => {
+  const adapt = async (target: Target) => {
     if (loading) return;
     setLoading(target);
     setError(false);
@@ -76,6 +78,17 @@ export function AdaptButton({
             {loading === "vegan" ? t.thinking : t.makeVegan}
           </button>
         )}
+        {targets.includes("gluten-free") && (
+          <button
+            type="button"
+            onClick={() => adapt("gluten-free")}
+            disabled={loading !== null}
+            className="type-caps tap px-5 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
+            style={{ border: "1px solid var(--warm-cocoa)" }}
+          >
+            {loading === "gluten-free" ? t.thinking : t.makeGlutenFree}
+          </button>
+        )}
       </div>
 
       {error && <p className="type-body opacity-70 mt-4" style={{ color: "var(--dusty-wine)" }}>{t.aiError}</p>}
@@ -96,6 +109,17 @@ export function AdaptButton({
                     <span style={{ color: "var(--dusty-terracotta)" }}>{s.to}</span>
                     {s.note ? <span className="opacity-60"> — {s.note}</span> : null}
                   </li>
+                ))}
+              </ul>
+            </>
+          )}
+
+          {result.tips.length > 0 && (
+            <>
+              <div className="type-caps opacity-40 mb-2" style={{ fontSize: "0.6875rem" }}>{t.tipsHeading}</div>
+              <ul className="space-y-2 mb-5 list-disc pl-5">
+                {result.tips.map((tip, i) => (
+                  <li key={i} className="type-body">{tip}</li>
                 ))}
               </ul>
             </>

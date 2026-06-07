@@ -5,6 +5,7 @@ import {
   judgeAdaptationSystem,
   judgeAdaptationUser,
   type AdaptRecipeInput,
+  type AdaptTarget,
 } from "./prompts";
 import type { Lang } from "@/lib/i18n";
 
@@ -22,6 +23,7 @@ export type AdaptParsed = {
   summary: string;
   swaps: Swap[];
   adaptedIngredients: { qty: string; item: string }[];
+  tips: string[];
 };
 
 const isStr = (v: unknown): v is string => typeof v === "string";
@@ -76,12 +78,18 @@ function validate(raw: string, input: AdaptRecipeInput): AdaptParsed | null {
     // Drop hallucinated swaps: empty, or not referencing a real ingredient.
     .filter((s) => s.from && s.to && swapReferencesIngredient(s.from, tokens));
 
-  return { summary, swaps, adaptedIngredients };
+  const tips = (Array.isArray(o.tips) ? o.tips : [])
+    .filter(isStr)
+    .map((t) => t.trim())
+    .filter((t) => t !== "")
+    .slice(0, 5);
+
+  return { summary, swaps, adaptedIngredients, tips };
 }
 
 async function generateOne(
   input: AdaptRecipeInput,
-  target: "vegan" | "vegetarian",
+  target: AdaptTarget,
   lang: Lang,
 ): Promise<{ parsed: AdaptParsed; raw: string } | null> {
   const raw = await chat({
@@ -97,7 +105,7 @@ async function generateOne(
 /** Best-of-2 + validation. Returns the chosen adaptation, or null on failure. */
 export async function generateAdaptation(
   input: AdaptRecipeInput,
-  target: "vegan" | "vegetarian",
+  target: AdaptTarget,
   lang: Lang,
 ): Promise<AdaptParsed | null> {
   const [a, b] = await Promise.all([

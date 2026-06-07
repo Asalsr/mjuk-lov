@@ -64,12 +64,14 @@ export default async function Page({
   const t = ui[lang];
   const other = lang === "sv" ? "en" : "sv";
 
-  // Only offer to adapt to a diet the recipe doesn't already satisfy
-  // (vegan implies vegetarian, so a vegan recipe offers neither).
+  // Only offer to adapt to a diet the recipe doesn't already satisfy:
+  // vegan implies vegetarian, and gluten-free only makes sense when the recipe
+  // currently contains gluten.
   const isVegan = recipe.diet.includes("vegan");
-  const adaptTargets: ("vegan" | "vegetarian")[] = [];
+  const adaptTargets: ("vegan" | "vegetarian" | "gluten-free")[] = [];
   if (!isVegan && !recipe.diet.includes("vegetarian")) adaptTargets.push("vegetarian");
   if (!isVegan) adaptTargets.push("vegan");
+  if (recipe.allergens.codes.includes("gluten")) adaptTargets.push("gluten-free");
 
   const jsonLd = {
     "@context": "https://schema.org",

@@ -1,37 +1,40 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-import { TheIdea } from './components/TheIdea';
-import { Kits } from './components/Kits';
-import { Corporate } from './components/Corporate';
-import { TheCraft } from './components/TheCraft';
-import { About } from './components/About';
-import { Order } from './components/Order';
-import { Footer } from './components/Footer';
-import { FloatingElements } from './components/FloatingElements';
-import { CustomCursor } from './components/CustomCursor';
-import { SectionDivider, WaveDivider } from './components/SectionDivider';
-import { LoadingScreen } from './components/LoadingScreen';
-import { NoiseTexture } from './components/NoiseTexture';
-import { ScrollProgress } from './components/ScrollProgress';
-import { BackToTop } from './components/BackToTop';
+import { Header } from '@/app/components/Header';
+import { Hero } from '@/app/components/Hero';
+import { TheIdea } from '@/app/components/TheIdea';
+import { Kits } from '@/app/components/Kits';
+import { Corporate } from '@/app/components/Corporate';
+import { TheCraft } from '@/app/components/TheCraft';
+import { About } from '@/app/components/About';
+import { Order } from '@/app/components/Order';
+import { Footer } from '@/app/components/Footer';
+import { FloatingElements } from '@/app/components/FloatingElements';
+import { CustomCursor } from '@/app/components/CustomCursor';
+import { SectionDivider, WaveDivider } from '@/app/components/SectionDivider';
+import { LoadingScreen } from '@/app/components/LoadingScreen';
+import { NoiseTexture } from '@/app/components/NoiseTexture';
+import { ScrollProgress } from '@/app/components/ScrollProgress';
+import { BackToTop } from '@/app/components/BackToTop';
 
 export default function Page() {
   const [lang, setLang] = useState<'sv' | 'en'>('sv');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Resolve the visitor's language once on mount from their saved choice,
+    // falling back to the browser locale. This must run client-side (localStorage
+    // is unavailable during SSR), so the server safely defaults to 'sv'.
     const savedLang = localStorage.getItem('mjuklov_lang');
+    let initial: 'sv' | 'en' | null = null;
     if (savedLang === 'en' || savedLang === 'sv') {
-      setLang(savedLang);
-    } else if (typeof navigator !== 'undefined') {
-      const browserLang = navigator.language.toLowerCase();
-      if (browserLang.startsWith('en')) {
-        setLang('en');
-      }
+      initial = savedLang;
+    } else if (typeof navigator !== 'undefined' && navigator.language.toLowerCase().startsWith('en')) {
+      initial = 'en';
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time client-only hydration of a persisted preference
+    if (initial) setLang(initial);
 
     // Intro loading screen plays once per browser session — on a fresh visit,
     // but not on every internal navigation within the same session.
@@ -39,6 +42,13 @@ export default function Page() {
       setIsLoading(false);
     }
   }, []);
+
+  // Keep the document language in sync with the toggle so the browser doesn't
+  // treat an English home page as Swedish (and auto-translate it). The root
+  // layout renders lang="sv" on the server; this corrects it after hydration.
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   const toggleLang = () => {
     const newLang = lang === 'sv' ? 'en' : 'sv';
