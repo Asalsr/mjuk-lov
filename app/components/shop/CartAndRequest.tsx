@@ -5,7 +5,7 @@ import { useCart, setQty, removeFromCart, clearCart } from "@/lib/cart/store";
 import { useUserData } from "@/lib/userdata/store";
 import { createClient } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
-import { getProduct } from "@/lib/products";
+import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
 import { LABELS } from "@/lib/allergen/labels";
 import { AddressAutocomplete, type Address } from "./AddressAutocomplete";
 import { ui, type Lang } from "@/lib/i18n";
@@ -46,15 +46,28 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.profile.fullName, data.profile.address]);
 
-  const total = useMemo(
+  const subtotal = useMemo(
     () => items.reduce((s, i) => s + (getProduct(i.productId)?.priceSek ?? 0) * i.qty, 0),
     [items],
   );
+  const deliveryFee = fulfilment === "delivery" ? DELIVERY_FEE_SEK : 0;
+  const total = subtotal + deliveryFee;
+
+  // Earliest selectable date: today + 3 days (no past, not within the next 2 days).
+  const minDate = useMemo(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 3);
+    return d.toISOString().slice(0, 10);
+  }, []);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || (!email.trim() && !phone.trim())) {
       setError(t.contactRequired);
+      return;
+    }
+    if (!date || date < minDate) {
+      setError(t.dateTooSoon);
       return;
     }
     setSending(true);
@@ -120,8 +133,21 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
             );
           })}
         </ul>
-        <div className="type-serif mt-4" style={{ fontSize: "1.25rem" }}>
-          {total} kr <span className="type-caps opacity-50">(est.)</span>
+        <div className="mt-4 flex flex-col gap-1">
+          <div className="flex justify-between type-body opacity-70">
+            <span>{t.subtotal}</span>
+            <span>{subtotal} kr</span>
+          </div>
+          {deliveryFee > 0 && (
+            <div className="flex justify-between type-body opacity-70">
+              <span>{t.deliveryFee}</span>
+              <span>{deliveryFee} kr</span>
+            </div>
+          )}
+          <div className="flex justify-between type-serif mt-1" style={{ fontSize: "1.25rem" }}>
+            <span>{t.total}</span>
+            <span>{total} kr <span className="type-caps opacity-50">(est.)</span></span>
+          </div>
         </div>
       </div>
 
@@ -132,7 +158,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
         <input placeholder={t.phone} value={phone} onChange={(e) => setPhone(e.target.value)} className="p-3 type-body bg-transparent" style={inputStyle} />
 
         <label className="type-caps opacity-50" style={{ fontSize: "0.6875rem" }}>{t.desiredDate}</label>
-        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="p-3 type-body bg-transparent" style={inputStyle} />
+        <input type="date" required min={minDate} value={date} onChange={(e) => setDate(e.target.value)} className="p-3 type-body bg-transparent" style={inputStyle} />
         <p className="type-caps opacity-40" style={{ fontSize: "0.625rem" }}>{t.leadTimeHint}</p>
 
         <div className="flex gap-6 type-body">

@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
-import { getProduct } from "@/lib/products";
+import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -9,7 +9,14 @@ function json(data: unknown, status = 200) {
   return new Response(JSON.stringify(data), { status, headers: { "Content-Type": "application/json" } });
 }
 
-const OWNER_EMAIL = process.env.OWNER_EMAIL || "saeedeh.sarmadi@sisp.se";
+const OWNER_EMAIL = process.env.OWNER_EMAIL || "mjuklov.se@gmail.com";
+
+// Earliest acceptable desired date: today + 3 days (UTC), as YYYY-MM-DD.
+function minDesiredDate(): string {
+  const d = new Date();
+  d.setUTCDate(d.getUTCDate() + 3);
+  return d.toISOString().slice(0, 10);
+}
 
 async function sendEmail(to: string, subject: string, html: string) {
   const key = process.env.RESEND_API_KEY;
@@ -46,6 +53,9 @@ export async function POST(req: Request) {
   const phone = String(body.phone ?? "").trim();
   if (!name || (!email && !phone)) return json({ error: "contact_required" }, 400);
 
+  const desiredDate = String(body.desiredDate ?? "").trim();
+  if (!desiredDate || desiredDate < minDesiredDate()) return json({ error: "date_too_soon" }, 400);
+
   const items = rawItems.map((i) => {
     const p = getProduct(i.productId);
     return {
@@ -79,7 +89,7 @@ export async function POST(req: Request) {
       contact_name: name,
       contact_email: email || null,
       contact_phone: phone || null,
-      desired_date: (body.desiredDate as string) || null,
+      desired_date: desiredDate,
       fulfilment,
       address: fulfilment === "delivery" ? (body.address as string) || null : null,
       dietary: (body.dietary as string) || null,
@@ -95,11 +105,15 @@ export async function POST(req: Request) {
   const lines = items
     .map((li) => `${li.qty}× ${li.name}${li.priceSek ? ` (${li.priceSek} kr)` : ""}${li.message ? ` — “${li.message}”` : ""}`)
     .join("<br>");
+  const subtotal = items.reduce((s, li) => s + (li.priceSek ?? 0) * li.qty, 0);
+  const deliveryFee = fulfilment === "delivery" ? DELIVERY_FEE_SEK : 0;
+  const total = subtotal + deliveryFee;
   const summary =
     `<h2>New order request</h2>` +
     `<p><b>${name}</b> — ${email} ${phone}</p>` +
     `<p>${lines}</p>` +
-    `<p>Date: ${(body.desiredDate as string) || "—"} · ${fulfilment}${body.address ? ` · ${body.address}` : ""}</p>` +
+    `<p>Subtotal: ${subtotal} kr${deliveryFee ? ` · Delivery: ${deliveryFee} kr` : ""} · <b>Total (est.): ${total} kr</b></p>` +
+    `<p>Date: ${desiredDate} · ${fulfilment}${body.address ? ` · ${body.address}` : ""}</p>` +
     `<p>Dietary: ${(body.dietary as string) || "—"}</p>` +
     `<p>Notes: ${(body.notes as string) || "—"}</p>` +
     `<p>Ref: ${order.id}</p>`;

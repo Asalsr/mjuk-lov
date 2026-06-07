@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Logo } from './Logo';
-import { CartBadge } from './shop/CartBadge';
+import { useCart, cartCount } from '@/lib/cart/store';
 import { createClient } from '@/lib/supabase/client';
 import { isSupabaseConfigured } from '@/lib/supabase/config';
 
@@ -20,6 +20,7 @@ const content = {
     videos: 'Bakvideor',
     myPage: 'Min sida',
     shop: 'Butik',
+    cart: 'Varukorg',
     account: 'Konto',
     logIn: 'Logga in',
     logOut: 'Logga ut',
@@ -30,6 +31,7 @@ const content = {
     videos: 'Baking videos',
     myPage: 'My page',
     shop: 'Shop',
+    cart: 'Cart',
     account: 'Account',
     logIn: 'Log in',
     logOut: 'Log out',
@@ -43,6 +45,7 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const t = content[lang];
+  const cartItems = cartCount(useCart());
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -110,6 +113,27 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
         </nav>
 
         <div className="flex items-center gap-4">
+          {/* Basket — appears beside the profile icon once items are added */}
+          {cartItems > 0 && (
+            <Link
+              href={`/${lang}/varukorg`}
+              aria-label={`${t.cart} (${cartItems})`}
+              className="relative tap transition-colors hover:text-[var(--dusty-terracotta)]"
+            >
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                <path d="M3 6h18" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+              </svg>
+              <span
+                className="absolute -top-2 -right-2 min-w-[1.05rem] h-[1.05rem] px-1 flex items-center justify-center rounded-full text-[0.625rem] leading-none"
+                style={{ backgroundColor: 'var(--dusty-terracotta)', color: 'var(--vanilla-cream)' }}
+              >
+                {cartItems}
+              </span>
+            </Link>
+          )}
+
           {/* Profile / account — icon only, opens the app submenu */}
           <div className="relative">
             <button
@@ -147,11 +171,6 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
                       {l.label}
                     </Link>
                   ))}
-                  <CartBadge
-                    lang={lang}
-                    onClick={() => setIsAccountOpen(false)}
-                    className="px-5 py-3 hover:bg-[var(--warm-peach)]/40"
-                  />
                   <div style={{ borderTop: '1px solid rgba(61, 42, 34, 0.12)' }}>
                     {isLoggedIn ? (
                       <button

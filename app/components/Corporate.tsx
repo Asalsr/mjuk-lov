@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { MagneticButton } from './MagneticButton';
 
 interface CorporateProps {
@@ -11,7 +12,7 @@ const content = {
   sv: {
     heading: 'Företagsprenumerationer',
     footnote: 'Leverans inom Göteborg. Faktura månadsvis.',
-    cta: 'Hör av dig',
+    cta: 'Till butiken',
     tiers: [
       {
         name: 'Liten',
@@ -37,7 +38,7 @@ const content = {
   en: {
     heading: 'Corporate Subscriptions',
     footnote: 'Delivery within Gothenburg. Monthly invoicing.',
-    cta: 'Get in touch',
+    cta: 'Visit the shop',
     tiers: [
       {
         name: 'Small',
@@ -65,6 +66,7 @@ const content = {
 export const Corporate = ({ lang }: CorporateProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const router = useRouter();
   const t = content[lang];
 
   useEffect(() => {
@@ -148,10 +150,7 @@ export const Corporate = ({ lang }: CorporateProps) => {
           </p>
 
           <MagneticButton
-            onClick={() => {
-              const orderSection = document.getElementById('order');
-              if (orderSection) orderSection.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={() => router.push(`/${lang}/butik`)}
             className="type-caps px-8 py-3 transition-all duration-300 hover:bg-[var(--warm-peach)] hover:shadow-lg"
             style={{ border: '1px solid var(--warm-cocoa)' }}
           >

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Standard, Deluxe, GiftEdition } from './Icons';
 import { MagneticButton } from './MagneticButton';
 
@@ -64,6 +65,7 @@ const kitIcons = [Standard, Deluxe, GiftEdition];
 export const Kits = ({ lang }: KitsProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const router = useRouter();
   const t = content[lang];
 
   useEffect(() => {
@@ -134,10 +136,7 @@ export const Kits = ({ lang }: KitsProps) => {
                 </div>
 
                 <MagneticButton
-                  onClick={() => {
-                    const orderSection = document.getElementById('order');
-                    if (orderSection) orderSection.scrollIntoView({ behavior: 'smooth' });
-                  }}
+                  onClick={() => router.push(`/${lang}/butik`)}
                   className="type-caps w-full px-6 py-3 transition-all duration-300 hover:bg-[var(--warm-peach)] hover:shadow-lg relative overflow-hidden"
                   style={{ border: '1px solid var(--warm-cocoa)' }}
                 >
