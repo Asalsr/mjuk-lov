@@ -89,7 +89,7 @@ export const recipeVideos: RecipeVideo[] = [
   // ── Natasha's Kitchen (Natasha Kravchuk) ──────────────────────────────────────
   { id: 17, recipe: "Easy banana bread", channel: "Natasha's Kitchen",
     channelId: "UC-pC1xsFPzcrL09DaW4jlBA", channelUrl: "https://www.youtube.com/channel/UC-pC1xsFPzcrL09DaW4jlBA",
-    recipeUrl: "https://natashaskitchen.com/banana-bread-recipe-video/", youtubeId: null, category: "Quick breads" },
+    recipeUrl: "https://natashaskitchen.com/banana-bread-recipe-video/", youtubeId: "qUmDpPfY_h0", category: "Quick breads" },
   { id: 18, recipe: "Crepes", channel: "Natasha's Kitchen",
     channelId: "UC-pC1xsFPzcrL09DaW4jlBA", channelUrl: "https://www.youtube.com/channel/UC-pC1xsFPzcrL09DaW4jlBA",
     recipeUrl: "https://natashaskitchen.com/crepe-recipe-2-ways/", youtubeId: null, category: "Breakfast sweets" },
