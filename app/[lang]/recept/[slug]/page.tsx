@@ -130,6 +130,20 @@ export default async function Page({
             </div>
           )}
 
+          {recipe.inspiredBy && (
+            <p className="type-caps opacity-50 mt-4">
+              {t.inspiredBy}{" "}
+              <a
+                href={recipe.inspiredBy.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition-colors hover:text-[var(--dusty-terracotta)]"
+              >
+                {recipe.inspiredBy.channel}
+              </a>
+            </p>
+          )}
+
           <div className="mt-12 grid gap-10 md:gap-16 md:grid-cols-[1fr_1.4fr]">
             <section>
               <div className="type-caps opacity-50 mb-5">{t.ingredients}</div>

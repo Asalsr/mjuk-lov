@@ -11,6 +11,7 @@ export function PasswordInput({
   placeholder,
   required = true,
   minLength,
+  autoComplete,
 }: {
   lang: Lang;
   value: string;
@@ -18,6 +19,7 @@ export function PasswordInput({
   placeholder: string;
   required?: boolean;
   minLength?: number;
+  autoComplete?: "current-password" | "new-password";
 }) {
   const t = ui[lang];
   const [show, setShow] = useState(false);
@@ -29,6 +31,7 @@ export function PasswordInput({
         required={required}
         minLength={minLength}
         placeholder={placeholder}
+        autoComplete={autoComplete}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="w-full p-3 pr-12 type-body bg-transparent"

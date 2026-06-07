@@ -1,0 +1,70 @@
+{
+  "slug": "chocolate-mousse-cake",
+  "title": {
+    "sv": "Chokladmousstårta",
+    "en": "Chocolate mousse cake"
+  },
+  "headnote": {
+    "sv": "En knaprig kexbotten under en luftig, mörk chokladmousse — imponerande men förvånansvärt enkel, och inget gräddande av mousselagret. Se videon ovan för Anns finish.",
+    "en": "A crisp biscuit base under an airy dark-chocolate mousse — impressive but surprisingly simple, with no baking of the mousse layer. Watch the video above for Ann's finish."
+  },
+  "servings": 12,
+  "time": {
+    "prepMin": 40,
+    "totalMin": 300
+  },
+  "youtubeId": "SbGpjrHcsIk",
+  "inspiredBy": {
+    "channel": "How To Cook That",
+    "url": "https://www.youtube.com/watch?v=SbGpjrHcsIk"
+  },
+  "ingredients": [
+    { "qty": "200 g", "item": { "sv": "chokladkex, smulade", "en": "chocolate biscuits, crushed" } },
+    { "qty": "80 g", "item": { "sv": "smör, smält", "en": "butter, melted" } },
+    { "qty": "300 g", "item": { "sv": "mörk choklad", "en": "dark chocolate" } },
+    { "qty": "400 ml", "item": { "sv": "vispgrädde", "en": "double cream" } },
+    { "qty": "3", "item": { "sv": "ägg, delade", "en": "eggs, separated" } },
+    { "qty": "50 g", "item": { "sv": "strösocker", "en": "granulated sugar" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    {
+      "sv": "Blanda kexsmulor med smält smör och tryck ut i botten på en springform (ca 20 cm). Ställ kallt.",
+      "en": "Mix the biscuit crumbs with the melted butter and press into the base of a springform tin (about 20 cm). Chill."
+    },
+    {
+      "sv": "Smält chokladen försiktigt över vattenbad och låt svalna något. Rör ner äggulorna.",
+      "en": "Melt the chocolate gently over a water bath and let it cool slightly. Stir in the egg yolks."
+    },
+    {
+      "sv": "Vispa grädden till mjuka toppar. Vispa äggvitorna separat med sockret till blanka toppar.",
+      "en": "Whip the cream to soft peaks. In a separate bowl, whisk the egg whites with the sugar to glossy peaks."
+    },
+    {
+      "sv": "Vänd först ner grädden i chokladen, sedan äggvitorna i två omgångar — behåll luftigheten.",
+      "en": "Fold the cream into the chocolate first, then the egg whites in two additions — keep it airy."
+    },
+    {
+      "sv": "Bred moussen över botten och ställ kallt minst 4 timmar, gärna över natten. Se videon för dekoren.",
+      "en": "Spread the mousse over the base and chill at least 4 hours, ideally overnight. See the video for the decoration."
+    }
+  ],
+  "notes": {
+    "sv": "Det här är en hemlagad version — följ videon ovan för den exakta metoden. Receptet innehåller rå äggvita; använd färska, pastöriserade ägg och servera kylt.",
+    "en": "This is an at-home version — follow the video above for the exact method. This contains raw egg white; use fresh, pasteurised eggs and serve chilled."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": {
+      "sv": "Innehåller: gluten, ägg, mjölk",
+      "en": "Contains: gluten, egg, milk"
+    },
+    "needsReview": [
+      "dark chocolate may carry soy and nut traces — check the bar",
+      "biscuit base assumed wheat-based (gluten); some chocolate biscuits also contain soy"
+    ],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-07"
+  },
+  "published": true
+}

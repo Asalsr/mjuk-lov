@@ -21,6 +21,7 @@ export interface RecipeVideo {
   youtubeId: string | null; // set = confirmed official video, safe to embed
   ratingProof?: string;
   category: string;
+  recipeSlug?: string;      // set = we have an on-site companion recipe page (plays video + our recipe)
 }
 
 export const recipeVideos: RecipeVideo[] = [
@@ -54,7 +55,7 @@ export const recipeVideos: RecipeVideo[] = [
   { id: 8, recipe: "Chocolate mug cake (microwave)", channel: "Bigger Bolder Baking",
     channelId: "UCB9IPcQ_x8dO66s1Y9FZUDg", channelUrl: "https://www.youtube.com/@biggerbolderbaking",
     recipeUrl: "https://www.biggerbolderbaking.com/chocolate-mug-cakes/", youtubeId: "1wX0BqT1fPs",
-    category: "No-bake / microwave" },
+    category: "No-bake / microwave", recipeSlug: "chocolate-mug-cake" },
   { id: 9, recipe: "Microwave mug brownie", channel: "Bigger Bolder Baking",
     channelId: "UCB9IPcQ_x8dO66s1Y9FZUDg", channelUrl: "https://www.youtube.com/@biggerbolderbaking",
     recipeUrl: "https://www.biggerbolderbaking.com/microwave-mug-brownie/", youtubeId: null,
@@ -67,13 +68,13 @@ export const recipeVideos: RecipeVideo[] = [
   // ── Cupcake Jemma (Jemma Wilson) — cupcakes ───────────────────────────────────
   { id: 11, recipe: "Perfect vanilla cupcakes", channel: "Cupcake Jemma",
     channelId: "c/cupcakejemma", channelUrl: "https://www.youtube.com/c/cupcakejemma",
-    recipeUrl: null, youtubeId: "lC51CynVHAU", category: "Cupcakes" },
+    recipeUrl: null, youtubeId: "lC51CynVHAU", category: "Cupcakes", recipeSlug: "vanilla-cupcakes" },
   { id: 12, recipe: "Classic vanilla cupcakes (bake-at-home)", channel: "Cupcake Jemma",
     channelId: "c/cupcakejemma", channelUrl: "https://www.youtube.com/c/cupcakejemma",
     recipeUrl: null, youtubeId: "p_uSD5ERdro", category: "Cupcakes" },
   { id: 13, recipe: "Funfetti / birthday cake cupcakes", channel: "Cupcake Jemma",
     channelId: "c/cupcakejemma", channelUrl: "https://www.youtube.com/c/cupcakejemma",
-    recipeUrl: null, youtubeId: "fq1QIsc-vys", category: "Cupcakes" },
+    recipeUrl: null, youtubeId: "fq1QIsc-vys", category: "Cupcakes", recipeSlug: "funfetti-cupcakes" },
 
   // ── Food Wishes (Chef John) ───────────────────────────────────────────────────
   { id: 14, recipe: "Olive oil cake", channel: "Food Wishes",
@@ -89,7 +90,7 @@ export const recipeVideos: RecipeVideo[] = [
   // ── Natasha's Kitchen (Natasha Kravchuk) ──────────────────────────────────────
   { id: 17, recipe: "Easy banana bread", channel: "Natasha's Kitchen",
     channelId: "UC-pC1xsFPzcrL09DaW4jlBA", channelUrl: "https://www.youtube.com/channel/UC-pC1xsFPzcrL09DaW4jlBA",
-    recipeUrl: "https://natashaskitchen.com/banana-bread-recipe-video/", youtubeId: "qUmDpPfY_h0", category: "Quick breads" },
+    recipeUrl: "https://natashaskitchen.com/banana-bread-recipe-video/", youtubeId: "qUmDpPfY_h0", category: "Quick breads", recipeSlug: "easy-banana-bread" },
   { id: 18, recipe: "Crepes", channel: "Natasha's Kitchen",
     channelId: "UC-pC1xsFPzcrL09DaW4jlBA", channelUrl: "https://www.youtube.com/channel/UC-pC1xsFPzcrL09DaW4jlBA",
     recipeUrl: "https://natashaskitchen.com/crepe-recipe-2-ways/", youtubeId: null, category: "Breakfast sweets" },
@@ -142,7 +143,7 @@ export const recipeVideos: RecipeVideo[] = [
     recipeUrl: "https://www.howtocookthat.net/public_html/chocolate-cake-recipe/", youtubeId: null, category: "Cakes" },
   { id: 31, recipe: "Chocolate mousse cake", channel: "How To Cook That",
     channelId: "UCsP7Bpw36J666Fct5M8u-ZA", channelUrl: "https://www.youtube.com/howtocookthat",
-    recipeUrl: null, youtubeId: "SbGpjrHcsIk", category: "Cakes" },
+    recipeUrl: null, youtubeId: "SbGpjrHcsIk", category: "Cakes", recipeSlug: "chocolate-mousse-cake" },
 
   // ── Bincy Chris (MerryBoosters) ───────────────────────────────────────────────
   { id: 32, recipe: "Soft chocolate chip cookies", channel: "Bincy Chris",

@@ -128,6 +128,8 @@ export const ui = {
     videos: "Bakvideor",
     videosIntro: "Utvalda recept från bakare vi litar på — testade, älskade, gjorda av tusentals.",
     watchOn: "Se på",
+    recipeAndVideo: "Recept & video",
+    inspiredBy: "Inspirerat av",
   },
   en: {
     recipes: "Recipes",
@@ -247,5 +249,7 @@ export const ui = {
     videos: "Baking videos",
     videosIntro: "Hand-picked recipes from bakers we trust — tested, loved, made by thousands.",
     watchOn: "Watch on",
+    recipeAndVideo: "Recipe & video",
+    inspiredBy: "Inspired by",
   },
 } as const;

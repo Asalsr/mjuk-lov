@@ -93,6 +93,7 @@ export function LoginForm({ lang }: { lang: Lang }) {
           onChange={setPassword}
           placeholder={t.password}
           minLength={6}
+          autoComplete={mode === "signup" ? "new-password" : "current-password"}
         />
       )}
       <button

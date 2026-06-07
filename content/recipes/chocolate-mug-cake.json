@@ -1,0 +1,68 @@
+{
+  "slug": "chocolate-mug-cake",
+  "title": {
+    "sv": "Chokladmuggkaka (mikro)",
+    "en": "Chocolate mug cake (microwave)"
+  },
+  "headnote": {
+    "sv": "En enda portion varm, fuktig chokladkaka på under fem minuter — rörd ihop direkt i muggen, ingen ugn. Se videon ovan för Gemmas metod.",
+    "en": "A single serving of warm, moist chocolate cake in under five minutes — stirred right in the mug, no oven. Watch the video above for Gemma's method."
+  },
+  "servings": 1,
+  "time": {
+    "prepMin": 3,
+    "totalMin": 5
+  },
+  "youtubeId": "1wX0BqT1fPs",
+  "inspiredBy": {
+    "channel": "Bigger Bolder Baking",
+    "url": "https://www.biggerbolderbaking.com/chocolate-mug-cakes/"
+  },
+  "ingredients": [
+    { "qty": "4 msk", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "3 msk", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "2 msk", "item": { "sv": "kakao", "en": "cocoa powder" } },
+    { "qty": "1 krm", "item": { "sv": "bakpulver", "en": "baking powder" } },
+    { "qty": "1 nypa", "item": { "sv": "salt", "en": "salt" } },
+    { "qty": "3 msk", "item": { "sv": "mjölk", "en": "milk" } },
+    { "qty": "2 msk", "item": { "sv": "neutral olja", "en": "neutral oil" } },
+    { "qty": "1/4 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
+    { "qty": "1 msk", "item": { "sv": "chokladchips (valfritt)", "en": "chocolate chips (optional)" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    {
+      "sv": "Rör ihop mjöl, socker, kakao, bakpulver och salt direkt i en stor mugg.",
+      "en": "Stir the flour, sugar, cocoa, baking powder and salt together directly in a large mug."
+    },
+    {
+      "sv": "Tillsätt mjölk, olja och vanilj. Rör tills smeten är slät och inga mjölklumpar finns kvar.",
+      "en": "Add the milk, oil and vanilla. Stir until the batter is smooth with no dry pockets left."
+    },
+    {
+      "sv": "Strö eventuellt över chokladchips. Mikra på full effekt 60–90 sekunder tills kakan precis stelnat på toppen.",
+      "en": "Scatter over the chocolate chips if using. Microwave on full power 60–90 seconds until the top is just set."
+    },
+    {
+      "sv": "Låt vila en minut — den eftersteks i muggen. Ät direkt, gärna med en klick glass. Se videon för tips.",
+      "en": "Let it rest a minute — it keeps cooking in the mug. Eat right away, ideally with a scoop of ice cream. See the video for tips."
+    }
+  ],
+  "notes": {
+    "sv": "Det här är en hemlagad version — följ videon ovan för den exakta metoden. Mikrovågsugnar skiljer sig; börja med 60 sekunder och lägg till i steg om 10.",
+    "en": "This is an at-home version — follow the video above for the exact method. Microwaves vary; start at 60 seconds and add in 10-second steps."
+  },
+  "allergens": {
+    "codes": ["gluten", "milk"],
+    "declaration": {
+      "sv": "Innehåller: gluten, mjölk",
+      "en": "Contains: gluten, milk"
+    },
+    "needsReview": [
+      "chokladchips / chocolate chips may contain soy and milk traces"
+    ],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-07"
+  },
+  "published": true
+}

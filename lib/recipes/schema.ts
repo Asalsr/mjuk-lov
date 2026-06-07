@@ -31,6 +31,11 @@ export const RecipeSchema = z.object({
   youtubeId: z.string().nullable(),
   /** Optional photo URL (or /public path). Falls back to the video thumbnail, then a placeholder. */
   image: z.string().nullable().default(null),
+  /** Credit when this is our original at-home take inspired by a creator's video. */
+  inspiredBy: z
+    .object({ channel: z.string(), url: z.string() })
+    .nullable()
+    .default(null),
   ingredients: z.array(z.object({ qty: z.string(), item: Localized })).min(1),
   /** Dietary tags this recipe satisfies (optional; defaults to none). */
   diet: z.array(DietTag).default([]),

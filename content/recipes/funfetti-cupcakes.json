@@ -1,0 +1,74 @@
+{
+  "slug": "funfetti-cupcakes",
+  "title": {
+    "sv": "Funfetti-cupcakes",
+    "en": "Funfetti cupcakes"
+  },
+  "headnote": {
+    "sv": "Födelsedagscupcakes fyllda med strössel i smeten — fluffiga, festliga och gjorda för att fira. Se videon ovan för Jemmas finish.",
+    "en": "Birthday cupcakes shot through with sprinkles in the batter — fluffy, festive and made to celebrate. Watch the video above for Jemma's finish."
+  },
+  "servings": 12,
+  "time": {
+    "prepMin": 20,
+    "totalMin": 45
+  },
+  "youtubeId": "fq1QIsc-vys",
+  "inspiredBy": {
+    "channel": "Cupcake Jemma",
+    "url": "https://www.youtube.com/watch?v=fq1QIsc-vys"
+  },
+  "ingredients": [
+    { "qty": "125 g", "item": { "sv": "smör, rumsvarmt", "en": "butter, softened" } },
+    { "qty": "125 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "2", "item": { "sv": "ägg", "en": "eggs" } },
+    { "qty": "125 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "1,5 tsk", "item": { "sv": "bakpulver", "en": "baking powder" } },
+    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
+    { "qty": "2 msk", "item": { "sv": "mjölk", "en": "milk" } },
+    { "qty": "3 msk", "item": { "sv": "strössel (helst de avlånga)", "en": "sprinkles (jimmies work best)" } },
+    { "qty": "150 g", "item": { "sv": "smör för smörkräm, rumsvarmt", "en": "butter for buttercream, softened" } },
+    { "qty": "300 g", "item": { "sv": "florsocker", "en": "icing sugar" } },
+    { "qty": "1 msk", "item": { "sv": "mjölk till smörkrämen", "en": "milk for the buttercream" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    {
+      "sv": "Sätt ugnen på 175°C och klä en muffinsform med 12 papperformar.",
+      "en": "Heat the oven to 175°C and line a muffin tin with 12 paper cases."
+    },
+    {
+      "sv": "Vispa smör och socker pösigt. Tillsätt äggen ett i taget och vispa väl mellan varje.",
+      "en": "Beat the butter and sugar until pale and fluffy. Add the eggs one at a time, beating well between each."
+    },
+    {
+      "sv": "Vänd ner mjöl och bakpulver, sedan vanilj och mjölk. Vänd snabbt ner strösslet på slutet så färgerna inte blöder.",
+      "en": "Fold in the flour and baking powder, then the vanilla and milk. Fold the sprinkles in quickly at the end so the colours don't bleed."
+    },
+    {
+      "sv": "Fördela i formarna och grädda 18–20 minuter tills de fjädrar tillbaka. Låt svalna helt.",
+      "en": "Divide between the cases and bake 18–20 minutes until they spring back. Cool completely."
+    },
+    {
+      "sv": "Vispa smöret ljust, sikta i florsockret och vispa med mjölken tills fluffigt. Spritsa och toppa med mer strössel. Se videon för finishen.",
+      "en": "Beat the butter until pale, sift in the icing sugar and beat with the milk until fluffy. Pipe and top with more sprinkles. See the video for the finish."
+    }
+  ],
+  "notes": {
+    "sv": "Det här är en hemlagad version — följ videon ovan för Jemmas exakta metod. Vänd ner strösslet sist så smeten inte färgas.",
+    "en": "This is an at-home version — follow the video above for Jemma's exact method. Add the sprinkles last so the batter doesn't take on colour."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": {
+      "sv": "Innehåller: gluten, ägg, mjölk",
+      "en": "Contains: gluten, egg, milk"
+    },
+    "needsReview": [
+      "strössel / sprinkles may contain soy and traces depending on brand — check the packet"
+    ],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-07"
+  },
+  "published": true
+}

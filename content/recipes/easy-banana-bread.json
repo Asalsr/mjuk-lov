@@ -1,0 +1,71 @@
+{
+  "slug": "easy-banana-bread",
+  "title": {
+    "sv": "Enkelt bananbröd",
+    "en": "Easy banana bread"
+  },
+  "headnote": {
+    "sv": "Saftigt, gyllene bananbröd av övermogna bananer — en skål, ingen elvisp, omöjligt att misslyckas. Se Natashas video ovan för hela metoden.",
+    "en": "Moist, golden banana bread from over-ripe bananas — one bowl, no mixer, hard to get wrong. Watch Natasha's video above for the full method."
+  },
+  "servings": 10,
+  "time": {
+    "prepMin": 15,
+    "totalMin": 75
+  },
+  "youtubeId": "qUmDpPfY_h0",
+  "inspiredBy": {
+    "channel": "Natasha's Kitchen",
+    "url": "https://natashaskitchen.com/banana-bread-recipe-video/"
+  },
+  "ingredients": [
+    { "qty": "3", "item": { "sv": "mycket mogna bananer, mosade", "en": "very ripe bananas, mashed" } },
+    { "qty": "115 g", "item": { "sv": "smör, smält", "en": "butter, melted" } },
+    { "qty": "150 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "2", "item": { "sv": "ägg", "en": "eggs" } },
+    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
+    { "qty": "250 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "1 tsk", "item": { "sv": "bikarbonat", "en": "baking soda" } },
+    { "qty": "1/2 tsk", "item": { "sv": "salt", "en": "salt" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    {
+      "sv": "Sätt ugnen på 175°C och smörj en avlång brödform (ca 23×13 cm).",
+      "en": "Heat the oven to 175°C and grease a loaf tin (about 23×13 cm)."
+    },
+    {
+      "sv": "Mosa bananerna i en skål. Rör ner smält smör, socker, ägg och vanilj.",
+      "en": "Mash the bananas in a bowl. Stir in the melted butter, sugar, eggs and vanilla."
+    },
+    {
+      "sv": "Vänd ner mjöl, bikarbonat och salt — rör precis tills det går ihop, inte mer.",
+      "en": "Fold in the flour, baking soda and salt — stir just until combined, no more."
+    },
+    {
+      "sv": "Häll i formen och grädda 55–65 minuter tills en sticka i mitten kommer ut ren.",
+      "en": "Pour into the tin and bake 55–65 minutes until a skewer in the centre comes out clean."
+    },
+    {
+      "sv": "Låt svalna i formen 10 minuter, lyft sedan ut. Se videon för tips och variationer.",
+      "en": "Cool in the tin 10 minutes, then lift out. See the video for tips and variations."
+    }
+  ],
+  "notes": {
+    "sv": "Det här är en hemlagad version — följ videon ovan för Natashas exakta metod. Vill du ha valnötter? Vänd ner en näve — då tillkommer allergenet nötter.",
+    "en": "This is an at-home version — follow the video above for Natasha's exact method. Want walnuts? Fold in a handful — note that this adds the nuts allergen."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": {
+      "sv": "Innehåller: gluten, ägg, mjölk",
+      "en": "Contains: gluten, egg, milk"
+    },
+    "needsReview": [
+      "if optional walnuts are added, declare nuts"
+    ],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-07"
+  },
+  "published": true
+}
