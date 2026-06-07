@@ -19,9 +19,9 @@ export function RecipeCard({
   delay?: number;
 }) {
   const t = ui[lang];
-  const thumb = recipe.youtubeId
-    ? `https://i.ytimg.com/vi/${recipe.youtubeId}/hqdefault.jpg`
-    : null;
+  const thumb =
+    recipe.image ||
+    (recipe.youtubeId ? `https://i.ytimg.com/vi/${recipe.youtubeId}/hqdefault.jpg` : null);
 
   return (
     <div

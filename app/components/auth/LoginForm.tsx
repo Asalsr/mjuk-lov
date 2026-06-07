@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { appOrigin } from "@/lib/site";
+import { PasswordInput } from "./PasswordInput";
 import { ui, type Lang } from "@/lib/i18n";
 
 const inputStyle = { border: "1px solid rgba(61, 42, 34, 0.2)" } as const;
@@ -56,7 +57,21 @@ export function LoginForm({ lang }: { lang: Lang }) {
     }
   };
 
-  if (notice) return <p className="type-body">{notice}</p>;
+  if (notice) {
+    return (
+      <div className="flex flex-col gap-4">
+        <p className="type-body">{notice}</p>
+        <button
+          type="button"
+          onClick={() => { setNotice(null); setMode("signin"); setPassword(""); }}
+          className="type-caps tap px-6 py-3 self-start transition-all hover:bg-[var(--warm-peach)]"
+          style={{ border: "1px solid var(--warm-cocoa)" }}
+        >
+          {t.backToLogin}
+        </button>
+      </div>
+    );
+  }
 
   const cta = mode === "signup" ? t.createAccount : mode === "reset" ? t.sendResetLink : t.signIn;
 
@@ -72,15 +87,12 @@ export function LoginForm({ lang }: { lang: Lang }) {
         style={inputStyle}
       />
       {mode !== "reset" && (
-        <input
-          type="password"
-          required
-          minLength={6}
-          placeholder={t.password}
+        <PasswordInput
+          lang={lang}
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-3 type-body bg-transparent"
-          style={inputStyle}
+          onChange={setPassword}
+          placeholder={t.password}
+          minLength={6}
         />
       )}
       <button
