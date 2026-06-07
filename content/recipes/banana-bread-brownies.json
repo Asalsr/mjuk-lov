@@ -1,0 +1,119 @@
+{
+  "slug": "banana-bread-brownies",
+  "title": {
+    "sv": "Bananbrödsbrownies",
+    "en": "Banana bread brownies"
+  },
+  "headnote": {
+    "sv": "Två favoriter i en: bananbrödets mjuka mums och browniens täta tugga. Snabbt rört ihop, svårt att sluta äta. Se videon för hela metoden.",
+    "en": "Two favourites in one: the soft comfort of banana bread with a brownie's dense chew. Quick to mix, hard to stop eating. Watch the video for the full method."
+  },
+  "servings": 16,
+  "time": {
+    "prepMin": 15,
+    "totalMin": 50
+  },
+  "youtubeId": "6HTb7Ietwmo",
+  "ingredients": [
+    {
+      "qty": "3",
+      "item": {
+        "sv": "mosade mogna bananer",
+        "en": "mashed ripe bananas"
+      }
+    },
+    {
+      "qty": "150 g",
+      "item": {
+        "sv": "smör, smält",
+        "en": "butter, melted"
+      }
+    },
+    {
+      "qty": "200 g",
+      "item": {
+        "sv": "strösocker",
+        "en": "granulated sugar"
+      }
+    },
+    {
+      "qty": "2",
+      "item": {
+        "sv": "ägg",
+        "en": "eggs"
+      }
+    },
+    {
+      "qty": "1 tsk",
+      "item": {
+        "sv": "vaniljextrakt",
+        "en": "vanilla extract"
+      }
+    },
+    {
+      "qty": "250 g",
+      "item": {
+        "sv": "vetemjöl",
+        "en": "all-purpose flour"
+      }
+    },
+    {
+      "qty": "1 tsk",
+      "item": {
+        "sv": "bakpulver",
+        "en": "baking powder"
+      }
+    },
+    {
+      "qty": "1 krm",
+      "item": {
+        "sv": "salt",
+        "en": "salt"
+      }
+    }
+  ],
+  "diet": [
+    "vegetarian"
+  ],
+  "steps": [
+    {
+      "sv": "Sätt ugnen på 175°C och smörj en form (ca 20×20 cm).",
+      "en": "Heat the oven to 175°C and grease a pan (about 20×20 cm)."
+    },
+    {
+      "sv": "Rör ihop smält smör och socker. Tillsätt banan, ägg och vanilj.",
+      "en": "Stir the melted butter and sugar. Add the banana, eggs and vanilla."
+    },
+    {
+      "sv": "Vänd ner mjöl, bakpulver och salt till en slät smet.",
+      "en": "Fold in the flour, baking powder and salt until smooth."
+    },
+    {
+      "sv": "Häll i formen och grädda 30–35 minuter tills mitten precis stannat.",
+      "en": "Pour into the pan and bake 30–35 minutes until the centre is just set."
+    },
+    {
+      "sv": "Låt svalna och skär i rutor. Se videon för glasyr och tips.",
+      "en": "Let cool and cut into squares. See the video for glaze and tips."
+    }
+  ],
+  "notes": {
+    "sv": "Receptet är en hemlagad version — följ videon ovan för den exakta metoden.",
+    "en": "This is an at-home version — follow the video above for the exact method."
+  },
+  "allergens": {
+    "codes": [
+      "gluten",
+      "egg",
+      "milk"
+    ],
+    "declaration": {
+      "sv": "Innehåller: gluten, ägg, mjölk",
+      "en": "Contains: gluten, egg, milk"
+    },
+    "needsReview": [],
+    "approvedBy": "saeedeh",
+    "approvedAt": "2026-06-07"
+  },
+  "published": true
+}

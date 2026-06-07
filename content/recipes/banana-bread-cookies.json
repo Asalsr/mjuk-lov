@@ -1,0 +1,142 @@
+{
+  "slug": "banana-bread-cookies",
+  "title": {
+    "sv": "Bananbrödskakor",
+    "en": "Banana bread cookies"
+  },
+  "headnote": {
+    "sv": "Allt du älskar med bananbröd — mjukt, kryddigt, gyllene — fast i kakform. Perfekt sätt att rädda övermogna bananer. Se videon för hela metoden.",
+    "en": "Everything you love about banana bread — soft, spiced, golden — in cookie form. The perfect way to rescue over-ripe bananas. Watch the video for the full method."
+  },
+  "servings": 24,
+  "time": {
+    "prepMin": 15,
+    "totalMin": 35
+  },
+  "youtubeId": "mFQdlYa1vGA",
+  "ingredients": [
+    {
+      "qty": "2",
+      "item": {
+        "sv": "mosade mogna bananer",
+        "en": "mashed ripe bananas"
+      }
+    },
+    {
+      "qty": "115 g",
+      "item": {
+        "sv": "smör, smält",
+        "en": "butter, melted"
+      }
+    },
+    {
+      "qty": "100 g",
+      "item": {
+        "sv": "farinsocker",
+        "en": "brown sugar"
+      }
+    },
+    {
+      "qty": "50 g",
+      "item": {
+        "sv": "strösocker",
+        "en": "granulated sugar"
+      }
+    },
+    {
+      "qty": "1",
+      "item": {
+        "sv": "ägg",
+        "en": "egg"
+      }
+    },
+    {
+      "qty": "1 tsk",
+      "item": {
+        "sv": "vaniljextrakt",
+        "en": "vanilla extract"
+      }
+    },
+    {
+      "qty": "280 g",
+      "item": {
+        "sv": "vetemjöl",
+        "en": "all-purpose flour"
+      }
+    },
+    {
+      "qty": "1 tsk",
+      "item": {
+        "sv": "bakpulver",
+        "en": "baking powder"
+      }
+    },
+    {
+      "qty": "1 tsk",
+      "item": {
+        "sv": "kanel",
+        "en": "cinnamon"
+      }
+    },
+    {
+      "qty": "1 krm",
+      "item": {
+        "sv": "salt",
+        "en": "salt"
+      }
+    },
+    {
+      "qty": "150 g",
+      "item": {
+        "sv": "chokladchips",
+        "en": "chocolate chips"
+      }
+    }
+  ],
+  "diet": [
+    "vegetarian"
+  ],
+  "steps": [
+    {
+      "sv": "Sätt ugnen på 175°C. Rör ihop smält smör med farin- och strösocker.",
+      "en": "Heat the oven to 175°C. Stir the melted butter with the brown and granulated sugar."
+    },
+    {
+      "sv": "Rör ner mosad banan, ägg och vanilj.",
+      "en": "Mix in the mashed banana, egg and vanilla."
+    },
+    {
+      "sv": "Vänd ner mjöl, bakpulver, kanel och salt. Rör i chokladchipsen.",
+      "en": "Fold in the flour, baking powder, cinnamon and salt. Stir in the chocolate chips."
+    },
+    {
+      "sv": "Klicka ut klickar på en plåt med bakplåtspapper och grädda 11–13 minuter.",
+      "en": "Drop spoonfuls onto a lined tray and bake 11–13 minutes."
+    },
+    {
+      "sv": "Låt svalna på plåten några minuter. Se videon för detaljer och tips.",
+      "en": "Let cool on the tray for a few minutes. See the video for details and tips."
+    }
+  ],
+  "notes": {
+    "sv": "Receptet är en hemlagad version — följ videon ovan för den exakta metoden.",
+    "en": "This is an at-home version — follow the video above for the exact method."
+  },
+  "allergens": {
+    "codes": [
+      "gluten",
+      "egg",
+      "milk"
+    ],
+    "declaration": {
+      "sv": "Innehåller: gluten, ägg, mjölk",
+      "en": "Contains: gluten, egg, milk"
+    },
+    "needsReview": [
+      "chokladchips / chocolate chips may contain soy/milk"
+    ],
+    "approvedBy": "saeedeh",
+    "approvedAt": "2026-06-07"
+  },
+  "published": true
+}
