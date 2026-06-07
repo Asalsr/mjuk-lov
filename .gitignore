@@ -43,3 +43,6 @@ next-env.d.ts
 
 # claude code (user-local)
 .claude/settings.local.json
+
+# Playwright skill transient execution files
+.claude/skills/**/.temp-execution-*.js
