@@ -33,13 +33,16 @@ export async function POST(req: Request) {
     `<p>Product / question: ${product || "—"}</p>` +
     `<p>Message:<br>${(message || "—").replace(/\n/g, "<br>")}</p>`;
 
+  // Dedicated contact inbox if set, else the owner email.
+  const to = process.env.CONTACT_EMAIL || process.env.contact_email || OWNER_EMAIL;
+
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
       body: JSON.stringify({
         from: process.env.RESEND_FROM || "Mjuk Lov <onboarding@resend.dev>",
-        to: OWNER_EMAIL,
+        to,
         reply_to: email,
         subject: `Mjuk Lov — enquiry from ${name}`,
         html,
