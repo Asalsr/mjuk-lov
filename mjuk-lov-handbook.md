@@ -33,7 +33,7 @@
 | **Brand name** | Mjuk Lov |
 | **Translation** | "Soft promise" in Swedish. *Lov* also evokes "love" to an English ear — deliberate double reading. |
 | **Tagline** | *ett mjukt löfte · a soft promise* |
-| **Location** | Gothenburg, Sweden (home kitchen — Linnéstaden in current website copy, confirm or replace) |
+| **Location** | Gothenburg, Sweden (home kitchen — Hissingen in current website copy, confirm or replace) |
 | **Legal form** | Enskild firma (sole trader) initially → Aktiebolag (AB, limited company) when annual profit exceeds ~SEK 400,000–500,000 |
 | **Cuisine identity** | **Not Swedish-cuisine.** Swedish in name only. Free to sell tiramisu, layer cakes, panna cotta, anything that fits the soft-promise frame. |
 | **Original business model** | Corporate weekly dessert subscriptions for small SMEs + DIY personalized cake kits, in parallel |
@@ -181,7 +181,7 @@ Mjuk Lov is a premium home-based dessert brand in Gothenburg that promises softn
 - *"Made three. Photographed two. Ate one. (For research.)"*
 
 **Sample longer copy** (current website):
-- *"Mjuk Lov började i ett litet kök i Linnéstaden. Inte som ett företag, utan som ett svar på en fråga: vad händer när du ger bort något du bakat själv?"*
+- *"Mjuk Lov började i ett litet kök i Hissingen. Inte som ett företag, utan som ett svar på en fråga: vad händer när du ger bort något du bakat själv?"*
 - *"Home baked in Gothenburg. For ordinary Wednesdays and occasions that deserve more."*
 
 ### 3.3 Visual rules
@@ -448,7 +448,7 @@ export async function POST(req: Request) {
   const body = await req.json();
   await resend.emails.send({
     from: 'Mjuk Lov <orders@mjuklov.se>',
-    to: 'hej@mjuklov.se',
+    to: 'mjuklov.se@gmail.com',
     subject: `New ${body.type} inquiry from ${body.name}`,
     text: JSON.stringify(body, null, 2)
   });
@@ -931,7 +931,7 @@ The current direction is Path B (tiramisu first), but the website still shows Pa
 
 ### 13.2 The actual production neighborhood
 
-Website footer says "Linnéstaden, Göteborg." Is that real or placeholder?
+Website footer says "Hissingen, Göteborg." Is that real or placeholder?
 
 ### 13.3 The wax-seal monogram
 

@@ -8,20 +8,20 @@ interface FooterProps {
 
 // NOTE: Replace placeholder values before launch:
 //  - phone: real number once registered
-//  - email: confirm hej@mjuklov.se / hello@mjuklov.se inboxes are live
-//  - location.line1: neighborhood (Linnéstaden is a placeholder)
+//  - email: confirm mjuklov.se@gmail.com / mjuklov.se@gmail.com inboxes are live
+//  - location.line1: neighborhood (Hissingen is a placeholder)
 //  - allergen: confirm full list once recipe range is fixed
 const content = {
   sv: {
     location: {
       title: 'Plats',
-      line1: 'Linnéstaden',
+      line1: 'Hissingen',
       line2: 'Göteborg'
     },
     contact: {
       title: 'Kontakt',
-      email: 'hej@mjuklov.se',
-      phone: '+46 324 082 4383' // PLACEHOLDER
+      email: 'mjuklov.se@gmail.com',
+      phone: '+46 76 576 1526' // PLACEHOLDER
     },
     allergen: 'Vårt kök hanterar gluten, mjölk, ägg, mandel och hasselnötter. Fråga gärna om annat.',
     copyright: '© 2026 Mjuk Lov'
@@ -29,13 +29,13 @@ const content = {
   en: {
     location: {
       title: 'Location',
-      line1: 'Linnéstaden',
+      line1: 'Hissingen',
       line2: 'Gothenburg'
     },
     contact: {
       title: 'Contact',
-      email: 'hello@mjuklov.se',
-      phone: '+46 324 082 4383' // PLACEHOLDER
+      email: 'mjuklov.se@gmail.com',
+      phone: '+46 76 576 1526' // PLACEHOLDER
     },
     allergen: 'Our kitchen handles gluten, milk, eggs, almonds and hazelnuts. Ask us about anything else.',
     copyright: '© 2026 Mjuk Lov'

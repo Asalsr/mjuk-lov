@@ -13,7 +13,7 @@ const content = {
     eyebrow: 'Om oss',
     heading: 'Ett kök. Ett löfte. Ett Göteborg.',
     paragraphs: [
-      'Mjuk Lov började i ett litet kök i Linnéstaden. Inte som ett företag, utan som ett svar på en fråga: vad händer när du ger bort något du bakat själv?',
+      'Mjuk Lov började i ett litet kök i Hissingen. Inte som ett företag, utan som ett svar på en fråga: vad händer när du ger bort något du bakat själv?',
       'Svaret var enkelt. Folk blir glada. Inte för att det är perfekt, utan för att det är personligt. För att någon tänkte på dem.',
       'Idag bakar vi fortfarande i samma kök. Vi har vuxit, men aldrig bort från grundtanken. Allt vi gör är mjukt. Mjukt i smaken, mjukt i formen, mjukt i löftet. Hembakat, för dig.'
     ]
@@ -22,7 +22,7 @@ const content = {
     eyebrow: 'About us',
     heading: 'One kitchen. One promise. One Gothenburg.',
     paragraphs: [
-      'Mjuk Lov started in a small kitchen in Linnéstaden. Not as a business, but as an answer to a question: what happens when you give away something you baked yourself?',
+      'Mjuk Lov started in a small kitchen in Hissingen. Not as a business, but as an answer to a question: what happens when you give away something you baked yourself?',
       'The answer was simple. People become happy. Not because it is perfect, but because it is personal. Because someone thought of them.',
       'Today we still bake in the same kitchen. We have grown, but never away from the basic idea. Everything we do is soft. Soft in taste, soft in form, soft in promise. Home baked, for you.'
     ]
