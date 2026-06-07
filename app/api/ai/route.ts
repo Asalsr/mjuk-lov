@@ -1,7 +1,9 @@
-import { chat } from "@/lib/ai/chat";
-import { askSystem, adaptSystem, adaptUser } from "@/lib/ai/prompts";
+import { chat, currentModel } from "@/lib/ai/chat";
+import { askSystem } from "@/lib/ai/prompts";
+import { generateAdaptation } from "@/lib/ai/adapt";
 import { aiDetect } from "@/lib/allergen/provider";
 import { buildLabel } from "@/lib/allergen/engine";
+import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
 import type { Lang } from "@/lib/i18n";
 
 // Needs the Node runtime (the AI/env helpers use node:fs). Never prerendered.
@@ -56,41 +58,66 @@ export async function POST(req: Request) {
 
     if (body.mode === "adapt") {
       const target = body.target === "vegan" ? "vegan" : "vegetarian";
-      const recipe = body.recipe as { title?: string; ingredients?: { qty: string; item: string }[] };
+      const recipe = body.recipe as {
+        slug?: string;
+        title?: string;
+        ingredients?: { qty: string; item: string }[];
+      };
       if (!recipe?.ingredients?.length) return json({ error: "bad_recipe" }, 400);
+
+      const slug = String(recipe.slug ?? "").slice(0, 200);
+      const model = currentModel();
+      // Shared cache, keyed on (slug, target, lang). No-op when Supabase isn't
+      // configured (local dev) — we just generate every time, as before.
+      const admin = isAdminConfigured && slug ? createAdminClient() : null;
+
+      if (admin) {
+        const { data } = await admin
+          .from("recipe_adaptations")
+          .select("result, model")
+          .eq("slug", slug)
+          .eq("target", target)
+          .eq("lang", lang)
+          .maybeSingle();
+        // Hit + same model → serve instantly, no OpenAI call. A stale model
+        // falls through and is regenerated synchronously below ("better AI").
+        if (data && data.model === model) return json(data.result);
+      }
 
       const input = {
         title: String(recipe.title ?? "").slice(0, 120),
         ingredients: recipe.ingredients.slice(0, 40),
       };
 
-      const raw = await chat({
-        system: adaptSystem(lang),
-        user: adaptUser(input, target),
-        json: true,
-        temperature: 0.3,
-      });
-      const parsed = JSON.parse(raw) as {
-        summary?: string;
-        swaps?: { from: string; to: string; note: string }[];
-        adaptedIngredients?: { qty: string; item: string }[];
-      };
+      // Best-of-2 + auto-validation (see lib/ai/adapt.ts).
+      const parsed = await generateAdaptation(input, target, lang);
+      if (!parsed) return json({ error: "ai_error" }, 500);
 
       // Recompute the allergen label for the adapted version (M1 engine).
       let allergens = null;
-      const ingStrings = (parsed.adaptedIngredients ?? []).map((i) => `${i.qty} ${i.item}`);
+      const ingStrings = parsed.adaptedIngredients.map((i) => `${i.qty} ${i.item}`);
       if (ingStrings.length) {
         const detected = await aiDetect(ingStrings);
         const label = buildLabel(detected, ingStrings);
         allergens = { codes: label.codes, declaration: label.declaration };
       }
 
-      return json({
-        summary: parsed.summary ?? "",
-        swaps: parsed.swaps ?? [],
-        adaptedIngredients: parsed.adaptedIngredients ?? [],
+      const result = {
+        summary: parsed.summary,
+        swaps: parsed.swaps,
+        adaptedIngredients: parsed.adaptedIngredients,
         allergens,
-      });
+      };
+
+      // Save for the next visitor (insert on miss, overwrite on stale model).
+      if (admin) {
+        await admin.from("recipe_adaptations").upsert(
+          { slug, target, lang, result, model, updated_at: new Date().toISOString() },
+          { onConflict: "slug,target,lang" },
+        );
+      }
+
+      return json(result);
     }
 
     return json({ error: "unknown_mode" }, 400);

@@ -40,6 +40,8 @@ export const Order = ({ lang }: OrderProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const [formData, setFormData] = useState({
     type: '',
     product: '',
@@ -61,10 +63,24 @@ export const Order = ({ lang }: OrderProps) => {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    localStorage.setItem('mjuklov_order', JSON.stringify({ ...formData, timestamp: Date.now() }));
-    setIsSubmitted(true);
+    if (isSending) return;
+    setIsSending(true);
+    setHasError(false);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) setIsSubmitted(true);
+      else setHasError(true);
+    } catch {
+      setHasError(true);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const handleChange = (field: string, value: string) => {
@@ -195,10 +211,15 @@ export const Order = ({ lang }: OrderProps) => {
               <MagneticButton
                 type="submit"
                 className="type-caps px-8 py-3 transition-all duration-300 hover:bg-[var(--vanilla-cream)] hover:text-[var(--warm-cocoa)] hover:shadow-xl"
-                style={{ border: '1px solid var(--vanilla-cream)' }}
+                style={{ border: '1px solid var(--vanilla-cream)', opacity: isSending ? 0.5 : 1 }}
               >
-                {t.submit}
+                {isSending ? '…' : t.submit}
               </MagneticButton>
+              {hasError && (
+                <p className="type-body" style={{ opacity: 0.8 }}>
+                  {lang === 'sv' ? 'Något gick fel. Försök igen.' : 'Something went wrong. Please try again.'}
+                </p>
+              )}
             </form>
           </div>
         ) : (

@@ -18,6 +18,14 @@ loadDotEnv(path.join(process.cwd(), "spike", ".env"));
 
 const PROVIDER = process.env.PROVIDER || "openai";
 
+/** The model id currently in use — stored alongside cached results so the
+ *  server can refresh them when a different (better) model is configured. */
+export function currentModel(): string {
+  return PROVIDER === "claude"
+    ? process.env.CLAUDE_MODEL || "claude-sonnet-4-6"
+    : process.env.OPENAI_MODEL || "gpt-4o-mini";
+}
+
 export async function chat(opts: {
   system: string;
   user: string;

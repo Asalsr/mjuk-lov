@@ -13,12 +13,17 @@ type AdaptResult = {
 
 export function AdaptButton({
   lang,
+  slug,
   title,
   ingredients,
+  targets = ["vegetarian", "vegan"],
 }: {
   lang: Lang;
+  slug: string;
   title: string;
   ingredients: { qty: string; item: string }[];
+  /** Which diets to offer — a recipe already satisfying a diet omits it. */
+  targets?: ("vegan" | "vegetarian")[];
 }) {
   const t = ui[lang];
   const [loading, setLoading] = useState<"vegan" | "vegetarian" | null>(null);
@@ -34,7 +39,7 @@ export function AdaptButton({
       const res = await fetch("/api/ai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mode: "adapt", lang, target, recipe: { title, ingredients } }),
+        body: JSON.stringify({ mode: "adapt", lang, target, recipe: { slug, title, ingredients } }),
       });
       const out = await res.json();
       if (!res.ok || out.error) setError(true);
@@ -49,24 +54,28 @@ export function AdaptButton({
   return (
     <div>
       <div className="flex flex-wrap gap-3">
-        <button
-          type="button"
-          onClick={() => adapt("vegetarian")}
-          disabled={loading !== null}
-          className="type-caps tap px-5 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
-          style={{ border: "1px solid var(--warm-cocoa)" }}
-        >
-          {loading === "vegetarian" ? t.thinking : t.makeVegetarian}
-        </button>
-        <button
-          type="button"
-          onClick={() => adapt("vegan")}
-          disabled={loading !== null}
-          className="type-caps tap px-5 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
-          style={{ border: "1px solid var(--warm-cocoa)" }}
-        >
-          {loading === "vegan" ? t.thinking : t.makeVegan}
-        </button>
+        {targets.includes("vegetarian") && (
+          <button
+            type="button"
+            onClick={() => adapt("vegetarian")}
+            disabled={loading !== null}
+            className="type-caps tap px-5 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
+            style={{ border: "1px solid var(--warm-cocoa)" }}
+          >
+            {loading === "vegetarian" ? t.thinking : t.makeVegetarian}
+          </button>
+        )}
+        {targets.includes("vegan") && (
+          <button
+            type="button"
+            onClick={() => adapt("vegan")}
+            disabled={loading !== null}
+            className="type-caps tap px-5 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
+            style={{ border: "1px solid var(--warm-cocoa)" }}
+          >
+            {loading === "vegan" ? t.thinking : t.makeVegan}
+          </button>
+        )}
       </div>
 
       {error && <p className="type-body opacity-70 mt-4" style={{ color: "var(--dusty-wine)" }}>{t.aiError}</p>}

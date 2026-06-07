@@ -37,3 +37,23 @@ export function adaptUser(recipe: AdaptRecipeInput, target: "vegan" | "vegetaria
   const lines = recipe.ingredients.map((i) => `- ${i.qty} ${i.item}`).join("\n");
   return `Recipe: ${recipe.title}\nTarget diet: ${target}\nIngredients:\n${lines}`;
 }
+
+/** Judge for the best-of-2 adaptation pass. The winning candidate is cached and
+ *  served to every future visitor, so it's worth a cheap extra call to pick it. */
+export function judgeAdaptationSystem(target: "vegan" | "vegetarian"): string {
+  return `You are a careful pastry chef comparing two AI-generated ${target} adaptations of the SAME dessert recipe.
+Pick the better one based on, in order of importance:
+1. Diet correctness — the adapted ingredients contain NO ingredients forbidden for a ${target} diet.
+2. Realistic, common, available swaps that keep the dessert recognisable.
+3. Completeness — the adapted ingredient list covers the whole recipe and the swaps are clearly explained.
+Respond with ONLY JSON: {"winner": 1} or {"winner": 2}.`;
+}
+
+export function judgeAdaptationUser(
+  recipe: AdaptRecipeInput,
+  target: "vegan" | "vegetarian",
+  candidate1: string,
+  candidate2: string,
+): string {
+  return `Recipe: ${recipe.title}\nTarget diet: ${target}\n\nCandidate 1:\n${candidate1}\n\nCandidate 2:\n${candidate2}\n\nWhich candidate is better? Return ONLY {"winner":1} or {"winner":2}.`;
+}

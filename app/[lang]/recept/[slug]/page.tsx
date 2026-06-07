@@ -64,6 +64,13 @@ export default async function Page({
   const t = ui[lang];
   const other = lang === "sv" ? "en" : "sv";
 
+  // Only offer to adapt to a diet the recipe doesn't already satisfy
+  // (vegan implies vegetarian, so a vegan recipe offers neither).
+  const isVegan = recipe.diet.includes("vegan");
+  const adaptTargets: ("vegan" | "vegetarian")[] = [];
+  if (!isVegan && !recipe.diet.includes("vegetarian")) adaptTargets.push("vegetarian");
+  if (!isVegan) adaptTargets.push("vegan");
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Recipe",
@@ -148,14 +155,18 @@ export default async function Page({
             <AllergenBlock declaration={recipe.allergens.declaration} lang={lang} />
           </div>
 
-          <section className="mt-12">
-            <div className="type-caps opacity-50 mb-4">{t.diet}</div>
-            <AdaptButton
-              lang={lang}
-              title={recipe.title[lang]}
-              ingredients={recipe.ingredients.map((i) => ({ qty: i.qty, item: i.item[lang] }))}
-            />
-          </section>
+          {adaptTargets.length > 0 && (
+            <section className="mt-12">
+              <div className="type-caps opacity-50 mb-4">{t.diet}</div>
+              <AdaptButton
+                lang={lang}
+                slug={recipe.slug}
+                title={recipe.title[lang]}
+                ingredients={recipe.ingredients.map((i) => ({ qty: i.qty, item: i.item[lang] }))}
+                targets={adaptTargets}
+              />
+            </section>
+          )}
 
           {recipe.notes[lang].trim() !== "" && (
             <section className="mt-12">
