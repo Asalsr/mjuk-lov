@@ -119,6 +119,9 @@ export const ui = {
     newPassword: "Nytt lösenord",
     updatePassword: "Uppdatera lösenord",
     passwordUpdated: "Lösenordet är uppdaterat. Du kan nu logga in.",
+    videos: "Bakvideor",
+    videosIntro: "Utvalda recept från bakare vi litar på — testade, älskade, gjorda av tusentals.",
+    watchOn: "Se på",
   },
   en: {
     recipes: "Recipes",
@@ -229,5 +232,8 @@ export const ui = {
     newPassword: "New password",
     updatePassword: "Update password",
     passwordUpdated: "Your password has been updated. You can now sign in.",
+    videos: "Baking videos",
+    videosIntro: "Hand-picked recipes from bakers we trust — tested, loved, made by thousands.",
+    watchOn: "Watch on",
   },
 } as const;

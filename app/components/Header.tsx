@@ -17,6 +17,7 @@ const content = {
   sv: {
     nav: ['Idén', 'Tårtkit', 'Företag', 'Hantverket', 'Om', 'Kontakt'],
     recipes: 'Recept',
+    videos: 'Bakvideor',
     myPage: 'Min sida',
     shop: 'Butik',
     account: 'Konto',
@@ -26,6 +27,7 @@ const content = {
   en: {
     nav: ['The Idea', 'Kits', 'Corporate', 'The Craft', 'About', 'Contact'],
     recipes: 'Recipes',
+    videos: 'Baking videos',
     myPage: 'My page',
     shop: 'Shop',
     account: 'Account',
@@ -79,6 +81,7 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
   // Recipes / Shop / My page — the app links shown in the profile dropdown.
   const accountLinks = [
     { href: `/${lang}/recept`, label: t.recipes },
+    { href: `/${lang}/videor`, label: t.videos },
     { href: `/${lang}/butik`, label: t.shop },
     { href: `/${lang}/min-sida`, label: t.myPage },
   ];
