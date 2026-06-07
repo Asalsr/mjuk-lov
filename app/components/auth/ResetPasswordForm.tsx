@@ -18,13 +18,22 @@ export function ResetPasswordForm({ lang }: { lang: Lang }) {
   const [hasSession, setHasSession] = useState<boolean | null>(null);
 
   useEffect(() => {
+    // The callback forwards `?error=...` when the recovery link was expired,
+    // already used, or invalid — treat that as definitive, regardless of any
+    // stale session cookie that might otherwise be present.
+    const linkFailed = Boolean(new URLSearchParams(window.location.search).get("error"));
     const supabase = createClient();
     let active = true;
-    supabase.auth.getSession().then(({ data }) => {
-      if (active) setHasSession(Boolean(data.session));
+    // getUser() validates against the server (unlike getSession(), which trusts
+    // whatever is in storage), so a stale/expired cookie won't render a form
+    // that's doomed to fail on submit.
+    supabase.auth.getUser().then(({ data, error }) => {
+      if (active) setHasSession(!linkFailed && Boolean(data.user) && !error);
     });
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (active && session) setHasSession(true);
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (active && session && !linkFailed && (event === "PASSWORD_RECOVERY" || event === "SIGNED_IN")) {
+        setHasSession(true);
+      }
     });
     return () => {
       active = false;
@@ -39,8 +48,16 @@ export function ResetPasswordForm({ lang }: { lang: Lang }) {
     setError(null);
     try {
       const { error } = await createClient().auth.updateUser({ password });
-      if (error) setError(error.message);
-      else {
+      if (error) {
+        // No valid session by submit time (expired/used link, or it never
+        // landed) — guide the user to request a fresh link instead of showing
+        // the raw "Auth session missing!" string.
+        if (error.code === "session_not_found" || /session/i.test(error.message)) {
+          setHasSession(false);
+        } else {
+          setError(error.message);
+        }
+      } else {
         setDone(true);
         setTimeout(() => {
           router.push(`/${lang}/min-sida`);
@@ -81,6 +98,7 @@ export function ResetPasswordForm({ lang }: { lang: Lang }) {
         onChange={setPassword}
         placeholder={t.newPassword}
         minLength={6}
+        autoComplete="new-password"
       />
       <button
         type="submit"
