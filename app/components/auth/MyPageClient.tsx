@@ -81,6 +81,9 @@ export function MyPageClient({
 
   const signOut = async () => {
     await createClient().auth.signOut();
+    // Navigate home rather than refreshing in place, so logout from any
+    // account context lands on the public landing page (never a 404).
+    router.push("/");
     router.refresh();
   };
 
