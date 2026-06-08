@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ui, type Lang } from "@/lib/i18n";
 import { AllergenChips } from "./AllergenBadge";
 import { SaveButton } from "@/app/components/personal/SaveButton";
@@ -22,6 +23,9 @@ export function RecipeCard({
   const thumb =
     recipe.image ||
     (recipe.youtubeId ? `https://i.ytimg.com/vi/${recipe.youtubeId}/hqdefault.jpg` : null);
+  // next/image (optimized, lazy, CDN-cached) for YouTube thumbnails; plain <img>
+  // only if a recipe ever sets a custom image on an unconfigured host.
+  const optimizable = !!thumb && thumb.includes("i.ytimg.com");
 
   return (
     <div
@@ -43,11 +47,20 @@ export function RecipeCard({
           className="relative aspect-[4/3] sm:aspect-[4/5] overflow-hidden flex items-center justify-center transition-colors duration-500"
           style={{ backgroundColor: "rgba(217, 183, 168, 0.2)" }}
         >
-          {thumb ? (
+          {thumb && optimizable ? (
+            <Image
+              src={thumb}
+              alt=""
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover transform transition-transform duration-500 group-hover:scale-110"
+            />
+          ) : thumb ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={thumb}
               alt=""
+              loading="lazy"
               className="absolute inset-0 h-full w-full object-cover transform transition-transform duration-500 group-hover:scale-110"
             />
           ) : (
