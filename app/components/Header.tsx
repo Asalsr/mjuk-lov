@@ -66,6 +66,9 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
   const signOut = async () => {
     await createClient().auth.signOut();
     setIsAccountOpen(false);
+    // Navigate home rather than refreshing in place: owner-only pages like
+    // /admin call notFound() for guests, so a refresh-after-logout would 404.
+    router.push('/');
     router.refresh();
   };
 

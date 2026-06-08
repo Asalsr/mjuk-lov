@@ -1,14 +1,21 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useCart, setQty, removeFromCart, clearCart } from "@/lib/cart/store";
 import { useUserData } from "@/lib/userdata/store";
+import { useAddresses, addAddress, deleteAddress, setDefaultAddress } from "@/lib/addresses/store";
 import { createClient } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
 import { LABELS } from "@/lib/allergen/labels";
 import { AddressAutocomplete, type Address } from "./AddressAutocomplete";
 import { ui, type Lang } from "@/lib/i18n";
+
+const NEW = "new"; // sentinel for the "add a new address" choice
+const fmtAddr = (street: string, pc: string, city: string) =>
+  [street, [pc, city].filter(Boolean).join(" ")].filter(Boolean).join(", ");
+const addrSummary = (a: { street: string; postalCode: string; city: string }) => fmtAddr(a.street, a.postalCode, a.city);
 
 const inputStyle = { border: "1px solid rgba(61, 42, 34, 0.2)" } as const;
 
@@ -17,34 +24,54 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
   const items = useCart();
   const data = useUserData();
 
+  const { addresses, loading: addrLoading, refresh: refreshAddresses } = useAddresses();
+  const [loggedIn, setLoggedIn] = useState(false);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
   const [fulfilment, setFulfilment] = useState<"pickup" | "delivery">("pickup");
-  const [addr, setAddr] = useState<Address>({ street: "", postalCode: "", city: "" });
   const [dietary, setDietary] = useState("");
   const [notes, setNotes] = useState("");
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Address selection: a saved address id, or NEW to enter a fresh one.
+  const [selectedAddrId, setSelectedAddrId] = useState<string>(NEW);
+  const [addr, setAddr] = useState<Address>({ street: "", postalCode: "", city: "" });
+  const [addrLabel, setAddrLabel] = useState("");
+  const [recvName, setRecvName] = useState("");
+  const [recvPhone, setRecvPhone] = useState("");
+
   // Prefill from the local profile + the logged-in session (all editable).
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect -- one-time prefill from profile */
     if (data.profile.fullName) setName((n) => n || data.profile.fullName);
-    if (data.profile.address) setAddr((a) => (a.street ? a : { ...a, street: data.profile.address }));
+    if (data.profile.phone) setPhone((p) => p || data.profile.phone);
     if (data.profile.allergies.length)
       setDietary((d) => d || data.profile.allergies.map((c) => LABELS[c][lang]).join(", "));
+    /* eslint-enable react-hooks/set-state-in-effect */
     if (isSupabaseConfigured) {
       createClient()
         .auth.getUser()
         .then(({ data: { user } }) => {
+          setLoggedIn(!!user);
           if (user?.email) setEmail((e) => e || user.email!);
         })
         .catch(() => {});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data.profile.fullName, data.profile.address]);
+  }, [data.profile.fullName, data.profile.phone]);
+
+  // Once addresses load, default the selection to the user's default (else the
+  // most recent; the list is already ordered default-first, newest-first).
+  useEffect(() => {
+    if (addrLoading || addresses.length === 0) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- default the picker once the list arrives
+    setSelectedAddrId((cur) => (cur === NEW ? addresses[0].id : cur));
+  }, [addrLoading, addresses]);
 
   const subtotal = useMemo(
     () => items.reduce((s, i) => s + (getProduct(i.productId)?.priceSek ?? 0) * i.qty, 0),
@@ -70,17 +97,54 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
       setError(t.dateTooSoon);
       return;
     }
+
+    // Resolve the delivery address + receiver, and stage a save for new ones.
+    let address = "";
+    let receiverName = "";
+    let receiverPhone = "";
+    let saveNew: Parameters<typeof addAddress>[0] | null = null;
+    if (fulfilment === "delivery") {
+      const chosen = loggedIn && selectedAddrId !== NEW ? addresses.find((a) => a.id === selectedAddrId) : null;
+      if (chosen) {
+        address = fmtAddr(chosen.street, chosen.postalCode, chosen.city);
+        receiverName = chosen.receiverName || name;
+        receiverPhone = chosen.receiverPhone || phone;
+      } else {
+        if (!addr.street.trim()) {
+          setError(t.addressRequired);
+          return;
+        }
+        address = fmtAddr(addr.street, addr.postalCode, addr.city);
+        receiverName = recvName.trim() || name;
+        receiverPhone = recvPhone.trim() || phone;
+        if (loggedIn) {
+          if (!addrLabel.trim()) {
+            setError(t.labelRequired);
+            return;
+          }
+          saveNew = {
+            label: addrLabel.trim(),
+            street: addr.street,
+            postalCode: addr.postalCode,
+            city: addr.city,
+            receiverName: recvName.trim(),
+            receiverPhone: recvPhone.trim(),
+          };
+        }
+      }
+    }
+
     setSending(true);
     setError(null);
     try {
-      const address =
-        fulfilment === "delivery"
-          ? [addr.street, [addr.postalCode, addr.city].filter(Boolean).join(" ")].filter(Boolean).join(", ")
-          : "";
+      if (saveNew) {
+        await addAddress(saveNew);
+        void refreshAddresses();
+      }
       const res = await fetch("/api/order-request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items, name, email, phone, desiredDate: date || null, fulfilment, address, dietary, notes }),
+        body: JSON.stringify({ items, name, email, phone, desiredDate: date || null, fulfilment, address, receiverName, receiverPhone, dietary, notes }),
       });
       const out = await res.json();
       if (out.ok) {
@@ -171,7 +235,65 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
             {t.delivery}
           </label>
         </div>
-        {fulfilment === "delivery" && <AddressAutocomplete value={addr} onChange={setAddr} lang={lang} />}
+        {fulfilment === "delivery" && (
+          <div className="flex flex-col gap-3">
+            {loggedIn && addresses.length > 0 && (
+              <div className="flex flex-col gap-2">
+                <div className="type-caps opacity-50" style={{ fontSize: "0.6875rem" }}>{t.savedAddresses}</div>
+                {addresses.map((a) => (
+                  <label key={a.id} className="flex items-start gap-2 p-3 cursor-pointer" style={inputStyle}>
+                    <input type="radio" name="addr" checked={selectedAddrId === a.id} onChange={() => setSelectedAddrId(a.id)} className="mt-1" />
+                    <span className="flex-1">
+                      <span className="type-body flex items-center gap-2">
+                        {a.label}
+                        {a.isDefault && (
+                          <span className="type-caps opacity-50" style={{ fontSize: "0.6rem" }}>· {t.defaultBadge}</span>
+                        )}
+                      </span>
+                      <span className="type-caps opacity-50 block" style={{ fontSize: "0.625rem" }}>{addrSummary(a)}</span>
+                      {(a.receiverName || a.receiverPhone) && (
+                        <span className="type-caps opacity-40 block" style={{ fontSize: "0.6rem" }}>
+                          {[a.receiverName, a.receiverPhone].filter(Boolean).join(" · ")}
+                        </span>
+                      )}
+                      <span className="flex gap-3 mt-1">
+                        {!a.isDefault && (
+                          <button type="button" onClick={async () => { await setDefaultAddress(a.id); void refreshAddresses(); }} className="type-caps opacity-50 hover:text-[var(--dusty-terracotta)]" style={{ fontSize: "0.6rem" }}>
+                            {t.setDefault}
+                          </button>
+                        )}
+                        <button type="button" onClick={async () => { await deleteAddress(a.id); setSelectedAddrId((cur) => (cur === a.id ? NEW : cur)); void refreshAddresses(); }} className="type-caps opacity-50 hover:text-[var(--dusty-terracotta)]" style={{ fontSize: "0.6rem" }}>
+                          {t.remove}
+                        </button>
+                      </span>
+                    </span>
+                  </label>
+                ))}
+                <label className="flex items-center gap-2 p-3 cursor-pointer" style={inputStyle}>
+                  <input type="radio" name="addr" checked={selectedAddrId === NEW} onChange={() => setSelectedAddrId(NEW)} />
+                  <span className="type-body">{t.addNewAddress}</span>
+                </label>
+              </div>
+            )}
+
+            {(selectedAddrId === NEW || !loggedIn || addresses.length === 0) && (
+              <div className="flex flex-col gap-3">
+                <AddressAutocomplete value={addr} onChange={setAddr} lang={lang} />
+                {loggedIn ? (
+                  <>
+                    <input placeholder={t.addressLabel} value={addrLabel} onChange={(e) => setAddrLabel(e.target.value)} className="p-3 type-body bg-transparent" style={inputStyle} />
+                    <input placeholder={t.receiverName} value={recvName} onChange={(e) => setRecvName(e.target.value)} className="p-3 type-body bg-transparent" style={inputStyle} />
+                    <input placeholder={t.receiverPhone} value={recvPhone} onChange={(e) => setRecvPhone(e.target.value)} className="p-3 type-body bg-transparent" style={inputStyle} />
+                  </>
+                ) : (
+                  <Link href={`/${lang}/logga-in`} className="type-caps opacity-60 self-start hover:text-[var(--dusty-terracotta)]" style={{ fontSize: "0.6875rem" }}>
+                    {t.logInToSave}
+                  </Link>
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         <input placeholder={t.dietaryNeeds} value={dietary} onChange={(e) => setDietary(e.target.value)} className="p-3 type-body bg-transparent" style={inputStyle} />
         <textarea placeholder={t.orderNotes} value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} className="p-3 type-body bg-transparent" style={inputStyle} />

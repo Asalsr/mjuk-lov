@@ -10,7 +10,8 @@ import { createClient } from "@/lib/supabase/client";
 export type UserData = {
   profile: {
     fullName: string;
-    address: string;
+    phone: string; // default receiver number
+    address: string; // legacy free-text address (superseded by the address book)
     diet: DietTag[];
     allergies: AllergenCode[]; // allergens to avoid
     consentAi: boolean; // GDPR: may we send diet/allergy data to the AI
@@ -25,7 +26,7 @@ export type UserData = {
 const KEY = "mjuklov_userdata";
 
 const DEFAULT: UserData = {
-  profile: { fullName: "", address: "", diet: [], allergies: [], consentAi: false },
+  profile: { fullName: "", phone: "", address: "", diet: [], allergies: [], consentAi: false },
   favorites: [],
   wishlist: [],
   notes: {},
@@ -148,6 +149,7 @@ function persistProfile(p: UserData["profile"]) {
     await s.from("profiles").upsert({
       id: uid,
       full_name: p.fullName,
+      phone: p.phone,
       address: p.address,
       diet: p.diet,
       allergies: p.allergies,

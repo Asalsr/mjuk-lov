@@ -11,6 +11,7 @@ export function ResetPasswordForm({ lang }: { lang: Lang }) {
   const t = ui[lang];
   const router = useRouter();
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
@@ -44,6 +45,10 @@ export function ResetPasswordForm({ lang }: { lang: Lang }) {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!password || loading) return;
+    if (password !== confirm) {
+      setError(t.passwordsDoNotMatch);
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
@@ -97,6 +102,14 @@ export function ResetPasswordForm({ lang }: { lang: Lang }) {
         value={password}
         onChange={setPassword}
         placeholder={t.newPassword}
+        minLength={6}
+        autoComplete="new-password"
+      />
+      <PasswordInput
+        lang={lang}
+        value={confirm}
+        onChange={setConfirm}
+        placeholder={t.confirmPassword}
         minLength={6}
         autoComplete="new-password"
       />

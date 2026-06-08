@@ -34,7 +34,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   let wishlist: string[] = [];
   let notes: { slug: string; body: string }[] = [];
   let made: string[] = [];
-  let profile = { fullName: "", address: "" };
+  let profile = { fullName: "", phone: "", address: "" };
   let orders: OrderRow[] = [];
 
   if (user) {
@@ -43,15 +43,15 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
       supabase.from("wishlist").select("slug"),
       supabase.from("notes").select("slug, body"),
       supabase.from("cooking_history").select("slug"),
-      supabase.from("profiles").select("full_name, address").eq("id", user.id).maybeSingle(),
+      supabase.from("profiles").select("full_name, phone, address").eq("id", user.id).maybeSingle(),
       supabase.from("orders").select("id, status, created_at, desired_date, fulfilment, quoted_price, items").order("created_at", { ascending: false }),
     ]);
     favorites = (f.data ?? []).map((r: { slug: string }) => r.slug);
     wishlist = (w.data ?? []).map((r: { slug: string }) => r.slug);
     notes = (n.data ?? []) as { slug: string; body: string }[];
     made = Array.from(new Set((h.data ?? []).map((r: { slug: string }) => r.slug)));
-    const pd = p.data as { full_name: string | null; address: string | null } | null;
-    profile = { fullName: pd?.full_name ?? "", address: pd?.address ?? "" };
+    const pd = p.data as { full_name: string | null; phone: string | null; address: string | null } | null;
+    profile = { fullName: pd?.full_name ?? "", phone: pd?.phone ?? "", address: pd?.address ?? "" };
     orders = (o.data ?? []) as OrderRow[];
   }
 

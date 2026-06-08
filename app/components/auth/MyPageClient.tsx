@@ -22,7 +22,7 @@ export function MyPageClient({
   lang: Lang;
   email: string;
   isOwner?: boolean;
-  profile: { fullName: string; address: string };
+  profile: { fullName: string; phone: string; address: string };
   favorites: string[];
   wishlist: string[];
   notes: { slug: string; body: string }[];
@@ -41,7 +41,7 @@ export function MyPageClient({
   const t = ui[lang];
   const router = useRouter();
   const [name, setName] = useState(profile.fullName);
-  const [address, setAddress] = useState(profile.address);
+  const [phone, setPhone] = useState(profile.phone);
   const [msg, setMsg] = useState<string | null>(null);
   const titleOf = (slug: string) => titles[slug] ?? slug;
 
@@ -81,12 +81,15 @@ export function MyPageClient({
 
   const signOut = async () => {
     await createClient().auth.signOut();
+    // Navigate home rather than refreshing in place, so logout from any
+    // account context lands on the public landing page (never a 404).
+    router.push("/");
     router.refresh();
   };
 
   const saveProfile = (e: React.FormEvent) => {
     e.preventDefault();
-    setProfile({ fullName: name, address }); // write-through to Supabase
+    setProfile({ fullName: name, phone }); // write-through to Supabase
     setMsg(t.synced);
   };
 
@@ -122,8 +125,8 @@ export function MyPageClient({
           <input value={name} onChange={(e) => setName(e.target.value)} className="w-full p-3 type-body bg-transparent" style={inputStyle} />
         </label>
         <label className="flex flex-col gap-1">
-          <span className="type-caps opacity-50" style={{ fontSize: "0.6875rem" }}>{t.address}</span>
-          <input value={address} onChange={(e) => setAddress(e.target.value)} className="w-full p-3 type-body bg-transparent" style={inputStyle} />
+          <span className="type-caps opacity-50" style={{ fontSize: "0.6875rem" }}>{t.phone}</span>
+          <input value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full p-3 type-body bg-transparent" style={inputStyle} />
         </label>
         <button type="submit" className="type-caps tap px-6 py-3 self-start transition-all hover:bg-[var(--warm-peach)]" style={{ border: "1px solid var(--warm-cocoa)" }}>
           {t.save}

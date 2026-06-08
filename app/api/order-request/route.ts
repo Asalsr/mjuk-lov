@@ -89,6 +89,16 @@ export async function POST(req: Request) {
   if (!db) return json({ error: "not_configured" }, 500);
 
   const fulfilment = body.fulfilment === "delivery" ? "delivery" : "pickup";
+  // Recipient may differ from the orderer; "—" suffix keeps it in the single
+  // address column (no schema change) and in the notification.
+  const receiverName = String(body.receiverName ?? "").trim();
+  const receiverPhone = String(body.receiverPhone ?? "").trim();
+  const recipient = [receiverName, receiverPhone].filter(Boolean).join(", ");
+  const baseAddress = String(body.address ?? "").trim();
+  const fullAddress =
+    fulfilment === "delivery"
+      ? [baseAddress, recipient].filter(Boolean).join(" — ") || null
+      : null;
   const { data: order, error } = await db
     .from("orders")
     .insert({
@@ -99,7 +109,7 @@ export async function POST(req: Request) {
       contact_phone: phone || null,
       desired_date: desiredDate,
       fulfilment,
-      address: fulfilment === "delivery" ? (body.address as string) || null : null,
+      address: fullAddress,
       dietary: (body.dietary as string) || null,
       notes: (body.notes as string) || null,
       status: "requested",
@@ -124,7 +134,7 @@ export async function POST(req: Request) {
     `<p><b>${name}</b> — ${email} ${phone}</p>` +
     `<p>${lines}</p>` +
     `<p>Subtotal: ${subtotal} kr${deliveryFee ? ` · Delivery: ${deliveryFee} kr` : ""} · <b>Total (est.): ${total} kr</b></p>` +
-    `<p>Date: ${desiredDate} · ${fulfilment}${body.address ? ` · ${body.address}` : ""}</p>` +
+    `<p>Date: ${desiredDate} · ${fulfilment}${fullAddress ? ` · ${fullAddress}` : ""}</p>` +
     `<p>Dietary: ${(body.dietary as string) || "—"}</p>` +
     `<p>Notes: ${(body.notes as string) || "—"}</p>` +
     `<p>Ref: ${order.id}</p>`;

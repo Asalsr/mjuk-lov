@@ -16,6 +16,7 @@ export function LoginForm({ lang }: { lang: Lang }) {
   const [mode, setMode] = useState<Mode>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
@@ -24,6 +25,10 @@ export function LoginForm({ lang }: { lang: Lang }) {
     e.preventDefault();
     if (loading || !email.trim()) return;
     if (mode !== "reset" && !password) return;
+    if (mode === "signup" && password !== confirm) {
+      setError(t.passwordsDoNotMatch);
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
@@ -63,7 +68,7 @@ export function LoginForm({ lang }: { lang: Lang }) {
         <p className="type-body">{notice}</p>
         <button
           type="button"
-          onClick={() => { setNotice(null); setMode("signin"); setPassword(""); }}
+          onClick={() => { setNotice(null); setMode("signin"); setPassword(""); setConfirm(""); }}
           className="type-caps tap px-6 py-3 self-start transition-all hover:bg-[var(--warm-peach)]"
           style={{ border: "1px solid var(--warm-cocoa)" }}
         >
@@ -96,6 +101,16 @@ export function LoginForm({ lang }: { lang: Lang }) {
           autoComplete={mode === "signup" ? "new-password" : "current-password"}
         />
       )}
+      {mode === "signup" && (
+        <PasswordInput
+          lang={lang}
+          value={confirm}
+          onChange={setConfirm}
+          placeholder={t.confirmPassword}
+          minLength={6}
+          autoComplete="new-password"
+        />
+      )}
       <button
         type="submit"
         disabled={loading}
@@ -112,7 +127,7 @@ export function LoginForm({ lang }: { lang: Lang }) {
             <button type="button" onClick={() => { setMode("reset"); setError(null); }} className="type-caps opacity-60 self-start transition-colors hover:text-[var(--dusty-terracotta)]">
               {t.forgotPassword}
             </button>
-            <button type="button" onClick={() => { setMode("signup"); setError(null); }} className="type-caps opacity-60 self-start transition-colors hover:text-[var(--dusty-terracotta)]">
+            <button type="button" onClick={() => { setMode("signup"); setError(null); setConfirm(""); }} className="type-caps opacity-60 self-start transition-colors hover:text-[var(--dusty-terracotta)]">
               {t.noAccount}
             </button>
           </>

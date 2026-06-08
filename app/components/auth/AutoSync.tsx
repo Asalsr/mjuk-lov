@@ -28,7 +28,7 @@ export function AutoSync() {
           supabase.from("cooking_history").select("slug, cooked_at"),
           supabase
             .from("profiles")
-            .select("full_name, address, diet, allergies, consent_ai")
+            .select("full_name, phone, address, diet, allergies, consent_ai")
             .eq("id", userId)
             .maybeSingle(),
         ]);
@@ -37,7 +37,7 @@ export function AutoSync() {
         const notesObj: Record<string, string> = {};
         ((n.data as { slug: string; body: string }[]) ?? []).forEach((r) => (notesObj[r.slug] = r.body));
         const prof = p.data as
-          | { full_name: string | null; address: string | null; diet: string[]; allergies: string[]; consent_ai: boolean }
+          | { full_name: string | null; phone: string | null; address: string | null; diet: string[]; allergies: string[]; consent_ai: boolean }
           | null;
 
         mergeRemote({
@@ -48,6 +48,7 @@ export function AutoSync() {
           profile: prof
             ? {
                 fullName: prof.full_name ?? "",
+                phone: prof.phone ?? "",
                 address: prof.address ?? "",
                 diet: (prof.diet ?? []) as never,
                 allergies: (prof.allergies ?? []) as never,
@@ -76,6 +77,7 @@ export function AutoSync() {
           supabase.from("profiles").upsert({
             id: userId,
             full_name: d.profile.fullName,
+            phone: d.profile.phone,
             address: d.profile.address,
             diet: d.profile.diet,
             allergies: d.profile.allergies,
