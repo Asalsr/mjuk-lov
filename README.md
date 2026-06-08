@@ -109,7 +109,7 @@ See [`.env.example`](.env.example). All optional — the app degrades gracefully
 | `SUPABASE_SERVICE_ROLE_KEY` | Guest orders, admin reads, webhooks (server-only) |
 | `RESEND_API_KEY` / `RESEND_FROM` / `CONTACT_EMAIL` | Transactional email (orders + status) |
 | `OWNER_EMAIL` | The account that can reach `/admin` |
-| `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` | Delivery-address autocomplete/validation |
+| `GOOGLE_MAPS_SERVER_KEY` | Delivery-address autocomplete (Places API New, via a server-side proxy — key never hits the browser) |
 | `YOUTUBE_API_KEY` | The author-time video-ID resolver script |
 | `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` | Real payments (parked) |
 

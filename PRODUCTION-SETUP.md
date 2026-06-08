@@ -42,8 +42,9 @@ Set up every service and connect it to the Vercel deployment. Replace
 - **Resend** (emails: order requests → your inbox, and confirm/decline → the customer).
   Needs a **verified sender** or order emails won't arrive — see **§3b** below for the full setup.
 - **Google Maps** (delivery address autocomplete): Google Cloud → enable
-  **Places API (New)** + **Maps JavaScript API** → API key → `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`
-  (restrict by HTTP referrer to your domain).
+  **Places API (New)** + **billing** → API key → `GOOGLE_MAPS_SERVER_KEY` (server-side proxy
+  at `/api/places/*`, so the key never reaches the browser). Restrict the key by **API**
+  (Places API New); leave **application restriction = None** (server calls have no referrer).
 - **Stripe** (real payments — currently parked; the live flow is request-to-order):
   `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `APP_URL`. Skip unless enabling payments.
 
@@ -90,7 +91,7 @@ longer swallow errors).
    | `RESEND_API_KEY` *(opt)* | Resend |
    | `RESEND_FROM` *(opt)* | `Mjuk Lov <orders@mjuklov.se>` — a verified sender (see §3b) |
    | `CONTACT_EMAIL` *(opt)* | `mjuklov.se@gmail.com` — inbox for order + contact emails |
-   | `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` *(opt)* | Google |
+   | `GOOGLE_MAPS_SERVER_KEY` *(opt)* | Google (server-only; Places API New) |
    | `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` *(opt)* | Stripe |
    > `NEXT_PUBLIC_*` are baked in at build time — after adding/changing them, **Redeploy**.
 3. **Redeploy** (Deployments → ⋯ → Redeploy) so the new env vars take effect.
