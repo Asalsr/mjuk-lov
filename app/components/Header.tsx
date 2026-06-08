@@ -84,7 +84,6 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
   // Recipes / Shop / My page — the app links shown in the profile dropdown.
   const accountLinks = [
     { href: `/${lang}/recept`, label: t.recipes },
-    { href: `/${lang}/videor`, label: t.videos },
     { href: `/${lang}/butik`, label: t.shop },
     { href: `/${lang}/min-sida`, label: t.myPage },
   ];
