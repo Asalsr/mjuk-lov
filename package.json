@@ -10,7 +10,8 @@
     "test": "vitest run",
     "label": "tsx scripts/label.ts",
     "import": "tsx scripts/import.ts",
-    "translate": "tsx scripts/translate.ts"
+    "translate": "tsx scripts/translate.ts",
+    "resolve-videos": "tsx scripts/resolve-video-ids.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
