@@ -14,6 +14,8 @@ type OrderRow = {
   status: string;
   created_at: string;
   desired_date: string | null;
+  fulfilment: string | null;
+  quoted_price: number | null;
   items: { qty: number; name: string; nameSv: string }[] | null;
 };
 
@@ -42,7 +44,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
       supabase.from("notes").select("slug, body"),
       supabase.from("cooking_history").select("slug"),
       supabase.from("profiles").select("full_name, address").eq("id", user.id).maybeSingle(),
-      supabase.from("orders").select("id, status, created_at, desired_date, items").order("created_at", { ascending: false }),
+      supabase.from("orders").select("id, status, created_at, desired_date, fulfilment, quoted_price, items").order("created_at", { ascending: false }),
     ]);
     favorites = (f.data ?? []).map((r: { slug: string }) => r.slug);
     wishlist = (w.data ?? []).map((r: { slug: string }) => r.slug);

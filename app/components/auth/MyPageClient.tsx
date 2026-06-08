@@ -32,6 +32,8 @@ export function MyPageClient({
     status: string;
     created_at: string;
     desired_date: string | null;
+    fulfilment: string | null;
+    quoted_price: number | null;
     items: { qty: number; name: string; nameSv: string }[] | null;
   }[];
   titles: Record<string, string>;
@@ -42,6 +44,40 @@ export function MyPageClient({
   const [address, setAddress] = useState(profile.address);
   const [msg, setMsg] = useState<string | null>(null);
   const titleOf = (slug: string) => titles[slug] ?? slug;
+
+  const statusLabel = (s: string) =>
+    ({ requested: t.statusRequested, confirmed: t.statusConfirmed, declined: t.statusDeclined, done: t.statusDone } as Record<string, string>)[s] ?? s;
+  const statusColor = (s: string) =>
+    ({ requested: "var(--dusty-terracotta)", confirmed: "var(--warm-cocoa)", done: "var(--dusty-wine)", declined: "rgba(61, 42, 34, 0.4)" } as Record<string, string>)[s] ?? "var(--warm-cocoa)";
+
+  const activeOrders = orders.filter((o) => o.status === "requested" || o.status === "confirmed");
+  const pastOrders = orders.filter((o) => o.status === "done" || o.status === "declined");
+
+  const OrderRow = (o: (typeof orders)[number]) => (
+    <li key={o.id} className="flex flex-col gap-1 py-3" style={{ borderTop: "1px solid rgba(61, 42, 34, 0.1)" }}>
+      <div className="flex items-start justify-between gap-3">
+        <span className="type-body">
+          {(o.items ?? []).map((it) => `${it.qty}× ${lang === "sv" ? it.nameSv : it.name}`).join(", ") || "—"}
+        </span>
+        <span
+          className="type-caps shrink-0"
+          style={{ fontSize: "0.625rem", padding: "0.15rem 0.5rem", color: "var(--vanilla-cream)", backgroundColor: statusColor(o.status) }}
+        >
+          {statusLabel(o.status)}
+        </span>
+      </div>
+      <span className="type-caps opacity-50" style={{ fontSize: "0.625rem" }}>
+        {new Date(o.created_at).toLocaleDateString(lang === "sv" ? "sv-SE" : "en-GB")}
+        {o.desired_date ? ` · ${o.desired_date}` : ""}
+        {o.fulfilment ? ` · ${o.fulfilment === "delivery" ? t.delivery : t.pickup}` : ""}
+      </span>
+      {o.quoted_price != null && (
+        <span className="type-body" style={{ fontSize: "0.875rem" }}>
+          <b>{t.confirmedPrice}: {o.quoted_price} kr</b>
+        </span>
+      )}
+    </li>
+  );
 
   const signOut = async () => {
     await createClient().auth.signOut();
@@ -96,24 +132,17 @@ export function MyPageClient({
       {msg && <p className="type-body opacity-70 mb-2">{msg}</p>}
       <p className="type-caps opacity-40 mb-12" style={{ fontSize: "0.625rem" }}>{t.autoSyncNote}</p>
 
-      {orders.length > 0 && (
+      {activeOrders.length > 0 && (
         <>
-          <h2 className="type-caps opacity-50 mb-3">{t.orders}</h2>
-          <ul className="type-body mb-10 space-y-3">
-            {orders.map((o) => (
-              <li key={o.id} className="flex flex-col">
-                <span>
-                  {(o.items ?? []).map((it) => `${it.qty}× ${lang === "sv" ? it.nameSv : it.name}`).join(", ") || "—"}
-                </span>
-                <span className="type-caps opacity-50" style={{ fontSize: "0.625rem" }}>
-                  {new Date(o.created_at).toLocaleDateString(lang === "sv" ? "sv-SE" : "en-GB")}
-                  {" · "}
-                  {o.status === "requested" ? t.statusRequested : o.status}
-                  {o.desired_date ? ` · ${o.desired_date}` : ""}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <h2 className="type-caps opacity-50 mb-1">{t.activeOrders}</h2>
+          <ul className="mb-10">{activeOrders.map(OrderRow)}</ul>
+        </>
+      )}
+
+      {pastOrders.length > 0 && (
+        <>
+          <h2 className="type-caps opacity-50 mb-1">{t.pastOrders}</h2>
+          <ul className="mb-10" style={{ opacity: 0.7 }}>{pastOrders.map(OrderRow)}</ul>
         </>
       )}
 

@@ -28,7 +28,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   const { data } = await db
     .from("orders")
     .select(
-      "id, status, created_at, desired_date, fulfilment, address, dietary, notes, contact_name, contact_email, contact_phone, items",
+      "id, status, created_at, desired_date, fulfilment, address, dietary, notes, contact_name, contact_email, contact_phone, items, quoted_price, admin_note",
     )
     .order("created_at", { ascending: false });
 
