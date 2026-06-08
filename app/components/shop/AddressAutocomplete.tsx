@@ -13,11 +13,14 @@ let loadPromise: Promise<void> | null = null;
 function loadMaps(): Promise<void> {
   if (typeof window === "undefined" || !KEY) return Promise.reject(new Error("no-key"));
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  if ((window as any).google?.maps?.importLibrary) return Promise.resolve();
+  if ((window as any).google?.maps?.places?.PlaceAutocompleteElement) return Promise.resolve();
   if (!loadPromise) {
+    // Plain loader (not the inline bootstrap), so `importLibrary` is absent —
+    // `libraries=places` puts PlaceAutocompleteElement on google.maps.places
+    // directly, which we read once `onload` fires.
     loadPromise = new Promise<void>((resolve, reject) => {
       const s = document.createElement("script");
-      s.src = `https://maps.googleapis.com/maps/api/js?key=${KEY}&libraries=places&v=weekly&loading=async`;
+      s.src = `https://maps.googleapis.com/maps/api/js?key=${KEY}&libraries=places&v=weekly`;
       s.async = true;
       s.onload = () => resolve();
       s.onerror = () => reject(new Error("maps-failed"));
@@ -43,17 +46,20 @@ export function AddressAutocomplete({
   const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!KEY || !boxRef.current) return;
-    let cancelled = false;
+    const container = boxRef.current;
+    if (!KEY || !container) return;
+    let active = true;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let el: any = null;
     loadMaps()
-      .then(async () => {
+      .then(() => {
+        if (!active) return; // unmounted before the API finished loading
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const places: any = await (window as any).google.maps.importLibrary("places");
-        if (cancelled || !boxRef.current) return;
-        const el = new places.PlaceAutocompleteElement({ includedRegionCodes: ["se"] });
+        const places: any = (window as any).google.maps.places;
+        el = new places.PlaceAutocompleteElement({ includedRegionCodes: ["se"] });
         el.style.width = "100%";
-        boxRef.current.innerHTML = "";
-        boxRef.current.appendChild(el);
+        container.innerHTML = "";
+        container.appendChild(el);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         el.addEventListener("gmp-select", async ({ placePrediction }: any) => {
           const place = placePrediction.toPlace();
@@ -72,7 +78,10 @@ export function AddressAutocomplete({
         /* no key / load failed → manual fields still work */
       });
     return () => {
-      cancelled = true;
+      active = false;
+      // Remove only the element this effect created (survives Strict Mode's
+      // mount→cleanup→mount: the second mount re-inserts a fresh element).
+      if (el?.parentNode === container) container.removeChild(el);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

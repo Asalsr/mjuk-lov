@@ -6,6 +6,9 @@ export type CartItem = { productId: string; qty: number; message?: string };
 
 const KEY = "mjuklov_cart";
 let cache: CartItem[] | null = null;
+// Stable reference for the server/initial snapshot — returning a fresh [] each
+// call makes useSyncExternalStore loop ("getServerSnapshot should be cached").
+const EMPTY: CartItem[] = [];
 
 function read(): CartItem[] {
   if (cache) return cache;
@@ -50,7 +53,7 @@ function subscribe(cb: () => void): () => void {
 }
 
 export function useCart(): CartItem[] {
-  return useSyncExternalStore(subscribe, read, () => []);
+  return useSyncExternalStore(subscribe, read, () => EMPTY);
 }
 export function getCart(): CartItem[] {
   return read();
