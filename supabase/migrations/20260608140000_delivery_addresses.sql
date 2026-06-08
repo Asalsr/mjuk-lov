@@ -20,13 +20,17 @@ create table if not exists public.delivery_addresses (
 );
 alter table public.delivery_addresses enable row level security;
 
+drop policy if exists "addr_select_own" on public.delivery_addresses;
 create policy "addr_select_own" on public.delivery_addresses
   for select to authenticated using ((select auth.uid()) = user_id);
+drop policy if exists "addr_insert_own" on public.delivery_addresses;
 create policy "addr_insert_own" on public.delivery_addresses
   for insert to authenticated with check ((select auth.uid()) = user_id);
+drop policy if exists "addr_update_own" on public.delivery_addresses;
 create policy "addr_update_own" on public.delivery_addresses
   for update to authenticated
   using ((select auth.uid()) = user_id) with check ((select auth.uid()) = user_id);
+drop policy if exists "addr_delete_own" on public.delivery_addresses;
 create policy "addr_delete_own" on public.delivery_addresses
   for delete to authenticated using ((select auth.uid()) = user_id);
 

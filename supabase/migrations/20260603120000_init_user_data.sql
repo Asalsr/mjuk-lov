@@ -2,6 +2,8 @@
 -- Run in the Supabase SQL editor, or via `supabase db push` once linked.
 -- Mirrors the device-local UserData shape so lib/userdata can sync into it on login.
 -- RLS: every table is owner-scoped (TO authenticated + auth.uid() ownership).
+-- Idempotent: policies are dropped-then-created so re-applying never errors
+-- (Postgres has no "create policy if not exists").
 
 -- 1:1 profile per auth user --------------------------------------------------
 create table if not exists public.profiles (
@@ -13,10 +15,13 @@ create table if not exists public.profiles (
 );
 alter table public.profiles enable row level security;
 
+drop policy if exists "profiles_select_own" on public.profiles;
 create policy "profiles_select_own" on public.profiles
   for select to authenticated using ((select auth.uid()) = id);
+drop policy if exists "profiles_insert_own" on public.profiles;
 create policy "profiles_insert_own" on public.profiles
   for insert to authenticated with check ((select auth.uid()) = id);
+drop policy if exists "profiles_update_own" on public.profiles;
 create policy "profiles_update_own" on public.profiles
   for update to authenticated
   using ((select auth.uid()) = id) with check ((select auth.uid()) = id);
@@ -30,10 +35,13 @@ create table if not exists public.favorites (
 );
 alter table public.favorites enable row level security;
 
+drop policy if exists "favorites_select_own" on public.favorites;
 create policy "favorites_select_own" on public.favorites
   for select to authenticated using ((select auth.uid()) = user_id);
+drop policy if exists "favorites_insert_own" on public.favorites;
 create policy "favorites_insert_own" on public.favorites
   for insert to authenticated with check ((select auth.uid()) = user_id);
+drop policy if exists "favorites_delete_own" on public.favorites;
 create policy "favorites_delete_own" on public.favorites
   for delete to authenticated using ((select auth.uid()) = user_id);
 
@@ -47,13 +55,17 @@ create table if not exists public.notes (
 );
 alter table public.notes enable row level security;
 
+drop policy if exists "notes_select_own" on public.notes;
 create policy "notes_select_own" on public.notes
   for select to authenticated using ((select auth.uid()) = user_id);
+drop policy if exists "notes_insert_own" on public.notes;
 create policy "notes_insert_own" on public.notes
   for insert to authenticated with check ((select auth.uid()) = user_id);
+drop policy if exists "notes_update_own" on public.notes;
 create policy "notes_update_own" on public.notes
   for update to authenticated
   using ((select auth.uid()) = user_id) with check ((select auth.uid()) = user_id);
+drop policy if exists "notes_delete_own" on public.notes;
 create policy "notes_delete_own" on public.notes
   for delete to authenticated using ((select auth.uid()) = user_id);
 
@@ -66,10 +78,13 @@ create table if not exists public.cooking_history (
 );
 alter table public.cooking_history enable row level security;
 
+drop policy if exists "history_select_own" on public.cooking_history;
 create policy "history_select_own" on public.cooking_history
   for select to authenticated using ((select auth.uid()) = user_id);
+drop policy if exists "history_insert_own" on public.cooking_history;
 create policy "history_insert_own" on public.cooking_history
   for insert to authenticated with check ((select auth.uid()) = user_id);
+drop policy if exists "history_delete_own" on public.cooking_history;
 create policy "history_delete_own" on public.cooking_history
   for delete to authenticated using ((select auth.uid()) = user_id);
 
