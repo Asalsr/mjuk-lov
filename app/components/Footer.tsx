@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { Logo } from './Logo';
 
 interface FooterProps {
@@ -24,7 +25,9 @@ const content = {
       phone: '+46 76 576 1526' // PLACEHOLDER
     },
     allergen: 'Vårt kök hanterar gluten, mjölk, ägg, mandel och hasselnötter. Fråga gärna om annat.',
-    copyright: '© 2026 Mjuk Lov'
+    copyright: '© 2026 Mjuk Lov',
+    privacy: 'Integritetspolicy',
+    terms: 'Villkor'
   },
   en: {
     location: {
@@ -38,7 +41,9 @@ const content = {
       phone: '+46 76 576 1526' // PLACEHOLDER
     },
     allergen: 'Our kitchen handles gluten, milk, eggs, almonds and hazelnuts. Ask us about anything else.',
-    copyright: '© 2026 Mjuk Lov'
+    copyright: '© 2026 Mjuk Lov',
+    privacy: 'Privacy Policy',
+    terms: 'Terms'
   }
 };
 
@@ -97,7 +102,15 @@ export const Footer = ({ lang }: FooterProps) => {
           style={{ borderColor: 'rgba(61, 42, 34, 0.1)' }}
         >
           <div>{t.allergen}</div>
-          <div>{t.copyright}</div>
+          <div className="flex items-center gap-6">
+            <Link href={`/${lang}/integritetspolicy`} className="type-caps transition-colors hover:text-[var(--dusty-terracotta)]">
+              {t.privacy}
+            </Link>
+            <Link href={`/${lang}/villkor`} className="type-caps transition-colors hover:text-[var(--dusty-terracotta)]">
+              {t.terms}
+            </Link>
+            <span>{t.copyright}</span>
+          </div>
         </div>
       </div>
     </footer>
