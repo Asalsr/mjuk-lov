@@ -15,7 +15,6 @@ interface HeaderProps {
 
 const content = {
   sv: {
-    nav: ['Idén', 'Tårtkit', 'Företag', 'Hantverket', 'Om', 'Kontakt'],
     recipes: 'Recept',
     videos: 'Bakvideor',
     myPage: 'Min sida',
@@ -26,7 +25,6 @@ const content = {
     logOut: 'Logga ut',
   },
   en: {
-    nav: ['The Idea', 'Kits', 'Corporate', 'The Craft', 'About', 'Contact'],
     recipes: 'Recipes',
     videos: 'Baking videos',
     myPage: 'My page',
@@ -37,6 +35,16 @@ const content = {
     logOut: 'Log out',
   },
 };
+
+// Marketing one-pager nav. Section items scroll to a home anchor; Shop links to
+// the shop page. (Logo click goes to the landing page.)
+const NAV: { id?: string; shop?: boolean; sv: string; en: string }[] = [
+  { id: 'idea', sv: 'Idén', en: 'The Idea' },
+  { shop: true, sv: 'Butik', en: 'Shop' },
+  { id: 'kits', sv: 'Tårtkit', en: 'Kits' },
+  { id: 'about', sv: 'Om', en: 'About' },
+  { id: 'order', sv: 'Kontakt', en: 'Contact' },
+];
 
 export const Header = ({ lang, onLangToggle }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -72,9 +80,7 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
     router.refresh();
   };
 
-  const scrollToSection = (index: number) => {
-    const sections = ['idea', 'kits', 'corporate', 'craft', 'about', 'order'];
-    const id = sections[index];
+  const goToSection = (id: string) => {
     const element = typeof document !== 'undefined' ? document.getElementById(id) : null;
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -98,20 +104,38 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
       }`}
     >
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-3 md:py-4 flex items-center justify-between">
-        <Logo className={isScrolled ? 'h-10 md:h-12 lg:h-14' : 'h-12 md:h-16 lg:h-20'} asButton />
+        <Link
+          href="/"
+          aria-label="Mjuk Lov"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="inline-flex items-center transition-opacity hover:opacity-80"
+        >
+          <Logo className={isScrolled ? 'h-10 md:h-12 lg:h-14' : 'h-12 md:h-16 lg:h-20'} />
+        </Link>
 
         {/* Marketing section nav (home one-pager) */}
         <nav className="hidden md:flex items-center gap-8">
-          {t.nav.map((item, i) => (
-            <button
-              key={item}
-              onClick={() => scrollToSection(i)}
-              className="type-caps relative transition-colors hover:text-[var(--dusty-terracotta)] group"
-            >
-              {item}
-              <span className="absolute bottom-0 left-0 w-0 h-px bg-[var(--dusty-terracotta)] group-hover:w-full transition-all duration-300" />
-            </button>
-          ))}
+          {NAV.map((item) =>
+            item.shop ? (
+              <Link
+                key="shop"
+                href={`/${lang}/butik`}
+                className="type-caps relative transition-colors hover:text-[var(--dusty-terracotta)] group"
+              >
+                {item[lang]}
+                <span className="absolute bottom-0 left-0 w-0 h-px bg-[var(--dusty-terracotta)] group-hover:w-full transition-all duration-300" />
+              </Link>
+            ) : (
+              <button
+                key={item.id}
+                onClick={() => goToSection(item.id!)}
+                className="type-caps relative transition-colors hover:text-[var(--dusty-terracotta)] group"
+              >
+                {item[lang]}
+                <span className="absolute bottom-0 left-0 w-0 h-px bg-[var(--dusty-terracotta)] group-hover:w-full transition-all duration-300" />
+              </button>
+            ),
+          )}
         </nav>
 
         <div className="flex items-center gap-4">
@@ -231,15 +255,26 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
           />
           <div className="md:hidden bg-[var(--vanilla-cream)] border-t border-[var(--warm-cocoa)]/10 max-h-[calc(100vh-4rem)] overflow-y-auto">
             <nav className="px-4 py-6 flex flex-col gap-2">
-              {t.nav.map((item, i) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(i)}
-                  className="type-caps text-left min-h-11 flex items-center transition-colors hover:text-[var(--dusty-terracotta)]"
-                >
-                  {item}
-                </button>
-              ))}
+              {NAV.map((item) =>
+                item.shop ? (
+                  <Link
+                    key="shop"
+                    href={`/${lang}/butik`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="type-caps text-left min-h-11 flex items-center transition-colors hover:text-[var(--dusty-terracotta)]"
+                  >
+                    {item[lang]}
+                  </Link>
+                ) : (
+                  <button
+                    key={item.id}
+                    onClick={() => goToSection(item.id!)}
+                    className="type-caps text-left min-h-11 flex items-center transition-colors hover:text-[var(--dusty-terracotta)]"
+                  >
+                    {item[lang]}
+                  </button>
+                ),
+              )}
             </nav>
           </div>
         </>
