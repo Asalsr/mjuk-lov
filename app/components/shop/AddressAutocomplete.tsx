@@ -49,8 +49,10 @@ export function AddressAutocomplete({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ input: q, sessionToken: sessionRef.current }),
         });
-        if (res.status === 503) {
-          setSearchEnabled(false); // no server key → manual fields only
+        // 503 = no server key; 502 = Google rejected (API disabled / billing off).
+        // Either way autocomplete can't work, so hide the box → clean manual fields.
+        if (res.status === 503 || res.status === 502) {
+          setSearchEnabled(false);
           return;
         }
         if (!res.ok) return;
