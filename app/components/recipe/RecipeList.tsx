@@ -15,14 +15,22 @@ export function RecipeList({ recipes, lang }: { recipes: Recipe[]; lang: Lang })
   const t = ui[lang];
 
   useEffect(() => {
+    // threshold 0 = fire as soon as ANY part enters the viewport. (A percentage
+    // threshold breaks for a long grid: 10% of 40+ cards never fits on screen at
+    // once, so it would never trigger and every card stays at opacity-0.)
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setIsVisible(true);
       },
-      { threshold: 0.1 },
+      { threshold: 0 },
     );
     if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
+    // Safety net: reveal regardless after a tick, so cards can never get stuck hidden.
+    const fallback = setTimeout(() => setIsVisible(true), 800);
+    return () => {
+      observer.disconnect();
+      clearTimeout(fallback);
+    };
   }, []);
 
   const visible = recipes.filter(
@@ -36,7 +44,7 @@ export function RecipeList({ recipes, lang }: { recipes: Recipe[]; lang: Lang })
     <>
       <div ref={ref} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
         {visible.map((r, i) => (
-          <RecipeCard key={r.slug} recipe={r} lang={lang} isVisible={isVisible} delay={(i + 1) * 150} />
+          <RecipeCard key={r.slug} recipe={r} lang={lang} isVisible={isVisible} delay={Math.min(i, 11) * 80} />
         ))}
       </div>
 
