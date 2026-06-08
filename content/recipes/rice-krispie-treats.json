@@ -29,7 +29,7 @@
     "codes": ["milk"],
     "declaration": { "sv": "Innehåller: mjölk", "en": "Contains: milk" },
     "needsReview": ["puffed rice cereal may contain barley malt (gluten) and the brand may vary; marshmallows contain gelatin (not vegetarian for some) — check the packet"],
-    "approvedBy": "ai-draft",
+    "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"
   },
   "published": true

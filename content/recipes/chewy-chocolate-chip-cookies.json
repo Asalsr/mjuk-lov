@@ -36,7 +36,7 @@
     "codes": ["gluten", "egg", "milk"],
     "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
     "needsReview": ["chokladbitar / chocolate chips may contain soy and milk traces"],
-    "approvedBy": "ai-draft",
+    "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"
   },
   "published": true

@@ -30,7 +30,7 @@
     "codes": ["egg", "peanut"],
     "declaration": { "sv": "Innehåller: ägg, jordnötter", "en": "Contains: egg, peanuts" },
     "needsReview": ["peanut butter may carry traces of other nuts depending on brand"],
-    "approvedBy": "ai-draft",
+    "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"
   },
   "published": true

@@ -38,7 +38,7 @@
     "codes": ["gluten", "egg", "milk"],
     "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
     "needsReview": ["oats / havregryn are often cross-contaminated with gluten — use certified gluten-free oats if needed"],
-    "approvedBy": "ai-draft",
+    "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"
   },
   "published": true

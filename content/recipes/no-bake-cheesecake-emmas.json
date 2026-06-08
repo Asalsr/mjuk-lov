@@ -31,7 +31,7 @@
     "codes": ["gluten", "milk"],
     "declaration": { "sv": "Innehåller: gluten, mjölk", "en": "Contains: gluten, milk" },
     "needsReview": ["biscuit base assumed wheat-based; some digestives contain soy"],
-    "approvedBy": "ai-draft",
+    "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"
   },
   "published": true
