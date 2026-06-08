@@ -39,13 +39,43 @@ Set up every service and connect it to the Vercel deployment. Replace
 - platform.openai.com → API keys → create → `OPENAI_API_KEY`.
 
 ## 3. Optional services
-- **Resend** (email the order requests): resend.com → API key → `RESEND_API_KEY`;
-  set `OWNER_EMAIL=YOUR_ADMIN_EMAIL`. Verify a sending domain for real "from" addresses.
+- **Resend** (emails: order requests → your inbox, and confirm/decline → the customer).
+  Needs a **verified sender** or order emails won't arrive — see **§3b** below for the full setup.
 - **Google Maps** (delivery address autocomplete): Google Cloud → enable
   **Places API (New)** + **Maps JavaScript API** → API key → `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`
   (restrict by HTTP referrer to your domain).
 - **Stripe** (real payments — currently parked; the live flow is request-to-order):
   `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `APP_URL`. Skip unless enabling payments.
+
+## 3b. Resend email delivery (so order emails actually arrive)
+
+**Why it fails by default:** if `RESEND_FROM` is unset, the app sends from
+`onboarding@resend.dev`. Resend's shared test sender **only delivers to your own
+Resend account email** — so customer emails and your `mjuklov.se@gmail.com` inbox
+get nothing. Fix = verify your own domain and send from it.
+
+**Recommended — verify the `mjuklov.se` domain (send to anyone):**
+1. Resend → **Domains** → **Add Domain** → enter `mjuklov.se`.
+2. Resend shows ~3 DNS records (a **TXT** for verification, **DKIM** TXT/CNAME, and a
+   **MX**/return-path on a `send.` subdomain). Copy them.
+3. Go to wherever `mjuklov.se` DNS is managed (your domain registrar's DNS panel)
+   and add each record **exactly** (host/name + value). Save.
+4. Back in Resend → **Verify**. Propagation is usually minutes, up to a few hours.
+5. Once it shows **Verified**, set in Vercel (Production + Preview):
+   - `RESEND_FROM = Mjuk Lov <orders@mjuklov.se>`  *(any address @ the verified domain)*
+   - `RESEND_API_KEY = ` your Resend API key
+   - `CONTACT_EMAIL = mjuklov.se@gmail.com`  *(where order + contact emails land)*
+6. **Redeploy** (env changes need a redeploy).
+
+**Quick test without a domain (temporary):** leave `RESEND_FROM` unset and set
+`CONTACT_EMAIL` to the **exact email you signed up to Resend with**. Order emails
+will then reach *that* address only (not customers). Good for a smoke test; switch
+to the verified domain for real use.
+
+**Verify it works:** place a test order request → check `mjuklov.se@gmail.com`
+(and spam) → and Resend → **Logs** shows the send with status `delivered`. If a send
+fails, the reason is now logged in **Vercel → your project → Logs** (the routes no
+longer swallow errors).
 
 ## 4. Vercel (deploy)
 1. **Project → Settings → Git:** Production Branch = **`master`**.
@@ -56,8 +86,10 @@ Set up every service and connect it to the Vercel deployment. Replace
    | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase |
    | `SUPABASE_SERVICE_ROLE_KEY` | Supabase (secret) |
    | `OPENAI_API_KEY` | OpenAI |
-   | `OWNER_EMAIL` | YOUR_ADMIN_EMAIL |
+   | `OWNER_EMAIL` | YOUR_ADMIN_EMAIL (the account you log in to `/admin` with) |
    | `RESEND_API_KEY` *(opt)* | Resend |
+   | `RESEND_FROM` *(opt)* | `Mjuk Lov <orders@mjuklov.se>` — a verified sender (see §3b) |
+   | `CONTACT_EMAIL` *(opt)* | `mjuklov.se@gmail.com` — inbox for order + contact emails |
    | `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` *(opt)* | Google |
    | `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` *(opt)* | Stripe |
    > `NEXT_PUBLIC_*` are baked in at build time — after adding/changing them, **Redeploy**.
