@@ -1,0 +1,43 @@
+{
+  "slug": "rich-chocolate-cake",
+  "title": { "sv": "Mäktig chokladtårta", "en": "Rich chocolate cake" },
+  "headnote": {
+    "sv": "Saftig, djupt chokladig tårta med len chokladfrosting. Se videon ovan för Anns metod.",
+    "en": "A moist, deeply chocolatey cake with a smooth chocolate frosting. Watch the video above for Ann's method."
+  },
+  "servings": 12,
+  "time": { "prepMin": 30, "totalMin": 75 },
+  "youtubeId": "W_l9Xk_2IQQ",
+  "inspiredBy": { "channel": "How To Cook That", "url": "https://www.howtocookthat.net/public_html/chocolate-cake-recipe/" },
+  "ingredients": [
+    { "qty": "250 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "75 g", "item": { "sv": "kakao", "en": "cocoa powder" } },
+    { "qty": "300 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "2 tsk", "item": { "sv": "bakpulver", "en": "baking powder" } },
+    { "qty": "1 tsk", "item": { "sv": "bikarbonat", "en": "baking soda" } },
+    { "qty": "2", "item": { "sv": "ägg", "en": "eggs" } },
+    { "qty": "240 ml", "item": { "sv": "mjölk", "en": "milk" } },
+    { "qty": "120 ml", "item": { "sv": "neutral olja", "en": "neutral oil" } },
+    { "qty": "200 g", "item": { "sv": "mörk choklad (frosting)", "en": "dark chocolate (frosting)" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Sätt ugnen på 175°C och smörj två runda formar.", "en": "Heat the oven to 175°C and grease two round tins." },
+    { "sv": "Blanda mjöl, kakao, socker, bakpulver och bikarbonat.", "en": "Whisk the flour, cocoa, sugar, baking powder and baking soda." },
+    { "sv": "Tillsätt ägg, mjölk och olja och vispa slätt.", "en": "Add the eggs, milk and oil and whisk smooth." },
+    { "sv": "Fördela i formarna och grädda 28–32 minuter. Låt svalna helt.", "en": "Divide between the tins and bake 28–32 minutes. Cool completely." },
+    { "sv": "Smält chokladen till frosting, bred mellan och över. Se videon för dekor.", "en": "Melt the chocolate for the frosting, spread between and over. See the video for decoration." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan. Hett kaffe i smeten fördjupar chokladsmaken.",
+    "en": "At-home version — follow the video above. Hot coffee in the batter deepens the chocolate flavour."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "needsReview": ["mörk choklad / dark chocolate may carry soy and nut traces"],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

@@ -1,0 +1,40 @@
+{
+  "slug": "crepes",
+  "title": { "sv": "Crêpes", "en": "Crepes" },
+  "headnote": {
+    "sv": "Tunna, sidenlena franska pannkakor — söta eller fyllda, alltid eleganta. Se videon ovan för Natashas metod.",
+    "en": "Thin, silky French pancakes — sweet or filled, always elegant. Watch the video above for Natasha's method."
+  },
+  "servings": 12,
+  "time": { "prepMin": 10, "totalMin": 30 },
+  "youtubeId": "uA4KRfE_MNM",
+  "inspiredBy": { "channel": "Natasha's Kitchen", "url": "https://natashaskitchen.com/crepe-recipe-2-ways/" },
+  "ingredients": [
+    { "qty": "190 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "3", "item": { "sv": "ägg", "en": "eggs" } },
+    { "qty": "500 ml", "item": { "sv": "mjölk", "en": "milk" } },
+    { "qty": "2 msk", "item": { "sv": "smör, smält", "en": "butter, melted" } },
+    { "qty": "2 msk", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "1 nypa", "item": { "sv": "salt", "en": "salt" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Mixa eller vispa alla ingredienser till en slät, tunn smet.", "en": "Blend or whisk all the ingredients to a smooth, thin batter." },
+    { "sv": "Låt smeten vila 15 minuter.", "en": "Let the batter rest 15 minutes." },
+    { "sv": "Häll en tunn slev i en het, lätt smörad panna och snurra ut tunt.", "en": "Pour a thin ladle into a hot, lightly buttered pan and swirl thin." },
+    { "sv": "Stek tills kanterna släpper, vänd och stek några sekunder till.", "en": "Cook until the edges lift, flip and cook a few seconds more." },
+    { "sv": "Stapla och fyll efter smak. Se videon för tips.", "en": "Stack and fill to taste. See the video for tips." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan. Vilan gör crêpesen mörare.",
+    "en": "At-home version — follow the video above. Resting makes the crepes more tender."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "needsReview": [],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

@@ -1,0 +1,40 @@
+{
+  "slug": "vanilla-mug-cake",
+  "title": { "sv": "Vaniljmuggkaka (mikro)", "en": "Vanilla mug cake (microwave)" },
+  "headnote": {
+    "sv": "En enda portion mjuk vaniljkaka, rörd i muggen och klar i mikron. Se videon ovan för Emmas metod.",
+    "en": "A single serving of soft vanilla cake, stirred in the mug and done in the microwave. Watch the video above for Emma's method."
+  },
+  "servings": 1,
+  "time": { "prepMin": 3, "totalMin": 5 },
+  "youtubeId": "H3OhTEkNbgU",
+  "inspiredBy": { "channel": "Emma's Goodies", "url": "https://www.youtube.com/watch?v=H3OhTEkNbgU" },
+  "ingredients": [
+    { "qty": "4 msk", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "2 msk", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "1/4 tsk", "item": { "sv": "bakpulver", "en": "baking powder" } },
+    { "qty": "1 nypa", "item": { "sv": "salt", "en": "salt" } },
+    { "qty": "4 msk", "item": { "sv": "mjölk", "en": "milk" } },
+    { "qty": "2 msk", "item": { "sv": "neutral olja", "en": "neutral oil" } },
+    { "qty": "1/2 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Rör ihop mjöl, socker, bakpulver och salt i en mugg.", "en": "Stir the flour, sugar, baking powder and salt together in a mug." },
+    { "sv": "Tillsätt mjölk, olja och vanilj och rör slätt.", "en": "Add the milk, oil and vanilla and stir smooth." },
+    { "sv": "Mikra 60–80 sekunder tills precis stelnat på toppen.", "en": "Microwave 60–80 seconds until just set on top." },
+    { "sv": "Låt vila en minut. Se videon för tips.", "en": "Let rest a minute. See the video for tips." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan. Mikrovågsugnar skiljer sig; börja kort.",
+    "en": "At-home version — follow the video above. Microwaves vary; start short."
+  },
+  "allergens": {
+    "codes": ["gluten", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, mjölk", "en": "Contains: gluten, milk" },
+    "needsReview": [],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

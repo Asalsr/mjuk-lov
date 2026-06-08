@@ -1,0 +1,42 @@
+{
+  "slug": "chewy-brownies-atk",
+  "title": { "sv": "Sega brownies", "en": "Chewy brownies" },
+  "headnote": {
+    "sv": "America's Test Kitchens noggrant testade brownies — seg, blank och perfekt balanserad. Se videon ovan.",
+    "en": "America's Test Kitchen's rigorously tested brownies — chewy, glossy and perfectly balanced. Watch the video above."
+  },
+  "servings": 16,
+  "time": { "prepMin": 20, "totalMin": 50 },
+  "youtubeId": "DBZH6xl20uo",
+  "inspiredBy": { "channel": "America's Test Kitchen", "url": "https://www.youtube.com/watch?v=DBZH6xl20uo" },
+  "ingredients": [
+    { "qty": "60 g", "item": { "sv": "mörk choklad", "en": "dark chocolate" } },
+    { "qty": "30 g", "item": { "sv": "kakao", "en": "cocoa powder" } },
+    { "qty": "150 g", "item": { "sv": "smör, smält", "en": "butter, melted" } },
+    { "qty": "250 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "3", "item": { "sv": "ägg", "en": "eggs" } },
+    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
+    { "qty": "100 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "1/2 tsk", "item": { "sv": "salt", "en": "salt" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Sätt ugnen på 175°C och klä en form (ca 20×20 cm).", "en": "Heat the oven to 175°C and line a tin (about 20×20 cm)." },
+    { "sv": "Häll det smälta smöret över choklad och kakao, rör slätt.", "en": "Pour the melted butter over the chocolate and cocoa, stir smooth." },
+    { "sv": "Rör ner socker, sedan ägg och vanilj tills blankt.", "en": "Stir in the sugar, then the eggs and vanilla until glossy." },
+    { "sv": "Vänd ner mjöl och salt. Häll i formen och grädda 30–35 minuter.", "en": "Fold in the flour and salt. Pour into the tin and bake 30–35 minutes." },
+    { "sv": "Låt svalna helt innan du skär. Se videon för detaljer.", "en": "Cool completely before cutting. See the video for details." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan. Blandningen choklad + kakao ger den sega strukturen.",
+    "en": "At-home version — follow the video above. The chocolate + cocoa mix gives the chewy texture."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "needsReview": ["mörk choklad / dark chocolate may carry soy and nut traces"],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

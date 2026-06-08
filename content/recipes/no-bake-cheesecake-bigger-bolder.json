@@ -1,0 +1,39 @@
+{
+  "slug": "no-bake-cheesecake-bigger-bolder",
+  "title": { "sv": "No-bake cheesecake", "en": "No-bake cheesecake" },
+  "headnote": {
+    "sv": "Krämig, sval cheesecake på en knaprig kexbotten — ingen ugn, bara kyltid. Se videon ovan för metoden.",
+    "en": "Creamy, cool cheesecake on a crunchy biscuit base — no oven, just chill time. Watch the video above for the method."
+  },
+  "servings": 10,
+  "time": { "prepMin": 25, "totalMin": 250 },
+  "youtubeId": "AN5j6fNi0ek",
+  "inspiredBy": { "channel": "Bigger Bolder Baking", "url": "https://www.biggerbolderbaking.com/no-bake-cheesecake/" },
+  "ingredients": [
+    { "qty": "250 g", "item": { "sv": "digestivekex, smulade", "en": "digestive biscuits, crushed" } },
+    { "qty": "100 g", "item": { "sv": "smör, smält", "en": "butter, melted" } },
+    { "qty": "500 g", "item": { "sv": "färskost", "en": "cream cheese" } },
+    { "qty": "100 g", "item": { "sv": "florsocker", "en": "icing sugar" } },
+    { "qty": "300 ml", "item": { "sv": "vispgrädde", "en": "double cream" } },
+    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Blanda kexsmulor med smält smör och tryck ut i en springform. Ställ kallt.", "en": "Mix the biscuit crumbs with the melted butter and press into a springform tin. Chill." },
+    { "sv": "Vispa färskost och florsocker slätt.", "en": "Beat the cream cheese and icing sugar until smooth." },
+    { "sv": "Vispa grädden separat och vänd ner i ostkrämen med vaniljen.", "en": "Whip the cream separately and fold into the cheese mixture with the vanilla." },
+    { "sv": "Bred över botten och ställ kallt minst 4 timmar. Se videon för dekor.", "en": "Spread over the base and chill at least 4 hours. See the video for the topping." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan. Toppa med bär eller chokladsås.",
+    "en": "At-home version — follow the video above. Top with berries or chocolate sauce."
+  },
+  "allergens": {
+    "codes": ["gluten", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, mjölk", "en": "Contains: gluten, milk" },
+    "needsReview": ["biscuit base assumed wheat-based; some digestives contain soy"],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

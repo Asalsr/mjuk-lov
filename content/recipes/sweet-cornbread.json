@@ -1,0 +1,42 @@
+{
+  "slug": "sweet-cornbread",
+  "title": { "sv": "Söt majsbröd", "en": "Sweet cornbread" },
+  "headnote": {
+    "sv": "Gyllene, smörig majsbröd med len smula och en söt ton honung. Se videon ovan för Chefs metod.",
+    "en": "Golden, buttery cornbread with a tender crumb and a sweet note of honey. Watch the video above for Chef John's method."
+  },
+  "servings": 9,
+  "time": { "prepMin": 10, "totalMin": 35 },
+  "youtubeId": "A1lsTLs-iZg",
+  "inspiredBy": { "channel": "Food Wishes", "url": "https://www.youtube.com/watch?v=A1lsTLs-iZg" },
+  "ingredients": [
+    { "qty": "150 g", "item": { "sv": "majsmjöl (polenta)", "en": "cornmeal" } },
+    { "qty": "150 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "2 tsk", "item": { "sv": "bakpulver", "en": "baking powder" } },
+    { "qty": "1/2 tsk", "item": { "sv": "salt", "en": "salt" } },
+    { "qty": "2", "item": { "sv": "ägg", "en": "eggs" } },
+    { "qty": "240 ml", "item": { "sv": "mjölk", "en": "milk" } },
+    { "qty": "80 g", "item": { "sv": "smör, smält", "en": "butter, melted" } },
+    { "qty": "3 msk", "item": { "sv": "honung", "en": "honey" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Sätt ugnen på 200°C och smörj en form (ca 20×20 cm).", "en": "Heat the oven to 200°C and grease a tin (about 20×20 cm)." },
+    { "sv": "Blanda majsmjöl, vetemjöl, bakpulver och salt.", "en": "Whisk the cornmeal, flour, baking powder and salt." },
+    { "sv": "Rör ihop ägg, mjölk, smält smör och honung, vänd ner i det torra.", "en": "Mix the eggs, milk, melted butter and honey, fold into the dry." },
+    { "sv": "Häll i formen och grädda 20–25 minuter tills gyllene.", "en": "Pour into the tin and bake 20–25 minutes until golden." },
+    { "sv": "Servera varm med smör. Se videon för detaljer.", "en": "Serve warm with butter. See the video for details." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan. Servera direkt medan den är varm.",
+    "en": "At-home version — follow the video above. Best served warm and fresh."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "needsReview": [],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

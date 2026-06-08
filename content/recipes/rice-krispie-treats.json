@@ -1,0 +1,36 @@
+{
+  "slug": "rice-krispie-treats",
+  "title": { "sv": "Riskrispiekakor", "en": "Rice Krispie treats" },
+  "headnote": {
+    "sv": "Klibbiga marshmallowkakor med krispigt rispuff — ingen ugn, klara på minuter. Se videon ovan.",
+    "en": "Chewy marshmallow squares with crisp puffed rice — no oven, done in minutes. Watch the video above."
+  },
+  "servings": 12,
+  "time": { "prepMin": 10, "totalMin": 40 },
+  "youtubeId": "Y0hBAyo187k",
+  "inspiredBy": { "channel": "Tasty", "url": "https://www.youtube.com/watch?v=Y0hBAyo187k" },
+  "ingredients": [
+    { "qty": "60 g", "item": { "sv": "smör", "en": "butter" } },
+    { "qty": "300 g", "item": { "sv": "marshmallows", "en": "marshmallows" } },
+    { "qty": "150 g", "item": { "sv": "puffat ris (rispuff)", "en": "puffed rice cereal" } }
+  ],
+  "diet": [],
+  "steps": [
+    { "sv": "Smält smöret i en stor kastrull på låg värme.", "en": "Melt the butter in a large pan over low heat." },
+    { "sv": "Tillsätt marshmallows och rör tills helt smälta.", "en": "Add the marshmallows and stir until fully melted." },
+    { "sv": "Rör snabbt ner det puffade riset tills allt täcks.", "en": "Quickly stir in the puffed rice until coated." },
+    { "sv": "Tryck ut i en smord form och låt stelna 30 minuter, skär i rutor. Se videon.", "en": "Press into a greased tin and let set 30 minutes, cut into squares. See the video." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan. Smörja händerna så går det lättare att trycka ut.",
+    "en": "At-home version — follow the video above. Grease your hands to press it down more easily."
+  },
+  "allergens": {
+    "codes": ["milk"],
+    "declaration": { "sv": "Innehåller: mjölk", "en": "Contains: milk" },
+    "needsReview": ["puffed rice cereal may contain barley malt (gluten) and the brand may vary; marshmallows contain gelatin (not vegetarian for some) — check the packet"],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

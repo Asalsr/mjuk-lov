@@ -1,0 +1,38 @@
+{
+  "slug": "no-bake-cheesecake-emmas",
+  "title": { "sv": "No-bake cheesecake (5 ingredienser)", "en": "5-ingredient no-bake cheesecake" },
+  "headnote": {
+    "sv": "Emmas minimalistiska cheesecake — bara fem ingredienser, ingen ugn, helt krämig. Se videon ovan.",
+    "en": "Emma's minimalist cheesecake — just five ingredients, no oven, perfectly creamy. Watch the video above."
+  },
+  "servings": 8,
+  "time": { "prepMin": 20, "totalMin": 250 },
+  "youtubeId": "0d6j4-RxbwE",
+  "inspiredBy": { "channel": "Emma's Goodies", "url": "https://www.youtube.com/watch?v=0d6j4-RxbwE" },
+  "ingredients": [
+    { "qty": "200 g", "item": { "sv": "digestivekex, smulade", "en": "digestive biscuits, crushed" } },
+    { "qty": "90 g", "item": { "sv": "smör, smält", "en": "butter, melted" } },
+    { "qty": "400 g", "item": { "sv": "färskost", "en": "cream cheese" } },
+    { "qty": "250 ml", "item": { "sv": "vispgrädde", "en": "double cream" } },
+    { "qty": "80 g", "item": { "sv": "florsocker", "en": "icing sugar" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Blanda kexsmulor och smält smör, tryck ut i en form och ställ kallt.", "en": "Mix the biscuit crumbs and melted butter, press into a tin and chill." },
+    { "sv": "Vispa färskost och florsocker slätt.", "en": "Beat the cream cheese and icing sugar smooth." },
+    { "sv": "Vispa grädden och vänd ner i ostkrämen.", "en": "Whip the cream and fold into the cheese mixture." },
+    { "sv": "Bred över botten och ställ kallt minst 4 timmar. Se videon.", "en": "Spread over the base and chill at least 4 hours. See the video." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan. Toppa med färska bär.",
+    "en": "At-home version — follow the video above. Top with fresh berries."
+  },
+  "allergens": {
+    "codes": ["gluten", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, mjölk", "en": "Contains: gluten, milk" },
+    "needsReview": ["biscuit base assumed wheat-based; some digestives contain soy"],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

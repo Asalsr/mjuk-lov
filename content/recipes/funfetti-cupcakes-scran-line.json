@@ -1,0 +1,43 @@
+{
+  "slug": "funfetti-cupcakes-scran-line",
+  "title": { "sv": "Funfetti-cupcakes", "en": "Funfetti cupcakes" },
+  "headnote": {
+    "sv": "The Scran Lines festliga funfetti-cupcakes med hög smörkrämsvirvel och massor av strössel. Se videon ovan.",
+    "en": "The Scran Line's festive funfetti cupcakes with a tall buttercream swirl and lots of sprinkles. Watch the video above."
+  },
+  "servings": 12,
+  "time": { "prepMin": 25, "totalMin": 50 },
+  "youtubeId": "fSa_op-kR8U",
+  "inspiredBy": { "channel": "The Scran Line", "url": "https://www.youtube.com/watch?v=fSa_op-kR8U" },
+  "ingredients": [
+    { "qty": "190 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "1,5 tsk", "item": { "sv": "bakpulver", "en": "baking powder" } },
+    { "qty": "115 g", "item": { "sv": "smör, rumsvarmt", "en": "butter, softened" } },
+    { "qty": "200 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "2", "item": { "sv": "ägg", "en": "eggs" } },
+    { "qty": "120 ml", "item": { "sv": "mjölk", "en": "milk" } },
+    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
+    { "qty": "3 msk", "item": { "sv": "strössel", "en": "sprinkles" } },
+    { "qty": "250 g", "item": { "sv": "smör + 400 g florsocker (smörkräm)", "en": "butter + 400 g icing sugar (buttercream)" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Sätt ugnen på 175°C och klä en muffinsform med 12 papperformar.", "en": "Heat the oven to 175°C and line a muffin tin with 12 paper cases." },
+    { "sv": "Vispa smör och socker pösigt, tillsätt ägg.", "en": "Beat the butter and sugar fluffy, add the eggs." },
+    { "sv": "Vänd ner mjöl och bakpulver växelvis med mjölk och vanilj, vänd i strösslet sist.", "en": "Fold in the flour and baking powder alternately with the milk and vanilla, fold in the sprinkles last." },
+    { "sv": "Fyll formarna och grädda 18–20 minuter. Låt svalna helt.", "en": "Fill the cases and bake 18–20 minutes. Cool completely." },
+    { "sv": "Vispa smörkräm av smör och florsocker, spritsa högt och toppa med strössel. Se videon.", "en": "Beat buttercream from butter and icing sugar, pipe tall and top with sprinkles. See the video." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan. Vänd ner strösslet sist så färgerna inte blöder.",
+    "en": "At-home version — follow the video above. Add sprinkles last so the colours don't bleed."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "needsReview": ["strössel / sprinkles may contain soy and traces depending on brand"],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

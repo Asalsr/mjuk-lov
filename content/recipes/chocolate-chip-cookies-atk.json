@@ -1,0 +1,43 @@
+{
+  "slug": "chocolate-chip-cookies-atk",
+  "title": { "sv": "Chokladkakor", "en": "Chocolate chip cookies" },
+  "headnote": {
+    "sv": "America's Test Kitchens version med brynt smör för en djup, nästan kolaaktig smak. Se videon ovan.",
+    "en": "America's Test Kitchen's version with browned butter for a deep, almost toffee-like flavour. Watch the video above."
+  },
+  "servings": 20,
+  "time": { "prepMin": 20, "totalMin": 40 },
+  "youtubeId": "oCt3xhKCX1k",
+  "inspiredBy": { "channel": "America's Test Kitchen", "url": "https://www.youtube.com/watch?v=oCt3xhKCX1k" },
+  "ingredients": [
+    { "qty": "170 g", "item": { "sv": "smör", "en": "butter" } },
+    { "qty": "150 g", "item": { "sv": "farinsocker", "en": "brown sugar" } },
+    { "qty": "100 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "1", "item": { "sv": "ägg + 1 äggula", "en": "egg + 1 yolk" } },
+    { "qty": "2 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
+    { "qty": "240 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "1/2 tsk", "item": { "sv": "bikarbonat", "en": "baking soda" } },
+    { "qty": "3/4 tsk", "item": { "sv": "salt", "en": "salt" } },
+    { "qty": "200 g", "item": { "sv": "chokladbitar", "en": "chocolate chips" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Bryn smöret gyllene och nötigt, låt svalna något.", "en": "Brown the butter until golden and nutty, let cool slightly." },
+    { "sv": "Rör ihop smöret med sockerarterna, sedan ägg, äggula och vanilj.", "en": "Mix the butter with the sugars, then the egg, yolk and vanilla." },
+    { "sv": "Vänd ner mjöl, bikarbonat och salt, sedan chokladbitarna.", "en": "Fold in the flour, baking soda and salt, then the chocolate chips." },
+    { "sv": "Klicka ut och grädda 175°C i 11–13 minuter tills kanterna är gyllene.", "en": "Scoop and bake at 175°C for 11–13 minutes until the edges are golden." },
+    { "sv": "Låt svalna på plåten. Se videon för detaljer.", "en": "Cool on the tray. See the video for details." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan. Det brynta smöret är nyckeln till smaken.",
+    "en": "At-home version — follow the video above. The browned butter is the key to the flavour."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "needsReview": ["chokladbitar / chocolate chips may contain soy and milk traces"],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

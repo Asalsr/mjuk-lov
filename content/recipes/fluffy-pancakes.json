@@ -1,0 +1,41 @@
+{
+  "slug": "fluffy-pancakes",
+  "title": { "sv": "Fluffiga amerikanska pannkakor", "en": "Fluffy pancakes" },
+  "headnote": {
+    "sv": "Höga, luftiga pannkakor med gyllene yta — perfekta till helgfrukosten. Se videon ovan för metoden.",
+    "en": "Tall, airy pancakes with a golden surface — perfect for the weekend breakfast. Watch the video above for the method."
+  },
+  "servings": 4,
+  "time": { "prepMin": 10, "totalMin": 25 },
+  "youtubeId": "tPLVNKgs8Lk",
+  "inspiredBy": { "channel": "Food Wishes", "url": "https://www.youtube.com/watch?v=tPLVNKgs8Lk" },
+  "ingredients": [
+    { "qty": "250 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "2 msk", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "2 tsk", "item": { "sv": "bakpulver", "en": "baking powder" } },
+    { "qty": "1/2 tsk", "item": { "sv": "salt", "en": "salt" } },
+    { "qty": "300 ml", "item": { "sv": "mjölk", "en": "milk" } },
+    { "qty": "1", "item": { "sv": "ägg", "en": "egg" } },
+    { "qty": "40 g", "item": { "sv": "smör, smält", "en": "butter, melted" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Blanda mjöl, socker, bakpulver och salt.", "en": "Whisk the flour, sugar, baking powder and salt." },
+    { "sv": "Rör ihop mjölk, ägg och smält smör, vänd ner i det torra till en klumpig smet.", "en": "Mix the milk, egg and melted butter, fold into the dry to a lumpy batter." },
+    { "sv": "Låt smeten vila 5 minuter.", "en": "Let the batter rest 5 minutes." },
+    { "sv": "Stek i smörad panna på medelvärme tills bubblor bildas, vänd och stek klart.", "en": "Cook in a buttered pan over medium heat until bubbles form, flip and finish." },
+    { "sv": "Servera direkt. Se videon för tips.", "en": "Serve right away. See the video for tips." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan. Rör inte smeten slät — klumpar ger fluffigare pannkakor.",
+    "en": "At-home version — follow the video above. Don't overmix — lumps make fluffier pancakes."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "needsReview": [],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

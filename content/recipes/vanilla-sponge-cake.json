@@ -1,0 +1,41 @@
+{
+  "slug": "vanilla-sponge-cake",
+  "title": { "sv": "Enkel vaniljsockerkaka", "en": "Easy vanilla sponge cake" },
+  "headnote": {
+    "sv": "Luftig, mjuk sockerkaka som lyckas varje gång — grund för tårtor eller god som den är. Se videon ovan.",
+    "en": "An airy, soft sponge that works every time — a base for cakes or lovely on its own. Watch the video above."
+  },
+  "servings": 10,
+  "time": { "prepMin": 15, "totalMin": 45 },
+  "youtubeId": "Q2AO5nJvUss",
+  "inspiredBy": { "channel": "Bincy Chris", "url": "https://www.youtube.com/watch?v=Q2AO5nJvUss" },
+  "ingredients": [
+    { "qty": "4", "item": { "sv": "ägg", "en": "eggs" } },
+    { "qty": "150 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "150 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "1 tsk", "item": { "sv": "bakpulver", "en": "baking powder" } },
+    { "qty": "60 ml", "item": { "sv": "mjölk", "en": "milk" } },
+    { "qty": "40 g", "item": { "sv": "smör, smält", "en": "butter, melted" } },
+    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Sätt ugnen på 175°C och klä en rund form med bakplåtspapper.", "en": "Heat the oven to 175°C and line a round tin with baking paper." },
+    { "sv": "Vispa ägg och socker riktigt pösigt och ljust, 5–6 minuter.", "en": "Whisk the eggs and sugar until very thick and pale, 5–6 minutes." },
+    { "sv": "Sikta och vänd försiktigt ner mjöl och bakpulver.", "en": "Sift and gently fold in the flour and baking powder." },
+    { "sv": "Vänd ner mjölk, smält smör och vanilj. Häll i formen.", "en": "Fold in the milk, melted butter and vanilla. Pour into the tin." },
+    { "sv": "Grädda 25–30 minuter tills den fjädrar tillbaka. Se videon för detaljer.", "en": "Bake 25–30 minutes until it springs back. See the video for details." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan. Den pösiga äggvispningen ger luftigheten.",
+    "en": "At-home version — follow the video above. The well-whipped eggs give the lift."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "needsReview": [],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}
