@@ -1,0 +1,43 @@
+{
+  "slug": "brownie-cookies-sallys",
+  "title": { "sv": "Browniekakor", "en": "Brownie cookies" },
+  "headnote": {
+    "sv": "Sallys version av browniekakan — extra seg, djupt chokladig och med den klassiska spruckna ytan. Se videon ovan.",
+    "en": "Sally's take on the brownie cookie — extra chewy, deeply chocolatey and with that classic crackly top. Watch the video above."
+  },
+  "servings": 16,
+  "time": { "prepMin": 20, "totalMin": 40 },
+  "youtubeId": "7LqX21weXQQ",
+  "inspiredBy": { "channel": "Sally's Baking Recipes", "url": "https://sallysbakingaddiction.com/brownie-cookies/" },
+  "ingredients": [
+    { "qty": "230 g", "item": { "sv": "mörk choklad", "en": "dark chocolate" } },
+    { "qty": "45 g", "item": { "sv": "smör", "en": "butter" } },
+    { "qty": "2", "item": { "sv": "ägg", "en": "eggs" } },
+    { "qty": "130 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
+    { "qty": "65 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "2 msk", "item": { "sv": "kakao", "en": "cocoa powder" } },
+    { "qty": "1/2 tsk", "item": { "sv": "bakpulver", "en": "baking powder" } },
+    { "qty": "1/4 tsk", "item": { "sv": "salt", "en": "salt" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Smält choklad och smör ihop, låt svalna något.", "en": "Melt the chocolate and butter together, let cool slightly." },
+    { "sv": "Vispa ägg, socker och vanilj tjockt och ljust, ca 3 minuter.", "en": "Whisk the eggs, sugar and vanilla until thick and pale, about 3 minutes." },
+    { "sv": "Rör ner chokladen, vänd sedan i mjöl, kakao, bakpulver och salt.", "en": "Stir in the chocolate, then fold in the flour, cocoa, baking powder and salt." },
+    { "sv": "Klicka ut på plåt och grädda 175°C i 10–12 minuter tills ytan spruckit.", "en": "Scoop onto a tray and bake at 175°C for 10–12 minutes until the tops crackle." },
+    { "sv": "Låt stelna på plåten. Se videon för detaljer.", "en": "Let set on the tray. See the video for details." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan för exakt metod. Använd degen direkt medan den är blank.",
+    "en": "At-home version — follow the video above for the exact method. Use the batter while it's still glossy."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "needsReview": ["mörk choklad / dark chocolate may carry soy and nut traces"],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

@@ -1,0 +1,42 @@
+{
+  "slug": "fudgy-brownies",
+  "title": { "sv": "Kladdiga brownies", "en": "Fudgy brownies" },
+  "headnote": {
+    "sv": "Tät, kladdig mitt och den där blanka, spruckna ytan. Allt rörs i en skål. Se videon ovan för metoden.",
+    "en": "A dense, fudgy middle and that glossy, crackly top. All in one bowl. Watch the video above for the method."
+  },
+  "servings": 16,
+  "time": { "prepMin": 15, "totalMin": 45 },
+  "youtubeId": "X9hKRIQ3uxc",
+  "inspiredBy": { "channel": "Preppy Kitchen", "url": "https://preppykitchen.com/brownie-recipe/" },
+  "ingredients": [
+    { "qty": "170 g", "item": { "sv": "smör", "en": "butter" } },
+    { "qty": "200 g", "item": { "sv": "mörk choklad", "en": "dark chocolate" } },
+    { "qty": "250 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "3", "item": { "sv": "ägg", "en": "eggs" } },
+    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
+    { "qty": "90 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "30 g", "item": { "sv": "kakao", "en": "cocoa powder" } },
+    { "qty": "1/2 tsk", "item": { "sv": "salt", "en": "salt" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Sätt ugnen på 175°C och klä en form (ca 20×20 cm) med bakplåtspapper.", "en": "Heat the oven to 175°C and line a tin (about 20×20 cm) with baking paper." },
+    { "sv": "Smält smör och choklad ihop. Rör ner sockret.", "en": "Melt the butter and chocolate together. Stir in the sugar." },
+    { "sv": "Vispa i äggen ett i taget tills smeten blir blank, sedan vanilj.", "en": "Whisk in the eggs one at a time until glossy, then the vanilla." },
+    { "sv": "Vänd ner mjöl, kakao och salt — rör precis tills det går ihop.", "en": "Fold in the flour, cocoa and salt — stir just until combined." },
+    { "sv": "Häll i formen och grädda 25–30 minuter. Låt svalna helt innan du skär. Se videon för tips.", "en": "Pour into the tin and bake 25–30 minutes. Cool completely before cutting. See the video for tips." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan för exakt metod. Underbaka något för extra kladd.",
+    "en": "At-home version — follow the video above for the exact method. Slightly underbake for extra fudge."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "needsReview": ["mörk choklad / dark chocolate may carry soy and nut traces"],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

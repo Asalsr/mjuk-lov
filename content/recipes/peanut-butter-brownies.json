@@ -1,0 +1,42 @@
+{
+  "slug": "peanut-butter-brownies",
+  "title": { "sv": "Jordnötssmörbrownies", "en": "Peanut butter brownies" },
+  "headnote": {
+    "sv": "Kladdiga chokladbrownies marmorerade med söt jordnötssmörsvirvel. Se videon ovan för metoden.",
+    "en": "Fudgy chocolate brownies marbled with a sweet peanut butter swirl. Watch the video above for the method."
+  },
+  "servings": 16,
+  "time": { "prepMin": 20, "totalMin": 50 },
+  "youtubeId": "3mhFeInBbUI",
+  "inspiredBy": { "channel": "Preppy Kitchen", "url": "https://preppykitchen.com/peanut-butter-brownies/" },
+  "ingredients": [
+    { "qty": "170 g", "item": { "sv": "smör", "en": "butter" } },
+    { "qty": "200 g", "item": { "sv": "mörk choklad", "en": "dark chocolate" } },
+    { "qty": "250 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "3", "item": { "sv": "ägg", "en": "eggs" } },
+    { "qty": "90 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "30 g", "item": { "sv": "kakao", "en": "cocoa powder" } },
+    { "qty": "1/2 tsk", "item": { "sv": "salt", "en": "salt" } },
+    { "qty": "150 g", "item": { "sv": "jordnötssmör", "en": "peanut butter" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Sätt ugnen på 175°C och klä en form (ca 20×20 cm) med bakplåtspapper.", "en": "Heat the oven to 175°C and line a tin (about 20×20 cm) with baking paper." },
+    { "sv": "Smält smör och choklad, rör ner socker, sedan ägg ett i taget.", "en": "Melt the butter and chocolate, stir in the sugar, then the eggs one at a time." },
+    { "sv": "Vänd ner mjöl, kakao och salt. Häll i formen.", "en": "Fold in the flour, cocoa and salt. Pour into the tin." },
+    { "sv": "Klicka ut jordnötssmör över ytan och dra en kniv genom för en marmorering.", "en": "Dollop the peanut butter over the top and swirl through with a knife." },
+    { "sv": "Grädda 25–30 minuter. Låt svalna helt innan du skär. Se videon för tips.", "en": "Bake 25–30 minutes. Cool completely before cutting. See the video for tips." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan för exakt metod. Värm jordnötssmöret något så blir virveln lättare att dra.",
+    "en": "At-home version — follow the video above for the exact method. Warm the peanut butter slightly so it swirls more easily."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk", "peanut"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk, jordnötter", "en": "Contains: gluten, egg, milk, peanuts" },
+    "needsReview": ["mörk choklad / dark chocolate may carry soy and nut traces"],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

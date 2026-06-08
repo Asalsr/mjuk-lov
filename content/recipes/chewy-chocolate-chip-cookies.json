@@ -1,0 +1,43 @@
+{
+  "slug": "chewy-chocolate-chip-cookies",
+  "title": { "sv": "Sega chokladkakor", "en": "Chewy chocolate chip cookies" },
+  "headnote": {
+    "sv": "Gyllene kanter, segt mjuk mitt och smälta chokladbitar — den klassiska kakan, gjord enkel. Se videon ovan för John Kanells metod.",
+    "en": "Golden edges, a soft chewy middle and pockets of melting chocolate — the classic cookie, made simple. Watch the video above for John Kanell's method."
+  },
+  "servings": 24,
+  "time": { "prepMin": 15, "totalMin": 30 },
+  "youtubeId": "FvN2oZQ1OJQ",
+  "inspiredBy": { "channel": "Preppy Kitchen", "url": "https://preppykitchen.com/chewy-chocolate-chip-cookies/" },
+  "ingredients": [
+    { "qty": "230 g", "item": { "sv": "smör, rumsvarmt", "en": "butter, softened" } },
+    { "qty": "200 g", "item": { "sv": "farinsocker", "en": "brown sugar" } },
+    { "qty": "100 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "2", "item": { "sv": "ägg", "en": "eggs" } },
+    { "qty": "2 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
+    { "qty": "340 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "1 tsk", "item": { "sv": "bikarbonat", "en": "baking soda" } },
+    { "qty": "1 tsk", "item": { "sv": "salt", "en": "salt" } },
+    { "qty": "300 g", "item": { "sv": "chokladbitar", "en": "chocolate chips" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Sätt ugnen på 190°C och klä två plåtar med bakplåtspapper.", "en": "Heat the oven to 190°C and line two trays with baking paper." },
+    { "sv": "Vispa smör och båda sockerarterna pösigt. Tillsätt ägg och vanilj.", "en": "Beat the butter and both sugars until fluffy. Add the eggs and vanilla." },
+    { "sv": "Vänd ner mjöl, bikarbonat och salt, sedan chokladbitarna.", "en": "Fold in the flour, baking soda and salt, then the chocolate chips." },
+    { "sv": "Klicka ut bollar med avstånd och grädda 10–12 minuter tills kanterna är gyllene men mitten mjuk.", "en": "Scoop into balls spaced apart and bake 10–12 minutes until the edges are golden but the centres still soft." },
+    { "sv": "Låt svalna på plåten några minuter. Se videon för detaljer.", "en": "Cool on the tray for a few minutes. See the video for details." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan för exakt metod. Kyl degen 30 min för tjockare kakor.",
+    "en": "At-home version — follow the video above for the exact method. Chill the dough 30 min for thicker cookies."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "needsReview": ["chokladbitar / chocolate chips may contain soy and milk traces"],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

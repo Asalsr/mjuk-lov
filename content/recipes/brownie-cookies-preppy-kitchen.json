@@ -1,0 +1,42 @@
+{
+  "slug": "brownie-cookies-preppy-kitchen",
+  "title": { "sv": "Browniekakor", "en": "Brownie cookies" },
+  "headnote": {
+    "sv": "En brownie i kakform — blank, sprucken yta och seg, chokladtät mitt. Se videon ovan för metoden.",
+    "en": "A brownie in cookie form — glossy, crackly tops and a chewy, chocolate-dense middle. Watch the video above for the method."
+  },
+  "servings": 18,
+  "time": { "prepMin": 20, "totalMin": 40 },
+  "youtubeId": "8zOzzsq924o",
+  "inspiredBy": { "channel": "Preppy Kitchen", "url": "https://preppykitchen.com/brownie-cookies/" },
+  "ingredients": [
+    { "qty": "250 g", "item": { "sv": "mörk choklad", "en": "dark chocolate" } },
+    { "qty": "60 g", "item": { "sv": "smör", "en": "butter" } },
+    { "qty": "3", "item": { "sv": "ägg", "en": "eggs" } },
+    { "qty": "150 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
+    { "qty": "90 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "1/4 tsk", "item": { "sv": "bakpulver", "en": "baking powder" } },
+    { "qty": "1/4 tsk", "item": { "sv": "salt", "en": "salt" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Smält choklad och smör ihop och låt svalna något.", "en": "Melt the chocolate and butter together and let cool slightly." },
+    { "sv": "Vispa ägg, socker och vanilj riktigt pösigt och ljust, 3–4 minuter.", "en": "Whisk the eggs, sugar and vanilla until thick and pale, 3–4 minutes." },
+    { "sv": "Rör ner den smälta chokladen, vänd sedan i mjöl, bakpulver och salt.", "en": "Stir in the melted chocolate, then fold in the flour, baking powder and salt." },
+    { "sv": "Klicka ut på plåt med bakplåtspapper och grädda 175°C i 9–11 minuter tills ytan spruckit.", "en": "Scoop onto a lined tray and bake at 175°C for 9–11 minutes until the tops crackle." },
+    { "sv": "Låt stelna på plåten innan flytt. Se videon för detaljer.", "en": "Let set on the tray before moving. See the video for details." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan för exakt metod. Den pösiga äggvispningen ger den spruckna ytan.",
+    "en": "At-home version — follow the video above for the exact method. The well-whipped eggs create the crackly top."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "needsReview": ["mörk choklad / dark chocolate may carry soy and nut traces"],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

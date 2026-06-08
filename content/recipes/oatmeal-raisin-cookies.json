@@ -1,0 +1,45 @@
+{
+  "slug": "oatmeal-raisin-cookies",
+  "title": { "sv": "Sega havrekakor med russin", "en": "Chewy oatmeal raisin cookies" },
+  "headnote": {
+    "sv": "Sega, kryddiga havrekakor fulla av russin — hemtrevliga och snabba. Se videon ovan för Sallys metod.",
+    "en": "Chewy, spiced oatmeal cookies full of raisins — homey and quick. Watch the video above for Sally's method."
+  },
+  "servings": 20,
+  "time": { "prepMin": 15, "totalMin": 35 },
+  "youtubeId": "sqLm57ZJb7Y",
+  "inspiredBy": { "channel": "Sally's Baking Recipes", "url": "https://sallysbakingaddiction.com/oatmeal-raisin-cookies/" },
+  "ingredients": [
+    { "qty": "170 g", "item": { "sv": "smör, rumsvarmt", "en": "butter, softened" } },
+    { "qty": "150 g", "item": { "sv": "farinsocker", "en": "brown sugar" } },
+    { "qty": "50 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "1", "item": { "sv": "ägg", "en": "egg" } },
+    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
+    { "qty": "120 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "1 tsk", "item": { "sv": "kanel", "en": "cinnamon" } },
+    { "qty": "1/2 tsk", "item": { "sv": "bikarbonat", "en": "baking soda" } },
+    { "qty": "1/2 tsk", "item": { "sv": "salt", "en": "salt" } },
+    { "qty": "150 g", "item": { "sv": "havregryn", "en": "rolled oats" } },
+    { "qty": "120 g", "item": { "sv": "russin", "en": "raisins" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Sätt ugnen på 175°C och klä en plåt med bakplåtspapper.", "en": "Heat the oven to 175°C and line a tray with baking paper." },
+    { "sv": "Vispa smör och socker pösigt, tillsätt ägg och vanilj.", "en": "Beat the butter and sugars until fluffy, add the egg and vanilla." },
+    { "sv": "Vänd ner mjöl, kanel, bikarbonat och salt, sedan havregryn och russin.", "en": "Fold in the flour, cinnamon, baking soda and salt, then the oats and raisins." },
+    { "sv": "Klicka ut bollar och grädda 11–13 minuter tills kanterna är gyllene.", "en": "Scoop into balls and bake 11–13 minutes until the edges are golden." },
+    { "sv": "Låt svalna på plåten några minuter. Se videon för tips.", "en": "Cool on the tray for a few minutes. See the video for tips." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan för exakt metod. Blötlägg russinen 10 min för extra saftighet.",
+    "en": "At-home version — follow the video above for the exact method. Soak the raisins 10 min for extra plumpness."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "needsReview": ["oats / havregryn are often cross-contaminated with gluten — use certified gluten-free oats if needed"],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}

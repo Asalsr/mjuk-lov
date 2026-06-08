@@ -1,0 +1,43 @@
+{
+  "slug": "bakery-style-blueberry-muffins",
+  "title": { "sv": "Blåbärsmuffins i bageristil", "en": "Bakery-style blueberry muffins" },
+  "headnote": {
+    "sv": "Höga, gyllene muffinstoppar fulla av saftiga blåbär. Se videon ovan för Sallys metod.",
+    "en": "Tall, golden domed tops packed with juicy blueberries. Watch the video above for Sally's method."
+  },
+  "servings": 12,
+  "time": { "prepMin": 20, "totalMin": 45 },
+  "youtubeId": "kyLQc6WgAB4",
+  "inspiredBy": { "channel": "Sally's Baking Recipes", "url": "https://sallysbakingaddiction.com/blueberry-muffins/" },
+  "ingredients": [
+    { "qty": "310 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
+    { "qty": "2 tsk", "item": { "sv": "bakpulver", "en": "baking powder" } },
+    { "qty": "1/2 tsk", "item": { "sv": "salt", "en": "salt" } },
+    { "qty": "115 g", "item": { "sv": "smör, smält", "en": "butter, melted" } },
+    { "qty": "200 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
+    { "qty": "2", "item": { "sv": "ägg", "en": "eggs" } },
+    { "qty": "240 ml", "item": { "sv": "mjölk", "en": "milk" } },
+    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
+    { "qty": "300 g", "item": { "sv": "blåbär", "en": "blueberries" } }
+  ],
+  "diet": ["vegetarian"],
+  "steps": [
+    { "sv": "Sätt ugnen på 215°C och klä en muffinsform med 12 papperformar.", "en": "Heat the oven to 215°C and line a muffin tin with 12 paper cases." },
+    { "sv": "Blanda mjöl, bakpulver och salt i en skål.", "en": "Whisk the flour, baking powder and salt in a bowl." },
+    { "sv": "Rör ihop smält smör, socker, ägg, mjölk och vanilj separat.", "en": "Stir the melted butter, sugar, eggs, milk and vanilla together separately." },
+    { "sv": "Vänd ihop blött och torrt precis tills det går samman, vänd sedan i blåbären.", "en": "Fold wet into dry just until combined, then fold in the blueberries." },
+    { "sv": "Fyll formarna helt. Grädda 5 min på 215°C, sänk till 190°C och grädda 15–18 min till. Se videon.", "en": "Fill the cases full. Bake 5 min at 215°C, drop to 190°C and bake 15–18 min more. See the video." }
+  ],
+  "notes": {
+    "sv": "Hemlagad version — följ videon ovan för exakt metod. Den höga starttemperaturen ger de höga topparna.",
+    "en": "At-home version — follow the video above for the exact method. The high starting heat gives the tall domes."
+  },
+  "allergens": {
+    "codes": ["gluten", "egg", "milk"],
+    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "needsReview": [],
+    "approvedBy": "ai-draft",
+    "approvedAt": "2026-06-08"
+  },
+  "published": true
+}
