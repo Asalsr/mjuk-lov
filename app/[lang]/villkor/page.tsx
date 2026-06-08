@@ -22,7 +22,7 @@ const content: Record<Lang, { title: string; intro: string; updated: string; sec
       {
         h: "1. Om oss",
         p: [
-          "Säljare är Mjuk Lov, [juridiskt namn], org.nr [organisationsnummer], [registrerad adress], Göteborg. Kontakt: mjuklov.se@gmail.com, [telefonnummer].",
+          "Säljare är Mjuk Lov, Göteborg. Kontakt: mjuklov.se@gmail.com.",
         ],
       },
       {
@@ -112,7 +112,7 @@ const content: Record<Lang, { title: string; intro: string; updated: string; sec
       {
         h: "1. About us",
         p: [
-          "The seller is Mjuk Lov, [legal name], company reg. no. [organisationsnummer], [registered address], Gothenburg, Sweden. Contact: mjuklov.se@gmail.com, [phone].",
+          "The seller is Mjuk Lov, based in Gothenburg, Sweden. Contact: mjuklov.se@gmail.com.",
         ],
       },
       {

@@ -23,7 +23,7 @@ const content: Record<Lang, { title: string; intro: string; updated: string; sec
       {
         h: "1. Personuppgiftsansvarig",
         p: [
-          "Ansvarig för behandlingen av dina personuppgifter är Mjuk Lov, [juridiskt namn], org.nr [organisationsnummer], [registrerad adress], Göteborg.",
+          "Ansvarig för behandlingen av dina personuppgifter är Mjuk Lov, Göteborg.",
           "Kontakt i dataskyddsfrågor: mjuklov.se@gmail.com.",
         ],
       },
@@ -127,7 +127,7 @@ const content: Record<Lang, { title: string; intro: string; updated: string; sec
       {
         h: "1. Data controller",
         p: [
-          "The controller of your personal data is Mjuk Lov, [legal name], company reg. no. [organisationsnummer], [registered address], Gothenburg, Sweden.",
+          "The controller of your personal data is Mjuk Lov, based in Gothenburg, Sweden.",
           "Data protection contact: mjuklov.se@gmail.com.",
         ],
       },
