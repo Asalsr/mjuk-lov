@@ -30,22 +30,23 @@ export function DataControls({ lang }: { lang: Lang }) {
   };
 
   return (
-    <div className="flex items-center justify-center gap-6 mt-10">
-      <button
-        type="button"
-        onClick={onExport}
-        className="type-caps opacity-60 transition-colors hover:opacity-100 hover:text-[var(--dusty-terracotta)]"
-      >
-        {t.exportData}
-      </button>
-      <button
-        type="button"
-        onClick={() => fileRef.current?.click()}
-        className="type-caps opacity-60 transition-colors hover:opacity-100 hover:text-[var(--dusty-terracotta)]"
-      >
-        {t.importData}
-      </button>
-      <input ref={fileRef} type="file" accept="application/json" onChange={onImport} className="hidden" />
-    </div>
+    <></>
+    // <div className="flex items-center justify-center gap-6 mt-10">
+    //   <button
+    //     type="button"
+    //     onClick={onExport}
+    //     className="type-caps opacity-60 transition-colors hover:opacity-100 hover:text-[var(--dusty-terracotta)]"
+    //   >
+    //     {t.exportData}
+    //   </button>
+    //   <button
+    //     type="button"
+    //     onClick={() => fileRef.current?.click()}
+    //     className="type-caps opacity-60 transition-colors hover:opacity-100 hover:text-[var(--dusty-terracotta)]"
+    //   >
+    //     {t.importData}
+    //   </button>
+    //   <input ref={fileRef} type="file" accept="application/json" onChange={onImport} className="hidden" />
+    // </div>
   );
 }

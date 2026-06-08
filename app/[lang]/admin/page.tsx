@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { isLang, ui, type Lang } from "@/lib/i18n";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
 import { OWNER_EMAIL } from "@/lib/owner";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { AdminOrders } from "@/app/components/admin/AdminOrders";
@@ -20,7 +21,11 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   // Owner-only. Non-owners (or guests) get a 404.
   if (!user || user.email !== OWNER_EMAIL) notFound();
 
-  const { data } = await supabase
+  // Read every order with the service role (bypasses RLS) so the owner reliably
+  // sees guest and all users' requests — independent of the per-row RLS owner
+  // policy / which email it hardcodes. Safe: we've already verified the owner above.
+  const db = isAdminConfigured ? createAdminClient() : supabase;
+  const { data } = await db
     .from("orders")
     .select(
       "id, status, created_at, desired_date, fulfilment, address, dietary, notes, contact_name, contact_email, contact_phone, items",

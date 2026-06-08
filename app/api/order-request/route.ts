@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
 import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
+import { OWNER_EMAIL } from "@/lib/owner";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -9,7 +10,10 @@ function json(data: unknown, status = 200) {
   return new Response(JSON.stringify(data), { status, headers: { "Content-Type": "application/json" } });
 }
 
-const OWNER_EMAIL = process.env.OWNER_EMAIL || "mjuklov.se@gmail.com";
+// Order notifications go to the business inbox — the same recipient the contact
+// form uses (contact_email = mjuklov.se@gmail.com) — falling back to the owner
+// account email. (OWNER_EMAIL is the login/admin account, which may differ.)
+const NOTIFY_EMAIL = process.env.CONTACT_EMAIL || process.env.contact_email || OWNER_EMAIL;
 
 // Earliest acceptable desired date: today + 3 days (UTC), as YYYY-MM-DD.
 function minDesiredDate(): string {
@@ -20,9 +24,10 @@ function minDesiredDate(): string {
 
 async function sendEmail(to: string, subject: string, html: string) {
   const key = process.env.RESEND_API_KEY;
-  if (!key || !to) return;
+  if (!key) return console.warn("order-request: RESEND_API_KEY not set — skipping email");
+  if (!to) return console.warn("order-request: no recipient — skipping email");
   try {
-    await fetch("https://api.resend.com/emails", {
+    const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
       body: JSON.stringify({
@@ -32,8 +37,11 @@ async function sendEmail(to: string, subject: string, html: string) {
         html,
       }),
     });
-  } catch {
-    /* email is best-effort; the request is already saved */
+    // Best-effort (the request is already saved), but log failures so they're
+    // diagnosable in the server logs instead of vanishing silently.
+    if (!res.ok) console.error(`order-request: email to ${to} failed`, res.status, await res.text());
+  } catch (e) {
+    console.error(`order-request: email to ${to} threw`, e);
   }
 }
 
@@ -99,7 +107,10 @@ export async function POST(req: Request) {
     })
     .select("id")
     .single();
-  if (error || !order) return json({ error: "save_failed" }, 500);
+  if (error || !order) {
+    console.error("order-request: insert failed", error);
+    return json({ error: "save_failed" }, 500);
+  }
 
   // Notify (best-effort).
   const lines = items
@@ -117,7 +128,7 @@ export async function POST(req: Request) {
     `<p>Dietary: ${(body.dietary as string) || "—"}</p>` +
     `<p>Notes: ${(body.notes as string) || "—"}</p>` +
     `<p>Ref: ${order.id}</p>`;
-  await sendEmail(OWNER_EMAIL, `Mjuk Lov — order request from ${name}`, summary);
+  await sendEmail(NOTIFY_EMAIL, `Mjuk Lov — order request from ${name}`, summary);
   if (email)
     await sendEmail(
       email,

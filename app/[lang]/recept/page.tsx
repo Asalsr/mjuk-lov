@@ -5,7 +5,7 @@ import { ui, isLang, LANGS, type Lang } from "@/lib/i18n";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { RecipeList } from "@/app/components/recipe/RecipeList";
 import { DietFilter } from "@/app/components/personal/DietFilter";
-import { DataControls } from "@/app/components/personal/DataControls";
+//import { DataControls } from "@/app/components/personal/DataControls";
 import { AskAssistant } from "@/app/components/personal/AskAssistant";
 
 export const dynamicParams = false;
@@ -56,7 +56,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           <DietFilter lang={lang} />
           <RecipeList recipes={recipes} lang={lang} />
           <AskAssistant lang={lang} />
-          <DataControls lang={lang} />
+          {/* <DataControls lang={lang} /> */}
         </div>
       </section>
     </RecipeShell>
