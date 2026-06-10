@@ -32,7 +32,7 @@ export const BackToTop = () => {
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'
       }`}
       style={{
-        bottom: 'calc(2rem + env(safe-area-inset-bottom))',
+        bottom: 'calc(2rem + var(--bottom-bar-clearance) + env(safe-area-inset-bottom))',
         right: 'calc(2rem + env(safe-area-inset-right))',
         backgroundColor: 'var(--dusty-terracotta)',
         color: 'var(--vanilla-cream)',
