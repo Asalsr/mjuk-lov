@@ -1,14 +1,14 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { Lang } from '@/lib/i18n';
 
 /** Mobile-only persistent bottom navigation. Surfaces the four key destinations
  *  so users on a sub-page can always find their way back to the home one-pager
- *  (marketing), the recipe library, the shop, and their account. Auto-hides on
- *  scroll-down and reappears on scroll-up so it doesn't compete with content. */
+ *  (marketing), the recipe library, the shop, and their account. Always
+ *  visible — page content reserves clearance via --bottom-bar-clearance so
+ *  nothing sits beneath it. */
 export function MobileBottomBar({
   lang,
   isLoggedIn,
@@ -17,26 +17,6 @@ export function MobileBottomBar({
   isLoggedIn: boolean;
 }) {
   const pathname = usePathname() ?? '/';
-  const [hidden, setHidden] = useState(false);
-  const prevYRef = useRef(0);
-
-  useEffect(() => {
-    prevYRef.current = window.scrollY;
-    const onScroll = () => {
-      const y = window.scrollY;
-      const dy = y - prevYRef.current;
-      if (y < 24) {
-        setHidden(false);
-      } else if (dy > 6) {
-        setHidden(true);
-      } else if (dy < -6) {
-        setHidden(false);
-      }
-      prevYRef.current = y;
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   const t =
     lang === 'sv'
@@ -74,9 +54,7 @@ export function MobileBottomBar({
   return (
     <nav
       aria-label="Primary"
-      className={`md:hidden fixed left-0 right-0 bottom-0 z-40 transition-transform duration-300 ease-out ${
-        hidden ? 'translate-y-full' : 'translate-y-0'
-      }`}
+      className="md:hidden fixed left-0 right-0 bottom-0 z-40"
       style={{
         backgroundColor: 'var(--vanilla-cream)',
         borderTop: '1px solid rgba(61, 42, 34, 0.1)',
