@@ -215,3 +215,20 @@
     opacity: 1 !important;
   }
 }
+
+/* Reserve space at the bottom of the viewport on mobile so the persistent
+   MobileBottomBar (md:hidden, fixed at bottom) never overlaps page content
+   — including the footer and call-to-action buttons.
+   --bottom-bar-clearance is also consumed by fixed overlay UI (e.g. the
+   BackToTop button) so they sit above the bar rather than on top of it. */
+:root {
+  --bottom-bar-clearance: 0px;
+}
+@media (max-width: 767px) {
+  :root {
+    --bottom-bar-clearance: 4rem;
+  }
+  body {
+    padding-bottom: calc(var(--bottom-bar-clearance) + env(safe-area-inset-bottom));
+  }
+}
