@@ -92,9 +92,13 @@ export const Hero = ({ lang }: HeroProps) => {
         className="absolute left-1/2 -translate-x-1/2 group cursor-pointer p-2"
         style={{ bottom: 'calc(2rem + env(safe-area-inset-bottom))' }}
       >
-        <div className="flex flex-col items-center gap-2 opacity-40 group-hover:opacity-100 transition-all duration-300">
+        <div className="flex flex-col items-center gap-2 opacity-40 group-hover:opacity-100 transition-opacity duration-300">
           <span className="type-caps">{t.scroll}</span>
-          <div className="w-0.5 h-12 bg-current group-hover:h-16 transition-all duration-500" />
+          {/* Line grows via scaleY so the button's bounding box stays fixed —
+              otherwise the whole control shifts up on hover and collides with
+              the promise paragraph above. origin-top makes it extend toward
+              the section the button points to. */}
+          <div className="w-0.5 h-12 bg-current origin-top transition-transform duration-500 group-hover:scale-y-[1.33]" />
         </div>
       </button>
     </section>
