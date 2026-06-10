@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -42,7 +42,11 @@ export function MyPageClient({
   const router = useRouter();
   const [name, setName] = useState(profile.fullName);
   const [phone, setPhone] = useState(profile.phone);
-  const [msg, setMsg] = useState<string | null>(null);
+  const [justSaved, setJustSaved] = useState(false);
+  const savedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => {
+    if (savedTimerRef.current) clearTimeout(savedTimerRef.current);
+  }, []);
   const titleOf = (slug: string) => titles[slug] ?? slug;
 
   const statusLabel = (s: string) =>
@@ -90,7 +94,9 @@ export function MyPageClient({
   const saveProfile = (e: React.FormEvent) => {
     e.preventDefault();
     setProfile({ fullName: name, phone }); // write-through to Supabase
-    setMsg(t.synced);
+    setJustSaved(true);
+    if (savedTimerRef.current) clearTimeout(savedTimerRef.current);
+    savedTimerRef.current = setTimeout(() => setJustSaved(false), 12000);
   };
 
   const inputStyle = { border: "1px solid rgba(61, 42, 34, 0.2)" } as const;
@@ -128,11 +134,19 @@ export function MyPageClient({
           <span className="type-caps opacity-50" style={{ fontSize: "0.6875rem" }}>{t.phone}</span>
           <input value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full p-3 type-body bg-transparent" style={inputStyle} />
         </label>
-        <button type="submit" className="type-caps tap px-6 py-3 self-start transition-all hover:bg-[var(--warm-peach)]" style={{ border: "1px solid var(--warm-cocoa)" }}>
-          {t.save}
+        <button
+          type="submit"
+          aria-live="polite"
+          className="type-caps tap px-6 py-3 self-start transition-all hover:bg-[var(--warm-peach)]"
+          style={
+            justSaved
+              ? { border: "1px solid var(--dusty-terracotta)", backgroundColor: "var(--warm-peach)", color: "var(--warm-cocoa)" }
+              : { border: "1px solid var(--warm-cocoa)" }
+          }
+        >
+          {justSaved ? `✓ ${t.saveThanks}` : t.save}
         </button>
       </form>
-      {msg && <p className="type-body opacity-70 mb-2">{msg}</p>}
       <p className="type-caps opacity-40 mb-12" style={{ fontSize: "0.625rem" }}>{t.autoSyncNote}</p>
 
       {activeOrders.length > 0 && (
