@@ -1,4 +1,5 @@
 import "../globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { fontVars } from "@/app/fonts";
 import { AutoSync } from "@/app/components/auth/AutoSync";
@@ -23,6 +24,7 @@ export function RootShell({
       <body>
         <AutoSync />
         {children}
+        <Analytics />
         <SpeedInsights />
       </body>
     </html>
