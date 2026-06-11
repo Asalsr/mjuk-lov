@@ -282,10 +282,22 @@ export const Header = ({ lang, onSelectLang }: HeaderProps) => {
               aria-haspopup="listbox"
               aria-expanded={isLangOpen}
               aria-label={lang === 'fa' ? 'انتخاب زبان' : lang === 'sv' ? 'Välj språk' : 'Choose language'}
-              className="type-caps tap cursor-pointer transition-colors hover:text-[var(--dusty-terracotta)]"
+              className="type-caps tap cursor-pointer transition-colors hover:text-[var(--dusty-terracotta)] inline-flex items-center gap-1"
               style={{ background: 'transparent', border: 'none', color: 'inherit' }}
             >
               {LANG_LABELS[lang]}
+              <span
+                aria-hidden="true"
+                style={{
+                  fontSize: '0.6em',
+                  lineHeight: 1,
+                  display: 'inline-block',
+                  transition: 'transform 0.2s ease',
+                  transform: isLangOpen ? 'rotate(180deg)' : 'none',
+                }}
+              >
+                ▾
+              </span>
             </button>
             {isLangOpen && (
               <ul
