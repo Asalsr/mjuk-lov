@@ -5,28 +5,39 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { setProfile } from "@/lib/userdata/store";
+import type { Offer } from "@/lib/offers";
 import { ui, type Lang } from "@/lib/i18n";
 
 export function MyPageClient({
   lang,
   email,
+  userId,
   profile,
   favorites,
   wishlist,
   notes,
   made,
   orders,
+  memoryConsent,
+  memoryCount,
+  marketingConsent,
+  offers,
   isOwner = false,
   titles,
 }: {
   lang: Lang;
   email: string;
+  userId: string;
   isOwner?: boolean;
   profile: { fullName: string; phone: string; address: string };
   favorites: string[];
   wishlist: string[];
   notes: { slug: string; body: string }[];
   made: string[];
+  memoryConsent: boolean;
+  memoryCount: number;
+  marketingConsent: boolean;
+  offers: Offer[];
   orders: {
     id: string;
     status: string;
@@ -43,6 +54,14 @@ export function MyPageClient({
   const [name, setName] = useState(profile.fullName);
   const [phone, setPhone] = useState(profile.phone);
   const [justSaved, setJustSaved] = useState(false);
+  const [memOn, setMemOn] = useState(memoryConsent);
+  const [memCount, setMemCount] = useState(memoryCount);
+  const [memCleared, setMemCleared] = useState(false);
+  const [delOpen, setDelOpen] = useState(false);
+  const [delPassword, setDelPassword] = useState("");
+  const [delError, setDelError] = useState<string | null>(null);
+  const [delBusy, setDelBusy] = useState(false);
+  const [marketOn, setMarketOn] = useState(marketingConsent);
   const savedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => {
     if (savedTimerRef.current) clearTimeout(savedTimerRef.current);
@@ -99,6 +118,88 @@ export function MyPageClient({
     savedTimerRef.current = setTimeout(() => setJustSaved(false), 12000);
   };
 
+  // AI memory consent + erasure run through the browser client; RLS scopes
+  // every row to this signed-in user, so no service key is involved.
+  const toggleMemory = async (on: boolean) => {
+    setMemOn(on); // optimistic — the toggle is low-stakes and reversible
+    setMemCleared(false);
+    await createClient()
+      .from("consents")
+      .upsert(
+        { user_id: userId, kind: "ai_memory", granted: on, updated_at: new Date().toISOString() },
+        { onConflict: "user_id,kind" },
+      );
+  };
+
+  // Personalized-offers consent. Refresh so the server can mint/clear the
+  // offer on the next render (offers are minted server-side on this page).
+  const toggleMarketing = async (on: boolean) => {
+    setMarketOn(on);
+    await createClient()
+      .from("consents")
+      .upsert(
+        { user_id: userId, kind: "marketing", granted: on, updated_at: new Date().toISOString() },
+        { onConflict: "user_id,kind" },
+      );
+    router.refresh();
+  };
+
+  const offerValue = (o: Offer) =>
+    o.kind === "percent" ? t.offerPercentOff(o.value) : t.offerFixedOff(Math.round(o.value / 100));
+  const offerReason = (key: string | null) =>
+    key === "returning" ? t.offerReasonReturning : key === "firstKit" ? t.offerReasonFirstKit : "";
+
+  const clearAiMemory = async () => {
+    const db = createClient();
+    await Promise.all([
+      db.from("ai_messages").delete().eq("user_id", userId),
+      db.from("ai_summary").delete().eq("user_id", userId),
+    ]);
+    setMemCount(0);
+    setMemCleared(true);
+  };
+
+  // GDPR self-service. Export streams a JSON download; delete re-auths with the
+  // password server-side, anonymises retained order records, then erases the rest.
+  const downloadExport = async () => {
+    const res = await fetch("/api/account/export", { method: "POST" });
+    if (!res.ok) return;
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "mjuk-lov-data.json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
+  const deleteAccount = async () => {
+    if (delBusy || !delPassword) return;
+    setDelBusy(true);
+    setDelError(null);
+    try {
+      const res = await fetch("/api/account/delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: delPassword }),
+      });
+      const out = await res.json().catch(() => ({}));
+      if (res.ok && out.ok) {
+        await createClient().auth.signOut();
+        router.push("/");
+        router.refresh();
+        return;
+      }
+      setDelError(out.error === "invalid_password" ? t.deleteWrongPassword : t.deleteFailed);
+    } catch {
+      setDelError(t.deleteFailed);
+    } finally {
+      setDelBusy(false);
+    }
+  };
+
   const inputStyle = { border: "1px solid rgba(61, 42, 34, 0.2)" } as const;
 
   return (
@@ -148,6 +249,48 @@ export function MyPageClient({
         </button>
       </form>
       <p className="type-caps ink-muted mb-12" style={{ fontSize: "0.75rem" }}>{t.autoSyncNote}</p>
+
+      <h2 className="type-caps ink-muted mb-3">{t.offersHeading}</h2>
+      <label className="flex items-start gap-3 mb-4 cursor-pointer max-w-[420px]">
+        <input type="checkbox" checked={marketOn} onChange={(e) => toggleMarketing(e.target.checked)} className="mt-1" />
+        <span className="type-body ink-muted" style={{ fontSize: "0.85rem" }}>{t.marketingConsent}</span>
+      </label>
+      {marketOn && offers.length > 0 && (
+        <ul className="mb-12 flex flex-col gap-3 max-w-[420px]">
+          {offers.map((o) => (
+            <li key={o.code} className="p-4" style={{ border: "1px solid var(--warm-cocoa)" }}>
+              <div className="type-caps" style={{ color: "var(--dusty-terracotta)" }}>{offerValue(o)}</div>
+              {offerReason(o.reasonKey) && (
+                <p className="type-body ink-muted" style={{ fontSize: "0.85rem" }}>{offerReason(o.reasonKey)}</p>
+              )}
+              <div className="type-caps mt-2" style={{ letterSpacing: "0.05em" }}>{o.code}</div>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <h2 className="type-caps ink-muted mb-3">{t.aiMemoryHeading}</h2>
+      <label className="flex items-start gap-3 mb-3 cursor-pointer max-w-[420px]">
+        <input type="checkbox" checked={memOn} onChange={(e) => toggleMemory(e.target.checked)} className="mt-1" />
+        <span className="type-body ink-muted" style={{ fontSize: "0.85rem" }}>{t.aiMemoryConsent}</span>
+      </label>
+      {memCount > 0 ? (
+        <div className="flex items-center gap-4 mb-12">
+          <span className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>{t.aiMemoryCount(memCount)}</span>
+          <button
+            type="button"
+            onClick={clearAiMemory}
+            className="type-caps tap px-4 py-2 transition-all hover:bg-[var(--warm-peach)]"
+            style={{ border: "1px solid var(--warm-cocoa)" }}
+          >
+            {t.clearAiMemory}
+          </button>
+        </div>
+      ) : (
+        <p className="type-caps ink-muted mb-12" role="status" aria-live="polite" style={{ fontSize: "0.75rem" }}>
+          {memCleared ? t.aiMemoryCleared : " "}
+        </p>
+      )}
 
       {activeOrders.length > 0 && (
         <>
@@ -199,6 +342,69 @@ export function MyPageClient({
       ) : (
         <p className="type-body ink-muted">{t.nothingYet}</p>
       )}
+
+      <div className="mt-14 pt-8" style={{ borderTop: "1px solid rgba(61, 42, 34, 0.12)" }}>
+        <h2 className="type-caps ink-muted mb-4">{t.accountDataHeading}</h2>
+        <div className="flex flex-wrap items-center gap-4">
+          <button
+            type="button"
+            onClick={downloadExport}
+            className="type-caps tap px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
+            style={{ border: "1px solid var(--warm-cocoa)" }}
+          >
+            {t.exportMyData}
+          </button>
+          {!delOpen && (
+            <button
+              type="button"
+              onClick={() => { setDelOpen(true); setDelError(null); }}
+              className="type-caps tap px-5 py-3 transition-colors hover:bg-[var(--dusty-wine)] hover:text-[var(--vanilla-cream)]"
+              style={{ border: "1px solid var(--dusty-wine)", color: "var(--dusty-wine)" }}
+            >
+              {t.deleteAccount}
+            </button>
+          )}
+        </div>
+
+        {delOpen && (
+          <div className="mt-5 max-w-[460px] p-5" style={{ border: "1px solid var(--dusty-wine)" }}>
+            <p className="type-body ink-muted mb-4" style={{ fontSize: "0.875rem" }}>{t.deleteAccountWarning}</p>
+            <input
+              type="password"
+              value={delPassword}
+              onChange={(e) => setDelPassword(e.target.value)}
+              placeholder={t.password}
+              aria-label={t.password}
+              autoComplete="current-password"
+              className="w-full p-3 type-body bg-transparent mb-3"
+              style={inputStyle}
+            />
+            {delError && (
+              <p className="type-body mb-3" role="alert" aria-live="assertive" style={{ color: "var(--dusty-wine)", fontSize: "0.875rem" }}>
+                {delError}
+              </p>
+            )}
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={deleteAccount}
+                disabled={delBusy || !delPassword}
+                className="type-caps tap px-5 py-3 transition-all disabled:opacity-40"
+                style={{ border: "1px solid var(--dusty-wine)", color: "var(--vanilla-cream)", backgroundColor: "var(--dusty-wine)" }}
+              >
+                {t.confirmDelete}
+              </button>
+              <button
+                type="button"
+                onClick={() => { setDelOpen(false); setDelPassword(""); setDelError(null); }}
+                className="type-caps ink-muted tap px-3 transition-colors hover:text-[var(--dusty-terracotta)]"
+              >
+                {t.cancel}
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

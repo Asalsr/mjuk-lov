@@ -1,0 +1,55 @@
+{
+  "id": "kit-standard",
+  "title": { "sv": "Standard­kit (15 cm)", "en": "Standard kit (15 cm)" },
+  "intro": {
+    "sv": "Allt du behöver för att sätta ihop din Mjuk Lov-tårta hemma — för 6–8 personer. Följ stegen i din egen takt.",
+    "en": "Everything you need to assemble your Mjuk Lov cake at home — for 6–8 people. Work through the steps at your own pace."
+  },
+  "youtubeId": null,
+  "steps": [
+    {
+      "text": {
+        "sv": "Packa upp kitet och låt sockerkakorna och fyllningen nå rumstemperatur — då blir tårtan jämnare.",
+        "en": "Unpack the kit and let the sponges and filling come to room temperature — it makes the cake smoother to build."
+      },
+      "durationMin": 20
+    },
+    {
+      "text": {
+        "sv": "Lägg den första sockerkakan på ett fat. Bred ett jämnt lager fyllning ända ut till kanten.",
+        "en": "Place the first sponge on a plate. Spread an even layer of filling all the way to the edge."
+      },
+      "durationMin": 5
+    },
+    {
+      "text": {
+        "sv": "Lägg på nästa sockerkaka och upprepa tills alla lager är staplade. Tryck lätt så de sitter ihop.",
+        "en": "Add the next sponge and repeat until all the layers are stacked. Press gently so they hold together."
+      }
+    },
+    {
+      "text": {
+        "sv": "Täck hela tårtan med frostingen och jämna till ytan med en palettkniv eller baksidan av en sked.",
+        "en": "Cover the whole cake with the frosting and smooth the surface with a palette knife or the back of a spoon."
+      },
+      "durationMin": 10
+    },
+    {
+      "text": {
+        "sv": "Dekorera med det medföljande strösslet. Kyl tårtan minst 30 minuter innan servering så att den sätter sig.",
+        "en": "Decorate with the sprinkles provided. Chill the cake for at least 30 minutes before serving so it sets."
+      },
+      "durationMin": 30
+    }
+  ],
+  "tips": [
+    {
+      "sv": "Doppa palettkniven i varmt vatten och torka av den — då blir frostingen blank och len.",
+      "en": "Dip the palette knife in hot water and wipe it — it gives the frosting a smooth, glossy finish."
+    },
+    {
+      "sv": "Allergier? Kontrollera alltid innehållsförteckningen på kitets förpackning.",
+      "en": "Allergies? Always check the ingredient list on the kit's packaging."
+    }
+  ]
+}

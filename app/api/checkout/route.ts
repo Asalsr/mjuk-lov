@@ -1,6 +1,8 @@
 import Stripe from "stripe";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
 import { getProduct } from "@/lib/products";
+import { validateOffer } from "@/lib/offers";
 import { isLang } from "@/lib/i18n";
 
 export const runtime = "nodejs";
@@ -14,7 +16,7 @@ export async function POST(req: Request) {
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) return json({ error: "stripe_not_configured" }, 500);
 
-  let body: { productId?: string; lang?: string };
+  let body: { productId?: string; lang?: string; code?: string };
   try {
     body = await req.json();
   } catch {
@@ -32,7 +34,21 @@ export async function POST(req: Request) {
   } = await supabase.auth.getUser();
   if (!user) return json({ error: "auth_required" }, 401);
 
-  const amount = product.priceSek * 100; // öre
+  const fullAmount = product.priceSek * 100; // öre
+  let amount = fullAmount;
+  let appliedCode: string | null = null;
+
+  // Validate a discount code (if any) server-side and apply it to the price.
+  // We only validate here — the redemption is counted when payment succeeds
+  // (Stripe webhook), so an abandoned checkout never burns a code.
+  const rawCode = typeof body.code === "string" ? body.code.trim() : "";
+  if (rawCode && isAdminConfigured) {
+    const valid = await validateOffer(createAdminClient(), rawCode, user.id, product);
+    if (!valid) return json({ error: "invalid_code" }, 400);
+    amount = valid.amount;
+    appliedCode = valid.code;
+  }
+
   const { data: order, error } = await supabase
     .from("orders")
     .insert({
@@ -42,6 +58,8 @@ export async function POST(req: Request) {
       amount,
       currency: "sek",
       status: "pending",
+      discount_code: appliedCode,
+      original_amount: appliedCode ? fullAmount : null,
     })
     .select("id")
     .single();

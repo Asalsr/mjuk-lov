@@ -1,0 +1,55 @@
+{
+  "id": "kit-deluxe",
+  "title": { "sv": "Deluxe­kit (20 cm)", "en": "Deluxe kit (20 cm)" },
+  "intro": {
+    "sv": "Den större tårtan — för 10–12 personer, med extra höjd. Samma metod som Standard, men ta det lugnt med de tyngre lagren.",
+    "en": "The bigger cake — for 10–12 people, with extra height. Same method as Standard, just take your time with the heavier layers."
+  },
+  "youtubeId": null,
+  "steps": [
+    {
+      "text": {
+        "sv": "Packa upp kitet och låt sockerkakorna och fyllningen nå rumstemperatur.",
+        "en": "Unpack the kit and let the sponges and filling come to room temperature."
+      },
+      "durationMin": 20
+    },
+    {
+      "text": {
+        "sv": "Lägg den första sockerkakan på ett fat och bred på ett jämnt lager fyllning. Med 20 cm-lager: håll fyllningen något tunnare så tårtan bär sin egen höjd.",
+        "en": "Place the first sponge on a plate and spread an even layer of filling. For the 20 cm layers, keep the filling slightly thinner so the cake carries its own height."
+      },
+      "durationMin": 6
+    },
+    {
+      "text": {
+        "sv": "Stapla resten av lagren med fyllning emellan. Centrera varje lager innan du trycker till.",
+        "en": "Stack the remaining layers with filling between each. Centre every layer before you press it down."
+      }
+    },
+    {
+      "text": {
+        "sv": "Täck tårtan med frostingen och jämna till ytan. Spara lite frosting till kanten nedtill.",
+        "en": "Cover the cake with the frosting and smooth the surface. Save a little frosting for the bottom edge."
+      },
+      "durationMin": 12
+    },
+    {
+      "text": {
+        "sv": "Dekorera med strösslet och kyl minst 45 minuter — den större tårtan behöver lite längre för att sätta sig.",
+        "en": "Decorate with the sprinkles and chill for at least 45 minutes — the larger cake needs a little longer to set."
+      },
+      "durationMin": 45
+    }
+  ],
+  "tips": [
+    {
+      "sv": "Kyl tårtan 10 minuter efter frostingen innan du dekorerar — då fäster strösslet bättre på den fastare ytan.",
+      "en": "Chill the cake for 10 minutes after frosting before decorating — the sprinkles stick better to the firmer surface."
+    },
+    {
+      "sv": "Allergier? Kontrollera alltid innehållsförteckningen på kitets förpackning.",
+      "en": "Allergies? Always check the ingredient list on the kit's packaging."
+    }
+  ]
+}
