@@ -1,0 +1,39 @@
+#!/bin/sh
+# Mjuk Lov pre-push gate.
+#
+# Blocks a push when the verification gate fails, so broken code can't reach the
+# remote — and especially not production. Pushing to master/main runs the FULL
+# gate (typecheck + tests + production build, which re-renders every recipe via
+# SSG). Pushing any other branch runs the fast checks (typecheck + tests) so
+# day-to-day feature pushes stay quick.
+#
+# Activate once per clone:   git config core.hooksPath .githooks
+# Emergency bypass:          git push --no-verify   (use sparingly)
+
+to_production=0
+while read -r _local_ref _local_sha remote_ref _remote_sha; do
+  case "$remote_ref" in
+    refs/heads/master | refs/heads/main) to_production=1 ;;
+  esac
+done
+
+if [ "$to_production" -eq 1 ]; then
+  echo "▶ pre-push → PRODUCTION (master): running full gate (tsc + tests + build)…"
+  if ! npm run --silent gate; then
+    echo ""
+    echo "✗ Gate failed — push to production BLOCKED. Fix the above, then push again."
+    echo "  (To bypass in a real emergency: git push --no-verify)"
+    exit 1
+  fi
+else
+  echo "▶ pre-push: running quick gate (tsc + tests)…"
+  if ! npm run --silent gate:quick; then
+    echo ""
+    echo "✗ Quick gate failed — push BLOCKED. Fix the above, then push again."
+    echo "  (To bypass in a real emergency: git push --no-verify)"
+    exit 1
+  fi
+fi
+
+echo "✓ Gate passed — pushing."
+exit 0

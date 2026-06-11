@@ -13,7 +13,9 @@
     "translate": "tsx scripts/translate.ts",
     "resolve-videos": "tsx scripts/resolve-video-ids.ts",
     "structure-qty": "tsx scripts/structure-qty.ts",
-    "kit-qr": "tsx scripts/kit-qr.ts"
+    "kit-qr": "tsx scripts/kit-qr.ts",
+    "gate:quick": "tsc --noEmit && vitest run",
+    "gate": "tsc --noEmit && vitest run && next build"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
