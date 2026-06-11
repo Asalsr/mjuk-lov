@@ -70,7 +70,7 @@ const marketingTagline = (id: string, lang: Lang) => {
   const map: Record<string, { sv: string; en: string; fa: string }> = {
     idea: { sv: 'Vår berättelse', en: 'Our story', fa: 'داستان ما' },
     kits: { sv: 'Tårtkit & tillbehör', en: 'Cake kits & extras', fa: 'کیت کیک و لوازم' },
-    about: { sv: 'Om Mjuk Lov', en: 'About Mjuk Lov', fa: 'درباره موک لو' },
+    about: { sv: 'Om Mjuk Lov', en: 'About Mjuk Lov', fa: 'درباره Mjuk Lov' },
     order: { sv: 'Hör av dig', en: 'Get in touch', fa: 'با ما در تماس باشید' },
   };
   return map[id]?.[lang] ?? '';

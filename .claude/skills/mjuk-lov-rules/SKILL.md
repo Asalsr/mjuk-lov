@@ -27,10 +27,16 @@ read the relevant guide in `node_modules/next/dist/docs/` and heed deprecation
 notices. `params`/`searchParams` are Promises here — `await` them. Source:
 `AGENTS.md`.
 
-## 1. Everything user-facing is bilingual `{ sv, en }`
-`sv` is the default; `en` is required too — never ship a one-sided string.
-- UI chrome strings → `lib/i18n.ts` (add to **both** `sv` and `en` blocks).
+## 1. Everything user-facing is bilingual `{ sv, en }` (+ optional `fa`)
+`sv` is the default; `en` is required too — never ship a one-sided string. `fa`
+(Persian, RTL) is the third locale; `Localized` falls back `fa → en`.
+- UI chrome strings → `lib/i18n.ts` (add to the `sv`, `en` **and** `fa` blocks).
 - Recipe content → `content/recipes/*.json` (both languages on every field).
+- **Translate idiomatically, never word-by-word** — match how real native
+  sites phrase UI microcopy (e.g. Persian nav "Contact" is "تماس با ما", not the
+  bare "تماس"). When unsure, research native conventions rather than guessing.
+- **Never translate or transliterate the brand name "Mjuk Lov"** — keep it in
+  Latin script in every language, including Persian/RTL text.
 
 ## 2. Recipes: structured data, not free text
 Full rules in **`content/recipes/AUTHORING.md`** — read it before editing any

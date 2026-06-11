@@ -58,7 +58,7 @@ const content = {
       phone: '+46 76 576 1526' // PLACEHOLDER
     },
     allergen: 'آشپزخانه ما با گلوتن، شیر، تخم‌مرغ، بادام و فندق کار می‌کند. درباره موارد دیگر از ما بپرسید.',
-    copyright: '© ۲۰۲۶ موک لو',
+    copyright: '© 2026 Mjuk Lov',
     privacy: 'سیاست حریم خصوصی',
     terms: 'شرایط'
   }
