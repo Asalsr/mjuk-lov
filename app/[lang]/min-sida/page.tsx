@@ -19,6 +19,8 @@ type OrderRow = {
   fulfilment: string | null;
   quoted_price: number | null;
   items: { qty: number; name: string; nameSv: string }[] | null;
+  order_number: string | null;
+  delivered_at: string | null;
 };
 
 export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
@@ -50,7 +52,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
       supabase.from("notes").select("slug, body"),
       supabase.from("cooking_history").select("slug"),
       supabase.from("profiles").select("full_name, phone, address").eq("id", user.id).maybeSingle(),
-      supabase.from("orders").select("id, status, created_at, desired_date, fulfilment, quoted_price, items").order("created_at", { ascending: false }),
+      supabase.from("orders").select("id, order_number, status, created_at, delivered_at, desired_date, fulfilment, quoted_price, items").order("created_at", { ascending: false }),
       supabase.from("consents").select("kind, granted").eq("user_id", user.id),
       supabase.from("ai_messages").select("id", { count: "exact", head: true }),
     ]);

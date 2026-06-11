@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
 import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
 import { OWNER_EMAIL } from "@/lib/owner";
+import { bilingualSubject, bilingualHtml } from "@/lib/email/bilingual";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -115,7 +116,7 @@ export async function POST(req: Request) {
       status: "requested",
       currency: "sek",
     })
-    .select("id")
+    .select("id, order_number")
     .single();
   if (error || !order) {
     console.error("order-request: insert failed", error);
@@ -137,13 +138,16 @@ export async function POST(req: Request) {
     `<p>Date: ${desiredDate} · ${fulfilment}${fullAddress ? ` · ${fullAddress}` : ""}</p>` +
     `<p>Dietary: ${(body.dietary as string) || "—"}</p>` +
     `<p>Notes: ${(body.notes as string) || "—"}</p>` +
-    `<p>Ref: ${order.id}</p>`;
+    `<p>Ref: ${order.order_number ?? order.id}</p>`;
   await sendEmail(NOTIFY_EMAIL, `Mjuk Lov — order request from ${name}`, summary);
   if (email)
     await sendEmail(
       email,
-      "Mjuk Lov — we received your request",
-      `<p>Tack ${name}! We received your request and will get back to you within 24 hours with confirmation and price.</p>${summary}`,
+      `Mjuk Lov — ${bilingualSubject("Vi har tagit emot din förfrågan", "We received your request")}`,
+      bilingualHtml(
+        `<p>Tack ${name}! Vi har tagit emot din förfrågan och återkommer inom 24 timmar med bekräftelse och pris.</p>`,
+        `<p>Thank you ${name}! We received your request and will get back to you within 24 hours with confirmation and price.</p>`,
+      ) + summary,
     );
 
   return json({ ok: true, id: order.id });

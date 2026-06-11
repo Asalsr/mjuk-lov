@@ -19,15 +19,19 @@ type Order = {
   items: { qty: number; name: string; nameSv: string; priceSek?: number | null }[] | null;
   quoted_price: number | null;
   admin_note: string | null;
+  order_number: string | null;
+  delivered_at: string | null;
+  product_name: string | null;
 };
 
-const TABS = ["requested", "confirmed", "done", "declined", "all"] as const;
+const TABS = ["requested", "confirmed", "delivered", "declined", "all"] as const;
 type Tab = (typeof TABS)[number];
 
 const STATUS_COLOR: Record<string, string> = {
   requested: "var(--dusty-terracotta)",
   confirmed: "var(--warm-cocoa)",
   done: "var(--dusty-wine)",
+  delivered: "var(--dusty-wine)",
   declined: "#6e5a50",
 };
 
@@ -38,9 +42,12 @@ export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
   const [busy, setBusy] = useState<string | null>(null);
   // Local draft of the price/note inputs, keyed by order id.
   const [draft, setDraft] = useState<Record<string, { price: string; note: string }>>({});
+  const [datePreset, setDatePreset] = useState<"all" | "thisMonth" | "lastMonth" | "thisYear" | "custom">("all");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
 
   const statusLabel = (s: string) =>
-    ({ requested: t.statusRequested, confirmed: t.statusConfirmed, declined: t.statusDeclined, done: t.statusDone } as Record<string, string>)[s] ?? s;
+    ({ requested: t.statusRequested, confirmed: t.statusConfirmed, declined: t.statusDeclined, done: t.statusDone, delivered: t.statusDelivered } as Record<string, string>)[s] ?? s;
 
   const draftFor = (o: Order) =>
     draft[o.id] ?? { price: o.quoted_price != null ? String(o.quoted_price) : "", note: o.admin_note ?? "" };
@@ -72,11 +79,35 @@ export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
   const tabLabel = (tb: Tab) =>
     tb === "all" ? t.allOrders : tb === "requested" ? t.newRequests : statusLabel(tb);
 
-  const shown = tab === "all" ? orders : orders.filter((o) => o.status === tab);
+  const dateRange: readonly [number | null, number | null] = (() => {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = now.getMonth();
+    if (datePreset === "thisMonth") return [new Date(y, m, 1).getTime(), new Date(y, m + 1, 1).getTime()];
+    if (datePreset === "lastMonth") return [new Date(y, m - 1, 1).getTime(), new Date(y, m, 1).getTime()];
+    if (datePreset === "thisYear") return [new Date(y, 0, 1).getTime(), new Date(y + 1, 0, 1).getTime()];
+    if (datePreset === "custom")
+      return [dateFrom ? new Date(dateFrom).getTime() : null, dateTo ? new Date(dateTo).getTime() + 86_400_000 : null];
+    return [null, null];
+  })();
+  const shown = orders.filter((o) => {
+    if (tab !== "all" && o.status !== tab) return false;
+    const ts = new Date(o.created_at).getTime();
+    if (dateRange[0] != null && ts < dateRange[0]) return false;
+    if (dateRange[1] != null && ts >= dateRange[1]) return false;
+    return true;
+  });
+  const DATE_PRESETS = ["all", "thisMonth", "lastMonth", "thisYear", "custom"] as const;
+  const DATE_L =
+    lang === "sv"
+      ? { period: "Period", all: "Alla", thisMonth: "Denna månad", lastMonth: "Förra månaden", thisYear: "I år", custom: "Anpassad", from: "Från", to: "Till" }
+      : lang === "fa"
+        ? { period: "بازه", all: "همه", thisMonth: "این ماه", lastMonth: "ماه گذشته", thisYear: "امسال", custom: "سفارشی", from: "از", to: "تا" }
+        : { period: "Period", all: "All", thisMonth: "This month", lastMonth: "Last month", thisYear: "This year", custom: "Custom", from: "From", to: "To" };
 
   const mailtoFor = (o: Order) => {
     const items = (o.items ?? []).map((it) => `${it.qty}× ${lang === "sv" ? it.nameSv : it.name}`).join(", ");
-    const subject = `Mjuk Lov — ${t.orderRef} ${o.id.slice(0, 8)}`;
+    const subject = `Mjuk Lov — ${t.orderRef} ${(o.order_number ?? o.id.slice(0, 8))}`;
     const body = `${o.contact_name ?? ""}\n${items}${o.desired_date ? `\n${o.desired_date}` : ""}`;
     return `mailto:${o.contact_email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
@@ -100,6 +131,32 @@ export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
         ))}
       </div>
 
+      {/* Date-range filter */}
+      <div className="flex flex-wrap items-center gap-2 mb-8">
+        <span className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>{DATE_L.period}</span>
+        {DATE_PRESETS.map((p) => (
+          <button
+            key={p}
+            type="button"
+            onClick={() => setDatePreset(p)}
+            className="type-caps px-3 py-1"
+            style={{ fontSize: "0.75rem", border: "1px solid rgba(61,42,34,0.2)", backgroundColor: datePreset === p ? "var(--warm-peach)" : "transparent" }}
+          >
+            {DATE_L[p]}
+          </button>
+        ))}
+        {datePreset === "custom" && (
+          <span className="flex items-center gap-2">
+            <label className="type-caps ink-muted" style={{ fontSize: "0.7rem" }}>
+              {DATE_L.from} <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} className="type-body bg-transparent ml-1" style={{ border: "1px solid rgba(61,42,34,0.2)", padding: "0.1rem 0.3rem" }} />
+            </label>
+            <label className="type-caps ink-muted" style={{ fontSize: "0.7rem" }}>
+              {DATE_L.to} <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} className="type-body bg-transparent ml-1" style={{ border: "1px solid rgba(61,42,34,0.2)", padding: "0.1rem 0.3rem" }} />
+            </label>
+          </span>
+        )}
+      </div>
+
       {shown.length === 0 ? (
         <p className="type-body ink-muted">{t.nothingYet}</p>
       ) : (
@@ -113,7 +170,7 @@ export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
               <div key={o.id} className="p-5 md:p-6" style={{ border: "1px solid rgba(61, 42, 34, 0.15)", backgroundColor: "var(--vanilla-cream)" }}>
                 <div className="flex items-start justify-between gap-3">
                   <div className="type-serif" style={{ fontSize: "1.25rem" }}>
-                    {(o.items ?? []).map((it) => `${it.qty}× ${lang === "sv" ? it.nameSv : it.name}`).join(", ") || "—"}
+                    {(o.items ?? []).map((it) => `${it.qty}× ${lang === "sv" ? it.nameSv : it.name}`).join(", ") || o.product_name || "—"}
                   </div>
                   <span
                     className="type-caps shrink-0"
@@ -124,7 +181,7 @@ export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
                 </div>
 
                 <div className="type-caps ink-muted mt-1">
-                  {new Date(o.created_at).toLocaleString(lang === "sv" ? "sv-SE" : "en-GB")} · {t.orderRef} {o.id.slice(0, 8)}
+                  {new Date(o.created_at).toLocaleString(lang === "sv" ? "sv-SE" : "en-GB")} · {t.orderRef} {(o.order_number ?? o.id.slice(0, 8))}
                 </div>
 
                 <div className="type-body mt-3 break-words">
@@ -195,15 +252,20 @@ export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
                   )}
                   {o.status === "confirmed" && (
                     <>
-                      <button disabled={busy === o.id} onClick={() => update(o.id, "done", { quotedPrice: d.price, adminNote: d.note })} className="type-caps px-4 py-2 transition-colors hover:opacity-80" style={{ backgroundColor: "var(--dusty-wine)", color: "var(--vanilla-cream)" }}>
-                        {t.markDone}
+                      <button disabled={busy === o.id} onClick={() => update(o.id, "delivered", { quotedPrice: d.price, adminNote: d.note })} className="type-caps px-4 py-2 transition-colors hover:opacity-80" style={{ backgroundColor: "var(--dusty-wine)", color: "var(--vanilla-cream)" }}>
+                        {t.markDelivered}
                       </button>
                       <button disabled={busy === o.id} onClick={() => update(o.id, "requested", { quotedPrice: d.price, adminNote: d.note })} className="type-caps px-4 py-2 transition-colors hover:bg-[var(--warm-peach)]" style={{ border: "1px solid rgba(61, 42, 34, 0.2)" }}>
                         {t.reopen}
                       </button>
                     </>
                   )}
-                  {(o.status === "declined" || o.status === "done") && (
+                  {o.status === "paid" && (
+                    <button disabled={busy === o.id} onClick={() => update(o.id, "delivered", { adminNote: d.note })} className="type-caps px-4 py-2 transition-colors hover:opacity-80" style={{ backgroundColor: "var(--dusty-wine)", color: "var(--vanilla-cream)" }}>
+                      {t.markDelivered}
+                    </button>
+                  )}
+                  {(o.status === "declined" || o.status === "delivered" || o.status === "done") && (
                     <button disabled={busy === o.id} onClick={() => update(o.id, "requested", { adminNote: d.note })} className="type-caps px-4 py-2 transition-colors hover:bg-[var(--warm-peach)]" style={{ border: "1px solid rgba(61, 42, 34, 0.2)" }}>
                       {t.reopen}
                     </button>

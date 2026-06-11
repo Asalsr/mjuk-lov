@@ -46,6 +46,8 @@ export function MyPageClient({
     fulfilment: string | null;
     quoted_price: number | null;
     items: { qty: number; name: string; nameSv: string }[] | null;
+    order_number: string | null;
+    delivered_at: string | null;
   }[];
   titles: Record<string, string>;
 }) {
@@ -69,12 +71,12 @@ export function MyPageClient({
   const titleOf = (slug: string) => titles[slug] ?? slug;
 
   const statusLabel = (s: string) =>
-    ({ requested: t.statusRequested, confirmed: t.statusConfirmed, declined: t.statusDeclined, done: t.statusDone } as Record<string, string>)[s] ?? s;
+    ({ requested: t.statusRequested, confirmed: t.statusConfirmed, declined: t.statusDeclined, done: t.statusDone, delivered: t.statusDelivered } as Record<string, string>)[s] ?? s;
   const statusColor = (s: string) =>
-    ({ requested: "var(--dusty-terracotta)", confirmed: "var(--warm-cocoa)", done: "var(--dusty-wine)", declined: "#6e5a50" } as Record<string, string>)[s] ?? "var(--warm-cocoa)";
+    ({ requested: "var(--dusty-terracotta)", confirmed: "var(--warm-cocoa)", done: "var(--dusty-wine)", delivered: "var(--dusty-wine)", declined: "#6e5a50" } as Record<string, string>)[s] ?? "var(--warm-cocoa)";
 
   const activeOrders = orders.filter((o) => o.status === "requested" || o.status === "confirmed");
-  const pastOrders = orders.filter((o) => o.status === "done" || o.status === "declined");
+  const pastOrders = orders.filter((o) => o.status === "delivered" || o.status === "done" || o.status === "declined");
 
   const OrderRow = (o: (typeof orders)[number]) => (
     <li key={o.id} className="flex flex-col gap-1 py-3" style={{ borderTop: "1px solid rgba(61, 42, 34, 0.1)" }}>
@@ -90,7 +92,7 @@ export function MyPageClient({
         </span>
       </div>
       <span className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>
-        {new Date(o.created_at).toLocaleDateString(lang === "sv" ? "sv-SE" : lang === "fa" ? "fa-IR" : "en-GB")}
+        {o.order_number ? `${o.order_number} · ` : ""}{new Date(o.created_at).toLocaleDateString(lang === "sv" ? "sv-SE" : lang === "fa" ? "fa-IR" : "en-GB")}
         {o.desired_date ? ` · ${o.desired_date}` : ""}
         {o.fulfilment ? ` · ${o.fulfilment === "delivery" ? t.delivery : t.pickup}` : ""}
       </span>
@@ -292,6 +294,11 @@ export function MyPageClient({
         </p>
       )}
 
+      <p className="mb-6">
+        <Link href={`/${lang}/bestallningar`} className="type-caps underline transition-colors hover:text-[var(--dusty-terracotta)]">
+          {t.orders} →
+        </Link>
+      </p>
       {activeOrders.length > 0 && (
         <>
           <h2 className="type-caps ink-muted mb-1">{t.activeOrders}</h2>
