@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Logo } from './Logo';
@@ -85,6 +85,17 @@ export const Header = ({ lang, onSelectLang }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isLangOpen) return;
+    const onDoc = (e: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) setIsLangOpen(false);
+    };
+    document.addEventListener('mousedown', onDoc);
+    return () => document.removeEventListener('mousedown', onDoc);
+  }, [isLangOpen]);
   const router = useRouter();
   const t = content[lang];
   const cartItems = cartCount(useCart());
@@ -261,17 +272,44 @@ export const Header = ({ lang, onSelectLang }: HeaderProps) => {
             )}
           </div>
 
-          <select
-            value={lang}
-            onChange={(e) => onSelectLang(e.target.value as Lang)}
-            aria-label={lang === 'fa' ? 'انتخاب زبان' : lang === 'sv' ? 'Välj språk' : 'Choose language'}
-            className="type-caps tap cursor-pointer transition-colors hover:text-[var(--dusty-terracotta)]"
-            style={{ border: 'none', background: 'transparent', color: 'inherit', appearance: 'none', WebkitAppearance: 'none', MozAppearance: 'none', textAlignLast: 'center' }}
-          >
-            {(['sv', 'en', 'fa'] as Lang[]).map((l) => (
-              <option key={l} value={l}>{LANG_LABELS[l]}</option>
-            ))}
-          </select>
+          {/* Custom dropdown (not a native <select>, which forces its own white
+              bg + border that won't match the brand). Fully transparent trigger;
+              the menu uses the cream surface like the account menu. */}
+          <div ref={langRef} className="relative">
+            <button
+              type="button"
+              onClick={() => setIsLangOpen((o) => !o)}
+              aria-haspopup="listbox"
+              aria-expanded={isLangOpen}
+              aria-label={lang === 'fa' ? 'انتخاب زبان' : lang === 'sv' ? 'Välj språk' : 'Choose language'}
+              className="type-caps tap cursor-pointer transition-colors hover:text-[var(--dusty-terracotta)]"
+              style={{ background: 'transparent', border: 'none', color: 'inherit' }}
+            >
+              {LANG_LABELS[lang]}
+            </button>
+            {isLangOpen && (
+              <ul
+                role="listbox"
+                className="absolute end-0 mt-1 z-[10002] py-1 overflow-hidden"
+                style={{ backgroundColor: 'var(--vanilla-cream)', boxShadow: '0 6px 20px rgba(61, 42, 34, 0.12)', minWidth: '3.25rem' }}
+              >
+                {(['sv', 'en', 'fa'] as Lang[]).map((l) => (
+                  <li key={l}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={l === lang}
+                      onClick={() => { setIsLangOpen(false); onSelectLang(l); }}
+                      className="type-caps w-full px-4 py-2 text-center cursor-pointer transition-colors hover:bg-[var(--warm-peach)]"
+                      style={{ background: 'transparent', border: 'none', color: l === lang ? 'var(--dusty-terracotta)' : 'inherit' }}
+                    >
+                      {LANG_LABELS[l]}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
 
           {/* Hamburger — MOBILE ONLY. Use Tailwind display utils (not .tap, which
               forces display and would override md:hidden, leaking onto desktop). */}
