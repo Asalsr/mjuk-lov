@@ -1,0 +1,53 @@
+{
+  "id": "kit-gift",
+  "title": { "sv": "Presentupplaga (15 cm)", "en": "Gift Edition (15 cm)" },
+  "intro": {
+    "sv": "Samma tårta som Standard, men i en vacker presentask med en hälsning. Bygg tårtan — eller överlämna kitet som det är och låt mottagaren göra det.",
+    "en": "The same cake as Standard, but in a beautiful gift box with a dedication. Build the cake — or hand over the kit as it is and let the recipient make it."
+  },
+  "youtubeId": null,
+  "steps": [
+    {
+      "text": {
+        "sv": "Ta ut presentasken och hälsningskortet. Vill du ge bort kitet oöppnat — hoppa till sista steget.",
+        "en": "Take out the gift box and the dedication card. If you'd like to give the kit unopened, skip to the last step."
+      }
+    },
+    {
+      "text": {
+        "sv": "Låt sockerkakorna och fyllningen nå rumstemperatur, lägg sedan den första kakan på ett fat och bred på fyllning.",
+        "en": "Let the sponges and filling reach room temperature, then place the first sponge on a plate and spread on filling."
+      },
+      "durationMin": 20
+    },
+    {
+      "text": {
+        "sv": "Stapla resten av lagren med fyllning emellan och tryck lätt så de sitter ihop.",
+        "en": "Stack the remaining layers with filling between each and press gently so they hold together."
+      }
+    },
+    {
+      "text": {
+        "sv": "Täck tårtan med frostingen, jämna till och dekorera med strösslet. Kyl minst 30 minuter.",
+        "en": "Cover the cake with the frosting, smooth it and decorate with the sprinkles. Chill for at least 30 minutes."
+      },
+      "durationMin": 30
+    },
+    {
+      "text": {
+        "sv": "Skriv din hälsning på kortet och placera tårtan eller det oöppnade kitet i presentasken.",
+        "en": "Write your message on the card and place the cake — or the unopened kit — in the gift box."
+      }
+    }
+  ],
+  "tips": [
+    {
+      "sv": "Ger du bort kitet oöppnat? Skriv en rad om att bygginstruktionen finns via QR-koden på asken.",
+      "en": "Giving the kit unopened? Add a note that the build guide is available via the QR code on the box."
+    },
+    {
+      "sv": "Allergier? Kontrollera alltid innehållsförteckningen på kitets förpackning.",
+      "en": "Allergies? Always check the ingredient list on the kit's packaging."
+    }
+  ]
+}

@@ -12,7 +12,8 @@
     "import": "tsx scripts/import.ts",
     "translate": "tsx scripts/translate.ts",
     "resolve-videos": "tsx scripts/resolve-video-ids.ts",
-    "structure-qty": "tsx scripts/structure-qty.ts"
+    "structure-qty": "tsx scripts/structure-qty.ts",
+    "kit-qr": "tsx scripts/kit-qr.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
@@ -31,10 +32,12 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/qrcode": "^1.5.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
+    "qrcode": "^1.5.4",
     "tailwindcss": "^4",
     "typescript": "^5"
   },

@@ -16,7 +16,7 @@ export const DietTag = z.enum(DIET_TAGS);
 export type DietTag = z.infer<typeof DietTag>;
 
 /** Every user-facing string is bilingual (Swedish + English). */
-const Localized = z.object({ sv: z.string(), en: z.string() });
+export const Localized = z.object({ sv: z.string(), en: z.string() });
 export type Localized = z.infer<typeof Localized>;
 
 /** A structured, convertible amount (e.g. 250 g, 1 tsp) … */
