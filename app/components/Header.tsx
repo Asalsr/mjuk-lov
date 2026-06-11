@@ -15,7 +15,9 @@ interface HeaderProps {
   onSelectLang: (next: Lang) => void;
 }
 
-const LANG_LABELS: Record<Lang, string> = { sv: 'Svenska', en: 'English', fa: 'فارسی' };
+// Short codes keep the switcher compact and aligned with the rest of the caps
+// nav (the old toggle showed "SV"/"EN"); full names would widen the control.
+const LANG_LABELS: Record<Lang, string> = { sv: 'SV', en: 'EN', fa: 'فا' };
 
 const content = {
   sv: {
