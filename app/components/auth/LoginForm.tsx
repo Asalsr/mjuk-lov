@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { appOrigin } from "@/lib/site";
 import { PasswordInput } from "./PasswordInput";
+import { localPasswordIssues, weakPasswordIssues } from "@/lib/password";
 import { ui, type Lang } from "@/lib/i18n";
 
 const inputStyle = { border: "1px solid rgba(61, 42, 34, 0.2)" } as const;
@@ -25,9 +26,16 @@ export function LoginForm({ lang }: { lang: Lang }) {
     e.preventDefault();
     if (loading || !email.trim()) return;
     if (mode !== "reset" && !password) return;
-    if (mode === "signup" && password !== confirm) {
-      setError(t.passwordsDoNotMatch);
-      return;
+    if (mode === "signup") {
+      const issues = localPasswordIssues(password, lang);
+      if (issues.length) {
+        setError(issues.join("\n"));
+        return;
+      }
+      if (password !== confirm) {
+        setError(t.passwordsDoNotMatch);
+        return;
+      }
     }
     setLoading(true);
     setError(null);
@@ -39,8 +47,10 @@ export function LoginForm({ lang }: { lang: Lang }) {
           password,
           options: { emailRedirectTo: `${appOrigin()}/auth/callback?next=/${lang}/min-sida` },
         });
-        if (error) setError(error.message);
-        else setNotice(t.confirmEmailSent);
+        if (error) {
+          const issues = weakPasswordIssues(error, password, lang);
+          setError(issues ? `${t.passwordTooWeak}\n${issues.join("\n")}` : error.message);
+        } else setNotice(t.confirmEmailSent);
       } else if (mode === "reset") {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: `${appOrigin()}/auth/callback?next=/${lang}/aterstall`,
@@ -92,14 +102,19 @@ export function LoginForm({ lang }: { lang: Lang }) {
         style={inputStyle}
       />
       {mode !== "reset" && (
-        <PasswordInput
-          lang={lang}
-          value={password}
-          onChange={setPassword}
-          placeholder={t.password}
-          minLength={6}
-          autoComplete={mode === "signup" ? "new-password" : "current-password"}
-        />
+        <div className="flex flex-col gap-1">
+          <PasswordInput
+            lang={lang}
+            value={password}
+            onChange={setPassword}
+            placeholder={t.password}
+            minLength={6}
+            autoComplete={mode === "signup" ? "new-password" : "current-password"}
+          />
+          {mode === "signup" && (
+            <p className="type-caps opacity-50">{t.passwordHint}</p>
+          )}
+        </div>
       )}
       {mode === "signup" && (
         <PasswordInput
@@ -119,7 +134,7 @@ export function LoginForm({ lang }: { lang: Lang }) {
       >
         {loading ? t.thinking : cta}
       </button>
-      {error && <p className="type-body" style={{ color: "var(--dusty-wine)" }}>{error}</p>}
+      {error && <p className="type-body" style={{ color: "var(--dusty-wine)", whiteSpace: "pre-line" }}>{error}</p>}
 
       <div className="flex flex-col gap-1 mt-1">
         {mode === "signin" && (

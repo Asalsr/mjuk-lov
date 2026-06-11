@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { PasswordInput } from "./PasswordInput";
+import { localPasswordIssues, weakPasswordIssues } from "@/lib/password";
 import { ui, type Lang } from "@/lib/i18n";
 
 export function ResetPasswordForm({ lang }: { lang: Lang }) {
@@ -45,6 +46,11 @@ export function ResetPasswordForm({ lang }: { lang: Lang }) {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!password || loading) return;
+    const issues = localPasswordIssues(password, lang);
+    if (issues.length) {
+      setError(issues.join("\n"));
+      return;
+    }
     if (password !== confirm) {
       setError(t.passwordsDoNotMatch);
       return;
@@ -60,7 +66,8 @@ export function ResetPasswordForm({ lang }: { lang: Lang }) {
         if (error.code === "session_not_found" || /session/i.test(error.message)) {
           setHasSession(false);
         } else {
-          setError(error.message);
+          const weak = weakPasswordIssues(error, password, lang);
+          setError(weak ? `${t.passwordTooWeak}\n${weak.join("\n")}` : error.message);
         }
       } else {
         setDone(true);
@@ -97,14 +104,17 @@ export function ResetPasswordForm({ lang }: { lang: Lang }) {
 
   return (
     <form onSubmit={submit} className="flex flex-col gap-4 max-w-[400px]">
-      <PasswordInput
-        lang={lang}
-        value={password}
-        onChange={setPassword}
-        placeholder={t.newPassword}
-        minLength={6}
-        autoComplete="new-password"
-      />
+      <div className="flex flex-col gap-1">
+        <PasswordInput
+          lang={lang}
+          value={password}
+          onChange={setPassword}
+          placeholder={t.newPassword}
+          minLength={6}
+          autoComplete="new-password"
+        />
+        <p className="type-caps opacity-50">{t.passwordHint}</p>
+      </div>
       <PasswordInput
         lang={lang}
         value={confirm}
@@ -121,7 +131,7 @@ export function ResetPasswordForm({ lang }: { lang: Lang }) {
       >
         {loading ? t.thinking : t.updatePassword}
       </button>
-      {error && <p className="type-body" style={{ color: "var(--dusty-wine)" }}>{error}</p>}
+      {error && <p className="type-body" style={{ color: "var(--dusty-wine)", whiteSpace: "pre-line" }}>{error}</p>}
     </form>
   );
 }
