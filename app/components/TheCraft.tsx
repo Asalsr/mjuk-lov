@@ -75,7 +75,7 @@ export const TheCraft = ({ lang }: TheCraftProps) => {
     <section
       id="craft"
       ref={ref}
-      className="py-[clamp(6rem,12vw,12rem)] px-4 md:px-8"
+      className="py-[clamp(3.5rem,8vw,8rem)] px-4 md:px-8"
       style={{ backgroundColor: 'rgba(232, 184, 154, 0.2)' }}
     >
       <div className="max-w-[1200px] mx-auto">

@@ -7,7 +7,6 @@ import { NoiseTexture } from '../NoiseTexture';
 import { CustomCursor } from '../CustomCursor';
 import { FloatingElements } from '../FloatingElements';
 import { BackToTop } from '../BackToTop';
-import { ScrollProgress } from '../ScrollProgress';
 import type { Lang } from '@/lib/i18n';
 
 /** Wraps recipe routes in the exact same chrome as the home page so the look
@@ -43,7 +42,6 @@ export function RecipeShell({
       >
         {lang === 'sv' ? 'Hoppa till innehåll' : 'Skip to content'}
       </a>
-      <ScrollProgress />
       <NoiseTexture />
       <CustomCursor />
       <FloatingElements />

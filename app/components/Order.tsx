@@ -91,7 +91,7 @@ export const Order = ({ lang }: OrderProps) => {
     <section
       id="order"
       ref={ref}
-      className="py-[clamp(6rem,12vw,12rem)] px-4 md:px-8"
+      className="py-[clamp(3.5rem,8vw,8rem)] px-4 md:px-8"
       style={{ backgroundColor: 'var(--warm-cocoa)', color: 'var(--vanilla-cream)' }}
     >
       <div className="max-w-[1000px] mx-auto">

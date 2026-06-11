@@ -85,7 +85,7 @@ export const Corporate = ({ lang }: CorporateProps) => {
     <section
       id="corporate"
       ref={ref}
-      className="py-[clamp(6rem,12vw,12rem)] px-4 md:px-8"
+      className="py-[clamp(3.5rem,8vw,8rem)] px-4 md:px-8"
       style={{ backgroundColor: 'var(--vanilla-cream)' }}
     >
       <div className="max-w-[1200px] mx-auto">

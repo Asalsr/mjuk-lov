@@ -106,7 +106,11 @@ export const Hero = ({ lang }: HeroProps) => {
       >
         <div className="flex flex-col items-center gap-2 ink-muted group-hover:text-[var(--warm-cocoa)] transition-all duration-300">
           <span className="type-caps">{t.scroll}</span>
-          <div className="w-0.5 h-12 bg-current group-hover:h-16 transition-all duration-500" />
+          {/* Line grows via scaleY so the button's bounding box stays fixed —
+              otherwise the whole control shifts up on hover and collides with
+              the promise paragraph above. origin-top makes it extend toward
+              the section the button points to. */}
+          <div className="w-0.5 h-12 bg-current origin-top transition-transform duration-500 group-hover:scale-y-[1.33]" />
         </div>
       </button>
     </section>

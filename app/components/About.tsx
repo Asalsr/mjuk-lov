@@ -50,7 +50,7 @@ export const About = ({ lang }: AboutProps) => {
     <section
       id="about"
       ref={ref}
-      className="py-[clamp(6rem,12vw,12rem)] px-4 md:px-8"
+      className="py-[clamp(3.5rem,8vw,8rem)] px-4 md:px-8"
       style={{ backgroundColor: 'var(--vanilla-cream)' }}
     >
       <div className="max-w-[720px] mx-auto">

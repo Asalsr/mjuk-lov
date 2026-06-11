@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Logo } from './Logo';
+import { MobileBottomBar } from './MobileBottomBar';
 import { useCart, cartCount } from '@/lib/cart/store';
 import { createClient } from '@/lib/supabase/client';
 import { isSupabaseConfigured } from '@/lib/supabase/config';
@@ -36,15 +37,33 @@ const content = {
   },
 };
 
-// Marketing one-pager nav. Section items scroll to a home anchor; Shop links to
-// the shop page. (Logo click goes to the landing page.)
-const NAV: { id?: string; shop?: boolean; sv: string; en: string }[] = [
+// Site nav. Two kinds of items:
+//   - `id`   → scroll to a section on the home one-pager (or push /#id from a sub-page)
+//   - `path` → real route on the localized app (recipes, shop, …)
+// The desktop bar shows everything; the mobile hamburger sheet shows only the
+// scroll-to-section items (the brand story), because real destinations live in
+// the persistent bottom tab bar (see MobileBottomBar).
+const NAV: ({ id: string; sv: string; en: string } | { path: string; sv: string; en: string })[] = [
   { id: 'idea', sv: 'Idén', en: 'The Idea' },
-  { shop: true, sv: 'Butik', en: 'Shop' },
+  { path: 'recept', sv: 'Recept', en: 'Recipes' },
+  { path: 'butik', sv: 'Butik', en: 'Shop' },
   { id: 'kits', sv: 'Tårtkit', en: 'Kits' },
   { id: 'about', sv: 'Om', en: 'About' },
   { id: 'order', sv: 'Kontakt', en: 'Contact' },
 ];
+
+// Tagline shown beneath each marketing section in the mobile hamburger sheet
+// so the menu reads as an intentional "about us" gateway, not a duplicate of
+// the bottom bar.
+const marketingTagline = (id: string, lang: 'sv' | 'en') => {
+  const map: Record<string, { sv: string; en: string }> = {
+    idea: { sv: 'Vår berättelse', en: 'Our story' },
+    kits: { sv: 'Tårtkit & tillbehör', en: 'Cake kits & extras' },
+    about: { sv: 'Om Mjuk Lov', en: 'About Mjuk Lov' },
+    order: { sv: 'Hör av dig', en: 'Get in touch' },
+  };
+  return map[id]?.[lang] ?? '';
+};
 
 export const Header = ({ lang, onLangToggle }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -97,12 +116,10 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
     setIsMobileMenuOpen(false);
   };
 
-  // Recipes / Shop / My page — the app links shown in the profile dropdown.
-  const accountLinks = [
-    { href: `/${lang}/recept`, label: t.recipes },
-    { href: `/${lang}/butik`, label: t.shop },
-    { href: `/${lang}/min-sida`, label: t.myPage },
-  ];
+  // Profile dropdown — account-only. Recipes/Shop now live in the desktop nav
+  // and in the mobile bottom bar, so the profile menu can stay focused on the
+  // user's own account (matches IKEA/Etsy/Airbnb convention).
+  const accountLinks = [{ href: `/${lang}/min-sida`, label: t.myPage }];
 
   return (
     <header
@@ -120,13 +137,14 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
           <Logo className={isScrolled ? 'h-10 md:h-12 lg:h-14' : 'h-12 md:h-16 lg:h-20'} />
         </Link>
 
-        {/* Marketing section nav (home one-pager) */}
+        {/* Desktop nav. Marketing sections (scroll-to) and real destinations
+            (Recept / Butik) sit side by side at this breakpoint. */}
         <nav className="hidden md:flex items-center gap-8">
           {NAV.map((item) =>
-            item.shop ? (
+            'path' in item ? (
               <Link
-                key="shop"
-                href={`/${lang}/butik`}
+                key={item.path}
+                href={`/${lang}/${item.path}`}
                 className="type-caps relative transition-colors hover:text-[var(--dusty-terracotta)] group"
               >
                 {item[lang]}
@@ -135,7 +153,7 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
             ) : (
               <button
                 key={item.id}
-                onClick={() => goToSection(item.id!)}
+                onClick={() => goToSection(item.id)}
                 className="type-caps relative transition-colors hover:text-[var(--dusty-terracotta)] group"
               >
                 {item[lang]}
@@ -261,31 +279,28 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
             className="md:hidden fixed inset-0 z-[-1] bg-transparent cursor-default"
           />
           <div className="md:hidden bg-[var(--vanilla-cream)] border-t border-[var(--warm-cocoa)]/10 max-h-[calc(100svh-4rem)] overflow-y-auto pb-[env(safe-area-inset-bottom)]">
-            <nav className="px-4 py-6 flex flex-col gap-2">
-              {NAV.map((item) =>
-                item.shop ? (
-                  <Link
-                    key="shop"
-                    href={`/${lang}/butik`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="type-caps text-left min-h-11 flex items-center transition-colors hover:text-[var(--dusty-terracotta)]"
-                  >
-                    {item[lang]}
-                  </Link>
-                ) : (
-                  <button
-                    key={item.id}
-                    onClick={() => goToSection(item.id!)}
-                    className="type-caps text-left min-h-11 flex items-center transition-colors hover:text-[var(--dusty-terracotta)]"
-                  >
-                    {item[lang]}
-                  </button>
-                ),
-              )}
+            {/* Mobile hamburger = the brand story. Real destinations live in
+                the MobileBottomBar; this sheet stays focused on marketing. */}
+            <nav className="px-4 py-6 flex flex-col gap-1">
+              {NAV.filter((item): item is { id: string; sv: string; en: string } => 'id' in item).map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => goToSection(item.id)}
+                  className="text-left min-h-11 flex flex-col justify-center py-2 transition-colors hover:text-[var(--dusty-terracotta)]"
+                >
+                  <span className="type-caps">{item[lang]}</span>
+                  <span className="type-body ink-muted" style={{ fontSize: '0.875rem' }}>
+                    {marketingTagline(item.id, lang)}
+                  </span>
+                </button>
+              ))}
             </nav>
           </div>
         </>
       )}
+
+      {/* Mobile-only persistent bottom destination bar. */}
+      <MobileBottomBar lang={lang} isLoggedIn={isLoggedIn} />
     </header>
   );
 };
