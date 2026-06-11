@@ -1,5 +1,6 @@
 import Stripe from "stripe";
 import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
+import { consumeRedemption } from "@/lib/offers";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -29,14 +30,20 @@ export async function POST(req: Request) {
       // Stripe re-delivers webhooks, so scoping to status="pending" makes a
       // duplicate delivery a no-op and prevents clobbering a later status
       // (e.g. an order already advanced past "paid").
-      await admin
+      const { data: updated } = await admin
         .from("orders")
         .update({
           status: "paid",
           stripe_payment_intent: typeof session.payment_intent === "string" ? session.payment_intent : null,
         })
         .eq("id", foreignId)
-        .eq("status", "pending");
+        .eq("status", "pending")
+        .select("discount_code");
+      // Count the redemption only on the real pending → paid transition (the
+      // .select returns the row only when this delivery did the update, so a
+      // re-delivered webhook won't double-count).
+      const code = (updated as { discount_code: string | null }[] | null)?.[0]?.discount_code;
+      if (code) await consumeRedemption(admin, code);
     }
   }
 

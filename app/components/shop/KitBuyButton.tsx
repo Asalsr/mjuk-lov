@@ -9,6 +9,7 @@ export function KitBuyButton({ productId, lang }: { productId: string; lang: Lan
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [code, setCode] = useState("");
   // Ref guard: blocks a second click before the `loading` state re-renders,
   // which would otherwise open two Stripe checkout sessions (double charge).
   const inFlight = useRef(false);
@@ -22,7 +23,7 @@ export function KitBuyButton({ productId, lang }: { productId: string; lang: Lan
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId, lang }),
+        body: JSON.stringify({ productId, lang, code: code.trim() || undefined }),
       });
       if (res.status === 401) {
         router.push(`/${lang}/logga-in`);
@@ -30,7 +31,7 @@ export function KitBuyButton({ productId, lang }: { productId: string; lang: Lan
       }
       const out = await res.json();
       if (out.url) window.location.href = out.url; // → Stripe hosted checkout
-      else setError(t.aiError);
+      else setError(out.error === "invalid_code" ? t.invalidCode : t.aiError);
     } catch {
       setError(t.aiError);
     } finally {
@@ -41,6 +42,16 @@ export function KitBuyButton({ productId, lang }: { productId: string; lang: Lan
 
   return (
     <div>
+      <input
+        type="text"
+        value={code}
+        onChange={(e) => setCode(e.target.value)}
+        placeholder={t.discountCode}
+        aria-label={t.discountCode}
+        autoComplete="off"
+        className="w-full p-3 mb-2 type-body bg-transparent"
+        style={{ border: "1px solid rgba(61, 42, 34, 0.2)" }}
+      />
       <button
         type="button"
         onClick={buy}
@@ -50,7 +61,7 @@ export function KitBuyButton({ productId, lang }: { productId: string; lang: Lan
       >
         {loading ? t.thinking : t.buy}
       </button>
-      {error && <p className="type-body mt-2" style={{ color: "var(--dusty-wine)" }}>{error}</p>}
+      {error && <p className="type-body mt-2" role="alert" aria-live="assertive" style={{ color: "var(--dusty-wine)" }}>{error}</p>}
     </div>
   );
 }
