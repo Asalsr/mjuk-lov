@@ -11,7 +11,7 @@ import { LegalDoc, type LegalSection } from "@/app/components/legal/LegalDoc";
 
 export const metadata = { title: "Integritetspolicy · Mjuk Lov" };
 
-const LAST_UPDATED = "2026-06-08";
+const LAST_UPDATED = "2026-06-11";
 
 const content: Record<Lang, { title: string; intro: string; updated: string; sections: LegalSection[] }> = {
   sv: {
@@ -72,6 +72,7 @@ const content: Record<Lang, { title: string; intro: string; updated: string; sec
           "Kontouppgifter: så länge ditt konto är aktivt. Du kan radera ditt konto när som helst.",
           "Order‑ och bokföringsunderlag: så länge som krävs enligt bokföringslagen (normalt sju år).",
           "Preferenser och sparade adresser: tills du ändrar eller raderar dem.",
+          "När du raderar ditt konto tas dina personuppgifter bort omedelbart. Slutförda beställningar behålls men anonymiseras (din identitet och kontaktuppgifter tas bort) för att uppfylla bokföringslagen.",
         ],
       },
       {
@@ -84,6 +85,7 @@ const content: Record<Lang, { title: string; intro: string; updated: string; sec
           "begränsa eller invända mot behandlingen,",
           "få ut dina uppgifter i ett maskinläsbart format (dataportabilitet),",
           "när som helst återkalla samtycke du lämnat.",
+          "Du kan exportera dina data och radera ditt konto direkt under ”Min sida”.",
         ],
       },
       {
@@ -176,6 +178,7 @@ const content: Record<Lang, { title: string; intro: string; updated: string; sec
           "Account data: for as long as your account is active. You can delete your account at any time.",
           "Orders and accounting records: for as long as required by the Swedish Bookkeeping Act (normally seven years).",
           "Preferences and saved addresses: until you change or delete them.",
+          "When you delete your account your personal data is removed immediately. Completed orders are retained but anonymised (your identity and contact details are removed) to comply with the Bookkeeping Act.",
         ],
       },
       {
@@ -188,6 +191,7 @@ const content: Record<Lang, { title: string; intro: string; updated: string; sec
           "restrict or object to processing,",
           "receive your data in a machine-readable format (data portability),",
           "withdraw any consent you have given, at any time.",
+          "You can export your data and delete your account directly from “My page”.",
         ],
       },
       {

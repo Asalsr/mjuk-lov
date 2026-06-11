@@ -52,6 +52,10 @@ export function MyPageClient({
   const [memOn, setMemOn] = useState(memoryConsent);
   const [memCount, setMemCount] = useState(memoryCount);
   const [memCleared, setMemCleared] = useState(false);
+  const [delOpen, setDelOpen] = useState(false);
+  const [delPassword, setDelPassword] = useState("");
+  const [delError, setDelError] = useState<string | null>(null);
+  const [delBusy, setDelBusy] = useState(false);
   const savedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => {
     if (savedTimerRef.current) clearTimeout(savedTimerRef.current);
@@ -129,6 +133,47 @@ export function MyPageClient({
     ]);
     setMemCount(0);
     setMemCleared(true);
+  };
+
+  // GDPR self-service. Export streams a JSON download; delete re-auths with the
+  // password server-side, anonymises retained order records, then erases the rest.
+  const downloadExport = async () => {
+    const res = await fetch("/api/account/export", { method: "POST" });
+    if (!res.ok) return;
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "mjuk-lov-data.json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
+  const deleteAccount = async () => {
+    if (delBusy || !delPassword) return;
+    setDelBusy(true);
+    setDelError(null);
+    try {
+      const res = await fetch("/api/account/delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: delPassword }),
+      });
+      const out = await res.json().catch(() => ({}));
+      if (res.ok && out.ok) {
+        await createClient().auth.signOut();
+        router.push("/");
+        router.refresh();
+        return;
+      }
+      setDelError(out.error === "invalid_password" ? t.deleteWrongPassword : t.deleteFailed);
+    } catch {
+      setDelError(t.deleteFailed);
+    } finally {
+      setDelBusy(false);
+    }
   };
 
   const inputStyle = { border: "1px solid rgba(61, 42, 34, 0.2)" } as const;
@@ -254,6 +299,69 @@ export function MyPageClient({
       ) : (
         <p className="type-body ink-muted">{t.nothingYet}</p>
       )}
+
+      <div className="mt-14 pt-8" style={{ borderTop: "1px solid rgba(61, 42, 34, 0.12)" }}>
+        <h2 className="type-caps ink-muted mb-4">{t.accountDataHeading}</h2>
+        <div className="flex flex-wrap items-center gap-4">
+          <button
+            type="button"
+            onClick={downloadExport}
+            className="type-caps tap px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
+            style={{ border: "1px solid var(--warm-cocoa)" }}
+          >
+            {t.exportMyData}
+          </button>
+          {!delOpen && (
+            <button
+              type="button"
+              onClick={() => { setDelOpen(true); setDelError(null); }}
+              className="type-caps tap px-5 py-3 transition-colors hover:bg-[var(--dusty-wine)] hover:text-[var(--vanilla-cream)]"
+              style={{ border: "1px solid var(--dusty-wine)", color: "var(--dusty-wine)" }}
+            >
+              {t.deleteAccount}
+            </button>
+          )}
+        </div>
+
+        {delOpen && (
+          <div className="mt-5 max-w-[460px] p-5" style={{ border: "1px solid var(--dusty-wine)" }}>
+            <p className="type-body ink-muted mb-4" style={{ fontSize: "0.875rem" }}>{t.deleteAccountWarning}</p>
+            <input
+              type="password"
+              value={delPassword}
+              onChange={(e) => setDelPassword(e.target.value)}
+              placeholder={t.password}
+              aria-label={t.password}
+              autoComplete="current-password"
+              className="w-full p-3 type-body bg-transparent mb-3"
+              style={inputStyle}
+            />
+            {delError && (
+              <p className="type-body mb-3" role="alert" aria-live="assertive" style={{ color: "var(--dusty-wine)", fontSize: "0.875rem" }}>
+                {delError}
+              </p>
+            )}
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={deleteAccount}
+                disabled={delBusy || !delPassword}
+                className="type-caps tap px-5 py-3 transition-all disabled:opacity-40"
+                style={{ border: "1px solid var(--dusty-wine)", color: "var(--vanilla-cream)", backgroundColor: "var(--dusty-wine)" }}
+              >
+                {t.confirmDelete}
+              </button>
+              <button
+                type="button"
+                onClick={() => { setDelOpen(false); setDelPassword(""); setDelError(null); }}
+                className="type-caps ink-muted tap px-3 transition-colors hover:text-[var(--dusty-terracotta)]"
+              >
+                {t.cancel}
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
