@@ -1,0 +1,3 @@
+# Git hooks are shell scripts — they must keep LF endings, or `sh` can't run
+# the `#!/bin/sh` shebang on a Windows checkout (it sees `/bin/sh^M`).
+.githooks/** text eol=lf
