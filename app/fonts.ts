@@ -1,4 +1,4 @@
-import { Cormorant_Garamond, Inter, Didact_Gothic } from "next/font/google";
+import { Cormorant_Garamond, Inter, Didact_Gothic, Vazirmatn } from "next/font/google";
 
 // Shared across the two root layouts (home + localized). next/font must be
 // called at module scope, so we define the fonts once here and reuse the
@@ -26,4 +26,13 @@ const didact = Didact_Gothic({
   display: "swap",
 });
 
-export const fontVars = `${cormorant.variable} ${inter.variable} ${didact.variable}`;
+// Persian (RTL) face. Cormorant/Inter/Didact have no Persian glyphs, so /fa
+// pages override the font vars to this (see globals.css `html[lang="fa"]`).
+const vazirmatn = Vazirmatn({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600"],
+  variable: "--font-vazir",
+  display: "swap",
+});
+
+export const fontVars = `${cormorant.variable} ${inter.variable} ${didact.variable} ${vazirmatn.variable}`;

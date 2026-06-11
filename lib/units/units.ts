@@ -23,27 +23,27 @@ export interface UnitDef {
   dimension: Dimension;
   /** Which system this unit belongs to (for grouping the dropdown). "both" = shown in either. */
   system: System | "both";
-  /** Bilingual short label shown in the UI. */
-  label: { sv: string; en: string };
+  /** Short label shown in the UI (sv / en / fa). */
+  label: { sv: string; en: string; fa: string };
 }
 
 export const UNITS: Record<UnitCode, UnitDef> = {
   // mass (base = gram)
-  g: { dimension: "mass", system: "metric", label: { sv: "g", en: "g" } },
-  kg: { dimension: "mass", system: "metric", label: { sv: "kg", en: "kg" } },
-  oz: { dimension: "mass", system: "us", label: { sv: "oz", en: "oz" } },
-  lb: { dimension: "mass", system: "us", label: { sv: "lb", en: "lb" } },
+  g: { dimension: "mass", system: "metric", label: { sv: "g", en: "g", fa: "گرم" } },
+  kg: { dimension: "mass", system: "metric", label: { sv: "kg", en: "kg", fa: "کیلوگرم" } },
+  oz: { dimension: "mass", system: "us", label: { sv: "oz", en: "oz", fa: "اونس" } },
+  lb: { dimension: "mass", system: "us", label: { sv: "lb", en: "lb", fa: "پوند" } },
   // volume (base = millilitre)
-  ml: { dimension: "volume", system: "metric", label: { sv: "ml", en: "ml" } },
-  dl: { dimension: "volume", system: "metric", label: { sv: "dl", en: "dl" } },
-  l: { dimension: "volume", system: "metric", label: { sv: "l", en: "l" } },
+  ml: { dimension: "volume", system: "metric", label: { sv: "ml", en: "ml", fa: "میلی‌لیتر" } },
+  dl: { dimension: "volume", system: "metric", label: { sv: "dl", en: "dl", fa: "دسی‌لیتر" } },
+  l: { dimension: "volume", system: "metric", label: { sv: "l", en: "l", fa: "لیتر" } },
   // tsk / msk in the source data; the Swedish names are shown in sv.
-  tsp: { dimension: "volume", system: "both", label: { sv: "tsk", en: "tsp" } },
-  tbsp: { dimension: "volume", system: "both", label: { sv: "msk", en: "tbsp" } },
-  cup: { dimension: "volume", system: "both", label: { sv: "cup", en: "cup" } },
-  floz: { dimension: "volume", system: "us", label: { sv: "fl oz", en: "fl oz" } },
+  tsp: { dimension: "volume", system: "both", label: { sv: "tsk", en: "tsp", fa: "ق.چ" } },
+  tbsp: { dimension: "volume", system: "both", label: { sv: "msk", en: "tbsp", fa: "ق.غ" } },
+  cup: { dimension: "volume", system: "both", label: { sv: "cup", en: "cup", fa: "پیمانه" } },
+  floz: { dimension: "volume", system: "us", label: { sv: "fl oz", en: "fl oz", fa: "اونس مایع" } },
   // count
-  piece: { dimension: "count", system: "both", label: { sv: "st", en: "pcs" } },
+  piece: { dimension: "count", system: "both", label: { sv: "st", en: "pcs", fa: "عدد" } },
 };
 
 /** Grams per 1 unit of mass. */

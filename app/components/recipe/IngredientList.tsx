@@ -17,6 +17,7 @@ const STORE_KEY = "mjuklov_unitmap";
 const T = {
   sv: { heading: "Enheter", show: (u: string) => `Visa ${u} som`, noDensity: "visas i originalenhet" },
   en: { heading: "Units", show: (u: string) => `Show ${u} as`, noDensity: "shown in its original unit" },
+  fa: { heading: "واحدها", show: (u: string) => `نمایش ${u} به‌صورت`, noDensity: "با واحد اصلی نمایش داده می‌شود" },
 } as const;
 
 // Spoon/cup sizes use the EU/metric definition (the recipes' authored system).

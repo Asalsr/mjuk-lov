@@ -10,7 +10,7 @@ type AdaptResult = {
   swaps: Swap[];
   adaptedIngredients: { qty: string; item: string }[];
   tips: string[];
-  allergens: { codes: string[]; declaration: { sv: string; en: string } } | null;
+  allergens: { codes: string[]; declaration: { sv: string; en: string; fa?: string } } | null;
 };
 
 export function AdaptButton({
@@ -129,7 +129,7 @@ export function AdaptButton({
           {result.allergens && (
             <div className="mb-4">
               <div className="type-caps ink-muted mb-1" style={{ fontSize: "0.75rem" }}>{t.adaptedAllergens}</div>
-              <p className="type-body">{result.allergens.declaration[lang]}</p>
+              <p className="type-body">{result.allergens.declaration[lang] ?? result.allergens.declaration.en}</p>
             </div>
           )}
 

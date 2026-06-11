@@ -2,9 +2,10 @@
 
 import Link from 'next/link';
 import { Logo } from './Logo';
+import type { Lang } from '@/lib/i18n';
 
 interface FooterProps {
-  lang: 'sv' | 'en';
+  lang: Lang;
 }
 
 // NOTE: Replace placeholder values before launch:
@@ -44,6 +45,22 @@ const content = {
     copyright: '© 2026 Mjuk Lov',
     privacy: 'Privacy Policy',
     terms: 'Terms'
+  },
+  fa: {
+    location: {
+      title: 'مکان',
+      line1: 'هیسینگن',
+      line2: 'یوتبوری'
+    },
+    contact: {
+      title: 'تماس',
+      email: 'mjuklov.se@gmail.com',
+      phone: '+46 76 576 1526' // PLACEHOLDER
+    },
+    allergen: 'آشپزخانه ما با گلوتن، شیر، تخم‌مرغ، بادام و فندق کار می‌کند. درباره موارد دیگر از ما بپرسید.',
+    copyright: '© ۲۰۲۶ موک لو',
+    privacy: 'سیاست حریم خصوصی',
+    terms: 'شرایط'
   }
 };
 

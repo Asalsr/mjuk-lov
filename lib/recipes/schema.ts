@@ -15,8 +15,13 @@ export const DIET_TAGS = ["vegan", "vegetarian"] as const;
 export const DietTag = z.enum(DIET_TAGS);
 export type DietTag = z.infer<typeof DietTag>;
 
-/** Every user-facing string is bilingual (Swedish + English). */
-export const Localized = z.object({ sv: z.string(), en: z.string() });
+/** Every user-facing string carries Swedish + English; Persian (`fa`) is
+ *  optional and falls back to English so /fa routes render before content is
+ *  professionally translated. The transform guarantees `fa` is always a string,
+ *  so `localized[lang]` is safe for every Lang without touching call sites. */
+export const Localized = z
+  .object({ sv: z.string(), en: z.string(), fa: z.string().optional() })
+  .transform((o) => ({ sv: o.sv, en: o.en, fa: o.fa ?? o.en }));
 export type Localized = z.infer<typeof Localized>;
 
 /** A structured, convertible amount (e.g. 250 g, 1 tsp) … */

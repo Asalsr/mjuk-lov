@@ -2,21 +2,21 @@ import type { AllergenCode } from "../recipes/schema";
 
 /** Canonical EU 1169/2011 label wording — the ONLY source of declaration text.
  *  Key order = the order allergens appear in a declaration. */
-export const LABELS: Record<AllergenCode, { sv: string; en: string }> = {
-  gluten:      { sv: "gluten",     en: "gluten" },
-  crustaceans: { sv: "kräftdjur",  en: "crustaceans" },
-  egg:         { sv: "ägg",        en: "egg" },
-  fish:        { sv: "fisk",       en: "fish" },
-  peanut:      { sv: "jordnötter", en: "peanuts" },
-  soy:         { sv: "soja",       en: "soy" },
-  milk:        { sv: "mjölk",      en: "milk" },
-  nuts:        { sv: "nötter",     en: "tree nuts" },
-  celery:      { sv: "selleri",    en: "celery" },
-  mustard:     { sv: "senap",      en: "mustard" },
-  sesame:      { sv: "sesam",      en: "sesame" },
-  sulphites:   { sv: "sulfiter",   en: "sulphites" },
-  lupin:       { sv: "lupin",      en: "lupin" },
-  molluscs:    { sv: "blötdjur",   en: "molluscs" },
+export const LABELS: Record<AllergenCode, { sv: string; en: string; fa: string }> = {
+  gluten:      { sv: "gluten",     en: "gluten",      fa: "گلوتن" },
+  crustaceans: { sv: "kräftdjur",  en: "crustaceans", fa: "سخت‌پوستان" },
+  egg:         { sv: "ägg",        en: "egg",         fa: "تخم‌مرغ" },
+  fish:        { sv: "fisk",       en: "fish",        fa: "ماهی" },
+  peanut:      { sv: "jordnötter", en: "peanuts",     fa: "بادام‌زمینی" },
+  soy:         { sv: "soja",       en: "soy",         fa: "سویا" },
+  milk:        { sv: "mjölk",      en: "milk",        fa: "شیر" },
+  nuts:        { sv: "nötter",     en: "tree nuts",   fa: "آجیل درختی" },
+  celery:      { sv: "selleri",    en: "celery",      fa: "کرفس" },
+  mustard:     { sv: "senap",      en: "mustard",     fa: "خردل" },
+  sesame:      { sv: "sesam",      en: "sesame",      fa: "کنجد" },
+  sulphites:   { sv: "sulfiter",   en: "sulphites",   fa: "سولفیت" },
+  lupin:       { sv: "lupin",      en: "lupin",       fa: "لوپین" },
+  molluscs:    { sv: "blötdjur",   en: "molluscs",    fa: "نرم‌تنان" },
 };
 
 export const CANONICAL_ORDER = Object.keys(LABELS) as AllergenCode[];

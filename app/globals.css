@@ -94,6 +94,16 @@
   --font-sans: var(--font-didact), 'Didact Gothic', system-ui, sans-serif;
 }
 
+/* Persian (RTL): the Latin faces (Cormorant/Inter/Didact) carry no Persian
+   glyphs, so on /fa route every font variable to Vazirmatn. Because all the
+   font-family rules below read `var(--font-cormorant|inter|didact)`, overriding
+   those three here switches the whole document's type with no other changes. */
+html[lang="fa"] {
+  --font-cormorant: var(--font-vazir);
+  --font-inter: var(--font-vazir);
+  --font-didact: var(--font-vazir);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

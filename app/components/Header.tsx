@@ -8,9 +8,10 @@ import { MobileBottomBar } from './MobileBottomBar';
 import { useCart, cartCount } from '@/lib/cart/store';
 import { createClient } from '@/lib/supabase/client';
 import { isSupabaseConfigured } from '@/lib/supabase/config';
+import type { Lang } from '@/lib/i18n';
 
 interface HeaderProps {
-  lang: 'sv' | 'en';
+  lang: Lang;
   onLangToggle: () => void;
 }
 
@@ -35,6 +36,16 @@ const content = {
     logIn: 'Log in',
     logOut: 'Log out',
   },
+  fa: {
+    recipes: 'دستورها',
+    videos: 'ویدیوهای پخت',
+    myPage: 'صفحه من',
+    shop: 'فروشگاه',
+    cart: 'سبد خرید',
+    account: 'حساب',
+    logIn: 'ورود',
+    logOut: 'خروج',
+  },
 };
 
 // Site nav. Two kinds of items:
@@ -43,24 +54,24 @@ const content = {
 // The desktop bar shows everything; the mobile hamburger sheet shows only the
 // scroll-to-section items (the brand story), because real destinations live in
 // the persistent bottom tab bar (see MobileBottomBar).
-const NAV: ({ id: string; sv: string; en: string } | { path: string; sv: string; en: string })[] = [
-  { id: 'idea', sv: 'Idén', en: 'The Idea' },
-  { path: 'recept', sv: 'Recept', en: 'Recipes' },
-  { path: 'butik', sv: 'Butik', en: 'Shop' },
-  { id: 'kits', sv: 'Tårtkit', en: 'Kits' },
-  { id: 'about', sv: 'Om', en: 'About' },
-  { id: 'order', sv: 'Kontakt', en: 'Contact' },
+const NAV: ({ id: string; sv: string; en: string; fa: string } | { path: string; sv: string; en: string; fa: string })[] = [
+  { id: 'idea', sv: 'Idén', en: 'The Idea', fa: 'ایده' },
+  { path: 'recept', sv: 'Recept', en: 'Recipes', fa: 'دستورها' },
+  { path: 'butik', sv: 'Butik', en: 'Shop', fa: 'فروشگاه' },
+  { id: 'kits', sv: 'Tårtkit', en: 'Kits', fa: 'کیت کیک' },
+  { id: 'about', sv: 'Om', en: 'About', fa: 'درباره' },
+  { id: 'order', sv: 'Kontakt', en: 'Contact', fa: 'تماس' },
 ];
 
 // Tagline shown beneath each marketing section in the mobile hamburger sheet
 // so the menu reads as an intentional "about us" gateway, not a duplicate of
 // the bottom bar.
-const marketingTagline = (id: string, lang: 'sv' | 'en') => {
-  const map: Record<string, { sv: string; en: string }> = {
-    idea: { sv: 'Vår berättelse', en: 'Our story' },
-    kits: { sv: 'Tårtkit & tillbehör', en: 'Cake kits & extras' },
-    about: { sv: 'Om Mjuk Lov', en: 'About Mjuk Lov' },
-    order: { sv: 'Hör av dig', en: 'Get in touch' },
+const marketingTagline = (id: string, lang: Lang) => {
+  const map: Record<string, { sv: string; en: string; fa: string }> = {
+    idea: { sv: 'Vår berättelse', en: 'Our story', fa: 'داستان ما' },
+    kits: { sv: 'Tårtkit & tillbehör', en: 'Cake kits & extras', fa: 'کیت کیک و لوازم' },
+    about: { sv: 'Om Mjuk Lov', en: 'About Mjuk Lov', fa: 'درباره موک لو' },
+    order: { sv: 'Hör av dig', en: 'Get in touch', fa: 'با ما در تماس باشید' },
   };
   return map[id]?.[lang] ?? '';
 };
@@ -282,7 +293,7 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
             {/* Mobile hamburger = the brand story. Real destinations live in
                 the MobileBottomBar; this sheet stays focused on marketing. */}
             <nav className="px-4 py-6 flex flex-col gap-1">
-              {NAV.filter((item): item is { id: string; sv: string; en: string } => 'id' in item).map((item) => (
+              {NAV.filter((item): item is { id: string; sv: string; en: string; fa: string } => 'id' in item).map((item) => (
                 <button
                   key={item.id}
                   onClick={() => goToSection(item.id)}

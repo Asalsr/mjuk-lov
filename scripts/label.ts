@@ -33,7 +33,8 @@ async function main() {
 
   recipe.allergens = {
     codes: label.codes,
-    declaration: label.declaration,
+    // fa falls back to en until professionally translated (see Localized schema).
+    declaration: { ...label.declaration, fa: label.declaration.en },
     needsReview: label.needsReview,
     approvedBy: "", // cleared — review and re-approve before publishing
     approvedAt: "",

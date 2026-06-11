@@ -31,7 +31,7 @@ export function AllergenBlock({
   declaration,
   lang,
 }: {
-  declaration: { sv: string; en: string };
+  declaration: { sv: string; en: string; fa: string };
   lang: Lang;
 }) {
   const t = ui[lang];

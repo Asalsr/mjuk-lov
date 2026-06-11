@@ -17,7 +17,7 @@ export function RootShell({
   children: React.ReactNode;
 }) {
   return (
-    <html lang={lang} className={fontVars}>
+    <html lang={lang} dir={lang === "fa" ? "rtl" : "ltr"} className={fontVars}>
       <head>
         <link rel="preload" as="video" href="/videos/loading-bg.mp4" type="video/mp4" />
       </head>

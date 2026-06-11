@@ -12,7 +12,8 @@ export const metadata = { title: "Villkor · Mjuk Lov" };
 
 const LAST_UPDATED = "2026-06-08";
 
-const content: Record<Lang, { title: string; intro: string; updated: string; sections: LegalSection[] }> = {
+// Legal text is sv/en only; /fa falls back to English until professionally translated.
+const content: Record<"sv" | "en", { title: string; intro: string; updated: string; sections: LegalSection[] }> = {
   sv: {
     title: "Användarvillkor & köpvillkor",
     updated: `Senast uppdaterad: ${LAST_UPDATED}`,
@@ -199,7 +200,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   const { lang: raw } = await params;
   if (!isLang(raw)) notFound();
   const lang: Lang = raw;
-  const t = content[lang];
+  const t = content[lang === "fa" ? "en" : lang];
 
   return (
     <RecipeShell lang={lang} altPath={`/${lang === "sv" ? "en" : "sv"}/villkor`}>
