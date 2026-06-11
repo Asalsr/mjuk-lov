@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Magnolia } from './Icons';
 import { TextReveal, WordByWord } from './TextReveal';
+import type { Lang } from '@/lib/i18n';
 
 interface AboutProps {
-  lang: 'sv' | 'en';
+  lang: Lang;
 }
 
 const content = {
@@ -25,6 +26,15 @@ const content = {
       'Mjuk Lov started in a small kitchen in Hissingen. Not as a business, but as an answer to a question: what happens when you give away something you baked yourself?',
       'The answer was simple. People become happy. Not because it is perfect, but because it is personal. Because someone thought of them.',
       'Today we still bake in the same kitchen. We have grown, but never away from the basic idea. Everything we do is soft. Soft in taste, soft in form, soft in promise. Home baked, for you.'
+    ]
+  },
+  fa: {
+    eyebrow: 'درباره ما',
+    heading: 'یک آشپزخانه. یک وعده. یک یوتبوری.',
+    paragraphs: [
+      'Mjuk Lov در آشپزخانه‌ای کوچک در هیسینگن آغاز شد. نه به‌عنوان یک کسب‌وکار، بلکه پاسخی به یک پرسش: وقتی چیزی را که خودت پخته‌ای به کسی هدیه می‌دهی، چه اتفاقی می‌افتد؟',
+      'پاسخ ساده بود. مردم خوشحال می‌شوند. نه چون بی‌نقص است، بلکه چون شخصی است. چون کسی به آن‌ها فکر کرده.',
+      'امروز هنوز در همان آشپزخانه می‌پزیم. بزرگ شده‌ایم، اما هرگز از ایده اصلی دور نشده‌ایم. هر کاری که می‌کنیم نرم است. نرم در طعم، نرم در شکل، نرم در وعده. خانگی‌پخت، برای شما.'
     ]
   }
 };

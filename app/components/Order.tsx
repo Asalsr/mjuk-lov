@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState, FormEvent } from 'react';
 import { MagneticButton } from './MagneticButton';
+import type { Lang } from '@/lib/i18n';
 
 interface OrderProps {
-  lang: 'sv' | 'en';
+  lang: Lang;
 }
 
 const content = {
@@ -33,6 +34,19 @@ const content = {
     submit: 'Send',
     successHeading: 'Thank you.',
     successMessage: 'We will get back to you within 24 hours.'
+  },
+  fa: {
+    heading: 'با ما در تماس باشید.',
+    lede: 'ظرف ۲۴ ساعت پاسخ می‌دهیم. معمولاً زودتر.',
+    typeLabel: 'به این مورد علاقه‌مندم',
+    typeOptions: ['کیت کیک', 'اشتراک شرکتی', 'سایر'],
+    productLabel: 'محصول یا پرسش',
+    nameLabel: 'نام شما',
+    emailLabel: 'ایمیل شما',
+    messageLabel: 'بیشتر برایمان بگویید',
+    submit: 'ارسال',
+    successHeading: 'ممنون.',
+    successMessage: 'ظرف ۲۴ ساعت با شما تماس می‌گیریم.'
   }
 };
 

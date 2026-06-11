@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Standard, Deluxe, GiftEdition } from './Icons';
 import { MagneticButton } from './MagneticButton';
+import type { Lang } from '@/lib/i18n';
 
 interface KitsProps {
-  lang: 'sv' | 'en';
+  lang: Lang;
 }
 
 const content = {
@@ -57,6 +58,30 @@ const content = {
       }
     ],
     cta: 'Order'
+  },
+  fa: {
+    heading: 'کیت‌های کیک',
+    kits: [
+      {
+        name: 'استاندارد',
+        size: '۱۵ سانتی‌متر',
+        price: '۳۴۵ kr',
+        description: 'مناسب برای ۶ تا ۸ نفر. هر آنچه برای ساختن کیک در خانه نیاز دارید.'
+      },
+      {
+        name: 'دلوکس',
+        size: '۲۰ سانتی‌متر',
+        price: '۴۴۵ kr',
+        description: 'برای ۱۰ تا ۱۲ نفر. ارتفاع بیشتر، طعم بیشتر، همه‌چیز بیشتر.'
+      },
+      {
+        name: 'نسخه هدیه',
+        size: '۱۵ سانتی‌متر',
+        price: '۳۹۵ kr',
+        description: 'مانند استاندارد، اما در جعبه‌ای زیبا همراه با یک پیام.'
+      }
+    ],
+    cta: 'سفارش'
   }
 };
 

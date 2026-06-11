@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { MagneticButton } from './MagneticButton';
+import type { Lang } from '@/lib/i18n';
 
 interface CorporateProps {
-  lang: 'sv' | 'en';
+  lang: Lang;
 }
 
 const content = {
@@ -58,6 +59,32 @@ const content = {
         portions: '40 portions/month',
         price: '2,390 kr',
         description: 'For the office that takes fika seriously.'
+      }
+    ]
+  },
+  fa: {
+    heading: 'اشتراک‌های شرکتی',
+    footnote: 'ارسال در محدوده یوتبوری. صورت‌حساب ماهانه.',
+    cta: 'به فروشگاه',
+    tiers: [
+      {
+        name: 'کوچک',
+        portions: '۱۲ پرس در ماه',
+        price: '۸۹۰ kr',
+        description: 'فیکای جمعه برای تیم. هر هفته.'
+      },
+      {
+        name: 'متوسط',
+        portions: '۲۴ پرس در ماه',
+        price: '۱٬۵۹۰ kr',
+        description: 'جلسه‌های هفتگی، دیدار با مشتری، استراحت‌های فی‌البداهه.',
+        popular: true
+      },
+      {
+        name: 'بزرگ',
+        portions: '۴۰ پرس در ماه',
+        price: '۲٬۳۹۰ kr',
+        description: 'برای دفتری که فیکا را جدی می‌گیرد.'
       }
     ]
   }

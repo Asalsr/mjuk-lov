@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import type { Lang } from '@/lib/i18n';
 import { Header } from '@/app/components/Header';
 import { Hero } from '@/app/components/Hero';
@@ -21,8 +20,7 @@ import { ScrollProgress } from '@/app/components/ScrollProgress';
 import { BackToTop } from '@/app/components/BackToTop';
 
 export default function Page() {
-  const router = useRouter();
-  const [lang, setLang] = useState<'sv' | 'en'>('sv');
+  const [lang, setLang] = useState<Lang>('sv');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -30,11 +28,13 @@ export default function Page() {
     // falling back to the browser locale. This must run client-side (localStorage
     // is unavailable during SSR), so the server safely defaults to 'sv'.
     const savedLang = localStorage.getItem('mjuklov_lang');
-    let initial: 'sv' | 'en' | null = null;
-    if (savedLang === 'en' || savedLang === 'sv') {
+    let initial: Lang | null = null;
+    if (savedLang === 'en' || savedLang === 'sv' || savedLang === 'fa') {
       initial = savedLang;
-    } else if (typeof navigator !== 'undefined' && navigator.language.toLowerCase().startsWith('en')) {
-      initial = 'en';
+    } else if (typeof navigator !== 'undefined') {
+      const nav = navigator.language.toLowerCase();
+      if (nav.startsWith('fa')) initial = 'fa';
+      else if (nav.startsWith('en')) initial = 'en';
     }
     // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time client-only hydration of a persisted preference
     if (initial) setLang(initial);
@@ -55,19 +55,14 @@ export default function Page() {
   // layout renders lang="sv" on the server; this corrects it after hydration.
   useEffect(() => {
     document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
   }, [lang]);
 
-  // The landing one-pager exists only in sv/en. Persian content lives in the
-  // localized app, so choosing fa sends the visitor into /fa (recipes).
   const selectLang = (next: Lang) => {
     try {
       localStorage.setItem('mjuklov_lang', next);
     } catch {
       /* ignore */
-    }
-    if (next === 'fa') {
-      router.push('/fa/recept');
-      return;
     }
     setLang(next);
   };
@@ -92,7 +87,7 @@ export default function Page() {
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[10001] focus:px-4 focus:py-2 focus:shadow-md type-caps"
           style={{ backgroundColor: 'var(--vanilla-cream)', color: 'var(--warm-cocoa)' }}
         >
-          {lang === 'sv' ? 'Hoppa till innehåll' : 'Skip to content'}
+          {lang === 'sv' ? 'Hoppa till innehåll' : lang === 'fa' ? 'پرش به محتوا' : 'Skip to content'}
         </a>
         <ScrollProgress />
         <NoiseTexture />

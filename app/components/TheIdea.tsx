@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Craft, Season, Personal } from './Icons';
+import type { Lang } from '@/lib/i18n';
 
 interface TheIdeaProps {
-  lang: 'sv' | 'en';
+  lang: Lang;
 }
 
 const content = {
@@ -39,6 +40,23 @@ const content = {
       {
         label: 'Personal',
         body: 'Every cake, every dessert is uniquely yours. We listen, adapt, deliver.'
+      }
+    ]
+  },
+  fa: {
+    heading: 'دو راه برای لذت بردن. یک وعده.',
+    pillars: [
+      {
+        label: 'دست‌ساز',
+        body: 'همه‌چیز از پایه در آشپزخانه ما در یوتبوری پخته می‌شود. بدون هیچ میان‌بری.'
+      },
+      {
+        label: 'فصلی',
+        body: 'همراه فصل‌ها پیش می‌رویم. ریواس در بهار، تمشک در تابستان، گلابی در پاییز.'
+      },
+      {
+        label: 'شخصی',
+        body: 'هر کیک و هر دسر منحصراً مال شماست. گوش می‌دهیم، هماهنگ می‌کنیم، تحویل می‌دهیم.'
       }
     ]
   }

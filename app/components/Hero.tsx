@@ -5,9 +5,10 @@ import { CardamomPod, Magnolia } from './Icons';
 import { Logo } from './Logo';
 import { useIsTouch } from '../hooks/useIsTouch';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import type { Lang } from '@/lib/i18n';
 
 interface HeroProps {
-  lang: 'sv' | 'en';
+  lang: Lang;
 }
 
 const content = {
@@ -18,6 +19,10 @@ const content = {
   en: {
     promise: 'Home baked in Gothenburg. For ordinary Wednesdays and occasions that deserve more.',
     scroll: 'Scroll down'
+  },
+  fa: {
+    promise: 'دست‌پخت خانگی در یوتبوری. برای چهارشنبه‌های معمولی و مناسبت‌هایی که لایق چیزی بیشترند.',
+    scroll: 'پایین بروید'
   }
 };
 

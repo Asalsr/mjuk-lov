@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Leaf, Pour, Packing, CakeStand } from './Icons';
+import type { Lang } from '@/lib/i18n';
 
 interface TheCraftProps {
-  lang: 'sv' | 'en';
+  lang: Lang;
 }
 
 const content = {
@@ -47,6 +48,27 @@ const content = {
       {
         label: 'You enjoy',
         body: 'At home, in your own kitchen. With your hands, your way.'
+      }
+    ]
+  },
+  fa: {
+    heading: 'هنر ما',
+    steps: [
+      {
+        label: 'فصل انتخاب می‌کند',
+        body: 'با آنچه در فصل است شروع می‌کنیم. تا جای ممکن، محصول محلی.'
+      },
+      {
+        label: 'ما می‌پزیم',
+        body: 'از پایه، با حوصله. بدون میان‌بر، بدون نیمه‌کاری.'
+      },
+      {
+        label: 'ما بسته‌بندی می‌کنیم',
+        body: 'هر آنچه نیاز دارید، با دقت بسته‌بندی‌شده. همراه با دستورالعمل.'
+      },
+      {
+        label: 'شما لذت می‌برید',
+        body: 'در خانه، در آشپزخانه خودتان. با دست‌های خودتان، به سبک خودتان.'
       }
     ]
   }
