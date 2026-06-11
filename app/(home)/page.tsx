@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import type { Lang } from '@/lib/i18n';
 import { Header } from '@/app/components/Header';
 import { Hero } from '@/app/components/Hero';
 import { TheIdea } from '@/app/components/TheIdea';
@@ -19,6 +21,7 @@ import { ScrollProgress } from '@/app/components/ScrollProgress';
 import { BackToTop } from '@/app/components/BackToTop';
 
 export default function Page() {
+  const router = useRouter();
   const [lang, setLang] = useState<'sv' | 'en'>('sv');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -54,10 +57,19 @@ export default function Page() {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  const toggleLang = () => {
-    const newLang = lang === 'sv' ? 'en' : 'sv';
-    setLang(newLang);
-    localStorage.setItem('mjuklov_lang', newLang);
+  // The landing one-pager exists only in sv/en. Persian content lives in the
+  // localized app, so choosing fa sends the visitor into /fa (recipes).
+  const selectLang = (next: Lang) => {
+    try {
+      localStorage.setItem('mjuklov_lang', next);
+    } catch {
+      /* ignore */
+    }
+    if (next === 'fa') {
+      router.push('/fa/recept');
+      return;
+    }
+    setLang(next);
   };
 
   return (
@@ -87,7 +99,7 @@ export default function Page() {
         <CustomCursor />
         <FloatingElements />
         <BackToTop />
-        <Header lang={lang} onLangToggle={toggleLang} />
+        <Header lang={lang} onSelectLang={selectLang} />
         <main id="main-content" tabIndex={-1}>
         <Hero lang={lang} />
         <TheIdea lang={lang} />

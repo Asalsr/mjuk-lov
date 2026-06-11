@@ -2,11 +2,13 @@
   "slug": "panna-cotta",
   "title": {
     "sv": "Panna cotta med hallon",
-    "en": "Panna cotta with raspberries"
+    "en": "Panna cotta with raspberries",
+    "fa": "پاناکوتا با تمشک"
   },
   "headnote": {
     "sv": "Len, vaniljdoftande panna cotta som darrar precis lagom, med en syrlig hallonsås. Stillsam elegans — ett mjukt löfte i en form.",
-    "en": "Silky, vanilla-scented panna cotta with just the right wobble, under a tart raspberry sauce. Quiet elegance — a soft promise set in a mould."
+    "en": "Silky, vanilla-scented panna cotta with just the right wobble, under a tart raspberry sauce. Quiet elegance — a soft promise set in a mould.",
+    "fa": "پاناکوتای ابریشمی و معطر به وانیل با نرمی مناسب، زیر سس ترش تمشک. ظرافتی آرام — وعده‌ای نرم در یک قالب."
   },
   "servings": 4,
   "time": {
@@ -14,6 +16,8 @@
     "totalMin": 260
   },
   "youtubeId": null,
+  "image": null,
+  "inspiredBy": null,
   "ingredients": [
     {
       "qty": {
@@ -22,7 +26,8 @@
       },
       "item": {
         "sv": "vispgrädde",
-        "en": "double cream"
+        "en": "double cream",
+        "fa": "خامه دوبل"
       },
       "densityKey": "cream"
     },
@@ -33,7 +38,8 @@
       },
       "item": {
         "sv": "mjölk",
-        "en": "milk"
+        "en": "milk",
+        "fa": "شیر"
       },
       "densityKey": "flour"
     },
@@ -44,7 +50,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "caster sugar"
+        "en": "caster sugar",
+        "fa": "شکر قنادی"
       },
       "densityKey": "sugar"
     },
@@ -55,7 +62,8 @@
       },
       "item": {
         "sv": "vaniljstång",
-        "en": "vanilla pod"
+        "en": "vanilla pod",
+        "fa": "نی وانیل"
       },
       "densityKey": "vanilla"
     },
@@ -66,7 +74,8 @@
       },
       "item": {
         "sv": "agar-agar",
-        "en": "agar-agar"
+        "en": "agar-agar",
+        "fa": "آگار-آگار"
       }
     },
     {
@@ -76,7 +85,8 @@
       },
       "item": {
         "sv": "färska hallon",
-        "en": "fresh raspberries"
+        "en": "fresh raspberries",
+        "fa": "تمشک تازه"
       }
     },
     {
@@ -86,43 +96,61 @@
       },
       "item": {
         "sv": "florsocker",
-        "en": "icing sugar"
+        "en": "icing sugar",
+        "fa": "شکر قنادی"
       },
       "densityKey": "powderedSugar"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Snitta vaniljstången och skrapa ur fröna. Lägg frön och stång i en kastrull med grädde, mjölk och socker.",
-      "en": "Split the vanilla pod and scrape out the seeds. Add seeds and pod to a pan with the cream, milk and sugar."
+      "text": {
+        "sv": "Snitta vaniljstången och skrapa ur fröna. Lägg frön och stång i en kastrull med grädde, mjölk och socker.",
+        "en": "Split the vanilla pod and scrape out the seeds. Add seeds and pod to a pan with the cream, milk and sugar.",
+        "fa": "نی وانیل را نصف کرده و دانه‌ها را خارج کنید. دانه‌ها و نی را به یک قابلمه با خامه، شیر و شکر اضافه کنید."
+      }
     },
     {
-      "sv": "Vispa ner agar-agar. Koka upp under omrörning och låt sjuda i 2 minuter.",
-      "en": "Whisk in the agar-agar. Bring to a boil while stirring and let simmer for 2 minutes."
+      "text": {
+        "sv": "Vispa ner agar-agar. Koka upp under omrörning och låt sjuda i 2 minuter.",
+        "en": "Whisk in the agar-agar. Bring to a boil while stirring and let simmer for 2 minutes.",
+        "fa": "آگار-آگار را به آن اضافه کنید. در حین هم زدن به جوش بیاورید و به مدت 2 دقیقه بپزید."
+      }
     },
     {
-      "sv": "Ta bort vaniljstången. Häll i fyra formar och kyl minst 4 timmar.",
-      "en": "Remove the vanilla pod. Pour into four moulds and chill at least 4 hours."
+      "text": {
+        "sv": "Ta bort vaniljstången. Häll i fyra formar och kyl minst 4 timmar.",
+        "en": "Remove the vanilla pod. Pour into four moulds and chill at least 4 hours.",
+        "fa": "نی وانیل را خارج کنید. مخلوط را در چهار قالب بریزید و حداقل 4 ساعت در یخچال بگذارید."
+      }
     },
     {
-      "sv": "Mosa hälften av hallonen med florsocker till en sås. Servera panna cottan med sås och hela hallon.",
-      "en": "Crush half the raspberries with the icing sugar into a sauce. Serve the panna cotta with the sauce and whole raspberries."
+      "text": {
+        "sv": "Mosa hälften av hallonen med florsocker till en sås. Servera panna cottan med sås och hela hallon.",
+        "en": "Crush half the raspberries with the icing sugar into a sauce. Serve the panna cotta with the sauce and whole raspberries.",
+        "fa": "نصف تمشک‌ها را با شکر قنادی له کنید تا سس درست شود. پاناکوتا را با سس و تمشک‌های کامل سرو کنید."
+      }
     }
   ],
   "notes": {
     "sv": "Agar-agar ger en vegetarisk panna cotta. Den stelnar i rumstemperatur, så arbeta någorlunda snabbt.",
-    "en": "Agar-agar makes this a vegetarian panna cotta. It sets at room temperature, so work reasonably quickly."
+    "en": "Agar-agar makes this a vegetarian panna cotta. It sets at room temperature, so work reasonably quickly.",
+    "fa": "آگار-آگار این پاناکوتا را وگان می‌کند. در دمای اتاق سفت می‌شود، بنابراین به سرعت کار کنید."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "milk"
     ],
     "declaration": {
       "sv": "Innehåller: mjölk",
-      "en": "Contains: milk"
+      "en": "Contains: milk",
+      "fa": "حاوی: شیر"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",

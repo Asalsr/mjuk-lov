@@ -2,11 +2,13 @@
   "slug": "tiramisu",
   "title": {
     "sv": "Tiramisu",
-    "en": "Tiramisu"
+    "en": "Tiramisu",
+    "fa": "تیرا میسو"
   },
   "headnote": {
     "sv": "Vår signaturdessert i glasburk — silkeslen mascarponekräm över espressodoppade savoiardi. Ett mjukt löfte, sked för sked.",
-    "en": "Our signature dessert in a glass jar — silken mascarpone cream over espresso-dipped savoiardi. A soft promise, spoonful by spoonful."
+    "en": "Our signature dessert in a glass jar — silken mascarpone cream over espresso-dipped savoiardi. A soft promise, spoonful by spoonful.",
+    "fa": "دسر ویژه ما در یک شیشه — خامه ماسکارپونه نرم بر روی بیسکویت‌های ساوایاردی غوطه‌ور در اسپرسو. وعده‌ای نرم، قاشق به قاشق."
   },
   "servings": 8,
   "time": {
@@ -14,6 +16,8 @@
     "totalMin": 240
   },
   "youtubeId": null,
+  "image": null,
+  "inspiredBy": null,
   "ingredients": [
     {
       "qty": {
@@ -22,7 +26,8 @@
       },
       "item": {
         "sv": "savoiardi",
-        "en": "ladyfingers"
+        "en": "ladyfingers",
+        "fa": "بیسکویت ساوایاردی"
       }
     },
     {
@@ -32,7 +37,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ"
       }
     },
     {
@@ -42,7 +48,8 @@
       },
       "item": {
         "sv": "mascarpone",
-        "en": "mascarpone"
+        "en": "mascarpone",
+        "fa": "ماسکارپونه"
       },
       "densityKey": "mascarpone"
     },
@@ -53,7 +60,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "caster sugar"
+        "en": "caster sugar",
+        "fa": "شکر ریز"
       },
       "densityKey": "sugar"
     },
@@ -64,7 +72,8 @@
       },
       "item": {
         "sv": "starkt espresso, kallt",
-        "en": "strong espresso, cooled"
+        "en": "strong espresso, cooled",
+        "fa": "اسپرسو قوی، خنک شده"
       }
     },
     {
@@ -74,52 +83,74 @@
       },
       "item": {
         "sv": "marsala",
-        "en": "marsala"
+        "en": "marsala",
+        "fa": "مارزالا"
       }
     },
     {
       "qty": {
         "text": {
           "sv": "till garnering",
-          "en": "to garnish"
+          "en": "to garnish",
+          "fa": "برای تزیین"
         }
       },
       "item": {
         "sv": "kakao",
-        "en": "cocoa"
+        "en": "cocoa",
+        "fa": "کاکائو"
       },
       "densityKey": "cocoa"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Dela äggen. Vispa gulorna med sockret till en ljus, fluffig kräm.",
-      "en": "Separate the eggs. Whisk the yolks with the sugar until pale and fluffy."
+      "text": {
+        "sv": "Dela äggen. Vispa gulorna med sockret till en ljus, fluffig kräm.",
+        "en": "Separate the eggs. Whisk the yolks with the sugar until pale and fluffy.",
+        "fa": "تخم‌مرغ‌ها را جدا کنید. زرده‌ها را با شکر بزنید تا رنگشان روشن و پف‌دار شود."
+      }
     },
     {
-      "sv": "Rör ner mascarponen i gulorna tills slät. Vispa vitorna till hårt skum och vänd försiktigt ner.",
-      "en": "Fold the mascarpone into the yolks until smooth. Whip the whites to stiff peaks and fold in gently."
+      "text": {
+        "sv": "Rör ner mascarponen i gulorna tills slät. Vispa vitorna till hårt skum och vänd försiktigt ner.",
+        "en": "Fold the mascarpone into the yolks until smooth. Whip the whites to stiff peaks and fold in gently.",
+        "fa": "ماسکارپونه را به زرده‌ها اضافه کنید و هم بزنید تا یکدست شود. سفیده‌ها را تا قله‌های سفت بزنید و به آرامی به مخلوط اضافه کنید."
+      }
     },
     {
-      "sv": "Blanda espresso och marsala. Doppa savoiardi snabbt — de ska vara fuktiga, inte blöta.",
-      "en": "Combine the espresso and marsala. Dip the savoiardi briefly — moist, not soggy."
+      "text": {
+        "sv": "Blanda espresso och marsala. Doppa savoiardi snabbt — de ska vara fuktiga, inte blöta.",
+        "en": "Combine the espresso and marsala. Dip the savoiardi briefly — moist, not soggy.",
+        "fa": "اسپرسو و مارزالا را ترکیب کنید. بیسکویت‌های ساوایاردی را به‌طور مختصر غوطه‌ور کنید — مرطوب، نه خیس."
+      }
     },
     {
-      "sv": "Varva savoiardi och kräm i glasburkar. Avsluta med ett lager kräm.",
-      "en": "Layer savoiardi and cream in glass jars. Finish with a layer of cream."
+      "text": {
+        "sv": "Varva savoiardi och kräm i glasburkar. Avsluta med ett lager kräm.",
+        "en": "Layer savoiardi and cream in glass jars. Finish with a layer of cream.",
+        "fa": "بیسکویت‌ها و خامه را در شیشه‌ها لایه‌لایه کنید. با یک لایه خامه تمام کنید."
+      }
     },
     {
-      "sv": "Kyl minst 3 timmar. Damma med kakao precis innan servering.",
-      "en": "Chill at least 3 hours. Dust with cocoa just before serving."
+      "text": {
+        "sv": "Kyl minst 3 timmar. Damma med kakao precis innan servering.",
+        "en": "Chill at least 3 hours. Dust with cocoa just before serving.",
+        "fa": "حداقل ۳ ساعت در یخچال بگذارید. قبل از سرو با پودر کاکائو تزیین کنید."
+      }
     }
   ],
   "notes": {
     "sv": "Tips: kyl över natten för bästa konsistens. Använd rumstempererade ägg för luftigast kräm.",
-    "en": "Tip: chill overnight for the best texture. Use room-temperature eggs for the airiest cream."
+    "en": "Tip: chill overnight for the best texture. Use room-temperature eggs for the airiest cream.",
+    "fa": "نکته: برای بهترین بافت، شب تا صبح در یخچال بگذارید. از تخم‌مرغ‌های در دمای اتاق استفاده کنید تا خامه هوادهی بهتری داشته باشد."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -129,7 +160,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk, sulfiter",
-      "en": "Contains: gluten, egg, milk, sulphites"
+      "en": "Contains: gluten, egg, milk, sulphites",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر، سولفیت‌ها"
     },
     "needsReview": [
       "marsala may contain sulphites",

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { setProfile } from "@/lib/userdata/store";
 import type { Offer } from "@/lib/offers";
-import { ui, type Lang } from "@/lib/i18n";
+import { ui, locNum, type Lang } from "@/lib/i18n";
 
 export function MyPageClient({
   lang,
@@ -90,13 +90,13 @@ export function MyPageClient({
         </span>
       </div>
       <span className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>
-        {new Date(o.created_at).toLocaleDateString(lang === "sv" ? "sv-SE" : "en-GB")}
+        {new Date(o.created_at).toLocaleDateString(lang === "sv" ? "sv-SE" : lang === "fa" ? "fa-IR" : "en-GB")}
         {o.desired_date ? ` · ${o.desired_date}` : ""}
         {o.fulfilment ? ` · ${o.fulfilment === "delivery" ? t.delivery : t.pickup}` : ""}
       </span>
       {o.quoted_price != null && (
         <span className="type-body" style={{ fontSize: "0.875rem" }}>
-          <b>{t.confirmedPrice}: {o.quoted_price} kr</b>
+          <b>{t.confirmedPrice}: {locNum(o.quoted_price, lang)} kr</b>
         </span>
       )}
     </li>

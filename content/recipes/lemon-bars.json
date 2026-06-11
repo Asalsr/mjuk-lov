@@ -2,11 +2,13 @@
   "slug": "lemon-bars",
   "title": {
     "sv": "Citronrutor",
-    "en": "Lemon bars"
+    "en": "Lemon bars",
+    "fa": "بار لیمویی"
   },
   "headnote": {
     "sv": "Frasig mördegsbotten under en len, syrlig citronkräm, pudrad med florsocker. Se videon ovan.",
-    "en": "A crisp shortbread base under a silky, tangy lemon curd, dusted with icing sugar. Watch the video above."
+    "en": "A crisp shortbread base under a silky, tangy lemon curd, dusted with icing sugar. Watch the video above.",
+    "fa": "پایه‌ای ترد از بیسکویت کره‌ای زیر یک کرم لیمویی نرم و تند، با پودر قند روی آن. ویدیو را در بالا تماشا کنید."
   },
   "servings": 16,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 75
   },
   "youtubeId": "fUinvtDigVk",
+  "image": null,
   "inspiredBy": {
     "channel": "America's Test Kitchen",
     "url": "https://www.youtube.com/watch?v=fUinvtDigVk"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "vetemjöl (botten)",
-        "en": "all-purpose flour (base)"
+        "en": "all-purpose flour (base)",
+        "fa": "آرد همه‌منظوره (پایه)"
       },
       "densityKey": "flour"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "smör (botten)",
-        "en": "butter (base)"
+        "en": "butter (base)",
+        "fa": "کره (پایه)"
       },
       "densityKey": "butter"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "florsocker (botten)",
-        "en": "icing sugar (base)"
+        "en": "icing sugar (base)",
+        "fa": "پودر قند (پایه)"
       },
       "densityKey": "powderedSugar"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "ägg (fyllning)",
-        "en": "eggs (filling)"
+        "en": "eggs (filling)",
+        "fa": "تخم‌مرغ‌ها (پر کردن)"
       }
     },
     {
@@ -69,7 +76,8 @@
       },
       "item": {
         "sv": "strösocker (fyllning)",
-        "en": "granulated sugar (filling)"
+        "en": "granulated sugar (filling)",
+        "fa": "شکر دانه‌ای (پر کردن)"
       },
       "densityKey": "sugar"
     },
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "citronsaft",
-        "en": "lemon juice"
+        "en": "lemon juice",
+        "fa": "آب لیمو"
       },
       "densityKey": "juice"
     },
@@ -91,40 +100,60 @@
       },
       "item": {
         "sv": "vetemjöl (fyllning)",
-        "en": "all-purpose flour (filling)"
+        "en": "all-purpose flour (filling)",
+        "fa": "آرد همه‌منظوره (پر کردن)"
       },
       "densityKey": "flour"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 175°C. Nyp ihop mjöl, smör och florsocker till en smulig botten, tryck ut i en form.",
-      "en": "Heat the oven to 175°C. Rub the flour, butter and icing sugar into a crumbly base, press into a tin."
+      "text": {
+        "sv": "Sätt ugnen på 175°C. Nyp ihop mjöl, smör och florsocker till en smulig botten, tryck ut i en form.",
+        "en": "Heat the oven to 175°C. Rub the flour, butter and icing sugar into a crumbly base, press into a tin.",
+        "fa": "فر را به دمای 175°C گرم کنید. آرد، کره و پودر قند را به یک پایه خمیری ترد مالش دهید و در قالب فشار دهید."
+      }
     },
     {
-      "sv": "Förgrädda botten 18–20 minuter tills ljust gyllene.",
-      "en": "Pre-bake the base 18–20 minutes until lightly golden."
+      "text": {
+        "sv": "Förgrädda botten 18–20 minuter tills ljust gyllene.",
+        "en": "Pre-bake the base 18–20 minutes until lightly golden.",
+        "fa": "پایه را به مدت 18–20 دقیقه پیش‌پخت کنید تا کمی طلایی شود."
+      }
     },
     {
-      "sv": "Vispa ägg, strösocker, citronsaft och mjöl till fyllningen.",
-      "en": "Whisk the eggs, sugar, lemon juice and flour for the filling."
+      "text": {
+        "sv": "Vispa ägg, strösocker, citronsaft och mjöl till fyllningen.",
+        "en": "Whisk the eggs, sugar, lemon juice and flour for the filling.",
+        "fa": "تخم‌مرغ‌ها، شکر، آب لیمو و آرد را برای پر کردن هم بزنید."
+      }
     },
     {
-      "sv": "Häll över den varma botten och grädda 20–25 minuter tills precis fast.",
-      "en": "Pour over the warm base and bake 20–25 minutes until just set."
+      "text": {
+        "sv": "Häll över den varma botten och grädda 20–25 minuter tills precis fast.",
+        "en": "Pour over the warm base and bake 20–25 minutes until just set.",
+        "fa": "مخلوط را روی پایه گرم بریزید و به مدت 20–25 دقیقه بپزید تا کمی سفت شود."
+      }
     },
     {
-      "sv": "Låt svalna, pudra med florsocker och skär. Se videon för detaljer.",
-      "en": "Cool, dust with icing sugar and cut. See the video for details."
+      "text": {
+        "sv": "Låt svalna, pudra med florsocker och skär. Se videon för detaljer.",
+        "en": "Cool, dust with icing sugar and cut. See the video for details.",
+        "fa": "بگذارید خنک شود، با پودر قند بپوشانید و برش بزنید. جزئیات را در ویدیو ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Kyl helt innan du skär för rena kanter.",
-    "en": "At-home version — follow the video above. Chill fully before cutting for clean edges."
+    "en": "At-home version — follow the video above. Chill fully before cutting for clean edges.",
+    "fa": "نسخه خانگی — ویدیو را در بالا دنبال کنید. قبل از برش، کاملاً خنک کنید تا لبه‌های تمیز داشته باشید."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -133,7 +162,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",

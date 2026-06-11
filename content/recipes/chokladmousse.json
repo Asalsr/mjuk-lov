@@ -2,11 +2,13 @@
   "slug": "chokladmousse",
   "title": {
     "sv": "Mörk chokladmousse",
-    "en": "Dark chocolate mousse"
+    "en": "Dark chocolate mousse",
+    "fa": "موس شکلات تلخ"
   },
   "headnote": {
     "sv": "Djup, nästan allvarlig chokladmousse — luftig men intensiv. Få ingredienser, ingenstans att gömma sig. Använd choklad du tycker om.",
-    "en": "Deep, almost serious chocolate mousse — airy yet intense. Few ingredients, nowhere to hide. Use a chocolate you love."
+    "en": "Deep, almost serious chocolate mousse — airy yet intense. Few ingredients, nowhere to hide. Use a chocolate you love.",
+    "fa": "موس شکلاتی عمیق و تقریباً جدی — سبک اما پر از طعم. چند ماده، هیچ جایی برای پنهان شدن. از شکلاتی که دوست دارید استفاده کنید."
   },
   "servings": 6,
   "time": {
@@ -14,6 +16,8 @@
     "totalMin": 180
   },
   "youtubeId": null,
+  "image": null,
+  "inspiredBy": null,
   "ingredients": [
     {
       "qty": {
@@ -22,7 +26,8 @@
       },
       "item": {
         "sv": "mörk choklad (70 %)",
-        "en": "dark chocolate (70%)"
+        "en": "dark chocolate (70%)",
+        "fa": "شکلات تلخ (70%)"
       },
       "densityKey": "chocolate"
     },
@@ -33,7 +38,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ‌ها"
       }
     },
     {
@@ -43,7 +49,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "caster sugar"
+        "en": "caster sugar",
+        "fa": "شکر ریز"
       },
       "densityKey": "sugar"
     },
@@ -54,7 +61,8 @@
       },
       "item": {
         "sv": "vispgrädde",
-        "en": "double cream"
+        "en": "double cream",
+        "fa": "خامه دوبل"
       },
       "densityKey": "cream"
     },
@@ -65,36 +73,53 @@
       },
       "item": {
         "sv": "flingsalt",
-        "en": "flaky salt"
+        "en": "flaky salt",
+        "fa": "نمک درشت"
       },
       "densityKey": "salt"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Smält chokladen försiktigt över vattenbad. Låt svalna något.",
-      "en": "Melt the chocolate gently over a water bath. Let cool slightly."
+      "text": {
+        "sv": "Smält chokladen försiktigt över vattenbad. Låt svalna något.",
+        "en": "Melt the chocolate gently over a water bath. Let cool slightly.",
+        "fa": "شکلات را به آرامی روی بخار آب ذوب کنید. بگذارید کمی خنک شود."
+      }
     },
     {
-      "sv": "Dela äggen. Vispa gulorna med hälften av sockret pösigt och rör ner i chokladen.",
-      "en": "Separate the eggs. Whisk the yolks with half the sugar until fluffy and fold into the chocolate."
+      "text": {
+        "sv": "Dela äggen. Vispa gulorna med hälften av sockret pösigt och rör ner i chokladen.",
+        "en": "Separate the eggs. Whisk the yolks with half the sugar until fluffy and fold into the chocolate.",
+        "fa": "تخم‌مرغ‌ها را جدا کنید. زرده‌ها را با نیمی از شکر بزنید تا پف کند و به شکلات اضافه کنید."
+      }
     },
     {
-      "sv": "Vispa grädden. Vispa vitorna med resten av sockret till hårt skum.",
-      "en": "Whip the cream. Whip the whites with the rest of the sugar to stiff peaks."
+      "text": {
+        "sv": "Vispa grädden. Vispa vitorna med resten av sockret till hårt skum.",
+        "en": "Whip the cream. Whip the whites with the rest of the sugar to stiff peaks.",
+        "fa": "خامه را زده و سفیده‌ها را با باقی‌مانده شکر بزنید تا قله‌های سفت تشکیل شود."
+      }
     },
     {
-      "sv": "Vänd först ner grädden, sedan vitorna, i chokladsmeten. Fördela i glas och kyl minst 2 timmar. Toppa med flingsalt.",
-      "en": "Fold in the cream first, then the whites, into the chocolate. Divide into glasses and chill at least 2 hours. Top with flaky salt."
+      "text": {
+        "sv": "Vänd först ner grädden, sedan vitorna, i chokladsmeten. Fördela i glas och kyl minst 2 timmar. Toppa med flingsalt.",
+        "en": "Fold in the cream first, then the whites, into the chocolate. Divide into glasses and chill at least 2 hours. Top with flaky salt.",
+        "fa": "ابتدا خامه و سپس سفیده‌ها را به شکلات اضافه کنید. مخلوط را در لیوان‌ها تقسیم کرده و حداقل 2 ساعت در یخچال بگذارید. روی آن را با نمک درشت تزیین کنید."
+      }
     }
   ],
   "notes": {
     "sv": "Innehåller rå äggvita — använd färska ägg och servera kyld. Mörk choklad kan innehålla spår av soja och mjölk; läs förpackningen.",
-    "en": "Contains raw egg white — use fresh eggs and serve chilled. Dark chocolate may contain traces of soy and milk; check the label."
+    "en": "Contains raw egg white — use fresh eggs and serve chilled. Dark chocolate may contain traces of soy and milk; check the label.",
+    "fa": "شامل سفیده تخم‌مرغ خام است — از تخم‌مرغ‌های تازه استفاده کنید و سرد سرو کنید. شکلات تلخ ممکن است حاوی آثار سویا و شیر باشد؛ برچسب را بررسی کنید."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "egg",
@@ -102,7 +127,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: ägg, mjölk",
-      "en": "Contains: egg, milk"
+      "en": "Contains: egg, milk",
+      "fa": "شامل: تخم‌مرغ، شیر"
     },
     "needsReview": [
       "dark chocolate may contain soy/milk"

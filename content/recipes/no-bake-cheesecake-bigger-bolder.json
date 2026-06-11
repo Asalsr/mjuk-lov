@@ -2,11 +2,13 @@
   "slug": "no-bake-cheesecake-bigger-bolder",
   "title": {
     "sv": "No-bake cheesecake",
-    "en": "No-bake cheesecake"
+    "en": "No-bake cheesecake",
+    "fa": "چیزکیک بدون پخت"
   },
   "headnote": {
     "sv": "Krämig, sval cheesecake på en knaprig kexbotten — ingen ugn, bara kyltid. Se videon ovan för metoden.",
-    "en": "Creamy, cool cheesecake on a crunchy biscuit base — no oven, just chill time. Watch the video above for the method."
+    "en": "Creamy, cool cheesecake on a crunchy biscuit base — no oven, just chill time. Watch the video above for the method.",
+    "fa": "چیزکیک خامه‌ای و خنک بر روی پایه‌ای ترد از بیسکویت — بدون نیاز به فر، فقط زمان خنک شدن. برای روش کار ویدیو بالا را تماشا کنید."
   },
   "servings": 10,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 250
   },
   "youtubeId": "AN5j6fNi0ek",
+  "image": null,
   "inspiredBy": {
     "channel": "Bigger Bolder Baking",
     "url": "https://www.biggerbolderbaking.com/no-bake-cheesecake/"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "digestivekex, smulade",
-        "en": "digestive biscuits, crushed"
+        "en": "digestive biscuits, crushed",
+        "fa": "بیسکویت دایجستیو، خرد شده"
       }
     },
     {
@@ -36,7 +40,8 @@
       },
       "item": {
         "sv": "smör, smält",
-        "en": "butter, melted"
+        "en": "butter, melted",
+        "fa": "کره، ذوب شده"
       },
       "densityKey": "butter"
     },
@@ -47,7 +52,8 @@
       },
       "item": {
         "sv": "färskost",
-        "en": "cream cheese"
+        "en": "cream cheese",
+        "fa": "پنیر خامه‌ای"
       },
       "densityKey": "creamCheese"
     },
@@ -58,7 +64,8 @@
       },
       "item": {
         "sv": "florsocker",
-        "en": "icing sugar"
+        "en": "icing sugar",
+        "fa": "شکر قنادی"
       },
       "densityKey": "powderedSugar"
     },
@@ -69,7 +76,8 @@
       },
       "item": {
         "sv": "vispgrädde",
-        "en": "double cream"
+        "en": "double cream",
+        "fa": "خامه دوبل"
       },
       "densityKey": "cream"
     },
@@ -80,36 +88,53 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Blanda kexsmulor med smält smör och tryck ut i en springform. Ställ kallt.",
-      "en": "Mix the biscuit crumbs with the melted butter and press into a springform tin. Chill."
+      "text": {
+        "sv": "Blanda kexsmulor med smält smör och tryck ut i en springform. Ställ kallt.",
+        "en": "Mix the biscuit crumbs with the melted butter and press into a springform tin. Chill.",
+        "fa": "خرده‌های بیسکویت را با کره ذوب شده مخلوط کنید و در قالب فنری فشار دهید. خنک کنید."
+      }
     },
     {
-      "sv": "Vispa färskost och florsocker slätt.",
-      "en": "Beat the cream cheese and icing sugar until smooth."
+      "text": {
+        "sv": "Vispa färskost och florsocker slätt.",
+        "en": "Beat the cream cheese and icing sugar until smooth.",
+        "fa": "پنیر خامه‌ای و شکر قنادی را تا زمانی که نرم شود هم بزنید."
+      }
     },
     {
-      "sv": "Vispa grädden separat och vänd ner i ostkrämen med vaniljen.",
-      "en": "Whip the cream separately and fold into the cheese mixture with the vanilla."
+      "text": {
+        "sv": "Vispa grädden separat och vänd ner i ostkrämen med vaniljen.",
+        "en": "Whip the cream separately and fold into the cheese mixture with the vanilla.",
+        "fa": "خامه را جداگانه زده و به مخلوط پنیر با وانیل اضافه کنید."
+      }
     },
     {
-      "sv": "Bred över botten och ställ kallt minst 4 timmar. Se videon för dekor.",
-      "en": "Spread over the base and chill at least 4 hours. See the video for the topping."
+      "text": {
+        "sv": "Bred över botten och ställ kallt minst 4 timmar. Se videon för dekor.",
+        "en": "Spread over the base and chill at least 4 hours. See the video for the topping.",
+        "fa": "مخلوط را روی پایه بمالید و حداقل 4 ساعت خنک کنید. برای تزئین، ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Toppa med bär eller chokladsås.",
-    "en": "At-home version — follow the video above. Top with berries or chocolate sauce."
+    "en": "At-home version — follow the video above. Top with berries or chocolate sauce.",
+    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. با توت‌ها یا سس شکلاتی تزئین کنید."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -117,7 +142,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, mjölk",
-      "en": "Contains: gluten, milk"
+      "en": "Contains: gluten, milk",
+      "fa": "شامل: گلوتن، شیر"
     },
     "needsReview": [
       "biscuit base assumed wheat-based; some digestives contain soy"

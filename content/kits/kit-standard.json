@@ -1,43 +1,53 @@
 {
   "id": "kit-standard",
-  "title": { "sv": "Standard­kit (15 cm)", "en": "Standard kit (15 cm)" },
+  "title": {
+    "sv": "Standard­kit (15 cm)",
+    "en": "Standard kit (15 cm)",
+    "fa": "کیت استاندارد (۱۵ سانتی‌متر)"
+  },
   "intro": {
     "sv": "Allt du behöver för att sätta ihop din Mjuk Lov-tårta hemma — för 6–8 personer. Följ stegen i din egen takt.",
-    "en": "Everything you need to assemble your Mjuk Lov cake at home — for 6–8 people. Work through the steps at your own pace."
+    "en": "Everything you need to assemble your Mjuk Lov cake at home — for 6–8 people. Work through the steps at your own pace.",
+    "fa": "هر آنچه برای تهیه کیک Mjuk Lov خود در خانه نیاز دارید — برای ۶–۸ نفر. مراحل را با سرعت دلخواه خود طی کنید."
   },
   "youtubeId": null,
   "steps": [
     {
       "text": {
         "sv": "Packa upp kitet och låt sockerkakorna och fyllningen nå rumstemperatur — då blir tårtan jämnare.",
-        "en": "Unpack the kit and let the sponges and filling come to room temperature — it makes the cake smoother to build."
+        "en": "Unpack the kit and let the sponges and filling come to room temperature — it makes the cake smoother to build.",
+        "fa": "کیت را باز کنید و بگذارید اسفنج‌ها و پرکننده به دمای اتاق برسند — این کار باعث می‌شود کیک نرم‌تر ساخته شود."
       },
       "durationMin": 20
     },
     {
       "text": {
         "sv": "Lägg den första sockerkakan på ett fat. Bred ett jämnt lager fyllning ända ut till kanten.",
-        "en": "Place the first sponge on a plate. Spread an even layer of filling all the way to the edge."
+        "en": "Place the first sponge on a plate. Spread an even layer of filling all the way to the edge.",
+        "fa": "اولین اسفنج را روی یک بشقاب قرار دهید. یک لایه یکنواخت از پرکننده را تا لبه پخش کنید."
       },
       "durationMin": 5
     },
     {
       "text": {
         "sv": "Lägg på nästa sockerkaka och upprepa tills alla lager är staplade. Tryck lätt så de sitter ihop.",
-        "en": "Add the next sponge and repeat until all the layers are stacked. Press gently so they hold together."
+        "en": "Add the next sponge and repeat until all the layers are stacked. Press gently so they hold together.",
+        "fa": "اسفنج بعدی را اضافه کنید و این کار را تکرار کنید تا همه لایه‌ها روی هم قرار گیرند. به آرامی فشار دهید تا کنار هم نگه داشته شوند."
       }
     },
     {
       "text": {
         "sv": "Täck hela tårtan med frostingen och jämna till ytan med en palettkniv eller baksidan av en sked.",
-        "en": "Cover the whole cake with the frosting and smooth the surface with a palette knife or the back of a spoon."
+        "en": "Cover the whole cake with the frosting and smooth the surface with a palette knife or the back of a spoon.",
+        "fa": "کل کیک را با خامه پوشش دهید و سطح آن را با کاردک یا پشت قاشق صاف کنید."
       },
       "durationMin": 10
     },
     {
       "text": {
         "sv": "Dekorera med det medföljande strösslet. Kyl tårtan minst 30 minuter innan servering så att den sätter sig.",
-        "en": "Decorate with the sprinkles provided. Chill the cake for at least 30 minutes before serving so it sets."
+        "en": "Decorate with the sprinkles provided. Chill the cake for at least 30 minutes before serving so it sets.",
+        "fa": "با تزیینات ارائه شده تزئین کنید. کیک را حداقل ۳۰ دقیقه قبل از سرو در یخچال بگذارید تا سفت شود."
       },
       "durationMin": 30
     }
@@ -45,11 +55,13 @@
   "tips": [
     {
       "sv": "Doppa palettkniven i varmt vatten och torka av den — då blir frostingen blank och len.",
-      "en": "Dip the palette knife in hot water and wipe it — it gives the frosting a smooth, glossy finish."
+      "en": "Dip the palette knife in hot water and wipe it — it gives the frosting a smooth, glossy finish.",
+      "fa": "کاردک را در آب داغ فرو ببرید و سپس پاک کنید — این کار به خامه ظاهری صاف و براق می‌دهد."
     },
     {
       "sv": "Allergier? Kontrollera alltid innehållsförteckningen på kitets förpackning.",
-      "en": "Allergies? Always check the ingredient list on the kit's packaging."
+      "en": "Allergies? Always check the ingredient list on the kit's packaging.",
+      "fa": "آلرژی دارید؟ همیشه لیست مواد را روی بسته‌بندی کیت بررسی کنید."
     }
   ]
 }

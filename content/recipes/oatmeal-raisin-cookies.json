@@ -2,11 +2,13 @@
   "slug": "oatmeal-raisin-cookies",
   "title": {
     "sv": "Sega havrekakor med russin",
-    "en": "Chewy oatmeal raisin cookies"
+    "en": "Chewy oatmeal raisin cookies",
+    "fa": "کوکی‌های جو دوسر و کشمش نرم"
   },
   "headnote": {
     "sv": "Sega, kryddiga havrekakor fulla av russin — hemtrevliga och snabba. Se videon ovan för Sallys metod.",
-    "en": "Chewy, spiced oatmeal cookies full of raisins — homey and quick. Watch the video above for Sally's method."
+    "en": "Chewy, spiced oatmeal cookies full of raisins — homey and quick. Watch the video above for Sally's method.",
+    "fa": "کوکی‌های جو دوسر معطر و نرم پر از کشمش — خانگی و سریع. ویدیو بالا را برای روش سالی مشاهده کنید."
   },
   "servings": 20,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 35
   },
   "youtubeId": "sqLm57ZJb7Y",
+  "image": null,
   "inspiredBy": {
     "channel": "Sally's Baking Recipes",
     "url": "https://sallysbakingaddiction.com/oatmeal-raisin-cookies/"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "smör, rumsvarmt",
-        "en": "butter, softened"
+        "en": "butter, softened",
+        "fa": "کره، نرم شده"
       },
       "densityKey": "butter"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "farinsocker",
-        "en": "brown sugar"
+        "en": "brown sugar",
+        "fa": "شکر قهوه‌ای"
       },
       "densityKey": "brownSugar"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ای"
       },
       "densityKey": "sugar"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "egg"
+        "en": "egg",
+        "fa": "تخم‌مرغ"
       }
     },
     {
@@ -69,7 +76,8 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     },
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "kanel",
-        "en": "cinnamon"
+        "en": "cinnamon",
+        "fa": "دارچین"
       }
     },
     {
@@ -101,7 +111,8 @@
       },
       "item": {
         "sv": "bikarbonat",
-        "en": "baking soda"
+        "en": "baking soda",
+        "fa": "جوش‌شیرین"
       },
       "densityKey": "bakingSoda"
     },
@@ -112,7 +123,8 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     },
@@ -123,7 +135,8 @@
       },
       "item": {
         "sv": "havregryn",
-        "en": "rolled oats"
+        "en": "rolled oats",
+        "fa": "جو دوسر پرک"
       },
       "densityKey": "oats"
     },
@@ -134,40 +147,60 @@
       },
       "item": {
         "sv": "russin",
-        "en": "raisins"
+        "en": "raisins",
+        "fa": "کشمش"
       },
       "densityKey": "raisins"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 175°C och klä en plåt med bakplåtspapper.",
-      "en": "Heat the oven to 175°C and line a tray with baking paper."
+      "text": {
+        "sv": "Sätt ugnen på 175°C och klä en plåt med bakplåtspapper.",
+        "en": "Heat the oven to 175°C and line a tray with baking paper.",
+        "fa": "فر را به دمای 175°C گرم کنید و یک سینی را با کاغذ شیرینی‌پزی بپوشانید."
+      }
     },
     {
-      "sv": "Vispa smör och socker pösigt, tillsätt ägg och vanilj.",
-      "en": "Beat the butter and sugars until fluffy, add the egg and vanilla."
+      "text": {
+        "sv": "Vispa smör och socker pösigt, tillsätt ägg och vanilj.",
+        "en": "Beat the butter and sugars until fluffy, add the egg and vanilla.",
+        "fa": "کره و شکرها را بزنید تا پف کنند، سپس تخم‌مرغ و وانیل را اضافه کنید."
+      }
     },
     {
-      "sv": "Vänd ner mjöl, kanel, bikarbonat och salt, sedan havregryn och russin.",
-      "en": "Fold in the flour, cinnamon, baking soda and salt, then the oats and raisins."
+      "text": {
+        "sv": "Vänd ner mjöl, kanel, bikarbonat och salt, sedan havregryn och russin.",
+        "en": "Fold in the flour, cinnamon, baking soda and salt, then the oats and raisins.",
+        "fa": "آرد، دارچین، جوش‌شیرین و نمک را اضافه کنید، سپس جو دوسر و کشمش‌ها را مخلوط کنید."
+      }
     },
     {
-      "sv": "Klicka ut bollar och grädda 11–13 minuter tills kanterna är gyllene.",
-      "en": "Scoop into balls and bake 11–13 minutes until the edges are golden."
+      "text": {
+        "sv": "Klicka ut bollar och grädda 11–13 minuter tills kanterna är gyllene.",
+        "en": "Scoop into balls and bake 11–13 minutes until the edges are golden.",
+        "fa": "مخلوط را به صورت توپ‌هایی درآورید و به مدت 11–13 دقیقه بپزید تا لبه‌ها طلایی شوند."
+      }
     },
     {
-      "sv": "Låt svalna på plåten några minuter. Se videon för tips.",
-      "en": "Cool on the tray for a few minutes. See the video for tips."
+      "text": {
+        "sv": "Låt svalna på plåten några minuter. Se videon för tips.",
+        "en": "Cool on the tray for a few minutes. See the video for tips.",
+        "fa": "برای چند دقیقه روی سینی خنک کنید. برای نکات، ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan för exakt metod. Blötlägg russinen 10 min för extra saftighet.",
-    "en": "At-home version — follow the video above for the exact method. Soak the raisins 10 min for extra plumpness."
+    "en": "At-home version — follow the video above for the exact method. Soak the raisins 10 min for extra plumpness.",
+    "fa": "نسخه خانگی — برای روش دقیق، ویدیو بالا را دنبال کنید. کشمش‌ها را به مدت 10 دقیقه بخیسانید تا نرم‌تر شوند."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -176,7 +209,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [
       "oats / havregryn are often cross-contaminated with gluten — use certified gluten-free oats if needed"

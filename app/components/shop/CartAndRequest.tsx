@@ -10,7 +10,7 @@ import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
 import { LABELS } from "@/lib/allergen/labels";
 import { AddressAutocomplete, type Address } from "./AddressAutocomplete";
-import { ui, type Lang } from "@/lib/i18n";
+import { ui, locNum, type Lang } from "@/lib/i18n";
 
 const NEW = "new"; // sentinel for the "add a new address" choice
 const fmtAddr = (street: string, pc: string, city: string) =>
@@ -183,7 +183,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
               >
                 <div>
                   <div className="type-serif" style={{ fontSize: "1.25rem" }}>{p?.name[lang] ?? i.productId}</div>
-                  <div className="type-caps ink-muted">{p?.priceSek} kr</div>
+                  <div className="type-caps ink-muted">{locNum(p?.priceSek ?? 0, lang)} kr</div>
                 </div>
                 <div className="flex items-center gap-3">
                   <input
@@ -206,17 +206,17 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
         <div className="mt-4 flex flex-col gap-1">
           <div className="flex justify-between type-body ink-muted">
             <span>{t.subtotal}</span>
-            <span>{subtotal} kr</span>
+            <span>{locNum(subtotal, lang)} kr</span>
           </div>
           {deliveryFee > 0 && (
             <div className="flex justify-between type-body ink-muted">
               <span>{t.deliveryFee}</span>
-              <span>{deliveryFee} kr</span>
+              <span>{locNum(deliveryFee, lang)} kr</span>
             </div>
           )}
           <div className="flex justify-between type-serif mt-1" style={{ fontSize: "1.25rem" }}>
             <span>{t.total}</span>
-            <span>{total} kr <span className="type-caps ink-muted">{t.estimated}</span></span>
+            <span>{locNum(total, lang)} kr <span className="type-caps ink-muted">{t.estimated}</span></span>
           </div>
         </div>
       </div>

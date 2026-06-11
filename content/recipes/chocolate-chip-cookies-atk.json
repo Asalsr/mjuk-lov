@@ -2,11 +2,13 @@
   "slug": "chocolate-chip-cookies-atk",
   "title": {
     "sv": "Chokladkakor",
-    "en": "Chocolate chip cookies"
+    "en": "Chocolate chip cookies",
+    "fa": "کوکی‌های شکلاتی"
   },
   "headnote": {
     "sv": "America's Test Kitchens version med brynt smör för en djup, nästan kolaaktig smak. Se videon ovan.",
-    "en": "America's Test Kitchen's version with browned butter for a deep, almost toffee-like flavour. Watch the video above."
+    "en": "America's Test Kitchen's version with browned butter for a deep, almost toffee-like flavour. Watch the video above.",
+    "fa": "نسخه‌ای از America's Test Kitchen با کره قهوه‌ای که طعمی عمیق و تقریباً شبیه به تافی به کوکی‌ها می‌بخشد. ویدیو را در بالا تماشا کنید."
   },
   "servings": 20,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 40
   },
   "youtubeId": "oCt3xhKCX1k",
+  "image": null,
   "inspiredBy": {
     "channel": "America's Test Kitchen",
     "url": "https://www.youtube.com/watch?v=oCt3xhKCX1k"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "smör",
-        "en": "butter"
+        "en": "butter",
+        "fa": "کره"
       },
       "densityKey": "butter"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "farinsocker",
-        "en": "brown sugar"
+        "en": "brown sugar",
+        "fa": "شکر قهوه‌ای"
       },
       "densityKey": "brownSugar"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر سفید"
       },
       "densityKey": "sugar"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "ägg + 1 äggula",
-        "en": "egg + 1 yolk"
+        "en": "egg + 1 yolk",
+        "fa": "تخم‌مرغ + 1 زرده"
       }
     },
     {
@@ -69,7 +76,8 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     },
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "bikarbonat",
-        "en": "baking soda"
+        "en": "baking soda",
+        "fa": "جوش‌شیرین"
       },
       "densityKey": "bakingSoda"
     },
@@ -102,7 +112,8 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     },
@@ -113,40 +124,60 @@
       },
       "item": {
         "sv": "chokladbitar",
-        "en": "chocolate chips"
+        "en": "chocolate chips",
+        "fa": "شکلات‌چیپس"
       },
       "densityKey": "chocolateChips"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Bryn smöret gyllene och nötigt, låt svalna något.",
-      "en": "Brown the butter until golden and nutty, let cool slightly."
+      "text": {
+        "sv": "Bryn smöret gyllene och nötigt, låt svalna något.",
+        "en": "Brown the butter until golden and nutty, let cool slightly.",
+        "fa": "کره را تا زمانی که طلایی و مغزدار شود تفت دهید و بگذارید کمی خنک شود."
+      }
     },
     {
-      "sv": "Rör ihop smöret med sockerarterna, sedan ägg, äggula och vanilj.",
-      "en": "Mix the butter with the sugars, then the egg, yolk and vanilla."
+      "text": {
+        "sv": "Rör ihop smöret med sockerarterna, sedan ägg, äggula och vanilj.",
+        "en": "Mix the butter with the sugars, then the egg, yolk and vanilla.",
+        "fa": "کره را با شکرها مخلوط کنید، سپس تخم‌مرغ، زرده و وانیل را اضافه کنید."
+      }
     },
     {
-      "sv": "Vänd ner mjöl, bikarbonat och salt, sedan chokladbitarna.",
-      "en": "Fold in the flour, baking soda and salt, then the chocolate chips."
+      "text": {
+        "sv": "Vänd ner mjöl, bikarbonat och salt, sedan chokladbitarna.",
+        "en": "Fold in the flour, baking soda and salt, then the chocolate chips.",
+        "fa": "آرد، جوش‌شیرین و نمک را اضافه کنید و سپس شکلات‌چیپس‌ها را در آن بگنجانید."
+      }
     },
     {
-      "sv": "Klicka ut och grädda 175°C i 11–13 minuter tills kanterna är gyllene.",
-      "en": "Scoop and bake at 175°C for 11–13 minutes until the edges are golden."
+      "text": {
+        "sv": "Klicka ut och grädda 175°C i 11–13 minuter tills kanterna är gyllene.",
+        "en": "Scoop and bake at 175°C for 11–13 minutes until the edges are golden.",
+        "fa": "مخلوط را قاشق‌زنی کرده و در دمای 175°C به مدت 11–13 دقیقه بپزید تا لبه‌ها طلایی شوند."
+      }
     },
     {
-      "sv": "Låt svalna på plåten. Se videon för detaljer.",
-      "en": "Cool on the tray. See the video for details."
+      "text": {
+        "sv": "Låt svalna på plåten. Se videon för detaljer.",
+        "en": "Cool on the tray. See the video for details.",
+        "fa": "بر روی سینی خنک کنید. جزئیات را در ویدیو ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Det brynta smöret är nyckeln till smaken.",
-    "en": "At-home version — follow the video above. The browned butter is the key to the flavour."
+    "en": "At-home version — follow the video above. The browned butter is the key to the flavour.",
+    "fa": "نسخه خانگی — ویدیو را در بالا دنبال کنید. کره قهوه‌ای کلید طعم است."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -155,7 +186,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [
       "chokladbitar / chocolate chips may contain soy and milk traces"

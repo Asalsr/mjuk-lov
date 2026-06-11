@@ -2,11 +2,13 @@
   "slug": "chewy-brownies-atk",
   "title": {
     "sv": "Sega brownies",
-    "en": "Chewy brownies"
+    "en": "Chewy brownies",
+    "fa": "براونی‌های جویدنی"
   },
   "headnote": {
     "sv": "America's Test Kitchens noggrant testade brownies — seg, blank och perfekt balanserad. Se videon ovan.",
-    "en": "America's Test Kitchen's rigorously tested brownies — chewy, glossy and perfectly balanced. Watch the video above."
+    "en": "America's Test Kitchen's rigorously tested brownies — chewy, glossy and perfectly balanced. Watch the video above.",
+    "fa": "براونی‌های تست‌ شده در آشپزخانه آمریکایی — جویدنی، براق و به‌طور کامل متعادل. ویدیو بالا را تماشا کنید."
   },
   "servings": 16,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 50
   },
   "youtubeId": "DBZH6xl20uo",
+  "image": null,
   "inspiredBy": {
     "channel": "America's Test Kitchen",
     "url": "https://www.youtube.com/watch?v=DBZH6xl20uo"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "mörk choklad",
-        "en": "dark chocolate"
+        "en": "dark chocolate",
+        "fa": "شکلات تلخ"
       },
       "densityKey": "chocolate"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "kakao",
-        "en": "cocoa powder"
+        "en": "cocoa powder",
+        "fa": "پودر کاکائو"
       },
       "densityKey": "cocoa"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "smör, smält",
-        "en": "butter, melted"
+        "en": "butter, melted",
+        "fa": "کره ذوب‌شده"
       },
       "densityKey": "butter"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ریز"
       },
       "densityKey": "sugar"
     },
@@ -70,7 +77,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ‌ها"
       }
     },
     {
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     },
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -102,40 +112,60 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 175°C och klä en form (ca 20×20 cm).",
-      "en": "Heat the oven to 175°C and line a tin (about 20×20 cm)."
+      "text": {
+        "sv": "Sätt ugnen på 175°C och klä en form (ca 20×20 cm).",
+        "en": "Heat the oven to 175°C and line a tin (about 20×20 cm).",
+        "fa": "فر را به دمای 175°C گرم کنید و یک قالب (حدود 20×20 سانتی‌متر) را آماده کنید."
+      }
     },
     {
-      "sv": "Häll det smälta smöret över choklad och kakao, rör slätt.",
-      "en": "Pour the melted butter over the chocolate and cocoa, stir smooth."
+      "text": {
+        "sv": "Häll det smälta smöret över choklad och kakao, rör slätt.",
+        "en": "Pour the melted butter over the chocolate and cocoa, stir smooth.",
+        "fa": "کره ذوب‌شده را روی شکلات و پودر کاکائو بریزید و هم بزنید تا یکدست شود."
+      }
     },
     {
-      "sv": "Rör ner socker, sedan ägg och vanilj tills blankt.",
-      "en": "Stir in the sugar, then the eggs and vanilla until glossy."
+      "text": {
+        "sv": "Rör ner socker, sedan ägg och vanilj tills blankt.",
+        "en": "Stir in the sugar, then the eggs and vanilla until glossy.",
+        "fa": "شکر را اضافه کنید، سپس تخم‌مرغ‌ها و عصاره وانیل را تا زمانی که براق شود هم بزنید."
+      }
     },
     {
-      "sv": "Vänd ner mjöl och salt. Häll i formen och grädda 30–35 minuter.",
-      "en": "Fold in the flour and salt. Pour into the tin and bake 30–35 minutes."
+      "text": {
+        "sv": "Vänd ner mjöl och salt. Häll i formen och grädda 30–35 minuter.",
+        "en": "Fold in the flour and salt. Pour into the tin and bake 30–35 minutes.",
+        "fa": "آرد و نمک را به آرامی اضافه کنید. مخلوط را در قالب بریزید و به مدت 30–35 دقیقه بپزید."
+      }
     },
     {
-      "sv": "Låt svalna helt innan du skär. Se videon för detaljer.",
-      "en": "Cool completely before cutting. See the video for details."
+      "text": {
+        "sv": "Låt svalna helt innan du skär. Se videon för detaljer.",
+        "en": "Cool completely before cutting. See the video for details.",
+        "fa": "قبل از برش، کاملاً خنک کنید. جزئیات را در ویدیو ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Blandningen choklad + kakao ger den sega strukturen.",
-    "en": "At-home version — follow the video above. The chocolate + cocoa mix gives the chewy texture."
+    "en": "At-home version — follow the video above. The chocolate + cocoa mix gives the chewy texture.",
+    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. مخلوط شکلات و پودر کاکائو بافت جویدنی را به ارمغان می‌آورد."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -144,7 +174,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [
       "mörk choklad / dark chocolate may carry soy and nut traces"

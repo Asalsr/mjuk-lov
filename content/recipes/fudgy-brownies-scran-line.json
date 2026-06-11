@@ -2,11 +2,13 @@
   "slug": "fudgy-brownies-scran-line",
   "title": {
     "sv": "Kladdiga brownies",
-    "en": "Fudgy brownies"
+    "en": "Fudgy brownies",
+    "fa": "براونی‌های فادجی"
   },
   "headnote": {
     "sv": "The Scran Lines superkladdiga brownies med blank yta och tät, chokladig mitt. Se videon ovan.",
-    "en": "The Scran Line's super-fudgy brownies with a shiny top and a dense, chocolatey middle. Watch the video above."
+    "en": "The Scran Line's super-fudgy brownies with a shiny top and a dense, chocolatey middle. Watch the video above.",
+    "fa": "براونی‌های فوق‌العاده فادجی از Mjuk Lov با رویه‌ای درخشان و میانه‌ای غلیظ و شکلاتی. ویدیو را در بالا تماشا کنید."
   },
   "servings": 16,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 45
   },
   "youtubeId": "LyiUrq77LvE",
+  "image": null,
   "inspiredBy": {
     "channel": "The Scran Line",
     "url": "https://www.youtube.com/watch?v=LyiUrq77LvE"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "mörk choklad",
-        "en": "dark chocolate"
+        "en": "dark chocolate",
+        "fa": "شکلات تلخ"
       },
       "densityKey": "chocolate"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "smör",
-        "en": "butter"
+        "en": "butter",
+        "fa": "کره"
       },
       "densityKey": "butter"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ای"
       },
       "densityKey": "sugar"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ‌ها"
       }
     },
     {
@@ -69,7 +76,8 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     },
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "kakao",
-        "en": "cocoa powder"
+        "en": "cocoa powder",
+        "fa": "پودر کاکائو"
       },
       "densityKey": "cocoa"
     },
@@ -102,40 +112,60 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 175°C och klä en form med bakplåtspapper.",
-      "en": "Heat the oven to 175°C and line a tin with baking paper."
+      "text": {
+        "sv": "Sätt ugnen på 175°C och klä en form med bakplåtspapper.",
+        "en": "Heat the oven to 175°C and line a tin with baking paper.",
+        "fa": "فر را به دمای 175°C گرم کنید و یک قالب را با کاغذ پخت بپوشانید."
+      }
     },
     {
-      "sv": "Smält choklad och smör ihop, rör ner sockret.",
-      "en": "Melt the chocolate and butter together, stir in the sugar."
+      "text": {
+        "sv": "Smält choklad och smör ihop, rör ner sockret.",
+        "en": "Melt the chocolate and butter together, stir in the sugar.",
+        "fa": "شکلات و کره را با هم ذوب کنید و شکر را به آن اضافه کنید."
+      }
     },
     {
-      "sv": "Vispa i ägg och vanilj tills blankt.",
-      "en": "Whisk in the eggs and vanilla until glossy."
+      "text": {
+        "sv": "Vispa i ägg och vanilj tills blankt.",
+        "en": "Whisk in the eggs and vanilla until glossy.",
+        "fa": "تخم‌مرغ‌ها و وانیل را هم بزنید تا براق شود."
+      }
     },
     {
-      "sv": "Vänd ner mjöl, kakao och salt. Häll i formen.",
-      "en": "Fold in the flour, cocoa and salt. Pour into the tin."
+      "text": {
+        "sv": "Vänd ner mjöl, kakao och salt. Häll i formen.",
+        "en": "Fold in the flour, cocoa and salt. Pour into the tin.",
+        "fa": "آرد، پودر کاکائو و نمک را به آرامی اضافه کنید. مخلوط را در قالب بریزید."
+      }
     },
     {
-      "sv": "Grädda 25–30 minuter. Låt svalna helt innan du skär. Se videon.",
-      "en": "Bake 25–30 minutes. Cool completely before cutting. See the video."
+      "text": {
+        "sv": "Grädda 25–30 minuter. Låt svalna helt innan du skär. Se videon.",
+        "en": "Bake 25–30 minutes. Cool completely before cutting. See the video.",
+        "fa": "به مدت 25–30 دقیقه بپزید. قبل از برش، کاملاً خنک کنید. ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Underbaka något för extra kladd.",
-    "en": "At-home version — follow the video above. Slightly underbake for extra fudge."
+    "en": "At-home version — follow the video above. Slightly underbake for extra fudge.",
+    "fa": "نسخه خانگی — ویدیو را در بالا دنبال کنید. کمی کمتر بپزید تا فادج بیشتری داشته باشید."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -144,7 +174,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [
       "mörk choklad / dark chocolate may carry soy and nut traces"

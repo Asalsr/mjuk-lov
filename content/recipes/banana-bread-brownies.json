@@ -2,11 +2,13 @@
   "slug": "banana-bread-brownies",
   "title": {
     "sv": "Bananbrödsbrownies",
-    "en": "Banana bread brownies"
+    "en": "Banana bread brownies",
+    "fa": "براونی نان موزی"
   },
   "headnote": {
     "sv": "Två favoriter i en: bananbrödets mjuka mums och browniens täta tugga. Snabbt rört ihop, svårt att sluta äta. Se videon för hela metoden.",
-    "en": "Two favourites in one: the soft comfort of banana bread with a brownie's dense chew. Quick to mix, hard to stop eating. Watch the video for the full method."
+    "en": "Two favourites in one: the soft comfort of banana bread with a brownie's dense chew. Quick to mix, hard to stop eating. Watch the video for the full method.",
+    "fa": "دو مورد محبوب در یک دسر: نرمی و راحتی نان موز با بافت متراکم براونی. سریع آماده می‌شود و سخت می‌توان از خوردن آن دست کشید. ویدیو را برای روش کامل مشاهده کنید."
   },
   "servings": 16,
   "time": {
@@ -14,6 +16,8 @@
     "totalMin": 50
   },
   "youtubeId": "6HTb7Ietwmo",
+  "image": null,
+  "inspiredBy": null,
   "ingredients": [
     {
       "qty": {
@@ -22,7 +26,8 @@
       },
       "item": {
         "sv": "mosade mogna bananer",
-        "en": "mashed ripe bananas"
+        "en": "mashed ripe bananas",
+        "fa": "موزهای رسیده له‌شده"
       }
     },
     {
@@ -32,7 +37,8 @@
       },
       "item": {
         "sv": "smör, smält",
-        "en": "butter, melted"
+        "en": "butter, melted",
+        "fa": "کره ذوب شده"
       },
       "densityKey": "butter"
     },
@@ -43,7 +49,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ای"
       },
       "densityKey": "sugar"
     },
@@ -54,7 +61,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ‌ها"
       }
     },
     {
@@ -64,7 +72,8 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     },
@@ -75,7 +84,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -86,7 +96,8 @@
       },
       "item": {
         "sv": "bakpulver",
-        "en": "baking powder"
+        "en": "baking powder",
+        "fa": "بیکینگ پودر"
       },
       "densityKey": "bakingPowder"
     },
@@ -97,40 +108,60 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 175°C och smörj en form (ca 20×20 cm).",
-      "en": "Heat the oven to 175°C and grease a pan (about 20×20 cm)."
+      "text": {
+        "sv": "Sätt ugnen på 175°C och smörj en form (ca 20×20 cm).",
+        "en": "Heat the oven to 175°C and grease a pan (about 20×20 cm).",
+        "fa": "فر را به دمای 175°C گرم کنید و یک قالب (حدود 20×20 سانتی‌متر) را چرب کنید."
+      }
     },
     {
-      "sv": "Rör ihop smält smör och socker. Tillsätt banan, ägg och vanilj.",
-      "en": "Stir the melted butter and sugar. Add the banana, eggs and vanilla."
+      "text": {
+        "sv": "Rör ihop smält smör och socker. Tillsätt banan, ägg och vanilj.",
+        "en": "Stir the melted butter and sugar. Add the banana, eggs and vanilla.",
+        "fa": "کره ذوب شده و شکر را مخلوط کنید. موز، تخم‌مرغ و وانیل را اضافه کنید."
+      }
     },
     {
-      "sv": "Vänd ner mjöl, bakpulver och salt till en slät smet.",
-      "en": "Fold in the flour, baking powder and salt until smooth."
+      "text": {
+        "sv": "Vänd ner mjöl, bakpulver och salt till en slät smet.",
+        "en": "Fold in the flour, baking powder and salt until smooth.",
+        "fa": "آرد، بیکینگ پودر و نمک را تا زمانی که یکدست شود، اضافه کنید."
+      }
     },
     {
-      "sv": "Häll i formen och grädda 30–35 minuter tills mitten precis stannat.",
-      "en": "Pour into the pan and bake 30–35 minutes until the centre is just set."
+      "text": {
+        "sv": "Häll i formen och grädda 30–35 minuter tills mitten precis stannat.",
+        "en": "Pour into the pan and bake 30–35 minutes until the centre is just set.",
+        "fa": "مخلوط را در قالب بریزید و به مدت 30–35 دقیقه بپزید تا مرکز آن کمی سفت شود."
+      }
     },
     {
-      "sv": "Låt svalna och skär i rutor. Se videon för glasyr och tips.",
-      "en": "Let cool and cut into squares. See the video for glaze and tips."
+      "text": {
+        "sv": "Låt svalna och skär i rutor. Se videon för glasyr och tips.",
+        "en": "Let cool and cut into squares. See the video for glaze and tips.",
+        "fa": "بگذارید خنک شود و به مربع‌ها برش بزنید. برای گلاز و نکات، ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Receptet är en hemlagad version — följ videon ovan för den exakta metoden.",
-    "en": "This is an at-home version — follow the video above for the exact method."
+    "en": "This is an at-home version — follow the video above for the exact method.",
+    "fa": "این نسخه خانگی است — برای روش دقیق، ویدیو بالا را دنبال کنید."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -139,7 +170,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",

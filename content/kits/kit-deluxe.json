@@ -1,43 +1,53 @@
 {
   "id": "kit-deluxe",
-  "title": { "sv": "Deluxe­kit (20 cm)", "en": "Deluxe kit (20 cm)" },
+  "title": {
+    "sv": "Deluxe­kit (20 cm)",
+    "en": "Deluxe kit (20 cm)",
+    "fa": "کیت لوکس (۲۰ سانتی‌متر)"
+  },
   "intro": {
     "sv": "Den större tårtan — för 10–12 personer, med extra höjd. Samma metod som Standard, men ta det lugnt med de tyngre lagren.",
-    "en": "The bigger cake — for 10–12 people, with extra height. Same method as Standard, just take your time with the heavier layers."
+    "en": "The bigger cake — for 10–12 people, with extra height. Same method as Standard, just take your time with the heavier layers.",
+    "fa": "کیک بزرگ‌تر — برای ۱۰–۱۲ نفر، با ارتفاع اضافی. همان روش کیت استاندارد، فقط با لایه‌های سنگین‌تر زمان بیشتری بگذارید."
   },
   "youtubeId": null,
   "steps": [
     {
       "text": {
         "sv": "Packa upp kitet och låt sockerkakorna och fyllningen nå rumstemperatur.",
-        "en": "Unpack the kit and let the sponges and filling come to room temperature."
+        "en": "Unpack the kit and let the sponges and filling come to room temperature.",
+        "fa": "کیت را باز کنید و بگذارید اسفنج‌ها و پرکننده به دمای اتاق برسند."
       },
       "durationMin": 20
     },
     {
       "text": {
         "sv": "Lägg den första sockerkakan på ett fat och bred på ett jämnt lager fyllning. Med 20 cm-lager: håll fyllningen något tunnare så tårtan bär sin egen höjd.",
-        "en": "Place the first sponge on a plate and spread an even layer of filling. For the 20 cm layers, keep the filling slightly thinner so the cake carries its own height."
+        "en": "Place the first sponge on a plate and spread an even layer of filling. For the 20 cm layers, keep the filling slightly thinner so the cake carries its own height.",
+        "fa": "اولین اسفنج را روی یک بشقاب قرار دهید و لایه‌ای یکنواخت از پرکننده را روی آن پخش کنید. برای لایه‌های ۲۰ سانتی‌متری، پرکننده را کمی نازک‌تر نگه دارید تا کیک ارتفاع خود را حفظ کند."
       },
       "durationMin": 6
     },
     {
       "text": {
         "sv": "Stapla resten av lagren med fyllning emellan. Centrera varje lager innan du trycker till.",
-        "en": "Stack the remaining layers with filling between each. Centre every layer before you press it down."
+        "en": "Stack the remaining layers with filling between each. Centre every layer before you press it down.",
+        "fa": "لایه‌های باقی‌مانده را با پرکننده بین هر کدام روی هم قرار دهید. قبل از فشار دادن هر لایه، آن را در مرکز قرار دهید."
       }
     },
     {
       "text": {
         "sv": "Täck tårtan med frostingen och jämna till ytan. Spara lite frosting till kanten nedtill.",
-        "en": "Cover the cake with the frosting and smooth the surface. Save a little frosting for the bottom edge."
+        "en": "Cover the cake with the frosting and smooth the surface. Save a little frosting for the bottom edge.",
+        "fa": "کیک را با خامه بپوشانید و سطح آن را صاف کنید. مقداری خامه برای لبه پایینی نگه دارید."
       },
       "durationMin": 12
     },
     {
       "text": {
         "sv": "Dekorera med strösslet och kyl minst 45 minuter — den större tårtan behöver lite längre för att sätta sig.",
-        "en": "Decorate with the sprinkles and chill for at least 45 minutes — the larger cake needs a little longer to set."
+        "en": "Decorate with the sprinkles and chill for at least 45 minutes — the larger cake needs a little longer to set.",
+        "fa": "با تزیینات تزئین کنید و حداقل به مدت ۴۵ دقیقه در یخچال قرار دهید — کیک بزرگ‌تر نیاز به زمان بیشتری برای سفت شدن دارد."
       },
       "durationMin": 45
     }
@@ -45,11 +55,13 @@
   "tips": [
     {
       "sv": "Kyl tårtan 10 minuter efter frostingen innan du dekorerar — då fäster strösslet bättre på den fastare ytan.",
-      "en": "Chill the cake for 10 minutes after frosting before decorating — the sprinkles stick better to the firmer surface."
+      "en": "Chill the cake for 10 minutes after frosting before decorating — the sprinkles stick better to the firmer surface.",
+      "fa": "پس از خامه‌کشی، کیک را به مدت ۱۰ دقیقه در یخچال قرار دهید قبل از تزیین — تزیینات بهتر به سطح محکم می‌چسبند."
     },
     {
       "sv": "Allergier? Kontrollera alltid innehållsförteckningen på kitets förpackning.",
-      "en": "Allergies? Always check the ingredient list on the kit's packaging."
+      "en": "Allergies? Always check the ingredient list on the kit's packaging.",
+      "fa": "آلرژی دارید؟ همیشه لیست مواد تشکیل‌دهنده را روی بسته‌بندی کیت بررسی کنید."
     }
   ]
 }

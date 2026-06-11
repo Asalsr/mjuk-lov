@@ -12,8 +12,10 @@ import type { Lang } from '@/lib/i18n';
 
 interface HeaderProps {
   lang: Lang;
-  onLangToggle: () => void;
+  onSelectLang: (next: Lang) => void;
 }
+
+const LANG_LABELS: Record<Lang, string> = { sv: 'Svenska', en: 'English', fa: 'فارسی' };
 
 const content = {
   sv: {
@@ -76,7 +78,7 @@ const marketingTagline = (id: string, lang: Lang) => {
   return map[id]?.[lang] ?? '';
 };
 
-export const Header = ({ lang, onLangToggle }: HeaderProps) => {
+export const Header = ({ lang, onSelectLang }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
@@ -257,12 +259,17 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
             )}
           </div>
 
-          <button
-            onClick={onLangToggle}
-            className="type-caps tap transition-colors hover:text-[var(--dusty-terracotta)]"
+          <select
+            value={lang}
+            onChange={(e) => onSelectLang(e.target.value as Lang)}
+            aria-label={lang === 'fa' ? 'انتخاب زبان' : lang === 'sv' ? 'Välj språk' : 'Choose language'}
+            className="type-caps tap cursor-pointer transition-colors hover:text-[var(--dusty-terracotta)]"
+            style={{ border: 'none', background: 'transparent', color: 'inherit', appearance: 'none', WebkitAppearance: 'none', MozAppearance: 'none', textAlignLast: 'center' }}
           >
-            {lang === 'sv' ? 'EN' : 'SV'}
-          </button>
+            {(['sv', 'en', 'fa'] as Lang[]).map((l) => (
+              <option key={l} value={l}>{LANG_LABELS[l]}</option>
+            ))}
+          </select>
 
           {/* Hamburger — MOBILE ONLY. Use Tailwind display utils (not .tap, which
               forces display and would override md:hidden, leaking onto desktop). */}

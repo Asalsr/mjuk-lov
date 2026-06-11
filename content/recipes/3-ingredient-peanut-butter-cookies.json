@@ -2,11 +2,13 @@
   "slug": "3-ingredient-peanut-butter-cookies",
   "title": {
     "sv": "Jordnötskakor (3 ingredienser)",
-    "en": "3-ingredient peanut butter cookies"
+    "en": "3-ingredient peanut butter cookies",
+    "fa": "کوکی‌های کره بادام‌زمینی با ۳ ماده"
   },
   "headnote": {
     "sv": "Tre ingredienser, ingen mjöl, klara på en kvart — naturligt glutenfria. Se videon ovan för Tastys metod.",
-    "en": "Three ingredients, no flour, done in fifteen minutes — naturally gluten-free. Watch the video above for Tasty's method."
+    "en": "Three ingredients, no flour, done in fifteen minutes — naturally gluten-free. Watch the video above for Tasty's method.",
+    "fa": "سه ماده، بدون آرد، در پانزده دقیقه آماده — به‌طور طبیعی بدون گلوتن. ویدیو بالا را برای روش Tasty تماشا کنید."
   },
   "servings": 12,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 18
   },
   "youtubeId": "4hMfOmqD720",
+  "image": null,
   "inspiredBy": {
     "channel": "Tasty",
     "url": "https://tasty.co/recipe/3-ingredient-peanut-butter-cookies"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "jordnötssmör",
-        "en": "peanut butter"
+        "en": "peanut butter",
+        "fa": "کره بادام‌زمینی"
       },
       "densityKey": "peanutButter"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ای"
       },
       "densityKey": "sugar"
     },
@@ -48,68 +53,94 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "egg"
+        "en": "egg",
+        "fa": "تخم‌مرغ"
       }
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
   "equipment": [
-    { "sv": "Bunke", "en": "Mixing bowl" },
-    { "sv": "Plåt + bakplåtspapper", "en": "Baking tray + baking paper" },
-    { "sv": "Gaffel", "en": "Fork" }
+    {
+      "sv": "Bunke",
+      "en": "Mixing bowl",
+      "fa": "کاسه مخلوط‌کن"
+    },
+    {
+      "sv": "Plåt + bakplåtspapper",
+      "en": "Baking tray + baking paper",
+      "fa": "سینی پخت + کاغذ پخت"
+    },
+    {
+      "sv": "Gaffel",
+      "en": "Fork",
+      "fa": "چنگال"
+    }
   ],
-  "yieldNote": { "sv": "ca 12 kakor", "en": "about 12 cookies" },
+  "yieldNote": {
+    "sv": "ca 12 kakor",
+    "en": "about 12 cookies",
+    "fa": "حدود ۱۲ کوکی"
+  },
   "steps": [
     {
       "text": {
         "sv": "Sätt ugnen på 175°C och klä en plåt med bakplåtspapper.",
-        "en": "Heat the oven to 175°C and line a tray with baking paper."
+        "en": "Heat the oven to 175°C and line a tray with baking paper.",
+        "fa": "فر را به 175°C گرم کنید و یک سینی را با کاغذ پخت بپوشانید."
       }
     },
     {
       "text": {
         "sv": "Rör ihop jordnötssmör, socker och ägg till en deg.",
-        "en": "Stir the peanut butter, sugar and egg together into a dough."
+        "en": "Stir the peanut butter, sugar and egg together into a dough.",
+        "fa": "کره بادام‌زمینی، شکر و تخم‌مرغ را با هم مخلوط کنید تا خمیری به دست آید."
       },
       "durationMin": 3
     },
     {
       "text": {
         "sv": "Rulla bollar, lägg ut och tryck till ett rutmönster med en gaffel.",
-        "en": "Roll balls, place out and press a criss-cross with a fork."
+        "en": "Roll balls, place out and press a criss-cross with a fork.",
+        "fa": "توپک‌هایی درست کنید، آن‌ها را روی سینی قرار دهید و با چنگال یک الگوی ضربدر روی آن‌ها بزنید."
       },
       "durationMin": 5
     },
     {
       "text": {
         "sv": "Grädda 10–12 minuter tills kanterna precis fått färg.",
-        "en": "Bake 10–12 minutes until the edges are just coloured."
+        "en": "Bake 10–12 minutes until the edges are just coloured.",
+        "fa": "به مدت ۱۰–۱۲ دقیقه بپزید تا لبه‌ها کمی رنگ بگیرند."
       },
       "durationMin": 12
     },
     {
       "text": {
         "sv": "Låt svalna på plåten — de är sköra varma. Se videon för tips.",
-        "en": "Cool on the tray — they're fragile when warm. See the video for tips."
+        "en": "Cool on the tray — they're fragile when warm. See the video for tips.",
+        "fa": "روی سینی خنک کنید — وقتی گرم هستند، شکننده‌اند. برای نکات بیشتر ویدیو را ببینید."
       }
-    }
-  ],
-  "tips": [
-    {
-      "sv": "Väg jordnötssmöret för jämn smet — naturligt jordnötssmör kan behöva röras om först.",
-      "en": "Weigh the peanut butter for a consistent dough — natural peanut butter may need stirring first."
-    },
-    {
-      "sv": "Överstek inte; de stelnar när de svalnar.",
-      "en": "Don't overbake; they firm up as they cool."
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Naturligt glutenfria, men kontrollera att jordnötssmöret är fritt från tillsatser.",
-    "en": "At-home version — follow the video above. Naturally gluten-free, but check the peanut butter has no added ingredients."
+    "en": "At-home version — follow the video above. Naturally gluten-free, but check the peanut butter has no added ingredients.",
+    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. به‌طور طبیعی بدون گلوتن، اما مطمئن شوید که کره بادام‌زمینی هیچ ماده اضافی ندارد."
   },
+  "tips": [
+    {
+      "sv": "Väg jordnötssmöret för jämn smet — naturligt jordnötssmör kan behöva röras om först.",
+      "en": "Weigh the peanut butter for a consistent dough — natural peanut butter may need stirring first.",
+      "fa": "کره بادام‌زمینی را وزن کنید تا خمیر یکنواختی داشته باشید — ممکن است کره بادام‌زمینی طبیعی نیاز به هم زدن داشته باشد."
+    },
+    {
+      "sv": "Överstek inte; de stelnar när de svalnar.",
+      "en": "Don't overbake; they firm up as they cool.",
+      "fa": "بیش از حد نپزید؛ آن‌ها وقتی خنک می‌شوند سفت‌تر می‌شوند."
+    }
+  ],
   "allergens": {
     "codes": [
       "egg",
@@ -117,7 +148,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: ägg, jordnötter",
-      "en": "Contains: egg, peanuts"
+      "en": "Contains: egg, peanuts",
+      "fa": "شامل: تخم‌مرغ، بادام‌زمینی"
     },
     "needsReview": [
       "peanut butter may carry traces of other nuts depending on brand"

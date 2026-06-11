@@ -2,11 +2,13 @@
   "slug": "vanilla-cupcakes",
   "title": {
     "sv": "Vaniljcupcakes",
-    "en": "Vanilla cupcakes"
+    "en": "Vanilla cupcakes",
+    "fa": "کاپ کیک وانیلی"
   },
   "headnote": {
     "sv": "Lätta, luftiga vaniljcupcakes med silkeslen smörkräm — bakboxens klassiker som alltid lyckas. Se Jemmas video ovan för pipning och finish.",
-    "en": "Light, fluffy vanilla cupcakes with silky buttercream — the bake-box classic that always works. Watch Jemma's video above for piping and finish."
+    "en": "Light, fluffy vanilla cupcakes with silky buttercream — the bake-box classic that always works. Watch Jemma's video above for piping and finish.",
+    "fa": "کاپ کیک‌های وانیلی سبک و پفی با کرم کره‌ای نرم — کلاسیک پخت کیک که همیشه جواب می‌دهد. ویدیوی جِما را در بالا برای تزئین و اتمام مشاهده کنید."
   },
   "servings": 12,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 45
   },
   "youtubeId": "lC51CynVHAU",
+  "image": null,
   "inspiredBy": {
     "channel": "Cupcake Jemma",
     "url": "https://www.youtube.com/watch?v=lC51CynVHAU"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "smör, rumsvarmt",
-        "en": "butter, softened"
+        "en": "butter, softened",
+        "fa": "کره، نرم شده"
       },
       "densityKey": "butter"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه ریز"
       },
       "densityKey": "sugar"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ‌ها"
       }
     },
     {
@@ -58,7 +64,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -69,7 +76,8 @@
       },
       "item": {
         "sv": "bakpulver",
-        "en": "baking powder"
+        "en": "baking powder",
+        "fa": "پودر بیکینگ"
       },
       "densityKey": "bakingPowder"
     },
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     },
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "mjölk",
-        "en": "milk"
+        "en": "milk",
+        "fa": "شیر"
       },
       "densityKey": "flour"
     },
@@ -102,7 +112,8 @@
       },
       "item": {
         "sv": "smör för smörkräm, rumsvarmt",
-        "en": "butter for buttercream, softened"
+        "en": "butter for buttercream, softened",
+        "fa": "کره برای کرم کره‌ای، نرم شده"
       },
       "densityKey": "butter"
     },
@@ -113,7 +124,8 @@
       },
       "item": {
         "sv": "florsocker",
-        "en": "icing sugar"
+        "en": "icing sugar",
+        "fa": "شکر قنادی"
       },
       "densityKey": "powderedSugar"
     },
@@ -124,40 +136,60 @@
       },
       "item": {
         "sv": "mjölk till smörkrämen",
-        "en": "milk for the buttercream"
+        "en": "milk for the buttercream",
+        "fa": "شیر برای کرم کره‌ای"
       },
       "densityKey": "flour"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 175°C och klä en muffinsform med 12 papperformar.",
-      "en": "Heat the oven to 175°C and line a muffin tin with 12 paper cases."
+      "text": {
+        "sv": "Sätt ugnen på 175°C och klä en muffinsform med 12 papperformar.",
+        "en": "Heat the oven to 175°C and line a muffin tin with 12 paper cases.",
+        "fa": "فر را به دمای 175°C گرم کنید و یک قالب مافین را با 12 کاغذ مخصوص بپوشانید."
+      }
     },
     {
-      "sv": "Vispa smör och socker pösigt. Tillsätt äggen ett i taget och vispa väl mellan varje.",
-      "en": "Beat the butter and sugar until pale and fluffy. Add the eggs one at a time, beating well between each."
+      "text": {
+        "sv": "Vispa smör och socker pösigt. Tillsätt äggen ett i taget och vispa väl mellan varje.",
+        "en": "Beat the butter and sugar until pale and fluffy. Add the eggs one at a time, beating well between each.",
+        "fa": "کره و شکر را بزنید تا رنگشان روشن و پف‌دار شود. تخم‌مرغ‌ها را یکی یکی اضافه کنید و بین هر کدام خوب بزنید."
+      }
     },
     {
-      "sv": "Vänd ner mjöl och bakpulver, sedan vanilj och mjölk till en slät smet.",
-      "en": "Fold in the flour and baking powder, then the vanilla and milk to a smooth batter."
+      "text": {
+        "sv": "Vänd ner mjöl och bakpulver, sedan vanilj och mjölk till en slät smet.",
+        "en": "Fold in the flour and baking powder, then the vanilla and milk to a smooth batter.",
+        "fa": "آرد و پودر بیکینگ را به آرامی اضافه کنید، سپس وانیل و شیر را به مخلوط اضافه کنید تا خمیری نرم به دست آید."
+      }
     },
     {
-      "sv": "Fördela i formarna och grädda 18–20 minuter tills de fjädrar tillbaka vid lätt tryck. Låt svalna helt.",
-      "en": "Divide between the cases and bake 18–20 minutes until they spring back to a light touch. Cool completely."
+      "text": {
+        "sv": "Fördela i formarna och grädda 18–20 minuter tills de fjädrar tillbaka vid lätt tryck. Låt svalna helt.",
+        "en": "Divide between the cases and bake 18–20 minutes until they spring back to a light touch. Cool completely.",
+        "fa": "مخلوط را بین کاغذها تقسیم کنید و به مدت 18–20 دقیقه بپزید تا به لمس سبک برگردند. کاملاً خنک کنید."
+      }
     },
     {
-      "sv": "Vispa smöret till smörkrämen ljust, sikta i florsockret och vispa med mjölken tills fluffigt. Spritsa på de avsvalnade cupcakesarna. Se videon för pipningstekniken.",
-      "en": "Beat the buttercream butter until pale, sift in the icing sugar and beat with the milk until fluffy. Pipe onto the cooled cupcakes. See the video for the piping technique."
+      "text": {
+        "sv": "Vispa smöret till smörkrämen ljust, sikta i florsockret och vispa med mjölken tills fluffigt. Spritsa på de avsvalnade cupcakesarna. Se videon för pipningstekniken.",
+        "en": "Beat the buttercream butter until pale, sift in the icing sugar and beat with the milk until fluffy. Pipe onto the cooled cupcakes. See the video for the piping technique.",
+        "fa": "کره کرم را بزنید تا رنگش روشن شود، شکر قنادی را الک کنید و با شیر بزنید تا پف‌دار شود. روی کاپ کیک‌های خنک شده تزئین کنید. برای تکنیک تزئین ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Det här är en hemlagad version — följ videon ovan för Jemmas exakta metod och proportioner. Ägg och smör i rumstemperatur ger luftigast resultat.",
-    "en": "This is an at-home version — follow the video above for Jemma's exact method and quantities. Room-temperature eggs and butter give the airiest result."
+    "en": "This is an at-home version — follow the video above for Jemma's exact method and quantities. Room-temperature eggs and butter give the airiest result.",
+    "fa": "این نسخه خانگی است — برای روش و مقادیر دقیق جِما ویدیوی بالا را دنبال کنید. تخم‌مرغ‌ها و کره در دمای اتاق بهترین نتیجه را می‌دهند."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -166,7 +198,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",

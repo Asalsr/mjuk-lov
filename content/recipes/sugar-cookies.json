@@ -2,11 +2,13 @@
   "slug": "sugar-cookies",
   "title": {
     "sv": "Sockerkakor (sugar cookies)",
-    "en": "Sugar cookies"
+    "en": "Sugar cookies",
+    "fa": "کوکی‌های شکر"
   },
   "headnote": {
     "sv": "Mjuka, tjocka sockerkakor utan kyltid — snabba att baka och perfekta att dekorera. Se videon ovan.",
-    "en": "Soft, thick sugar cookies with zero chill time — quick to bake and perfect to decorate. Watch the video above."
+    "en": "Soft, thick sugar cookies with zero chill time — quick to bake and perfect to decorate. Watch the video above.",
+    "fa": "کوکی‌های شکر نرم و ضخیم با زمان استراحت صفر — سریع برای پخت و مناسب برای تزئین. ویدیو را در بالا تماشا کنید."
   },
   "servings": 24,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 30
   },
   "youtubeId": "hzrq5gW1vQQ",
+  "image": null,
   "inspiredBy": {
     "channel": "Sugar Spun Run",
     "url": "https://sugarspunrun.com/the-best-sugar-cookie-recipe/"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "smör, rumsvarmt",
-        "en": "butter, softened"
+        "en": "butter, softened",
+        "fa": "کره، نرم شده"
       },
       "densityKey": "butter"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ای"
       },
       "densityKey": "sugar"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "egg"
+        "en": "egg",
+        "fa": "تخم‌مرغ"
       }
     },
     {
@@ -58,7 +64,8 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     },
@@ -69,7 +76,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "bakpulver",
-        "en": "baking powder"
+        "en": "baking powder",
+        "fa": "بیکینگ پودر"
       },
       "densityKey": "bakingPowder"
     },
@@ -91,40 +100,60 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 175°C och klä en plåt med bakplåtspapper.",
-      "en": "Heat the oven to 175°C and line a tray with baking paper."
+      "text": {
+        "sv": "Sätt ugnen på 175°C och klä en plåt med bakplåtspapper.",
+        "en": "Heat the oven to 175°C and line a tray with baking paper.",
+        "fa": "فر را به دمای 175°C گرم کنید و یک سینی را با کاغذ پخت بپوشانید."
+      }
     },
     {
-      "sv": "Vispa smör och socker pösigt, tillsätt ägg och vanilj.",
-      "en": "Beat the butter and sugar fluffy, add the egg and vanilla."
+      "text": {
+        "sv": "Vispa smör och socker pösigt, tillsätt ägg och vanilj.",
+        "en": "Beat the butter and sugar fluffy, add the egg and vanilla.",
+        "fa": "کره و شکر را خوب بزنید تا پف کند، سپس تخم‌مرغ و وانیل را اضافه کنید."
+      }
     },
     {
-      "sv": "Vänd ner mjöl, bakpulver och salt till en deg.",
-      "en": "Fold in the flour, baking powder and salt to a dough."
+      "text": {
+        "sv": "Vänd ner mjöl, bakpulver och salt till en deg.",
+        "en": "Fold in the flour, baking powder and salt to a dough.",
+        "fa": "آرد، بیکینگ پودر و نمک را به خمیر اضافه کنید و مخلوط کنید."
+      }
     },
     {
-      "sv": "Rulla bollar, doppa i socker och grädda 10–12 minuter tills precis fasta.",
-      "en": "Roll balls, dip in sugar and bake 10–12 minutes until just set."
+      "text": {
+        "sv": "Rulla bollar, doppa i socker och grädda 10–12 minuter tills precis fasta.",
+        "en": "Roll balls, dip in sugar and bake 10–12 minutes until just set.",
+        "fa": "گلوله‌هایی درست کنید، در شکر بغلتانید و به مدت 10–12 دقیقه بپزید تا کمی سفت شوند."
+      }
     },
     {
-      "sv": "Låt svalna på plåten. Se videon för detaljer.",
-      "en": "Cool on the tray. See the video for details."
+      "text": {
+        "sv": "Låt svalna på plåten. Se videon för detaljer.",
+        "en": "Cool on the tray. See the video for details.",
+        "fa": "روی سینی خنک کنید. برای جزئیات بیشتر ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Ta ut dem när mitten ser något underbakad ut.",
-    "en": "At-home version — follow the video above. Pull them when the centres look slightly underbaked."
+    "en": "At-home version — follow the video above. Pull them when the centres look slightly underbaked.",
+    "fa": "نسخه خانگی — ویدیو را در بالا دنبال کنید. زمانی که مرکز کوکی‌ها کمی نپخته به نظر می‌رسد، آن‌ها را بیرون بیاورید."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -133,7 +162,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",

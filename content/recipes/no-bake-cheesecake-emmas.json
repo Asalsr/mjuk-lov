@@ -2,11 +2,13 @@
   "slug": "no-bake-cheesecake-emmas",
   "title": {
     "sv": "No-bake cheesecake (5 ingredienser)",
-    "en": "5-ingredient no-bake cheesecake"
+    "en": "5-ingredient no-bake cheesecake",
+    "fa": "چیزکیک بدون پخت با ۵ ماده"
   },
   "headnote": {
     "sv": "Emmas minimalistiska cheesecake — bara fem ingredienser, ingen ugn, helt krämig. Se videon ovan.",
-    "en": "Emma's minimalist cheesecake — just five ingredients, no oven, perfectly creamy. Watch the video above."
+    "en": "Emma's minimalist cheesecake — just five ingredients, no oven, perfectly creamy. Watch the video above.",
+    "fa": "چیزکیک مینیمالیستی اما — فقط پنج ماده، بدون فر، کاملاً خامه‌ای. ویدیو را در بالا تماشا کنید."
   },
   "servings": 8,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 250
   },
   "youtubeId": "0d6j4-RxbwE",
+  "image": null,
   "inspiredBy": {
     "channel": "Emma's Goodies",
     "url": "https://www.youtube.com/watch?v=0d6j4-RxbwE"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "digestivekex, smulade",
-        "en": "digestive biscuits, crushed"
+        "en": "digestive biscuits, crushed",
+        "fa": "بیسکویت دایجستیو، خرد شده"
       }
     },
     {
@@ -36,7 +40,8 @@
       },
       "item": {
         "sv": "smör, smält",
-        "en": "butter, melted"
+        "en": "butter, melted",
+        "fa": "کره، ذوب شده"
       },
       "densityKey": "butter"
     },
@@ -47,7 +52,8 @@
       },
       "item": {
         "sv": "färskost",
-        "en": "cream cheese"
+        "en": "cream cheese",
+        "fa": "پنیر خامه‌ای"
       },
       "densityKey": "creamCheese"
     },
@@ -58,7 +64,8 @@
       },
       "item": {
         "sv": "vispgrädde",
-        "en": "double cream"
+        "en": "double cream",
+        "fa": "خامه دو برابر"
       },
       "densityKey": "cream"
     },
@@ -69,36 +76,53 @@
       },
       "item": {
         "sv": "florsocker",
-        "en": "icing sugar"
+        "en": "icing sugar",
+        "fa": "شکر قنادی"
       },
       "densityKey": "powderedSugar"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Blanda kexsmulor och smält smör, tryck ut i en form och ställ kallt.",
-      "en": "Mix the biscuit crumbs and melted butter, press into a tin and chill."
+      "text": {
+        "sv": "Blanda kexsmulor och smält smör, tryck ut i en form och ställ kallt.",
+        "en": "Mix the biscuit crumbs and melted butter, press into a tin and chill.",
+        "fa": "خرده‌های بیسکویت و کره ذوب شده را مخلوط کنید، در قالب فشار دهید و در یخچال بگذارید."
+      }
     },
     {
-      "sv": "Vispa färskost och florsocker slätt.",
-      "en": "Beat the cream cheese and icing sugar smooth."
+      "text": {
+        "sv": "Vispa färskost och florsocker slätt.",
+        "en": "Beat the cream cheese and icing sugar smooth.",
+        "fa": "پنیر خامه‌ای و شکر قنادی را به آرامی هم بزنید."
+      }
     },
     {
-      "sv": "Vispa grädden och vänd ner i ostkrämen.",
-      "en": "Whip the cream and fold into the cheese mixture."
+      "text": {
+        "sv": "Vispa grädden och vänd ner i ostkrämen.",
+        "en": "Whip the cream and fold into the cheese mixture.",
+        "fa": "خامه را زده و به مخلوط پنیر اضافه کنید."
+      }
     },
     {
-      "sv": "Bred över botten och ställ kallt minst 4 timmar. Se videon.",
-      "en": "Spread over the base and chill at least 4 hours. See the video."
+      "text": {
+        "sv": "Bred över botten och ställ kallt minst 4 timmar. Se videon.",
+        "en": "Spread over the base and chill at least 4 hours. See the video.",
+        "fa": "روی پایه پخش کنید و حداقل ۴ ساعت در یخچال بگذارید. ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Toppa med färska bär.",
-    "en": "At-home version — follow the video above. Top with fresh berries."
+    "en": "At-home version — follow the video above. Top with fresh berries.",
+    "fa": "نسخه خانگی — ویدیو را در بالا دنبال کنید. با توت‌های تازه تزئین کنید."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -106,7 +130,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, mjölk",
-      "en": "Contains: gluten, milk"
+      "en": "Contains: gluten, milk",
+      "fa": "شامل: گلوتن، شیر"
     },
     "needsReview": [
       "biscuit base assumed wheat-based; some digestives contain soy"

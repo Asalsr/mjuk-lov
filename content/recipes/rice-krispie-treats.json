@@ -2,11 +2,13 @@
   "slug": "rice-krispie-treats",
   "title": {
     "sv": "Riskrispiekakor",
-    "en": "Rice Krispie treats"
+    "en": "Rice Krispie treats",
+    "fa": "خوراکی‌های برنجی"
   },
   "headnote": {
     "sv": "Klibbiga marshmallowkakor med krispigt rispuff — ingen ugn, klara på minuter. Se videon ovan.",
-    "en": "Chewy marshmallow squares with crisp puffed rice — no oven, done in minutes. Watch the video above."
+    "en": "Chewy marshmallow squares with crisp puffed rice — no oven, done in minutes. Watch the video above.",
+    "fa": "مکعب‌های چسبناک مارشمالو با برنج پف‌کرده — بدون نیاز به فر، در چند دقیقه آماده می‌شود. ویدیو را در بالا تماشا کنید."
   },
   "servings": 12,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 40
   },
   "youtubeId": "Y0hBAyo187k",
+  "image": null,
   "inspiredBy": {
     "channel": "Tasty",
     "url": "https://www.youtube.com/watch?v=Y0hBAyo187k"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "smör",
-        "en": "butter"
+        "en": "butter",
+        "fa": "کره"
       },
       "densityKey": "butter"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "marshmallows",
-        "en": "marshmallows"
+        "en": "marshmallows",
+        "fa": "مارشمالو"
       }
     },
     {
@@ -47,40 +52,58 @@
       },
       "item": {
         "sv": "puffat ris (rispuff)",
-        "en": "puffed rice cereal"
+        "en": "puffed rice cereal",
+        "fa": "برنج پف‌کرده"
       }
     }
   ],
+  "oven": null,
   "diet": [],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Smält smöret i en stor kastrull på låg värme.",
-      "en": "Melt the butter in a large pan over low heat."
+      "text": {
+        "sv": "Smält smöret i en stor kastrull på låg värme.",
+        "en": "Melt the butter in a large pan over low heat.",
+        "fa": "کره را در یک تابه بزرگ روی حرارت کم ذوب کنید."
+      }
     },
     {
-      "sv": "Tillsätt marshmallows och rör tills helt smälta.",
-      "en": "Add the marshmallows and stir until fully melted."
+      "text": {
+        "sv": "Tillsätt marshmallows och rör tills helt smälta.",
+        "en": "Add the marshmallows and stir until fully melted.",
+        "fa": "مارشمالوها را اضافه کنید و هم بزنید تا کاملاً ذوب شوند."
+      }
     },
     {
-      "sv": "Rör snabbt ner det puffade riset tills allt täcks.",
-      "en": "Quickly stir in the puffed rice until coated."
+      "text": {
+        "sv": "Rör snabbt ner det puffade riset tills allt täcks.",
+        "en": "Quickly stir in the puffed rice until coated.",
+        "fa": "به سرعت برنج پف‌کرده را اضافه کنید و هم بزنید تا کاملاً پوشش داده شود."
+      }
     },
     {
-      "sv": "Tryck ut i en smord form och låt stelna 30 minuter, skär i rutor. Se videon.",
-      "en": "Press into a greased tin and let set 30 minutes, cut into squares. See the video."
+      "text": {
+        "sv": "Tryck ut i en smord form och låt stelna 30 minuter, skär i rutor. Se videon.",
+        "en": "Press into a greased tin and let set 30 minutes, cut into squares. See the video.",
+        "fa": "مخلوط را در یک قالب چرب شده فشار دهید و بگذارید 30 دقیقه بماند، سپس به مربع‌ها برش بزنید. ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Smörja händerna så går det lättare att trycka ut.",
-    "en": "At-home version — follow the video above. Grease your hands to press it down more easily."
+    "en": "At-home version — follow the video above. Grease your hands to press it down more easily.",
+    "fa": "نسخه خانگی — ویدیو را در بالا دنبال کنید. دستان خود را چرب کنید تا راحت‌تر فشار دهید."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "milk"
     ],
     "declaration": {
       "sv": "Innehåller: mjölk",
-      "en": "Contains: milk"
+      "en": "Contains: milk",
+      "fa": "شامل: شیر"
     },
     "needsReview": [
       "puffed rice cereal may contain barley malt (gluten) and the brand may vary; marshmallows contain gelatin (not vegetarian for some) — check the packet"

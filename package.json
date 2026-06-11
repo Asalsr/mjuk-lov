@@ -11,6 +11,7 @@
     "label": "tsx scripts/label.ts",
     "import": "tsx scripts/import.ts",
     "translate": "tsx scripts/translate.ts",
+    "translate-kits": "tsx scripts/translate-kits.ts",
     "resolve-videos": "tsx scripts/resolve-video-ids.ts",
     "structure-qty": "tsx scripts/structure-qty.ts",
     "kit-qr": "tsx scripts/kit-qr.ts",

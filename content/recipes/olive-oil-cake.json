@@ -2,11 +2,13 @@
   "slug": "olive-oil-cake",
   "title": {
     "sv": "Olivoljekaka",
-    "en": "Olive oil cake"
+    "en": "Olive oil cake",
+    "fa": "کیک روغن زیتون"
   },
   "headnote": {
     "sv": "Fuktig, doftande kaka där olivolja ger djup och saftighet. Förvånansvärt enkel. Se videon ovan för Chefs metod.",
-    "en": "A moist, fragrant cake where olive oil brings depth and tenderness. Surprisingly simple. Watch the video above for Chef John's method."
+    "en": "A moist, fragrant cake where olive oil brings depth and tenderness. Surprisingly simple. Watch the video above for Chef John's method.",
+    "fa": "یک کیک مرطوب و معطر که روغن زیتون عمق و نرمی خاصی به آن می‌بخشد. به طرز شگفت‌انگیزی ساده است. ویدیو بالا را برای روش سرآشپز جان مشاهده کنید."
   },
   "servings": 10,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 60
   },
   "youtubeId": "CaG0A0r6Iq4",
+  "image": null,
   "inspiredBy": {
     "channel": "Food Wishes",
     "url": "https://www.youtube.com/watch?v=CaG0A0r6Iq4"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ"
       }
     },
     {
@@ -36,7 +40,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ای"
       },
       "densityKey": "sugar"
     },
@@ -47,7 +52,8 @@
       },
       "item": {
         "sv": "olivolja",
-        "en": "olive oil"
+        "en": "olive oil",
+        "fa": "روغن زیتون"
       },
       "densityKey": "oil"
     },
@@ -58,7 +64,8 @@
       },
       "item": {
         "sv": "mjölk",
-        "en": "milk"
+        "en": "milk",
+        "fa": "شیر"
       },
       "densityKey": "flour"
     },
@@ -69,7 +76,8 @@
       },
       "item": {
         "sv": "apelsin, rivet skal + saft",
-        "en": "orange, zest + juice"
+        "en": "orange, zest + juice",
+        "fa": "پرتقال، پوست + آب"
       },
       "densityKey": "juice"
     },
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "bakpulver",
-        "en": "baking powder"
+        "en": "baking powder",
+        "fa": "بکینگ‌پودر"
       },
       "densityKey": "bakingPowder"
     },
@@ -102,40 +112,60 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 175°C och smörj en form (ca 23 cm).",
-      "en": "Heat the oven to 175°C and grease a tin (about 23 cm)."
+      "text": {
+        "sv": "Sätt ugnen på 175°C och smörj en form (ca 23 cm).",
+        "en": "Heat the oven to 175°C and grease a tin (about 23 cm).",
+        "fa": "فر را به دمای 175°C گرم کنید و یک قالب (حدود 23 سانتی‌متر) را چرب کنید."
+      }
     },
     {
-      "sv": "Vispa ägg och socker ljust, tillsätt olivolja, mjölk, skal och saft.",
-      "en": "Whisk the eggs and sugar pale, add the olive oil, milk, zest and juice."
+      "text": {
+        "sv": "Vispa ägg och socker ljust, tillsätt olivolja, mjölk, skal och saft.",
+        "en": "Whisk the eggs and sugar pale, add the olive oil, milk, zest and juice.",
+        "fa": "تخم‌مرغ‌ها و شکر را به رنگ روشن بزنید، سپس روغن زیتون، شیر، پوست و آب پرتقال را اضافه کنید."
+      }
     },
     {
-      "sv": "Vänd ner mjöl, bakpulver och salt till en slät smet.",
-      "en": "Fold in the flour, baking powder and salt to a smooth batter."
+      "text": {
+        "sv": "Vänd ner mjöl, bakpulver och salt till en slät smet.",
+        "en": "Fold in the flour, baking powder and salt to a smooth batter.",
+        "fa": "آرد، بکینگ‌پودر و نمک را به مخلوط اضافه کنید و هم بزنید تا یک خمیر صاف به دست آید."
+      }
     },
     {
-      "sv": "Häll i formen och grädda 40–45 minuter tills en sticka kommer ut ren.",
-      "en": "Pour into the tin and bake 40–45 minutes until a skewer comes out clean."
+      "text": {
+        "sv": "Häll i formen och grädda 40–45 minuter tills en sticka kommer ut ren.",
+        "en": "Pour into the tin and bake 40–45 minutes until a skewer comes out clean.",
+        "fa": "مخلوط را در قالب بریزید و به مدت 40–45 دقیقه بپزید تا خلال چوبی تمیز بیرون بیاید."
+      }
     },
     {
-      "sv": "Låt svalna. Se videon för detaljer.",
-      "en": "Let cool. See the video for details."
+      "text": {
+        "sv": "Låt svalna. Se videon för detaljer.",
+        "en": "Let cool. See the video for details.",
+        "fa": "بگذارید خنک شود. برای جزئیات بیشتر ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Använd en god, fruktig olivolja.",
-    "en": "At-home version — follow the video above. Use a good fruity olive oil."
+    "en": "At-home version — follow the video above. Use a good fruity olive oil.",
+    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. از روغن زیتون میوه‌ای و باکیفیت استفاده کنید."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -144,7 +174,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",

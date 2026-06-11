@@ -2,11 +2,13 @@
   "slug": "fluffy-pancakes",
   "title": {
     "sv": "Fluffiga amerikanska pannkakor",
-    "en": "Fluffy pancakes"
+    "en": "Fluffy pancakes",
+    "fa": "پنکیک های پفی"
   },
   "headnote": {
     "sv": "Höga, luftiga pannkakor med gyllene yta — perfekta till helgfrukosten. Se videon ovan för metoden.",
-    "en": "Tall, airy pancakes with a golden surface — perfect for the weekend breakfast. Watch the video above for the method."
+    "en": "Tall, airy pancakes with a golden surface — perfect for the weekend breakfast. Watch the video above for the method.",
+    "fa": "پنکیک های بلند و هوادار با سطح طلایی — مناسب برای صبحانه آخر هفته. ویدیو بالا را برای روش تهیه مشاهده کنید."
   },
   "servings": 4,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 25
   },
   "youtubeId": "tPLVNKgs8Lk",
+  "image": null,
   "inspiredBy": {
     "channel": "Food Wishes",
     "url": "https://www.youtube.com/watch?v=tPLVNKgs8Lk"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌کاره"
       },
       "densityKey": "flour"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه ریز"
       },
       "densityKey": "sugar"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "bakpulver",
-        "en": "baking powder"
+        "en": "baking powder",
+        "fa": "بکینگ پودر"
       },
       "densityKey": "bakingPowder"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     },
@@ -70,7 +77,8 @@
       },
       "item": {
         "sv": "mjölk",
-        "en": "milk"
+        "en": "milk",
+        "fa": "شیر"
       },
       "densityKey": "flour"
     },
@@ -81,7 +89,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "egg"
+        "en": "egg",
+        "fa": "تخم‌مرغ"
       }
     },
     {
@@ -91,40 +100,60 @@
       },
       "item": {
         "sv": "smör, smält",
-        "en": "butter, melted"
+        "en": "butter, melted",
+        "fa": "کره ذوب شده"
       },
       "densityKey": "butter"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Blanda mjöl, socker, bakpulver och salt.",
-      "en": "Whisk the flour, sugar, baking powder and salt."
+      "text": {
+        "sv": "Blanda mjöl, socker, bakpulver och salt.",
+        "en": "Whisk the flour, sugar, baking powder and salt.",
+        "fa": "آرد، شکر، بکینگ پودر و نمک را مخلوط کنید."
+      }
     },
     {
-      "sv": "Rör ihop mjölk, ägg och smält smör, vänd ner i det torra till en klumpig smet.",
-      "en": "Mix the milk, egg and melted butter, fold into the dry to a lumpy batter."
+      "text": {
+        "sv": "Rör ihop mjölk, ägg och smält smör, vänd ner i det torra till en klumpig smet.",
+        "en": "Mix the milk, egg and melted butter, fold into the dry to a lumpy batter.",
+        "fa": "شیر، تخم‌مرغ و کره ذوب شده را ترکیب کنید و به مخلوط خشک اضافه کنید تا خمیری با توده های کوچک به دست آید."
+      }
     },
     {
-      "sv": "Låt smeten vila 5 minuter.",
-      "en": "Let the batter rest 5 minutes."
+      "text": {
+        "sv": "Låt smeten vila 5 minuter.",
+        "en": "Let the batter rest 5 minutes.",
+        "fa": "اجازه دهید خمیر به مدت 5 دقیقه استراحت کند."
+      }
     },
     {
-      "sv": "Stek i smörad panna på medelvärme tills bubblor bildas, vänd och stek klart.",
-      "en": "Cook in a buttered pan over medium heat until bubbles form, flip and finish."
+      "text": {
+        "sv": "Stek i smörad panna på medelvärme tills bubblor bildas, vänd och stek klart.",
+        "en": "Cook in a buttered pan over medium heat until bubbles form, flip and finish.",
+        "fa": "در یک تابه چرب روی حرارت متوسط بپزید تا حباب ها تشکیل شوند، سپس برگردانید و بپزید."
+      }
     },
     {
-      "sv": "Servera direkt. Se videon för tips.",
-      "en": "Serve right away. See the video for tips."
+      "text": {
+        "sv": "Servera direkt. Se videon för tips.",
+        "en": "Serve right away. See the video for tips.",
+        "fa": "بلافاصله سرو کنید. برای نکات بیشتر ویدیو را مشاهده کنید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Rör inte smeten slät — klumpar ger fluffigare pannkakor.",
-    "en": "At-home version — follow the video above. Don't overmix — lumps make fluffier pancakes."
+    "en": "At-home version — follow the video above. Don't overmix — lumps make fluffier pancakes.",
+    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. بیش از حد هم نزنید — توده ها پنکیک های پفی تری ایجاد می کنند."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -133,7 +162,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",

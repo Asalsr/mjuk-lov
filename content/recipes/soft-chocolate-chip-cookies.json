@@ -2,11 +2,13 @@
   "slug": "soft-chocolate-chip-cookies",
   "title": {
     "sv": "Mjuka chokladkakor",
-    "en": "Soft chocolate chip cookies"
+    "en": "Soft chocolate chip cookies",
+    "fa": "کوکی‌های نرم شکلاتی"
   },
   "headnote": {
     "sv": "Extra mjuka, tjocka chokladkakor som håller sig sega i dagar. Se videon ovan för Bincys metod.",
-    "en": "Extra soft, thick chocolate chip cookies that stay chewy for days. Watch the video above for Bincy's method."
+    "en": "Extra soft, thick chocolate chip cookies that stay chewy for days. Watch the video above for Bincy's method.",
+    "fa": "کوکی‌های شکلاتی فوق‌العاده نرم و ضخیم که برای روزها حالت چسبندگی خود را حفظ می‌کنند. ویدیو بالا را برای روش بینسی مشاهده کنید."
   },
   "servings": 18,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 30
   },
   "youtubeId": "uweI34rjj5E",
+  "image": null,
   "inspiredBy": {
     "channel": "Bincy Chris",
     "url": "https://merryboosters.com/soft-chocolate-chip-cookies/"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "smör, smält",
-        "en": "butter, melted"
+        "en": "butter, melted",
+        "fa": "کره، ذوب شده"
       },
       "densityKey": "butter"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "farinsocker",
-        "en": "brown sugar"
+        "en": "brown sugar",
+        "fa": "شکر قهوه‌ای"
       },
       "densityKey": "brownSugar"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ای"
       },
       "densityKey": "sugar"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "egg"
+        "en": "egg",
+        "fa": "تخم‌مرغ"
       }
     },
     {
@@ -69,7 +76,8 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     },
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "bikarbonat",
-        "en": "baking soda"
+        "en": "baking soda",
+        "fa": "جوش شیرین"
       },
       "densityKey": "bakingSoda"
     },
@@ -102,7 +112,8 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     },
@@ -113,40 +124,60 @@
       },
       "item": {
         "sv": "chokladbitar",
-        "en": "chocolate chips"
+        "en": "chocolate chips",
+        "fa": "چیپس شکلاتی"
       },
       "densityKey": "chocolateChips"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Rör ihop smält smör med sockerarterna, sedan ägg och vanilj.",
-      "en": "Mix the melted butter with the sugars, then the egg and vanilla."
+      "text": {
+        "sv": "Rör ihop smält smör med sockerarterna, sedan ägg och vanilj.",
+        "en": "Mix the melted butter with the sugars, then the egg and vanilla.",
+        "fa": "کره ذوب شده را با شکرها مخلوط کنید، سپس تخم‌مرغ و وانیل را اضافه کنید."
+      }
     },
     {
-      "sv": "Vänd ner mjöl, bikarbonat och salt, sedan chokladbitarna.",
-      "en": "Fold in the flour, baking soda and salt, then the chocolate chips."
+      "text": {
+        "sv": "Vänd ner mjöl, bikarbonat och salt, sedan chokladbitarna.",
+        "en": "Fold in the flour, baking soda and salt, then the chocolate chips.",
+        "fa": "آرد، جوش شیرین و نمک را به مخلوط اضافه کنید، سپس چیپس‌های شکلاتی را بیفزایید."
+      }
     },
     {
-      "sv": "Klicka ut bollar på plåt med bakplåtspapper.",
-      "en": "Scoop balls onto a lined tray."
+      "text": {
+        "sv": "Klicka ut bollar på plåt med bakplåtspapper.",
+        "en": "Scoop balls onto a lined tray.",
+        "fa": "گلوله‌هایی از خمیر را روی سینی پوشش‌دار قرار دهید."
+      }
     },
     {
-      "sv": "Grädda 175°C i 9–11 minuter tills kanterna precis fått färg.",
-      "en": "Bake at 175°C for 9–11 minutes until the edges are just coloured."
+      "text": {
+        "sv": "Grädda 175°C i 9–11 minuter tills kanterna precis fått färg.",
+        "en": "Bake at 175°C for 9–11 minutes until the edges are just coloured.",
+        "fa": "در دمای 175°C به مدت 9–11 دقیقه بپزید تا لبه‌ها کمی رنگ بگیرند."
+      }
     },
     {
-      "sv": "Låt svalna på plåten. Se videon för tips.",
-      "en": "Cool on the tray. See the video for tips."
+      "text": {
+        "sv": "Låt svalna på plåten. Se videon för tips.",
+        "en": "Cool on the tray. See the video for tips.",
+        "fa": "در سینی خنک کنید. برای نکات بیشتر ویدیو را مشاهده کنید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Ta ut dem tidigt — de stelnar på plåten.",
-    "en": "At-home version — follow the video above. Pull them early — they firm up on the tray."
+    "en": "At-home version — follow the video above. Pull them early — they firm up on the tray.",
+    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. آن‌ها را زودتر از فر خارج کنید — در سینی سفت می‌شوند."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -155,7 +186,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [
       "chokladbitar / chocolate chips may contain soy and milk traces"

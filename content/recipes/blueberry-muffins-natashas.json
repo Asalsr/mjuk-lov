@@ -2,11 +2,13 @@
   "slug": "blueberry-muffins-natashas",
   "title": {
     "sv": "Blåbärsmuffins",
-    "en": "Blueberry muffins"
+    "en": "Blueberry muffins",
+    "fa": "مافین بلوبری"
   },
   "headnote": {
     "sv": "Mjuka, smöriga muffins med massor av blåbär och en gyllene topp. Se videon ovan för Natashas metod.",
-    "en": "Soft, buttery muffins loaded with blueberries and a golden top. Watch the video above for Natasha's method."
+    "en": "Soft, buttery muffins loaded with blueberries and a golden top. Watch the video above for Natasha's method.",
+    "fa": "مافین‌های نرم و کره‌ای که با بلوبری پر شده و رویه‌ای طلایی دارند. ویدیو بالا را برای روش ناتاشا مشاهده کنید."
   },
   "servings": 12,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 40
   },
   "youtubeId": "DWqmTGSJiEg",
+  "image": null,
   "inspiredBy": {
     "channel": "Natasha's Kitchen",
     "url": "https://natashaskitchen.com/blueberry-muffins-recipe/"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "bakpulver",
-        "en": "baking powder"
+        "en": "baking powder",
+        "fa": "بیکینگ پودر"
       },
       "densityKey": "bakingPowder"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "smör, rumsvarmt",
-        "en": "butter, softened"
+        "en": "butter, softened",
+        "fa": "کره، نرم شده"
       },
       "densityKey": "butter"
     },
@@ -70,7 +77,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ریز"
       },
       "densityKey": "sugar"
     },
@@ -81,7 +89,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ"
       }
     },
     {
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "mjölk",
-        "en": "milk"
+        "en": "milk",
+        "fa": "شیر"
       },
       "densityKey": "flour"
     },
@@ -102,7 +112,8 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     },
@@ -113,39 +124,59 @@
       },
       "item": {
         "sv": "blåbär",
-        "en": "blueberries"
+        "en": "blueberries",
+        "fa": "بلوبری"
       }
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 190°C och klä en muffinsform med 12 papperformar.",
-      "en": "Heat the oven to 190°C and line a muffin tin with 12 paper cases."
+      "text": {
+        "sv": "Sätt ugnen på 190°C och klä en muffinsform med 12 papperformar.",
+        "en": "Heat the oven to 190°C and line a muffin tin with 12 paper cases.",
+        "fa": "فر را به دمای 190°C گرم کنید و قالب مافین را با 12 کاغذ مخصوص بپوشانید."
+      }
     },
     {
-      "sv": "Vispa smör och socker pösigt, tillsätt ägg och vanilj.",
-      "en": "Beat the butter and sugar fluffy, add the eggs and vanilla."
+      "text": {
+        "sv": "Vispa smör och socker pösigt, tillsätt ägg och vanilj.",
+        "en": "Beat the butter and sugar fluffy, add the eggs and vanilla.",
+        "fa": "کره و شکر را خوب بزنید تا پف کند، سپس تخم‌مرغ‌ها و وانیل را اضافه کنید."
+      }
     },
     {
-      "sv": "Vänd ner mjöl, bakpulver och salt växelvis med mjölken.",
-      "en": "Fold in the flour, baking powder and salt alternately with the milk."
+      "text": {
+        "sv": "Vänd ner mjöl, bakpulver och salt växelvis med mjölken.",
+        "en": "Fold in the flour, baking powder and salt alternately with the milk.",
+        "fa": "آرد، بیکینگ پودر و نمک را به تدریج با شیر مخلوط کنید."
+      }
     },
     {
-      "sv": "Vänd försiktigt i blåbären och fyll formarna.",
-      "en": "Gently fold in the blueberries and fill the cases."
+      "text": {
+        "sv": "Vänd försiktigt i blåbären och fyll formarna.",
+        "en": "Gently fold in the blueberries and fill the cases.",
+        "fa": "به آرامی بلوبری‌ها را اضافه کرده و قالب‌ها را پر کنید."
+      }
     },
     {
-      "sv": "Grädda 18–22 minuter tills gyllene. Se videon för tips.",
-      "en": "Bake 18–22 minutes until golden. See the video for tips."
+      "text": {
+        "sv": "Grädda 18–22 minuter tills gyllene. Se videon för tips.",
+        "en": "Bake 18–22 minutes until golden. See the video for tips.",
+        "fa": "به مدت 18–22 دقیقه بپزید تا طلایی شوند. برای نکات، ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Vänd blåbären i lite mjöl så sjunker de inte.",
-    "en": "At-home version — follow the video above. Toss the blueberries in a little flour so they don't sink."
+    "en": "At-home version — follow the video above. Toss the blueberries in a little flour so they don't sink.",
+    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. بلوبری‌ها را در کمی آرد بغلتانید تا ته نروند."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -154,7 +185,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",

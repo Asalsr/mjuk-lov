@@ -2,11 +2,13 @@
   "slug": "bakery-style-blueberry-muffins",
   "title": {
     "sv": "Blåbärsmuffins i bageristil",
-    "en": "Bakery-style blueberry muffins"
+    "en": "Bakery-style blueberry muffins",
+    "fa": "مافین بلوبری به سبک نانوایی"
   },
   "headnote": {
     "sv": "Höga, gyllene muffinstoppar fulla av saftiga blåbär. Se videon ovan för Sallys metod.",
-    "en": "Tall, golden domed tops packed with juicy blueberries. Watch the video above for Sally's method."
+    "en": "Tall, golden domed tops packed with juicy blueberries. Watch the video above for Sally's method.",
+    "fa": "سقف‌های بلند و طلایی که با بلوبری‌های آبدار پر شده‌اند. ویدیو بالا را برای روش سالی تماشا کنید."
   },
   "servings": 12,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 45
   },
   "youtubeId": "kyLQc6WgAB4",
+  "image": null,
   "inspiredBy": {
     "channel": "Sally's Baking Recipes",
     "url": "https://sallysbakingaddiction.com/blueberry-muffins/"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "bakpulver",
-        "en": "baking powder"
+        "en": "baking powder",
+        "fa": "بیکینگ پودر"
       },
       "densityKey": "bakingPowder"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "smör, smält",
-        "en": "butter, melted"
+        "en": "butter, melted",
+        "fa": "کره ذوب شده"
       },
       "densityKey": "butter"
     },
@@ -70,7 +77,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ای"
       },
       "densityKey": "sugar"
     },
@@ -81,7 +89,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ‌ها"
       }
     },
     {
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "mjölk",
-        "en": "milk"
+        "en": "milk",
+        "fa": "شیر"
       },
       "densityKey": "flour"
     },
@@ -102,7 +112,8 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     },
@@ -113,39 +124,59 @@
       },
       "item": {
         "sv": "blåbär",
-        "en": "blueberries"
+        "en": "blueberries",
+        "fa": "بلوبری"
       }
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 215°C och klä en muffinsform med 12 papperformar.",
-      "en": "Heat the oven to 215°C and line a muffin tin with 12 paper cases."
+      "text": {
+        "sv": "Sätt ugnen på 215°C och klä en muffinsform med 12 papperformar.",
+        "en": "Heat the oven to 215°C and line a muffin tin with 12 paper cases.",
+        "fa": "فر را به 215°C گرم کنید و یک قالب مافین با 12 کپسول کاغذی آماده کنید."
+      }
     },
     {
-      "sv": "Blanda mjöl, bakpulver och salt i en skål.",
-      "en": "Whisk the flour, baking powder and salt in a bowl."
+      "text": {
+        "sv": "Blanda mjöl, bakpulver och salt i en skål.",
+        "en": "Whisk the flour, baking powder and salt in a bowl.",
+        "fa": "آرد، بیکینگ پودر و نمک را در یک کاسه مخلوط کنید."
+      }
     },
     {
-      "sv": "Rör ihop smält smör, socker, ägg, mjölk och vanilj separat.",
-      "en": "Stir the melted butter, sugar, eggs, milk and vanilla together separately."
+      "text": {
+        "sv": "Rör ihop smält smör, socker, ägg, mjölk och vanilj separat.",
+        "en": "Stir the melted butter, sugar, eggs, milk and vanilla together separately.",
+        "fa": "کره ذوب شده، شکر، تخم‌مرغ‌ها، شیر و وانیل را جداگانه هم بزنید."
+      }
     },
     {
-      "sv": "Vänd ihop blött och torrt precis tills det går samman, vänd sedan i blåbären.",
-      "en": "Fold wet into dry just until combined, then fold in the blueberries."
+      "text": {
+        "sv": "Vänd ihop blött och torrt precis tills det går samman, vänd sedan i blåbären.",
+        "en": "Fold wet into dry just until combined, then fold in the blueberries.",
+        "fa": "مواد تر را به مواد خشک اضافه کنید و فقط تا زمانی که ترکیب شوند هم بزنید، سپس بلوبری‌ها را اضافه کنید."
+      }
     },
     {
-      "sv": "Fyll formarna helt. Grädda 5 min på 215°C, sänk till 190°C och grädda 15–18 min till. Se videon.",
-      "en": "Fill the cases full. Bake 5 min at 215°C, drop to 190°C and bake 15–18 min more. See the video."
+      "text": {
+        "sv": "Fyll formarna helt. Grädda 5 min på 215°C, sänk till 190°C och grädda 15–18 min till. Se videon.",
+        "en": "Fill the cases full. Bake 5 min at 215°C, drop to 190°C and bake 15–18 min more. See the video.",
+        "fa": "کپسول‌ها را پر کنید. به مدت 5 دقیقه در 215°C بپزید، سپس دما را به 190°C کاهش دهید و 15–18 دقیقه دیگر بپزید. ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan för exakt metod. Den höga starttemperaturen ger de höga topparna.",
-    "en": "At-home version — follow the video above for the exact method. The high starting heat gives the tall domes."
+    "en": "At-home version — follow the video above for the exact method. The high starting heat gives the tall domes.",
+    "fa": "نسخه خانگی — برای روش دقیق، ویدیو بالا را دنبال کنید. حرارت بالا در ابتدای کار باعث ایجاد سقف‌های بلند می‌شود."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -154,7 +185,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",

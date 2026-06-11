@@ -2,11 +2,13 @@
   "slug": "peanut-butter-brownies",
   "title": {
     "sv": "Jordnötssmörbrownies",
-    "en": "Peanut butter brownies"
+    "en": "Peanut butter brownies",
+    "fa": "براونی کره بادام زمینی"
   },
   "headnote": {
     "sv": "Kladdiga chokladbrownies marmorerade med söt jordnötssmörsvirvel. Se videon ovan för metoden.",
-    "en": "Fudgy chocolate brownies marbled with a sweet peanut butter swirl. Watch the video above for the method."
+    "en": "Fudgy chocolate brownies marbled with a sweet peanut butter swirl. Watch the video above for the method.",
+    "fa": "براونی‌های شکلاتی نرم که با یک لایه کره بادام زمینی شیرین ترکیب شده‌اند. برای روش تهیه، ویدیو بالا را تماشا کنید."
   },
   "servings": 16,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 50
   },
   "youtubeId": "3mhFeInBbUI",
+  "image": null,
   "inspiredBy": {
     "channel": "Preppy Kitchen",
     "url": "https://preppykitchen.com/peanut-butter-brownies/"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "smör",
-        "en": "butter"
+        "en": "butter",
+        "fa": "کره"
       },
       "densityKey": "butter"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "mörk choklad",
-        "en": "dark chocolate"
+        "en": "dark chocolate",
+        "fa": "شکلات تلخ"
       },
       "densityKey": "chocolate"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ای"
       },
       "densityKey": "sugar"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ"
       }
     },
     {
@@ -69,7 +76,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "kakao",
-        "en": "cocoa powder"
+        "en": "cocoa powder",
+        "fa": "پودر کاکائو"
       },
       "densityKey": "cocoa"
     },
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     },
@@ -102,40 +112,60 @@
       },
       "item": {
         "sv": "jordnötssmör",
-        "en": "peanut butter"
+        "en": "peanut butter",
+        "fa": "کره بادام زمینی"
       },
       "densityKey": "peanutButter"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 175°C och klä en form (ca 20×20 cm) med bakplåtspapper.",
-      "en": "Heat the oven to 175°C and line a tin (about 20×20 cm) with baking paper."
+      "text": {
+        "sv": "Sätt ugnen på 175°C och klä en form (ca 20×20 cm) med bakplåtspapper.",
+        "en": "Heat the oven to 175°C and line a tin (about 20×20 cm) with baking paper.",
+        "fa": "فر را به دمای 175°C گرم کنید و یک قالب (حدود 20×20 سانتی‌متر) را با کاغذ روغنی بپوشانید."
+      }
     },
     {
-      "sv": "Smält smör och choklad, rör ner socker, sedan ägg ett i taget.",
-      "en": "Melt the butter and chocolate, stir in the sugar, then the eggs one at a time."
+      "text": {
+        "sv": "Smält smör och choklad, rör ner socker, sedan ägg ett i taget.",
+        "en": "Melt the butter and chocolate, stir in the sugar, then the eggs one at a time.",
+        "fa": "کره و شکلات را ذوب کنید، سپس شکر را اضافه کنید و بعد تخم‌مرغ‌ها را یکی یکی اضافه کنید."
+      }
     },
     {
-      "sv": "Vänd ner mjöl, kakao och salt. Häll i formen.",
-      "en": "Fold in the flour, cocoa and salt. Pour into the tin."
+      "text": {
+        "sv": "Vänd ner mjöl, kakao och salt. Häll i formen.",
+        "en": "Fold in the flour, cocoa and salt. Pour into the tin.",
+        "fa": "آرد، پودر کاکائو و نمک را اضافه کنید. مخلوط را در قالب بریزید."
+      }
     },
     {
-      "sv": "Klicka ut jordnötssmör över ytan och dra en kniv genom för en marmorering.",
-      "en": "Dollop the peanut butter over the top and swirl through with a knife."
+      "text": {
+        "sv": "Klicka ut jordnötssmör över ytan och dra en kniv genom för en marmorering.",
+        "en": "Dollop the peanut butter over the top and swirl through with a knife.",
+        "fa": "کره بادام زمینی را روی مخلوط بریزید و با چاقو به آرامی مخلوط کنید."
+      }
     },
     {
-      "sv": "Grädda 25–30 minuter. Låt svalna helt innan du skär. Se videon för tips.",
-      "en": "Bake 25–30 minutes. Cool completely before cutting. See the video for tips."
+      "text": {
+        "sv": "Grädda 25–30 minuter. Låt svalna helt innan du skär. Se videon för tips.",
+        "en": "Bake 25–30 minutes. Cool completely before cutting. See the video for tips.",
+        "fa": "به مدت 25–30 دقیقه بپزید. قبل از برش، کاملاً خنک کنید. برای نکات بیشتر ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan för exakt metod. Värm jordnötssmöret något så blir virveln lättare att dra.",
-    "en": "At-home version — follow the video above for the exact method. Warm the peanut butter slightly so it swirls more easily."
+    "en": "At-home version — follow the video above for the exact method. Warm the peanut butter slightly so it swirls more easily.",
+    "fa": "نسخه خانگی — برای روش دقیق، ویدیو بالا را دنبال کنید. کمی کره بادام زمینی را گرم کنید تا راحت‌تر مخلوط شود."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -145,7 +175,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk, jordnötter",
-      "en": "Contains: gluten, egg, milk, peanuts"
+      "en": "Contains: gluten, egg, milk, peanuts",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر، بادام زمینی"
     },
     "needsReview": [
       "mörk choklad / dark chocolate may carry soy and nut traces"

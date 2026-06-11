@@ -10,6 +10,14 @@ export function isLang(x: string): x is Lang {
   return x === "sv" || x === "en" || x === "fa";
 }
 
+const FA_DIGITS = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"] as const;
+/** Render Latin digits 0–9 as Persian digits ۰–۹ (native convention per CLDR). */
+export const faDigits = (v: string | number): string =>
+  String(v).replace(/[0-9]/g, (d) => FA_DIGITS[Number(d)]);
+/** Localize digits for a locale: Persian numerals for `fa`, unchanged otherwise. */
+export const locNum = (v: string | number, lang: Lang): string =>
+  lang === "fa" ? faDigits(v) : String(v);
+
 /** UI strings for the recipe section. Recipe *content* lives in the JSON files;
  *  this is only the surrounding chrome. */
 export const ui = {
@@ -408,8 +416,8 @@ export const ui = {
     tips: "نکات",
     notes: "یادداشت‌ها",
     allergens: "آلرژن‌ها",
-    servings: (n: number) => `${n} نفر`,
-    minutes: (n: number) => `${n} دقیقه`,
+    servings: (n: number) => `${faDigits(n)} نفر`,
+    minutes: (n: number) => `${faDigits(n)} دقیقه`,
     empty: "هنوز دستوری نیست — به‌زودی.",
     crossContamination: "در آشپزخانه‌ای تهیه شده که با آجیل، شیر، تخم‌مرغ و گلوتن کار می‌کند.",
     checkPackaging: "آلرژی دارید؟ همیشه برچسب بسته‌بندی محصولاتی که استفاده می‌کنید را بررسی کنید — برچسب‌ها بین برندها متفاوت‌اند.",
@@ -419,14 +427,14 @@ export const ui = {
     notePlaceholder: "یادداشت خود را بنویسید…",
     madeIt: "این را درست کردم",
     madeDone: "درست شد ✓",
-    madeCount: (n: number) => `${n} بار درست شده`,
+    madeCount: (n: number) => `${faDigits(n)} بار درست شده`,
     yourPreferences: "ترجیحات شما",
     avoidAllergens: "پرهیز از آلرژن‌ها",
     diet: "رژیم غذایی",
     vegan: "وگان",
     vegetarian: "گیاهی",
     clearFilters: "پاک کردن فیلترها",
-    hiddenByFilter: (n: number) => `${n} دستور با فیلترهای شما پنهان شده`,
+    hiddenByFilter: (n: number) => `${faDigits(n)} دستور با فیلترهای شما پنهان شده`,
     savedOnDevice: "فقط روی این دستگاه ذخیره می‌شود.",
     exportData: "دریافت داده‌های من",
     importData: "وارد کردن",
@@ -446,7 +454,7 @@ export const ui = {
     aiDisclaimer: "پیشنهاد هوش مصنوعی — قبل از پخت بررسی کنید.",
     aiMemoryHeading: "حافظه هوش مصنوعی",
     aiMemoryConsent: "اجازه بده دستیار گفتگوهای ما را بین دستگاه‌ها به خاطر بسپارد تا پاسخ‌های شخصی‌تری بدهد. تا وقتی پاکش کنی روی حساب شما ذخیره می‌ماند.",
-    aiMemoryCount: (n: number) => `${n} پیام ذخیره‌شده`,
+    aiMemoryCount: (n: number) => `${faDigits(n)} پیام ذخیره‌شده`,
     clearAiMemory: "پاک کردن حافظه هوش مصنوعی",
     aiMemoryCleared: "حافظه هوش مصنوعی پاک شد.",
     accountDataHeading: "حساب و داده‌ها",
@@ -461,8 +469,8 @@ export const ui = {
     marketingConsent: "بله، می‌خواهم پیشنهادها و خبرنامه Mjuk Lov را از طریق ایمیل دریافت کنم.",
     offerReasonReturning: "ممنون که با ما می‌پزید.",
     offerReasonFirstKit: "برای اولین کیت کیک شما.",
-    offerPercentOff: (n: number) => `${n}٪ تخفیف`,
-    offerFixedOff: (kr: number) => `${kr} کرون تخفیف`,
+    offerPercentOff: (n: number) => `${faDigits(n)}٪ تخفیف`,
+    offerFixedOff: (kr: number) => `${faDigits(kr)} کرون تخفیف`,
     discountCode: "کد تخفیف (اختیاری)",
     invalidCode: "کد نامعتبر یا منقضی‌شده.",
     logIn: "ورود",

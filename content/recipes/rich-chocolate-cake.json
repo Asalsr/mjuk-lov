@@ -2,11 +2,13 @@
   "slug": "rich-chocolate-cake",
   "title": {
     "sv": "Mäktig chokladtårta",
-    "en": "Rich chocolate cake"
+    "en": "Rich chocolate cake",
+    "fa": "کیک شکلاتی غنی"
   },
   "headnote": {
     "sv": "Saftig, djupt chokladig tårta med len chokladfrosting. Se videon ovan för Anns metod.",
-    "en": "A moist, deeply chocolatey cake with a smooth chocolate frosting. Watch the video above for Ann's method."
+    "en": "A moist, deeply chocolatey cake with a smooth chocolate frosting. Watch the video above for Ann's method.",
+    "fa": "یک کیک مرطوب و عمیقاً شکلاتی با یک پوشش شکلاتی نرم. ویدیو بالا را برای روش آن ببینید."
   },
   "servings": 12,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 75
   },
   "youtubeId": "W_l9Xk_2IQQ",
+  "image": null,
   "inspiredBy": {
     "channel": "How To Cook That",
     "url": "https://www.howtocookthat.net/public_html/chocolate-cake-recipe/"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "kakao",
-        "en": "cocoa powder"
+        "en": "cocoa powder",
+        "fa": "پودر کاکائو"
       },
       "densityKey": "cocoa"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ریز"
       },
       "densityKey": "sugar"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "bakpulver",
-        "en": "baking powder"
+        "en": "baking powder",
+        "fa": "بکینگ پودر"
       },
       "densityKey": "bakingPowder"
     },
@@ -70,7 +77,8 @@
       },
       "item": {
         "sv": "bikarbonat",
-        "en": "baking soda"
+        "en": "baking soda",
+        "fa": "جوش شیرین"
       },
       "densityKey": "bakingSoda"
     },
@@ -81,7 +89,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ‌ها"
       }
     },
     {
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "mjölk",
-        "en": "milk"
+        "en": "milk",
+        "fa": "شیر"
       },
       "densityKey": "flour"
     },
@@ -102,7 +112,8 @@
       },
       "item": {
         "sv": "neutral olja",
-        "en": "neutral oil"
+        "en": "neutral oil",
+        "fa": "روغن خنثی"
       },
       "densityKey": "oil"
     },
@@ -113,40 +124,60 @@
       },
       "item": {
         "sv": "mörk choklad (frosting)",
-        "en": "dark chocolate (frosting)"
+        "en": "dark chocolate (frosting)",
+        "fa": "شکلات تلخ (پوشش)"
       },
       "densityKey": "chocolate"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 175°C och smörj två runda formar.",
-      "en": "Heat the oven to 175°C and grease two round tins."
+      "text": {
+        "sv": "Sätt ugnen på 175°C och smörj två runda formar.",
+        "en": "Heat the oven to 175°C and grease two round tins.",
+        "fa": "فر را به دمای 175°C گرم کنید و دو قالب گرد را چرب کنید."
+      }
     },
     {
-      "sv": "Blanda mjöl, kakao, socker, bakpulver och bikarbonat.",
-      "en": "Whisk the flour, cocoa, sugar, baking powder and baking soda."
+      "text": {
+        "sv": "Blanda mjöl, kakao, socker, bakpulver och bikarbonat.",
+        "en": "Whisk the flour, cocoa, sugar, baking powder and baking soda.",
+        "fa": "آرد، پودر کاکائو، شکر، بکینگ پودر و جوش شیرین را مخلوط کنید."
+      }
     },
     {
-      "sv": "Tillsätt ägg, mjölk och olja och vispa slätt.",
-      "en": "Add the eggs, milk and oil and whisk smooth."
+      "text": {
+        "sv": "Tillsätt ägg, mjölk och olja och vispa slätt.",
+        "en": "Add the eggs, milk and oil and whisk smooth.",
+        "fa": "تخم‌مرغ‌ها، شیر و روغن را اضافه کرده و خوب هم بزنید."
+      }
     },
     {
-      "sv": "Fördela i formarna och grädda 28–32 minuter. Låt svalna helt.",
-      "en": "Divide between the tins and bake 28–32 minutes. Cool completely."
+      "text": {
+        "sv": "Fördela i formarna och grädda 28–32 minuter. Låt svalna helt.",
+        "en": "Divide between the tins and bake 28–32 minutes. Cool completely.",
+        "fa": "خمیر را بین قالب‌ها تقسیم کرده و به مدت 28–32 دقیقه بپزید. کاملاً خنک کنید."
+      }
     },
     {
-      "sv": "Smält chokladen till frosting, bred mellan och över. Se videon för dekor.",
-      "en": "Melt the chocolate for the frosting, spread between and over. See the video for decoration."
+      "text": {
+        "sv": "Smält chokladen till frosting, bred mellan och över. Se videon för dekor.",
+        "en": "Melt the chocolate for the frosting, spread between and over. See the video for decoration.",
+        "fa": "شکلات را برای پوشش ذوب کرده و بین و روی کیک بمالید. برای تزئین ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Hett kaffe i smeten fördjupar chokladsmaken.",
-    "en": "At-home version — follow the video above. Hot coffee in the batter deepens the chocolate flavour."
+    "en": "At-home version — follow the video above. Hot coffee in the batter deepens the chocolate flavour.",
+    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. قهوه داغ در خمیر طعم شکلات را عمیق‌تر می‌کند."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -155,7 +186,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [
       "mörk choklad / dark chocolate may carry soy and nut traces"

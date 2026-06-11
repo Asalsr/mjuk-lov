@@ -2,11 +2,13 @@
   "slug": "funfetti-cupcakes-scran-line",
   "title": {
     "sv": "Funfetti-cupcakes",
-    "en": "Funfetti cupcakes"
+    "en": "Funfetti cupcakes",
+    "fa": "کاپ کیک فانفتی"
   },
   "headnote": {
     "sv": "The Scran Lines festliga funfetti-cupcakes med hög smörkrämsvirvel och massor av strössel. Se videon ovan.",
-    "en": "The Scran Line's festive funfetti cupcakes with a tall buttercream swirl and lots of sprinkles. Watch the video above."
+    "en": "The Scran Line's festive funfetti cupcakes with a tall buttercream swirl and lots of sprinkles. Watch the video above.",
+    "fa": "کاپ کیک‌های جشنواره‌ای فانفتی از Mjuk Lov با خامه‌ی کره‌ای بلند و مقدار زیادی تزیینات رنگی. ویدیو را در بالا تماشا کنید."
   },
   "servings": 12,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 50
   },
   "youtubeId": "fSa_op-kR8U",
+  "image": null,
   "inspiredBy": {
     "channel": "The Scran Line",
     "url": "https://www.youtube.com/watch?v=fSa_op-kR8U"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "bakpulver",
-        "en": "baking powder"
+        "en": "baking powder",
+        "fa": "بکینگ پودر"
       },
       "densityKey": "bakingPowder"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "smör, rumsvarmt",
-        "en": "butter, softened"
+        "en": "butter, softened",
+        "fa": "کره، نرم شده"
       },
       "densityKey": "butter"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ای"
       },
       "densityKey": "sugar"
     },
@@ -70,7 +77,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ‌ها"
       }
     },
     {
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "mjölk",
-        "en": "milk"
+        "en": "milk",
+        "fa": "شیر"
       },
       "densityKey": "flour"
     },
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     },
@@ -102,7 +112,8 @@
       },
       "item": {
         "sv": "strössel",
-        "en": "sprinkles"
+        "en": "sprinkles",
+        "fa": "تزیینات رنگی"
       },
       "densityKey": "sprinkles"
     },
@@ -113,40 +124,60 @@
       },
       "item": {
         "sv": "smör + 400 g florsocker (smörkräm)",
-        "en": "butter + 400 g icing sugar (buttercream)"
+        "en": "butter + 400 g icing sugar (buttercream)",
+        "fa": "کره + 400 گرم شکر قنادی (خامه‌ی کره‌ای)"
       },
       "densityKey": "powderedSugar"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 175°C och klä en muffinsform med 12 papperformar.",
-      "en": "Heat the oven to 175°C and line a muffin tin with 12 paper cases."
+      "text": {
+        "sv": "Sätt ugnen på 175°C och klä en muffinsform med 12 papperformar.",
+        "en": "Heat the oven to 175°C and line a muffin tin with 12 paper cases.",
+        "fa": "فر را به دمای 175°C گرم کنید و یک قالب مافین را با 12 کاغذ مخصوص پر کنید."
+      }
     },
     {
-      "sv": "Vispa smör och socker pösigt, tillsätt ägg.",
-      "en": "Beat the butter and sugar fluffy, add the eggs."
+      "text": {
+        "sv": "Vispa smör och socker pösigt, tillsätt ägg.",
+        "en": "Beat the butter and sugar fluffy, add the eggs.",
+        "fa": "کره و شکر را به خوبی بزنید تا پف کند، سپس تخم‌مرغ‌ها را اضافه کنید."
+      }
     },
     {
-      "sv": "Vänd ner mjöl och bakpulver växelvis med mjölk och vanilj, vänd i strösslet sist.",
-      "en": "Fold in the flour and baking powder alternately with the milk and vanilla, fold in the sprinkles last."
+      "text": {
+        "sv": "Vänd ner mjöl och bakpulver växelvis med mjölk och vanilj, vänd i strösslet sist.",
+        "en": "Fold in the flour and baking powder alternately with the milk and vanilla, fold in the sprinkles last.",
+        "fa": "آرد و بکینگ پودر را به صورت متناوب با شیر و عصاره وانیل اضافه کنید و در آخر تزیینات را اضافه کنید."
+      }
     },
     {
-      "sv": "Fyll formarna och grädda 18–20 minuter. Låt svalna helt.",
-      "en": "Fill the cases and bake 18–20 minutes. Cool completely."
+      "text": {
+        "sv": "Fyll formarna och grädda 18–20 minuter. Låt svalna helt.",
+        "en": "Fill the cases and bake 18–20 minutes. Cool completely.",
+        "fa": "قالب‌ها را پر کنید و به مدت 18–20 دقیقه بپزید. کاملاً خنک کنید."
+      }
     },
     {
-      "sv": "Vispa smörkräm av smör och florsocker, spritsa högt och toppa med strössel. Se videon.",
-      "en": "Beat buttercream from butter and icing sugar, pipe tall and top with sprinkles. See the video."
+      "text": {
+        "sv": "Vispa smörkräm av smör och florsocker, spritsa högt och toppa med strössel. Se videon.",
+        "en": "Beat buttercream from butter and icing sugar, pipe tall and top with sprinkles. See the video.",
+        "fa": "خامه‌ی کره‌ای را از کره و شکر قنادی بزنید، با قیف به صورت بلند بزنید و با تزیینات رنگی تزئین کنید. ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Vänd ner strösslet sist så färgerna inte blöder.",
-    "en": "At-home version — follow the video above. Add sprinkles last so the colours don't bleed."
+    "en": "At-home version — follow the video above. Add sprinkles last so the colours don't bleed.",
+    "fa": "نسخه خانگی — ویدیو را در بالا دنبال کنید. تزیینات را در آخر اضافه کنید تا رنگ‌ها ترکیب نشوند."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -155,7 +186,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [
       "strössel / sprinkles may contain soy and traces depending on brand"

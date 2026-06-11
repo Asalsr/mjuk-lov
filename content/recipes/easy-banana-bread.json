@@ -2,11 +2,13 @@
   "slug": "easy-banana-bread",
   "title": {
     "sv": "Enkelt bananbröd",
-    "en": "Easy banana bread"
+    "en": "Easy banana bread",
+    "fa": "نان موز آسان"
   },
   "headnote": {
     "sv": "Saftigt, gyllene bananbröd av övermogna bananer — en skål, ingen elvisp, omöjligt att misslyckas. Se Natashas video ovan för hela metoden.",
-    "en": "Moist, golden banana bread from over-ripe bananas — one bowl, no mixer, hard to get wrong. Watch Natasha's video above for the full method."
+    "en": "Moist, golden banana bread from over-ripe bananas — one bowl, no mixer, hard to get wrong. Watch Natasha's video above for the full method.",
+    "fa": "نان موز مرطوب و طلایی از موزهای کاملاً رسیده — یک کاسه، بدون همزن، و سخت است که اشتباه کنید. ویدیو ناتاشا را در بالا برای روش کامل مشاهده کنید."
   },
   "servings": 10,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 75
   },
   "youtubeId": "qUmDpPfY_h0",
+  "image": null,
   "inspiredBy": {
     "channel": "Natasha's Kitchen",
     "url": "https://natashaskitchen.com/banana-bread-recipe-video/"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "mycket mogna bananer, mosade",
-        "en": "very ripe bananas, mashed"
+        "en": "very ripe bananas, mashed",
+        "fa": "موزهای بسیار رسیده، له شده"
       }
     },
     {
@@ -36,7 +40,8 @@
       },
       "item": {
         "sv": "smör, smält",
-        "en": "butter, melted"
+        "en": "butter, melted",
+        "fa": "کره، ذوب شده"
       },
       "densityKey": "butter"
     },
@@ -47,7 +52,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ای"
       },
       "densityKey": "sugar"
     },
@@ -58,7 +64,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ‌ها"
       }
     },
     {
@@ -68,7 +75,8 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     },
@@ -79,7 +87,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -90,7 +99,8 @@
       },
       "item": {
         "sv": "bikarbonat",
-        "en": "baking soda"
+        "en": "baking soda",
+        "fa": "جوش شیرین"
       },
       "densityKey": "bakingSoda"
     },
@@ -101,40 +111,60 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 175°C och smörj en avlång brödform (ca 23×13 cm).",
-      "en": "Heat the oven to 175°C and grease a loaf tin (about 23×13 cm)."
+      "text": {
+        "sv": "Sätt ugnen på 175°C och smörj en avlång brödform (ca 23×13 cm).",
+        "en": "Heat the oven to 175°C and grease a loaf tin (about 23×13 cm).",
+        "fa": "فر را به دمای 175°C گرم کنید و یک قالب نان (حدود 23×13 سانتی‌متر) را چرب کنید."
+      }
     },
     {
-      "sv": "Mosa bananerna i en skål. Rör ner smält smör, socker, ägg och vanilj.",
-      "en": "Mash the bananas in a bowl. Stir in the melted butter, sugar, eggs and vanilla."
+      "text": {
+        "sv": "Mosa bananerna i en skål. Rör ner smält smör, socker, ägg och vanilj.",
+        "en": "Mash the bananas in a bowl. Stir in the melted butter, sugar, eggs and vanilla.",
+        "fa": "موزها را در یک کاسه له کنید. کره ذوب شده، شکر، تخم‌مرغ و وانیل را اضافه کنید."
+      }
     },
     {
-      "sv": "Vänd ner mjöl, bikarbonat och salt — rör precis tills det går ihop, inte mer.",
-      "en": "Fold in the flour, baking soda and salt — stir just until combined, no more."
+      "text": {
+        "sv": "Vänd ner mjöl, bikarbonat och salt — rör precis tills det går ihop, inte mer.",
+        "en": "Fold in the flour, baking soda and salt — stir just until combined, no more.",
+        "fa": "آرد، جوش شیرین و نمک را اضافه کنید — فقط تا زمانی که ترکیب شوند هم بزنید، بیشتر نه."
+      }
     },
     {
-      "sv": "Häll i formen och grädda 55–65 minuter tills en sticka i mitten kommer ut ren.",
-      "en": "Pour into the tin and bake 55–65 minutes until a skewer in the centre comes out clean."
+      "text": {
+        "sv": "Häll i formen och grädda 55–65 minuter tills en sticka i mitten kommer ut ren.",
+        "en": "Pour into the tin and bake 55–65 minutes until a skewer in the centre comes out clean.",
+        "fa": "مخلوط را در قالب بریزید و به مدت 55–65 دقیقه بپزید تا خلال دندان در مرکز تمیز بیرون بیاید."
+      }
     },
     {
-      "sv": "Låt svalna i formen 10 minuter, lyft sedan ut. Se videon för tips och variationer.",
-      "en": "Cool in the tin 10 minutes, then lift out. See the video for tips and variations."
+      "text": {
+        "sv": "Låt svalna i formen 10 minuter, lyft sedan ut. Se videon för tips och variationer.",
+        "en": "Cool in the tin 10 minutes, then lift out. See the video for tips and variations.",
+        "fa": "به مدت 10 دقیقه در قالب خنک کنید، سپس آن را خارج کنید. برای نکات و تنوع‌ها ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Det här är en hemlagad version — följ videon ovan för Natashas exakta metod. Vill du ha valnötter? Vänd ner en näve — då tillkommer allergenet nötter.",
-    "en": "This is an at-home version — follow the video above for Natasha's exact method. Want walnuts? Fold in a handful — note that this adds the nuts allergen."
+    "en": "This is an at-home version — follow the video above for Natasha's exact method. Want walnuts? Fold in a handful — note that this adds the nuts allergen.",
+    "fa": "این نسخه خانگی است — برای روش دقیق ناتاشا ویدیو بالا را دنبال کنید. آیا گردو می‌خواهید؟ یک مشت اضافه کنید — توجه داشته باشید که این ماده آلرژی‌زا است."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -143,7 +173,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [
       "if optional walnuts are added, declare nuts"

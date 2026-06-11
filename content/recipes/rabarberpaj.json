@@ -2,11 +2,13 @@
   "slug": "rabarberpaj",
   "title": {
     "sv": "Rabarberpaj med smul",
-    "en": "Rhubarb crumble"
+    "en": "Rhubarb crumble",
+    "fa": "کرمبل ریواس"
   },
   "headnote": {
     "sv": "Vårens första rabarber under ett gyllene smultäcke. Syrligt möter sött, varmt möter svalt — servera ljummen med en klick grädde.",
-    "en": "The first rhubarb of spring under a golden crumble. Tart meets sweet, warm meets cool — serve lukewarm with a spoon of cream."
+    "en": "The first rhubarb of spring under a golden crumble. Tart meets sweet, warm meets cool — serve lukewarm with a spoon of cream.",
+    "fa": "اولین ریواس بهار زیر یک لایه طلایی. ترشی با شیرینی، گرما با خنکی ترکیب می‌شود — با یک قاشق خامه به صورت ولرم سرو کنید."
   },
   "servings": 6,
   "time": {
@@ -14,6 +16,8 @@
     "totalMin": 65
   },
   "youtubeId": null,
+  "image": null,
+  "inspiredBy": null,
   "ingredients": [
     {
       "qty": {
@@ -22,7 +26,8 @@
       },
       "item": {
         "sv": "rabarber",
-        "en": "rhubarb"
+        "en": "rhubarb",
+        "fa": "ریواس"
       }
     },
     {
@@ -32,7 +37,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "caster sugar"
+        "en": "caster sugar",
+        "fa": "شکر پودر شده"
       },
       "densityKey": "sugar"
     },
@@ -43,7 +49,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "wheat flour"
+        "en": "wheat flour",
+        "fa": "آرد گندم"
       },
       "densityKey": "flour"
     },
@@ -54,7 +61,8 @@
       },
       "item": {
         "sv": "smör",
-        "en": "butter"
+        "en": "butter",
+        "fa": "کره"
       },
       "densityKey": "butter"
     },
@@ -65,7 +73,8 @@
       },
       "item": {
         "sv": "havregryn",
-        "en": "rolled oats"
+        "en": "rolled oats",
+        "fa": "جو دوسر"
       },
       "densityKey": "oats"
     },
@@ -76,7 +85,8 @@
       },
       "item": {
         "sv": "farinsocker",
-        "en": "brown sugar"
+        "en": "brown sugar",
+        "fa": "شکر قهوه‌ای"
       },
       "densityKey": "brownSugar"
     },
@@ -87,35 +97,52 @@
       },
       "item": {
         "sv": "kanel",
-        "en": "cinnamon"
+        "en": "cinnamon",
+        "fa": "دارچین"
       }
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Skär rabarbern i bitar och blanda med strösocker. Fördela i en smord form.",
-      "en": "Cut the rhubarb into pieces and toss with the caster sugar. Spread in a buttered dish."
+      "text": {
+        "sv": "Skär rabarbern i bitar och blanda med strösocker. Fördela i en smord form.",
+        "en": "Cut the rhubarb into pieces and toss with the caster sugar. Spread in a buttered dish.",
+        "fa": "ریواس را به قطعات کوچک برش دهید و با شکر پودر شده مخلوط کنید. در یک ظرف چرب شده پخش کنید."
+      }
     },
     {
-      "sv": "Nyp samman mjöl, smör, havregryn, farinsocker och kanel till en smulig deg.",
-      "en": "Rub together the flour, butter, oats, brown sugar and cinnamon into a crumbly mixture."
+      "text": {
+        "sv": "Nyp samman mjöl, smör, havregryn, farinsocker och kanel till en smulig deg.",
+        "en": "Rub together the flour, butter, oats, brown sugar and cinnamon into a crumbly mixture.",
+        "fa": "آرد، کره، جو دوسر، شکر قهوه‌ای و دارچین را با هم مخلوط کنید تا به یک ترکیب خرده‌ای برسید."
+      }
     },
     {
-      "sv": "Strö smulet över rabarbern. Grädda i 200°C i ca 25 minuter tills gyllene.",
-      "en": "Scatter the crumble over the rhubarb. Bake at 200°C for about 25 minutes until golden."
+      "text": {
+        "sv": "Strö smulet över rabarbern. Grädda i 200°C i ca 25 minuter tills gyllene.",
+        "en": "Scatter the crumble over the rhubarb. Bake at 200°C for about 25 minutes until golden.",
+        "fa": "خرده‌ها را روی ریواس بپاشید. در دمای 200°C به مدت حدود 25 دقیقه بپزید تا طلایی شود."
+      }
     },
     {
-      "sv": "Låt svalna något och servera ljummen, gärna med vaniljgrädde.",
-      "en": "Let cool slightly and serve lukewarm, ideally with vanilla cream."
+      "text": {
+        "sv": "Låt svalna något och servera ljummen, gärna med vaniljgrädde.",
+        "en": "Let cool slightly and serve lukewarm, ideally with vanilla cream.",
+        "fa": "کمی بگذارید خنک شود و به صورت ولرم سرو کنید، ایده‌آل با خامه وانیلی."
+      }
     }
   ],
   "notes": {
     "sv": "Funkar lika bra med äpple eller plommon på hösten. Havregryn kan innehålla gluten.",
-    "en": "Works just as well with apple or plum in autumn. Oats may contain gluten."
+    "en": "Works just as well with apple or plum in autumn. Oats may contain gluten.",
+    "fa": "در پاییز با سیب یا آلو هم به خوبی عمل می‌کند. جو دوسر ممکن است حاوی گلوتن باشد."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -123,7 +150,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, mjölk",
-      "en": "Contains: gluten, milk"
+      "en": "Contains: gluten, milk",
+      "fa": "حاوی: گلوتن، شیر"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
 import { NoiseTexture } from '../NoiseTexture';
@@ -22,15 +22,24 @@ export function RecipeShell({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
 
-  const toggleLang = () => {
-    const next = lang === 'sv' ? 'en' : 'sv';
+  // Switch language by swapping the [lang] segment of the current path, so the
+  // user stays on the same page in any of the three locales.
+  const selectLang = (next: Lang) => {
+    if (next === lang) return;
     try {
       localStorage.setItem('mjuklov_lang', next);
     } catch {
       /* ignore */
     }
-    router.push(altPath);
+    const parts = (pathname || altPath).split('/');
+    if (parts[1] === 'sv' || parts[1] === 'en' || parts[1] === 'fa') {
+      parts[1] = next;
+      router.push(parts.join('/'));
+    } else {
+      router.push(`/${next}`);
+    }
   };
 
   return (
@@ -46,7 +55,7 @@ export function RecipeShell({
       <CustomCursor />
       <FloatingElements />
       <BackToTop />
-      <Header lang={lang} onLangToggle={toggleLang} />
+      <Header lang={lang} onSelectLang={selectLang} />
       <main id="main-content" tabIndex={-1}>
         {children}
       </main>

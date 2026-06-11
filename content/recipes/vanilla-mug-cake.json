@@ -2,11 +2,13 @@
   "slug": "vanilla-mug-cake",
   "title": {
     "sv": "Vaniljmuggkaka (mikro)",
-    "en": "Vanilla mug cake (microwave)"
+    "en": "Vanilla mug cake (microwave)",
+    "fa": "کیک وانیلی در فنجان (مایکروویو)"
   },
   "headnote": {
     "sv": "En enda portion mjuk vaniljkaka, rörd i muggen och klar i mikron. Se videon ovan för Emmas metod.",
-    "en": "A single serving of soft vanilla cake, stirred in the mug and done in the microwave. Watch the video above for Emma's method."
+    "en": "A single serving of soft vanilla cake, stirred in the mug and done in the microwave. Watch the video above for Emma's method.",
+    "fa": "یک وعده کیک وانیلی نرم که در فنجان هم زده می‌شود و در مایکروویو آماده می‌شود. ویدیو بالا را برای روش اما تماشا کنید."
   },
   "servings": 1,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 5
   },
   "youtubeId": "H3OhTEkNbgU",
+  "image": null,
   "inspiredBy": {
     "channel": "Emma's Goodies",
     "url": "https://www.youtube.com/watch?v=H3OhTEkNbgU"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ریز"
       },
       "densityKey": "sugar"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "bakpulver",
-        "en": "baking powder"
+        "en": "baking powder",
+        "fa": "بکینگ پودر"
       },
       "densityKey": "bakingPowder"
     },
@@ -56,12 +62,14 @@
       "qty": {
         "text": {
           "sv": "1 nypa",
-          "en": "1 pinch"
+          "en": "1 pinch",
+          "fa": "1 پینچ"
         }
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     },
@@ -72,7 +80,8 @@
       },
       "item": {
         "sv": "mjölk",
-        "en": "milk"
+        "en": "milk",
+        "fa": "شیر"
       },
       "densityKey": "flour"
     },
@@ -83,7 +92,8 @@
       },
       "item": {
         "sv": "neutral olja",
-        "en": "neutral oil"
+        "en": "neutral oil",
+        "fa": "روغن خنثی"
       },
       "densityKey": "oil"
     },
@@ -94,36 +104,53 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Rör ihop mjöl, socker, bakpulver och salt i en mugg.",
-      "en": "Stir the flour, sugar, baking powder and salt together in a mug."
+      "text": {
+        "sv": "Rör ihop mjöl, socker, bakpulver och salt i en mugg.",
+        "en": "Stir the flour, sugar, baking powder and salt together in a mug.",
+        "fa": "آرد، شکر، بکینگ پودر و نمک را در یک فنجان با هم مخلوط کنید."
+      }
     },
     {
-      "sv": "Tillsätt mjölk, olja och vanilj och rör slätt.",
-      "en": "Add the milk, oil and vanilla and stir smooth."
+      "text": {
+        "sv": "Tillsätt mjölk, olja och vanilj och rör slätt.",
+        "en": "Add the milk, oil and vanilla and stir smooth.",
+        "fa": "شیر، روغن و وانیل را اضافه کرده و هم بزنید تا یکدست شود."
+      }
     },
     {
-      "sv": "Mikra 60–80 sekunder tills precis stelnat på toppen.",
-      "en": "Microwave 60–80 seconds until just set on top."
+      "text": {
+        "sv": "Mikra 60–80 sekunder tills precis stelnat på toppen.",
+        "en": "Microwave 60–80 seconds until just set on top.",
+        "fa": "در مایکروویو به مدت 60–80 ثانیه بپزید تا روی آن کمی سفت شود."
+      }
     },
     {
-      "sv": "Låt vila en minut. Se videon för tips.",
-      "en": "Let rest a minute. See the video for tips."
+      "text": {
+        "sv": "Låt vila en minut. Se videon för tips.",
+        "en": "Let rest a minute. See the video for tips.",
+        "fa": "اجازه دهید یک دقیقه استراحت کند. برای نکات به ویدیو مراجعه کنید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Mikrovågsugnar skiljer sig; börja kort.",
-    "en": "At-home version — follow the video above. Microwaves vary; start short."
+    "en": "At-home version — follow the video above. Microwaves vary; start short.",
+    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. مایکروویوها متفاوت هستند؛ زمان را کوتاه شروع کنید."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -131,7 +158,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, mjölk",
-      "en": "Contains: gluten, milk"
+      "en": "Contains: gluten, milk",
+      "fa": "شامل: گلوتن، شیر"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",

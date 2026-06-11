@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { isLang, ui, type Lang } from "@/lib/i18n";
+import { isLang, ui, locNum, type Lang } from "@/lib/i18n";
 import { KITS, SUBSCRIPTIONS, type Product } from "@/lib/products";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { AddToCartButton } from "@/app/components/shop/AddToCartButton";
@@ -22,7 +22,7 @@ function ProductCard({ p, lang }: { p: Product; lang: Lang }) {
       <h3 className="mb-3" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}>{p.name[lang]}</h3>
       <p className="type-body opacity-80 mb-4">{p.description[lang]}</p>
       <div className="type-serif mb-6" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)" }}>
-        {p.priceSek} kr{p.recurring && <span className="type-caps ink-muted"> {t.perMonth}</span>}
+        {locNum(p.priceSek, lang)} kr{p.recurring && <span className="type-caps ink-muted"> {t.perMonth}</span>}
       </div>
       <div className="mt-auto">
         <AddToCartButton productId={p.id} lang={lang} />

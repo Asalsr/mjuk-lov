@@ -2,11 +2,13 @@
   "slug": "brownie-cookies-sugar-spun",
   "title": {
     "sv": "Browniekakor",
-    "en": "Brownie cookies"
+    "en": "Brownie cookies",
+    "fa": "کوکی‌های براونی"
   },
   "headnote": {
     "sv": "Sugar Spun Runs browniekakor — tunna, sega och med en glansig, sprucken yta. Se videon ovan.",
-    "en": "Sugar Spun Run's brownie cookies — thin, chewy and with a glossy, crackled top. Watch the video above."
+    "en": "Sugar Spun Run's brownie cookies — thin, chewy and with a glossy, crackled top. Watch the video above.",
+    "fa": "کوکی‌های براونی Sugar Spun Run — نازک، جویدنی و با سطحی براق و ترک‌خورده. ویدیو بالا را تماشا کنید."
   },
   "servings": 16,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 40
   },
   "youtubeId": "drIoHE1Q7YM",
+  "image": null,
   "inspiredBy": {
     "channel": "Sugar Spun Run",
     "url": "https://sugarspunrun.com/brownie-cookies/"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "mörk choklad",
-        "en": "dark chocolate"
+        "en": "dark chocolate",
+        "fa": "شکلات تلخ"
       },
       "densityKey": "chocolate"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "smör",
-        "en": "butter"
+        "en": "butter",
+        "fa": "کره"
       },
       "densityKey": "butter"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ"
       }
     },
     {
@@ -58,7 +64,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ریز"
       },
       "densityKey": "sugar"
     },
@@ -69,7 +76,8 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     },
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "kakao",
-        "en": "cocoa powder"
+        "en": "cocoa powder",
+        "fa": "پودر کاکائو"
       },
       "densityKey": "cocoa"
     },
@@ -102,40 +112,60 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Smält choklad och smör ihop, låt svalna något.",
-      "en": "Melt the chocolate and butter together, let cool slightly."
+      "text": {
+        "sv": "Smält choklad och smör ihop, låt svalna något.",
+        "en": "Melt the chocolate and butter together, let cool slightly.",
+        "fa": "شکلات و کره را با هم ذوب کنید و کمی بگذارید خنک شود."
+      }
     },
     {
-      "sv": "Vispa ägg, socker och vanilj tjockt och ljust.",
-      "en": "Whisk the eggs, sugar and vanilla until thick and pale."
+      "text": {
+        "sv": "Vispa ägg, socker och vanilj tjockt och ljust.",
+        "en": "Whisk the eggs, sugar and vanilla until thick and pale.",
+        "fa": "تخم‌مرغ‌ها، شکر و وانیل را بزنید تا غلیظ و روشن شود."
+      }
     },
     {
-      "sv": "Rör ner chokladen, vänd sedan i mjöl, kakao och salt.",
-      "en": "Stir in the chocolate, then fold in the flour, cocoa and salt."
+      "text": {
+        "sv": "Rör ner chokladen, vänd sedan i mjöl, kakao och salt.",
+        "en": "Stir in the chocolate, then fold in the flour, cocoa and salt.",
+        "fa": "شکلات را اضافه کنید، سپس آرد، پودر کاکائو و نمک را به آرامی مخلوط کنید."
+      }
     },
     {
-      "sv": "Klicka ut på plåt och grädda 175°C i 10–12 minuter.",
-      "en": "Scoop onto a tray and bake at 175°C for 10–12 minutes."
+      "text": {
+        "sv": "Klicka ut på plåt och grädda 175°C i 10–12 minuter.",
+        "en": "Scoop onto a tray and bake at 175°C for 10–12 minutes.",
+        "fa": "با قاشق روی سینی بریزید و در دمای 175°C به مدت 10–12 دقیقه بپزید."
+      }
     },
     {
-      "sv": "Låt stelna på plåten. Se videon för detaljer.",
-      "en": "Let set on the tray. See the video for details."
+      "text": {
+        "sv": "Låt stelna på plåten. Se videon för detaljer.",
+        "en": "Let set on the tray. See the video for details.",
+        "fa": "بگذارید روی سینی سرد شود. جزئیات را در ویدیو ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Använd degen medan den är blank.",
-    "en": "At-home version — follow the video above. Use the batter while glossy."
+    "en": "At-home version — follow the video above. Use the batter while glossy.",
+    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. از خمیر در حالی که براق است استفاده کنید."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -144,7 +174,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [
       "mörk choklad / dark chocolate may carry soy and nut traces"

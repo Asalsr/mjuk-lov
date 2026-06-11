@@ -2,11 +2,13 @@
   "slug": "chocolate-mousse-cake",
   "title": {
     "sv": "Chokladmousstårta",
-    "en": "Chocolate mousse cake"
+    "en": "Chocolate mousse cake",
+    "fa": "کیک موس شکلاتی"
   },
   "headnote": {
     "sv": "En knaprig kexbotten under en luftig, mörk chokladmousse — imponerande men förvånansvärt enkel, och inget gräddande av mousselagret. Se videon ovan för Anns finish.",
-    "en": "A crisp biscuit base under an airy dark-chocolate mousse — impressive but surprisingly simple, with no baking of the mousse layer. Watch the video above for Ann's finish."
+    "en": "A crisp biscuit base under an airy dark-chocolate mousse — impressive but surprisingly simple, with no baking of the mousse layer. Watch the video above for Ann's finish.",
+    "fa": "یک پایه بیسکویتی ترد زیر موس شکلات تلخ سبک — چشمگیر اما به طرز شگفت‌انگیزی ساده، بدون نیاز به پخت لایه موس. ویدیو بالا را برای نحوه نهایی آن تماشا کنید."
   },
   "servings": 12,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 300
   },
   "youtubeId": "SbGpjrHcsIk",
+  "image": null,
   "inspiredBy": {
     "channel": "How To Cook That",
     "url": "https://www.youtube.com/watch?v=SbGpjrHcsIk"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "chokladkex, smulade",
-        "en": "chocolate biscuits, crushed"
+        "en": "chocolate biscuits, crushed",
+        "fa": "بیسکویت شکلاتی، خرد شده"
       },
       "densityKey": "chocolate"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "smör, smält",
-        "en": "butter, melted"
+        "en": "butter, melted",
+        "fa": "کره، ذوب شده"
       },
       "densityKey": "butter"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "mörk choklad",
-        "en": "dark chocolate"
+        "en": "dark chocolate",
+        "fa": "شکلات تلخ"
       },
       "densityKey": "chocolate"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "vispgrädde",
-        "en": "double cream"
+        "en": "double cream",
+        "fa": "خامه دو برابر"
       },
       "densityKey": "cream"
     },
@@ -70,7 +77,8 @@
       },
       "item": {
         "sv": "ägg, delade",
-        "en": "eggs, separated"
+        "en": "eggs, separated",
+        "fa": "تخم‌مرغ، جدا شده"
       }
     },
     {
@@ -80,40 +88,60 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ای"
       },
       "densityKey": "sugar"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Blanda kexsmulor med smält smör och tryck ut i botten på en springform (ca 20 cm). Ställ kallt.",
-      "en": "Mix the biscuit crumbs with the melted butter and press into the base of a springform tin (about 20 cm). Chill."
+      "text": {
+        "sv": "Blanda kexsmulor med smält smör och tryck ut i botten på en springform (ca 20 cm). Ställ kallt.",
+        "en": "Mix the biscuit crumbs with the melted butter and press into the base of a springform tin (about 20 cm). Chill.",
+        "fa": "خرده‌های بیسکویت را با کره ذوب شده مخلوط کنید و در کف قالب فنری (حدود 20 سانتی‌متر) فشار دهید. بگذارید سرد شود."
+      }
     },
     {
-      "sv": "Smält chokladen försiktigt över vattenbad och låt svalna något. Rör ner äggulorna.",
-      "en": "Melt the chocolate gently over a water bath and let it cool slightly. Stir in the egg yolks."
+      "text": {
+        "sv": "Smält chokladen försiktigt över vattenbad och låt svalna något. Rör ner äggulorna.",
+        "en": "Melt the chocolate gently over a water bath and let it cool slightly. Stir in the egg yolks.",
+        "fa": "شکلات را به آرامی روی بخار آب ذوب کنید و بگذارید کمی خنک شود. زرده‌های تخم‌مرغ را به آن اضافه کنید."
+      }
     },
     {
-      "sv": "Vispa grädden till mjuka toppar. Vispa äggvitorna separat med sockret till blanka toppar.",
-      "en": "Whip the cream to soft peaks. In a separate bowl, whisk the egg whites with the sugar to glossy peaks."
+      "text": {
+        "sv": "Vispa grädden till mjuka toppar. Vispa äggvitorna separat med sockret till blanka toppar.",
+        "en": "Whip the cream to soft peaks. In a separate bowl, whisk the egg whites with the sugar to glossy peaks.",
+        "fa": "خامه را تا زمانی که قله‌های نرم ایجاد شود، هم بزنید. در یک کاسه جداگانه، سفیده‌های تخم‌مرغ را با شکر هم بزنید تا قله‌های براق ایجاد شود."
+      }
     },
     {
-      "sv": "Vänd först ner grädden i chokladen, sedan äggvitorna i två omgångar — behåll luftigheten.",
-      "en": "Fold the cream into the chocolate first, then the egg whites in two additions — keep it airy."
+      "text": {
+        "sv": "Vänd först ner grädden i chokladen, sedan äggvitorna i två omgångar — behåll luftigheten.",
+        "en": "Fold the cream into the chocolate first, then the egg whites in two additions — keep it airy.",
+        "fa": "ابتدا خامه را به شکلات اضافه کنید، سپس سفیده‌های تخم‌مرغ را در دو مرحله اضافه کنید — آن را سبک نگه دارید."
+      }
     },
     {
-      "sv": "Bred moussen över botten och ställ kallt minst 4 timmar, gärna över natten. Se videon för dekoren.",
-      "en": "Spread the mousse over the base and chill at least 4 hours, ideally overnight. See the video for the decoration."
+      "text": {
+        "sv": "Bred moussen över botten och ställ kallt minst 4 timmar, gärna över natten. Se videon för dekoren.",
+        "en": "Spread the mousse over the base and chill at least 4 hours, ideally overnight. See the video for the decoration.",
+        "fa": "موس را روی پایه پخش کنید و حداقل 4 ساعت، ایده‌آل یک شب، در یخچال بگذارید. برای تزئین، ویدیو را ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Det här är en hemlagad version — följ videon ovan för den exakta metoden. Receptet innehåller rå äggvita; använd färska, pastöriserade ägg och servera kylt.",
-    "en": "This is an at-home version — follow the video above for the exact method. This contains raw egg white; use fresh, pasteurised eggs and serve chilled."
+    "en": "This is an at-home version — follow the video above for the exact method. This contains raw egg white; use fresh, pasteurised eggs and serve chilled.",
+    "fa": "این نسخه خانگی است — برای روش دقیق، ویدیو بالا را دنبال کنید. این دستور شامل سفیده تخم‌مرغ خام است؛ از تخم‌مرغ‌های تازه و پاستوریزه استفاده کنید و سرد سرو کنید."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -122,7 +150,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [
       "dark chocolate may carry soy and nut traces — check the bar",

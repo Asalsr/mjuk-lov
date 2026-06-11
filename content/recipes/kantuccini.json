@@ -2,11 +2,13 @@
   "slug": "kantuccini",
   "title": {
     "sv": "Kantuccini",
-    "en": "Almond biscotti"
+    "en": "Almond biscotti",
+    "fa": "بیسکوییت بادام"
   },
   "headnote": {
     "sv": "Dubbelbakta mandelskorpor, knapriga och nötiga — gjorda för att doppas i kaffe eller ett glas vin santo. De håller länge, om de får.",
-    "en": "Twice-baked almond biscotti, crisp and nutty — made for dipping in coffee or a glass of vin santo. They keep well, if you let them."
+    "en": "Twice-baked almond biscotti, crisp and nutty — made for dipping in coffee or a glass of vin santo. They keep well, if you let them.",
+    "fa": "بیسکوییت بادام که دوبار پخته می‌شود، ترد و مغزدار — مناسب برای غوطه‌ور کردن در قهوه یا یک لیوان وین سانتو. اگر آنها را نگه دارید، به خوبی حفظ می‌شوند."
   },
   "servings": 30,
   "time": {
@@ -14,6 +16,8 @@
     "totalMin": 75
   },
   "youtubeId": null,
+  "image": null,
+  "inspiredBy": null,
   "ingredients": [
     {
       "qty": {
@@ -22,7 +26,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "wheat flour"
+        "en": "wheat flour",
+        "fa": "آرد گندم"
       },
       "densityKey": "flour"
     },
@@ -33,7 +38,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "caster sugar"
+        "en": "caster sugar",
+        "fa": "شکر ریز"
       },
       "densityKey": "sugar"
     },
@@ -44,7 +50,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ"
       }
     },
     {
@@ -54,7 +61,8 @@
       },
       "item": {
         "sv": "hela mandlar",
-        "en": "whole almonds"
+        "en": "whole almonds",
+        "fa": "بادام کامل"
       },
       "densityKey": "nuts"
     },
@@ -65,7 +73,8 @@
       },
       "item": {
         "sv": "bakpulver",
-        "en": "baking powder"
+        "en": "baking powder",
+        "fa": "بکینگ پودر"
       },
       "densityKey": "bakingPowder"
     },
@@ -76,7 +85,8 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     },
@@ -87,36 +97,53 @@
       },
       "item": {
         "sv": "vaniljsocker",
-        "en": "vanilla sugar"
+        "en": "vanilla sugar",
+        "fa": "شکر وانیلی"
       },
       "densityKey": "vanilla"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Blanda mjöl, socker, bakpulver, salt och vaniljsocker. Tillsätt äggen och arbeta till en deg.",
-      "en": "Mix flour, sugar, baking powder, salt and vanilla sugar. Add the eggs and work into a dough."
+      "text": {
+        "sv": "Blanda mjöl, socker, bakpulver, salt och vaniljsocker. Tillsätt äggen och arbeta till en deg.",
+        "en": "Mix flour, sugar, baking powder, salt and vanilla sugar. Add the eggs and work into a dough.",
+        "fa": "آرد، شکر، بکینگ پودر، نمک و شکر وانیلی را مخلوط کنید. تخم‌مرغ‌ها را اضافه کرده و ورز دهید تا خمیر شود."
+      }
     },
     {
-      "sv": "Arbeta in mandlarna. Forma två avlånga längder på en plåt med bakplåtspapper.",
-      "en": "Work in the almonds. Shape into two long logs on a lined baking tray."
+      "text": {
+        "sv": "Arbeta in mandlarna. Forma två avlånga längder på en plåt med bakplåtspapper.",
+        "en": "Work in the almonds. Shape into two long logs on a lined baking tray.",
+        "fa": "بادام‌ها را اضافه کنید. خمیر را به دو شکل لوله‌ای بلند روی سینی فر که با کاغذ پوشانده‌اید، شکل دهید."
+      }
     },
     {
-      "sv": "Grädda i 175°C i ca 25 minuter. Låt svalna något.",
-      "en": "Bake at 175°C for about 25 minutes. Let cool slightly."
+      "text": {
+        "sv": "Grädda i 175°C i ca 25 minuter. Låt svalna något.",
+        "en": "Bake at 175°C for about 25 minutes. Let cool slightly.",
+        "fa": "در دمای 175°C به مدت حدود 25 دقیقه بپزید. کمی بگذارید خنک شود."
+      }
     },
     {
-      "sv": "Skär längderna snett i 1,5 cm skivor. Lägg ner dem och grädda 10 minuter till tills knapriga.",
-      "en": "Cut the logs diagonally into 1.5 cm slices. Lay them flat and bake another 10 minutes until crisp."
+      "text": {
+        "sv": "Skär längderna snett i 1,5 cm skivor. Lägg ner dem och grädda 10 minuter till tills knapriga.",
+        "en": "Cut the logs diagonally into 1.5 cm slices. Lay them flat and bake another 10 minutes until crisp.",
+        "fa": "لوله‌ها را به صورت اریب به برش‌های 1.5 سانتی‌متری برش دهید. آنها را به صورت افقی قرار داده و به مدت 10 دقیقه دیگر بپزید تا ترد شوند."
+      }
     }
   ],
   "notes": {
     "sv": "Byt gärna mandlar mot hasselnötter eller pistage. Förvaras lufttätt.",
-    "en": "Swap the almonds for hazelnuts or pistachios if you like. Store airtight."
+    "en": "Swap the almonds for hazelnuts or pistachios if you like. Store airtight.",
+    "fa": "اگر دوست دارید، بادام‌ها را با فندق یا پسته عوض کنید. در ظرفی هوابند نگهداری کنید."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -125,7 +152,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, nötter",
-      "en": "Contains: gluten, egg, tree nuts"
+      "en": "Contains: gluten, egg, tree nuts",
+      "fa": "شامل: گلوتن، تخم‌مرغ، مغزهای درختی"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",

@@ -2,11 +2,13 @@
   "slug": "vanilla-sponge-cake",
   "title": {
     "sv": "Enkel vaniljsockerkaka",
-    "en": "Easy vanilla sponge cake"
+    "en": "Easy vanilla sponge cake",
+    "fa": "کیک اسفنجی وانیلی آسان"
   },
   "headnote": {
     "sv": "Luftig, mjuk sockerkaka som lyckas varje gång — grund för tårtor eller god som den är. Se videon ovan.",
-    "en": "An airy, soft sponge that works every time — a base for cakes or lovely on its own. Watch the video above."
+    "en": "An airy, soft sponge that works every time — a base for cakes or lovely on its own. Watch the video above.",
+    "fa": "یک کیک اسفنجی سبک و نرم که همیشه جواب می‌دهد — پایه‌ای برای کیک‌ها یا خوشمزه به تنهایی. ویدیو بالا را تماشا کنید."
   },
   "servings": 10,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 45
   },
   "youtubeId": "Q2AO5nJvUss",
+  "image": null,
   "inspiredBy": {
     "channel": "Bincy Chris",
     "url": "https://www.youtube.com/watch?v=Q2AO5nJvUss"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ"
       }
     },
     {
@@ -36,7 +40,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ای"
       },
       "densityKey": "sugar"
     },
@@ -47,7 +52,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌منظوره"
       },
       "densityKey": "flour"
     },
@@ -58,7 +64,8 @@
       },
       "item": {
         "sv": "bakpulver",
-        "en": "baking powder"
+        "en": "baking powder",
+        "fa": "بکینگ پودر"
       },
       "densityKey": "bakingPowder"
     },
@@ -69,7 +76,8 @@
       },
       "item": {
         "sv": "mjölk",
-        "en": "milk"
+        "en": "milk",
+        "fa": "شیر"
       },
       "densityKey": "flour"
     },
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "smör, smält",
-        "en": "butter, melted"
+        "en": "butter, melted",
+        "fa": "کره ذوب شده"
       },
       "densityKey": "butter"
     },
@@ -91,40 +100,60 @@
       },
       "item": {
         "sv": "vaniljextrakt",
-        "en": "vanilla extract"
+        "en": "vanilla extract",
+        "fa": "عصاره وانیل"
       },
       "densityKey": "vanilla"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 175°C och klä en rund form med bakplåtspapper.",
-      "en": "Heat the oven to 175°C and line a round tin with baking paper."
+      "text": {
+        "sv": "Sätt ugnen på 175°C och klä en rund form med bakplåtspapper.",
+        "en": "Heat the oven to 175°C and line a round tin with baking paper.",
+        "fa": "فر را به 175°C گرم کنید و یک قالب گرد را با کاغذ روغنی بپوشانید."
+      }
     },
     {
-      "sv": "Vispa ägg och socker riktigt pösigt och ljust, 5–6 minuter.",
-      "en": "Whisk the eggs and sugar until very thick and pale, 5–6 minutes."
+      "text": {
+        "sv": "Vispa ägg och socker riktigt pösigt och ljust, 5–6 minuter.",
+        "en": "Whisk the eggs and sugar until very thick and pale, 5–6 minutes.",
+        "fa": "تخم‌مرغ‌ها و شکر را به مدت 5–6 دقیقه بزنید تا بسیار غلیظ و روشن شود."
+      }
     },
     {
-      "sv": "Sikta och vänd försiktigt ner mjöl och bakpulver.",
-      "en": "Sift and gently fold in the flour and baking powder."
+      "text": {
+        "sv": "Sikta och vänd försiktigt ner mjöl och bakpulver.",
+        "en": "Sift and gently fold in the flour and baking powder.",
+        "fa": "آرد و بکینگ پودر را الک کرده و به آرامی مخلوط کنید."
+      }
     },
     {
-      "sv": "Vänd ner mjölk, smält smör och vanilj. Häll i formen.",
-      "en": "Fold in the milk, melted butter and vanilla. Pour into the tin."
+      "text": {
+        "sv": "Vänd ner mjölk, smält smör och vanilj. Häll i formen.",
+        "en": "Fold in the milk, melted butter and vanilla. Pour into the tin.",
+        "fa": "شیر، کره ذوب شده و وانیل را اضافه کنید. مخلوط را در قالب بریزید."
+      }
     },
     {
-      "sv": "Grädda 25–30 minuter tills den fjädrar tillbaka. Se videon för detaljer.",
-      "en": "Bake 25–30 minutes until it springs back. See the video for details."
+      "text": {
+        "sv": "Grädda 25–30 minuter tills den fjädrar tillbaka. Se videon för detaljer.",
+        "en": "Bake 25–30 minutes until it springs back. See the video for details.",
+        "fa": "به مدت 25–30 دقیقه بپزید تا کیک به حالت اولیه خود برگردد. جزئیات را در ویدیو ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Den pösiga äggvispningen ger luftigheten.",
-    "en": "At-home version — follow the video above. The well-whipped eggs give the lift."
+    "en": "At-home version — follow the video above. The well-whipped eggs give the lift.",
+    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. تخم‌مرغ‌های خوب زده شده به کیک حجم می‌دهند."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -133,7 +162,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",

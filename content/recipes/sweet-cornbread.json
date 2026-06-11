@@ -2,11 +2,13 @@
   "slug": "sweet-cornbread",
   "title": {
     "sv": "Söt majsbröd",
-    "en": "Sweet cornbread"
+    "en": "Sweet cornbread",
+    "fa": "نان ذرت شیرین"
   },
   "headnote": {
     "sv": "Gyllene, smörig majsbröd med len smula och en söt ton honung. Se videon ovan för Chefs metod.",
-    "en": "Golden, buttery cornbread with a tender crumb and a sweet note of honey. Watch the video above for Chef John's method."
+    "en": "Golden, buttery cornbread with a tender crumb and a sweet note of honey. Watch the video above for Chef John's method.",
+    "fa": "نان ذرت طلایی و کره‌ای با بافت نرم و طعمی شیرین از عسل. ویدیو بالا را برای روش تهیه سرآشپز جان مشاهده کنید."
   },
   "servings": 9,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 35
   },
   "youtubeId": "A1lsTLs-iZg",
+  "image": null,
   "inspiredBy": {
     "channel": "Food Wishes",
     "url": "https://www.youtube.com/watch?v=A1lsTLs-iZg"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "majsmjöl (polenta)",
-        "en": "cornmeal"
+        "en": "cornmeal",
+        "fa": "آرد ذرت"
       },
       "densityKey": "cornmeal"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌کاره"
       },
       "densityKey": "flour"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "bakpulver",
-        "en": "baking powder"
+        "en": "baking powder",
+        "fa": "بکینگ پودر"
       },
       "densityKey": "bakingPowder"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "salt",
-        "en": "salt"
+        "en": "salt",
+        "fa": "نمک"
       },
       "densityKey": "salt"
     },
@@ -70,7 +77,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "eggs"
+        "en": "eggs",
+        "fa": "تخم‌مرغ‌ها"
       }
     },
     {
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "mjölk",
-        "en": "milk"
+        "en": "milk",
+        "fa": "شیر"
       },
       "densityKey": "flour"
     },
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "smör, smält",
-        "en": "butter, melted"
+        "en": "butter, melted",
+        "fa": "کره ذوب شده"
       },
       "densityKey": "butter"
     },
@@ -102,40 +112,60 @@
       },
       "item": {
         "sv": "honung",
-        "en": "honey"
+        "en": "honey",
+        "fa": "عسل"
       },
       "densityKey": "honey"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Sätt ugnen på 200°C och smörj en form (ca 20×20 cm).",
-      "en": "Heat the oven to 200°C and grease a tin (about 20×20 cm)."
+      "text": {
+        "sv": "Sätt ugnen på 200°C och smörj en form (ca 20×20 cm).",
+        "en": "Heat the oven to 200°C and grease a tin (about 20×20 cm).",
+        "fa": "فر را به دمای 200°C گرم کنید و یک قالب (حدود 20×20 سانتیمتر) را چرب کنید."
+      }
     },
     {
-      "sv": "Blanda majsmjöl, vetemjöl, bakpulver och salt.",
-      "en": "Whisk the cornmeal, flour, baking powder and salt."
+      "text": {
+        "sv": "Blanda majsmjöl, vetemjöl, bakpulver och salt.",
+        "en": "Whisk the cornmeal, flour, baking powder and salt.",
+        "fa": "آرد ذرت، آرد همه‌کاره، بکینگ پودر و نمک را با هم مخلوط کنید."
+      }
     },
     {
-      "sv": "Rör ihop ägg, mjölk, smält smör och honung, vänd ner i det torra.",
-      "en": "Mix the eggs, milk, melted butter and honey, fold into the dry."
+      "text": {
+        "sv": "Rör ihop ägg, mjölk, smält smör och honung, vänd ner i det torra.",
+        "en": "Mix the eggs, milk, melted butter and honey, fold into the dry.",
+        "fa": "تخم‌مرغ‌ها، شیر، کره ذوب شده و عسل را مخلوط کرده و به مخلوط خشک اضافه کنید."
+      }
     },
     {
-      "sv": "Häll i formen och grädda 20–25 minuter tills gyllene.",
-      "en": "Pour into the tin and bake 20–25 minutes until golden."
+      "text": {
+        "sv": "Häll i formen och grädda 20–25 minuter tills gyllene.",
+        "en": "Pour into the tin and bake 20–25 minutes until golden.",
+        "fa": "مخلوط را در قالب بریزید و به مدت 20–25 دقیقه بپزید تا طلایی شود."
+      }
     },
     {
-      "sv": "Servera varm med smör. Se videon för detaljer.",
-      "en": "Serve warm with butter. See the video for details."
+      "text": {
+        "sv": "Servera varm med smör. Se videon för detaljer.",
+        "en": "Serve warm with butter. See the video for details.",
+        "fa": "نان را گرم با کره سرو کنید. جزئیات را در ویدیو ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Servera direkt medan den är varm.",
-    "en": "At-home version — follow the video above. Best served warm and fresh."
+    "en": "At-home version — follow the video above. Best served warm and fresh.",
+    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. بهترین حالت سرو، گرم و تازه است."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -144,7 +174,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",

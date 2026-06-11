@@ -2,11 +2,13 @@
   "slug": "cinnamon-rolls",
   "title": {
     "sv": "Kanelbullar (rolls)",
-    "en": "Cinnamon rolls"
+    "en": "Cinnamon rolls",
+    "fa": "رول دارچینی"
   },
   "headnote": {
     "sv": "Mjuka, lindade kanelbullar med klibbig kanelfyllning och frostingsvirvel. Se videon ovan för Joshuas metod.",
-    "en": "Soft, coiled cinnamon rolls with a gooey cinnamon filling and a swirl of frosting. Watch the video above for Joshua's method."
+    "en": "Soft, coiled cinnamon rolls with a gooey cinnamon filling and a swirl of frosting. Watch the video above for Joshua's method.",
+    "fa": "رول‌های دارچینی نرم و پیچیده با یک پر کردن چسبناک دارچینی و یک لایه خامه. ویدیو بالا را برای روش جاشوا مشاهده کنید."
   },
   "servings": 12,
   "time": {
@@ -14,6 +16,7 @@
     "totalMin": 180
   },
   "youtubeId": "f6kzypYDLRg",
+  "image": null,
   "inspiredBy": {
     "channel": "Joshua Weissman",
     "url": "https://www.youtube.com/watch?v=f6kzypYDLRg"
@@ -26,7 +29,8 @@
       },
       "item": {
         "sv": "vetemjöl",
-        "en": "all-purpose flour"
+        "en": "all-purpose flour",
+        "fa": "آرد همه‌کاره"
       },
       "densityKey": "flour"
     },
@@ -37,7 +41,8 @@
       },
       "item": {
         "sv": "torrjäst",
-        "en": "dried yeast"
+        "en": "dried yeast",
+        "fa": "مخمر خشک"
       },
       "densityKey": "yeast"
     },
@@ -48,7 +53,8 @@
       },
       "item": {
         "sv": "mjölk, ljummen",
-        "en": "milk, warm"
+        "en": "milk, warm",
+        "fa": "شیر گرم"
       },
       "densityKey": "flour"
     },
@@ -59,7 +65,8 @@
       },
       "item": {
         "sv": "strösocker",
-        "en": "granulated sugar"
+        "en": "granulated sugar",
+        "fa": "شکر دانه‌ای"
       },
       "densityKey": "sugar"
     },
@@ -70,7 +77,8 @@
       },
       "item": {
         "sv": "ägg",
-        "en": "egg"
+        "en": "egg",
+        "fa": "تخم‌مرغ"
       }
     },
     {
@@ -80,7 +88,8 @@
       },
       "item": {
         "sv": "smör, mjukt",
-        "en": "butter, softened"
+        "en": "butter, softened",
+        "fa": "کره نرم شده"
       },
       "densityKey": "butter"
     },
@@ -91,7 +100,8 @@
       },
       "item": {
         "sv": "farinsocker (fyllning)",
-        "en": "brown sugar (filling)"
+        "en": "brown sugar (filling)",
+        "fa": "شکر قهوه‌ای (پر کردن)"
       },
       "densityKey": "brownSugar"
     },
@@ -102,7 +112,8 @@
       },
       "item": {
         "sv": "kanel (fyllning)",
-        "en": "cinnamon (filling)"
+        "en": "cinnamon (filling)",
+        "fa": "دارچین (پر کردن)"
       }
     },
     {
@@ -112,40 +123,60 @@
       },
       "item": {
         "sv": "färskost (frosting)",
-        "en": "cream cheese (frosting)"
+        "en": "cream cheese (frosting)",
+        "fa": "خامه پنیر (خامه)"
       },
       "densityKey": "creamCheese"
     }
   ],
+  "oven": null,
   "diet": [
     "vegetarian"
   ],
+  "equipment": [],
   "steps": [
     {
-      "sv": "Blanda mjöl, jäst, ljummen mjölk, socker, ägg och smör till en smidig deg. Knåda och låt jäsa ca 1 timme.",
-      "en": "Mix the flour, yeast, warm milk, sugar, egg and butter to a smooth dough. Knead and let rise about 1 hour."
+      "text": {
+        "sv": "Blanda mjöl, jäst, ljummen mjölk, socker, ägg och smör till en smidig deg. Knåda och låt jäsa ca 1 timme.",
+        "en": "Mix the flour, yeast, warm milk, sugar, egg and butter to a smooth dough. Knead and let rise about 1 hour.",
+        "fa": "آرد، مخمر، شیر گرم، شکر، تخم‌مرغ و کره را مخلوط کنید تا خمیری نرم به دست آید. ورز دهید و بگذارید حدود 1 ساعت استراحت کند."
+      }
     },
     {
-      "sv": "Kavla ut, bred på mjukt smör och strö farinsocker + kanel.",
-      "en": "Roll out, spread with soft butter and scatter brown sugar + cinnamon."
+      "text": {
+        "sv": "Kavla ut, bred på mjukt smör och strö farinsocker + kanel.",
+        "en": "Roll out, spread with soft butter and scatter brown sugar + cinnamon.",
+        "fa": "خمیر را باز کنید، با کره نرم بپوشانید و شکر قهوه‌ای و دارچین را روی آن بپاشید."
+      }
     },
     {
-      "sv": "Rulla ihop, skär i bitar och lägg i en form. Låt jäsa 30 minuter.",
-      "en": "Roll up, cut into pieces and place in a tin. Let rise 30 minutes."
+      "text": {
+        "sv": "Rulla ihop, skär i bitar och lägg i en form. Låt jäsa 30 minuter.",
+        "en": "Roll up, cut into pieces and place in a tin. Let rise 30 minutes.",
+        "fa": "خمیر را رول کنید، به قطعات برش دهید و در یک قالب قرار دهید. بگذارید 30 دقیقه استراحت کند."
+      }
     },
     {
-      "sv": "Grädda 180°C i 20–25 minuter tills gyllene.",
-      "en": "Bake at 180°C for 20–25 minutes until golden."
+      "text": {
+        "sv": "Grädda 180°C i 20–25 minuter tills gyllene.",
+        "en": "Bake at 180°C for 20–25 minutes until golden.",
+        "fa": "در دمای 180°C به مدت 20–25 دقیقه بپزید تا طلایی شود."
+      }
     },
     {
-      "sv": "Bred på frosting av färskost. Se videon för detaljer.",
-      "en": "Spread with cream cheese frosting. See the video for details."
+      "text": {
+        "sv": "Bred på frosting av färskost. Se videon för detaljer.",
+        "en": "Spread with cream cheese frosting. See the video for details.",
+        "fa": "با خامه پنیر بپوشانید. جزئیات را در ویدیو ببینید."
+      }
     }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Jästiderna varierar med rumstemperaturen.",
-    "en": "At-home version — follow the video above. Rise times vary with room temperature."
+    "en": "At-home version — follow the video above. Rise times vary with room temperature.",
+    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. زمان‌های استراحت بسته به دمای اتاق متفاوت است."
   },
+  "tips": [],
   "allergens": {
     "codes": [
       "gluten",
@@ -154,7 +185,8 @@
     ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
-      "en": "Contains: gluten, egg, milk"
+      "en": "Contains: gluten, egg, milk",
+      "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [],
     "approvedBy": "saeedeh",
