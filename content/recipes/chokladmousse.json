@@ -16,39 +16,58 @@
   "youtubeId": null,
   "ingredients": [
     {
-      "qty": "200 g",
+      "qty": {
+        "value": 200,
+        "unit": "g"
+      },
       "item": {
         "sv": "mörk choklad (70 %)",
         "en": "dark chocolate (70%)"
-      }
+      },
+      "densityKey": "chocolate"
     },
     {
-      "qty": "4",
+      "qty": {
+        "value": 4,
+        "unit": "piece"
+      },
       "item": {
         "sv": "ägg",
         "en": "eggs"
       }
     },
     {
-      "qty": "50 g",
+      "qty": {
+        "value": 50,
+        "unit": "g"
+      },
       "item": {
         "sv": "strösocker",
         "en": "caster sugar"
-      }
+      },
+      "densityKey": "sugar"
     },
     {
-      "qty": "2 dl",
+      "qty": {
+        "value": 2,
+        "unit": "dl"
+      },
       "item": {
         "sv": "vispgrädde",
         "en": "double cream"
-      }
+      },
+      "densityKey": "cream"
     },
     {
-      "qty": "1 krm",
+      "qty": {
+        "value": 1,
+        "unit": "ml"
+      },
       "item": {
         "sv": "flingsalt",
         "en": "flaky salt"
-      }
+      },
+      "densityKey": "salt"
     }
   ],
   "diet": [

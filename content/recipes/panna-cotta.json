@@ -16,53 +16,79 @@
   "youtubeId": null,
   "ingredients": [
     {
-      "qty": "5 dl",
+      "qty": {
+        "value": 5,
+        "unit": "dl"
+      },
       "item": {
         "sv": "vispgrädde",
         "en": "double cream"
-      }
+      },
+      "densityKey": "cream"
     },
     {
-      "qty": "1 dl",
+      "qty": {
+        "value": 1,
+        "unit": "dl"
+      },
       "item": {
         "sv": "mjölk",
         "en": "milk"
-      }
+      },
+      "densityKey": "flour"
     },
     {
-      "qty": "75 g",
+      "qty": {
+        "value": 75,
+        "unit": "g"
+      },
       "item": {
         "sv": "strösocker",
         "en": "caster sugar"
-      }
+      },
+      "densityKey": "sugar"
     },
     {
-      "qty": "1",
+      "qty": {
+        "value": 1,
+        "unit": "piece"
+      },
       "item": {
         "sv": "vaniljstång",
         "en": "vanilla pod"
-      }
+      },
+      "densityKey": "vanilla"
     },
     {
-      "qty": "2 g",
+      "qty": {
+        "value": 2,
+        "unit": "g"
+      },
       "item": {
         "sv": "agar-agar",
         "en": "agar-agar"
       }
     },
     {
-      "qty": "250 g",
+      "qty": {
+        "value": 250,
+        "unit": "g"
+      },
       "item": {
         "sv": "färska hallon",
         "en": "fresh raspberries"
       }
     },
     {
-      "qty": "1 msk",
+      "qty": {
+        "value": 1,
+        "unit": "tbsp"
+      },
       "item": {
         "sv": "florsocker",
         "en": "icing sugar"
-      }
+      },
+      "densityKey": "powderedSugar"
     }
   ],
   "diet": [

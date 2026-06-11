@@ -56,9 +56,16 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
   const cartItems = cartCount(useCart());
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    let raf = 0;
+    const handleScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => setIsScrolled(window.scrollY > 20));
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -184,7 +191,7 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
                   className="fixed inset-0 z-[-1] bg-transparent cursor-default"
                 />
                 <div
-                  className="absolute right-0 mt-3 min-w-[180px] flex flex-col bg-[var(--vanilla-cream)] shadow-md"
+                  className="absolute right-0 mt-3 min-w-[180px] max-w-[calc(100vw-1.5rem)] flex flex-col bg-[var(--vanilla-cream)] shadow-md"
                   style={{ border: '1px solid rgba(61, 42, 34, 0.15)' }}
                 >
                   {accountLinks.map((l) => (
@@ -253,7 +260,7 @@ export const Header = ({ lang, onLangToggle }: HeaderProps) => {
             onClick={() => setIsMobileMenuOpen(false)}
             className="md:hidden fixed inset-0 z-[-1] bg-transparent cursor-default"
           />
-          <div className="md:hidden bg-[var(--vanilla-cream)] border-t border-[var(--warm-cocoa)]/10 max-h-[calc(100vh-4rem)] overflow-y-auto">
+          <div className="md:hidden bg-[var(--vanilla-cream)] border-t border-[var(--warm-cocoa)]/10 max-h-[calc(100svh-4rem)] overflow-y-auto pb-[env(safe-area-inset-bottom)]">
             <nav className="px-4 py-6 flex flex-col gap-2">
               {NAV.map((item) =>
                 item.shop ? (

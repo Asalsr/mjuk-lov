@@ -1,40 +1,154 @@
 {
   "slug": "brownie-cookies-sugar-spun",
-  "title": { "sv": "Browniekakor", "en": "Brownie cookies" },
+  "title": {
+    "sv": "Browniekakor",
+    "en": "Brownie cookies"
+  },
   "headnote": {
     "sv": "Sugar Spun Runs browniekakor — tunna, sega och med en glansig, sprucken yta. Se videon ovan.",
     "en": "Sugar Spun Run's brownie cookies — thin, chewy and with a glossy, crackled top. Watch the video above."
   },
   "servings": 16,
-  "time": { "prepMin": 20, "totalMin": 40 },
+  "time": {
+    "prepMin": 20,
+    "totalMin": 40
+  },
   "youtubeId": "drIoHE1Q7YM",
-  "inspiredBy": { "channel": "Sugar Spun Run", "url": "https://sugarspunrun.com/brownie-cookies/" },
+  "inspiredBy": {
+    "channel": "Sugar Spun Run",
+    "url": "https://sugarspunrun.com/brownie-cookies/"
+  },
   "ingredients": [
-    { "qty": "200 g", "item": { "sv": "mörk choklad", "en": "dark chocolate" } },
-    { "qty": "60 g", "item": { "sv": "smör", "en": "butter" } },
-    { "qty": "2", "item": { "sv": "ägg", "en": "eggs" } },
-    { "qty": "130 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
-    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
-    { "qty": "80 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
-    { "qty": "2 msk", "item": { "sv": "kakao", "en": "cocoa powder" } },
-    { "qty": "1/4 tsk", "item": { "sv": "salt", "en": "salt" } }
+    {
+      "qty": {
+        "value": 200,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "mörk choklad",
+        "en": "dark chocolate"
+      },
+      "densityKey": "chocolate"
+    },
+    {
+      "qty": {
+        "value": 60,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "smör",
+        "en": "butter"
+      },
+      "densityKey": "butter"
+    },
+    {
+      "qty": {
+        "value": 2,
+        "unit": "piece"
+      },
+      "item": {
+        "sv": "ägg",
+        "en": "eggs"
+      }
+    },
+    {
+      "qty": {
+        "value": 130,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "strösocker",
+        "en": "granulated sugar"
+      },
+      "densityKey": "sugar"
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "vaniljextrakt",
+        "en": "vanilla extract"
+      },
+      "densityKey": "vanilla"
+    },
+    {
+      "qty": {
+        "value": 80,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "vetemjöl",
+        "en": "all-purpose flour"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 2,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "kakao",
+        "en": "cocoa powder"
+      },
+      "densityKey": "cocoa"
+    },
+    {
+      "qty": {
+        "value": 0.25,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "salt",
+        "en": "salt"
+      },
+      "densityKey": "salt"
+    }
   ],
-  "diet": ["vegetarian"],
+  "diet": [
+    "vegetarian"
+  ],
   "steps": [
-    { "sv": "Smält choklad och smör ihop, låt svalna något.", "en": "Melt the chocolate and butter together, let cool slightly." },
-    { "sv": "Vispa ägg, socker och vanilj tjockt och ljust.", "en": "Whisk the eggs, sugar and vanilla until thick and pale." },
-    { "sv": "Rör ner chokladen, vänd sedan i mjöl, kakao och salt.", "en": "Stir in the chocolate, then fold in the flour, cocoa and salt." },
-    { "sv": "Klicka ut på plåt och grädda 175°C i 10–12 minuter.", "en": "Scoop onto a tray and bake at 175°C for 10–12 minutes." },
-    { "sv": "Låt stelna på plåten. Se videon för detaljer.", "en": "Let set on the tray. See the video for details." }
+    {
+      "sv": "Smält choklad och smör ihop, låt svalna något.",
+      "en": "Melt the chocolate and butter together, let cool slightly."
+    },
+    {
+      "sv": "Vispa ägg, socker och vanilj tjockt och ljust.",
+      "en": "Whisk the eggs, sugar and vanilla until thick and pale."
+    },
+    {
+      "sv": "Rör ner chokladen, vänd sedan i mjöl, kakao och salt.",
+      "en": "Stir in the chocolate, then fold in the flour, cocoa and salt."
+    },
+    {
+      "sv": "Klicka ut på plåt och grädda 175°C i 10–12 minuter.",
+      "en": "Scoop onto a tray and bake at 175°C for 10–12 minutes."
+    },
+    {
+      "sv": "Låt stelna på plåten. Se videon för detaljer.",
+      "en": "Let set on the tray. See the video for details."
+    }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Använd degen medan den är blank.",
     "en": "At-home version — follow the video above. Use the batter while glossy."
   },
   "allergens": {
-    "codes": ["gluten", "egg", "milk"],
-    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
-    "needsReview": ["mörk choklad / dark chocolate may carry soy and nut traces"],
+    "codes": [
+      "gluten",
+      "egg",
+      "milk"
+    ],
+    "declaration": {
+      "sv": "Innehåller: gluten, ägg, mjölk",
+      "en": "Contains: gluten, egg, milk"
+    },
+    "needsReview": [
+      "mörk choklad / dark chocolate may carry soy and nut traces"
+    ],
     "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"
   },

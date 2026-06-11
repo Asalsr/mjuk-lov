@@ -19,17 +19,111 @@
     "url": "https://www.biggerbolderbaking.com/chocolate-mug-cakes/"
   },
   "ingredients": [
-    { "qty": "4 msk", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
-    { "qty": "3 msk", "item": { "sv": "strösocker", "en": "granulated sugar" } },
-    { "qty": "2 msk", "item": { "sv": "kakao", "en": "cocoa powder" } },
-    { "qty": "1 krm", "item": { "sv": "bakpulver", "en": "baking powder" } },
-    { "qty": "1 nypa", "item": { "sv": "salt", "en": "salt" } },
-    { "qty": "3 msk", "item": { "sv": "mjölk", "en": "milk" } },
-    { "qty": "2 msk", "item": { "sv": "neutral olja", "en": "neutral oil" } },
-    { "qty": "1/4 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
-    { "qty": "1 msk", "item": { "sv": "chokladchips (valfritt)", "en": "chocolate chips (optional)" } }
+    {
+      "qty": {
+        "value": 4,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "vetemjöl",
+        "en": "all-purpose flour"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 3,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "strösocker",
+        "en": "granulated sugar"
+      },
+      "densityKey": "sugar"
+    },
+    {
+      "qty": {
+        "value": 2,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "kakao",
+        "en": "cocoa powder"
+      },
+      "densityKey": "cocoa"
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "ml"
+      },
+      "item": {
+        "sv": "bakpulver",
+        "en": "baking powder"
+      },
+      "densityKey": "bakingPowder"
+    },
+    {
+      "qty": {
+        "text": {
+          "sv": "1 nypa",
+          "en": "1 pinch"
+        }
+      },
+      "item": {
+        "sv": "salt",
+        "en": "salt"
+      },
+      "densityKey": "salt"
+    },
+    {
+      "qty": {
+        "value": 3,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "mjölk",
+        "en": "milk"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 2,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "neutral olja",
+        "en": "neutral oil"
+      },
+      "densityKey": "oil"
+    },
+    {
+      "qty": {
+        "value": 0.25,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "vaniljextrakt",
+        "en": "vanilla extract"
+      },
+      "densityKey": "vanilla"
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "chokladchips (valfritt)",
+        "en": "chocolate chips (optional)"
+      },
+      "densityKey": "chocolateChips"
+    }
   ],
-  "diet": ["vegetarian"],
+  "diet": [
+    "vegetarian"
+  ],
   "steps": [
     {
       "sv": "Rör ihop mjöl, socker, kakao, bakpulver och salt direkt i en stor mugg.",
@@ -53,7 +147,10 @@
     "en": "This is an at-home version — follow the video above for the exact method. Microwaves vary; start at 60 seconds and add in 10-second steps."
   },
   "allergens": {
-    "codes": ["gluten", "milk"],
+    "codes": [
+      "gluten",
+      "milk"
+    ],
     "declaration": {
       "sv": "Innehåller: gluten, mjölk",
       "en": "Contains: gluten, milk"

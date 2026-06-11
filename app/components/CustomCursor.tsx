@@ -2,14 +2,20 @@
 
 import { useEffect, useState } from 'react';
 import { useIsTouch } from '../hooks/useIsTouch';
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 
 export const CustomCursor = () => {
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
   const isTouch = useIsTouch();
+  const reduced = usePrefersReducedMotion();
+  // Disable for touch devices AND for reduced-motion users — a cursor that
+  // follows the pointer is motion, and hiding the system cursor (cursor:none)
+  // would defeat OS cursor magnification / large-cursor accessibility settings.
+  const disabled = isTouch || reduced;
 
   useEffect(() => {
-    if (isTouch) return;
+    if (disabled) return;
 
     const updateCursor = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
@@ -38,9 +44,9 @@ export const CustomCursor = () => {
       window.removeEventListener('mousemove', updateCursor);
       window.removeEventListener('mouseover', handleMouseOver);
     };
-  }, [isTouch]);
+  }, [disabled]);
 
-  if (isTouch) return null;
+  if (disabled) return null;
 
   return (
     <>

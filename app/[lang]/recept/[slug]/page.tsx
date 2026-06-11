@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPublishedRecipes, getRecipe } from "@/lib/recipes";
+import { quantityToString } from "@/lib/recipes/qty";
+import { annotateTemps } from "@/lib/units/temps";
 import { ui, isLang, LANGS, type Lang } from "@/lib/i18n";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { YouTubeEmbed } from "@/app/components/recipe/YouTubeEmbed";
 import { IngredientList } from "@/app/components/recipe/IngredientList";
+import { OvenTemp } from "@/app/components/recipe/OvenTemp";
 import { AllergenBlock } from "@/app/components/recipe/AllergenBadge";
 import { SaveButton } from "@/app/components/personal/SaveButton";
 import { WishlistButton } from "@/app/components/personal/WishlistButton";
@@ -78,14 +81,19 @@ export default async function Page({
     "@type": "Recipe",
     name: recipe.title[lang],
     description: recipe.headnote[lang],
-    recipeYield: `${recipe.servings}`,
+    recipeYield: recipe.yieldNote ? [`${recipe.servings}`, recipe.yieldNote[lang]] : `${recipe.servings}`,
     totalTime: isoDuration(recipe.time.totalMin),
     prepTime: isoDuration(recipe.time.prepMin),
-    recipeIngredient: recipe.ingredients.map((i) => `${i.qty} ${i.item[lang]}`),
+    ...(recipe.equipment.length
+      ? { tool: recipe.equipment.map((e) => ({ "@type": "HowToTool", name: e[lang] })) }
+      : {}),
+    recipeIngredient: recipe.ingredients.map((i) => `${quantityToString(i.qty, lang)} ${i.item[lang]}`),
     recipeInstructions: recipe.steps.map((s, i) => ({
       "@type": "HowToStep",
       position: i + 1,
-      text: s[lang],
+      text: s.text[lang],
+      ...(s.durationMin ? { timeRequired: isoDuration(s.durationMin) } : {}),
+      ...(s.image ? { image: s.image } : {}),
     })),
     inLanguage: lang,
     ...(recipe.youtubeId
@@ -103,7 +111,7 @@ export default async function Page({
         <div className="max-w-[820px] mx-auto">
           <Link
             href={`/${lang}/recept`}
-            className="type-caps opacity-60 transition-all hover:opacity-100 hover:text-[var(--dusty-terracotta)]"
+            className="type-caps ink-muted transition-all hover:text-[var(--dusty-terracotta)]"
           >
             ← {t.allRecipes}
           </Link>
@@ -111,12 +119,18 @@ export default async function Page({
           <h1 className="mt-6" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)" }}>
             {recipe.title[lang]}
           </h1>
-          <p className="type-serif italic opacity-70 mt-4" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)" }}>
+          <p className="type-serif italic ink-muted mt-4" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)" }}>
             {recipe.headnote[lang]}
           </p>
-          <div className="type-caps opacity-50 mt-5">
+          <div className="type-caps ink-muted mt-5">
             {t.minutes(recipe.time.totalMin)} · {t.servings(recipe.servings)}
+            {recipe.yieldNote ? ` · ${recipe.yieldNote[lang]}` : ""}
           </div>
+          {recipe.oven && (
+            <div className="type-caps ink-muted mt-3">
+              <OvenTemp value={recipe.oven.value} unit={recipe.oven.unit} lang={lang} />
+            </div>
+          )}
 
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <SaveButton slug={slug} lang={lang} />
@@ -131,7 +145,7 @@ export default async function Page({
           )}
 
           {recipe.inspiredBy && (
-            <p className="type-caps opacity-50 mt-4">
+            <p className="type-caps ink-muted mt-4">
               {t.inspiredBy}{" "}
               <a
                 href={recipe.inspiredBy.url}
@@ -146,21 +160,48 @@ export default async function Page({
 
           <div className="mt-12 grid gap-10 md:gap-16 md:grid-cols-[1fr_1.4fr]">
             <section>
-              <div className="type-caps opacity-50 mb-5">{t.ingredients}</div>
+              <div className="type-caps ink-muted mb-5">{t.ingredients}</div>
               <IngredientList ingredients={recipe.ingredients} lang={lang} />
+              {recipe.equipment.length > 0 && (
+                <>
+                  <div className="type-caps ink-muted mt-8 mb-3">{t.equipment}</div>
+                  <ul className="type-body opacity-90 list-disc pl-5 space-y-1">
+                    {recipe.equipment.map((e, i) => (
+                      <li key={i}>{e[lang]}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
             </section>
             <section>
-              <div className="type-caps opacity-50 mb-5">{t.method}</div>
+              <div className="type-caps ink-muted mb-5">{t.method}</div>
               <ol className="space-y-6">
                 {recipe.steps.map((s, i) => (
                   <li key={i} className="flex gap-4">
                     <span
-                      className="type-display leading-none"
-                      style={{ color: "var(--dusty-terracotta)", opacity: 0.4, fontSize: "clamp(1.5rem, 3vw, 2rem)" }}
+                      className="type-display leading-none ink-faint"
+                      style={{ color: "var(--dusty-terracotta)", fontSize: "clamp(1.5rem, 3vw, 2rem)" }}
                     >
                       {i + 1}
                     </span>
-                    <p className="type-body opacity-90">{s[lang]}</p>
+                    <div className="flex-1">
+                      <p className="type-body opacity-90">{annotateTemps(s.text[lang])}</p>
+                      {s.durationMin ? (
+                        <span className="type-caps ink-faint inline-block mt-1" style={{ fontSize: "0.7rem" }}>
+                          {t.minutes(s.durationMin)}
+                        </span>
+                      ) : null}
+                      {s.image ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={s.image}
+                          alt=""
+                          loading="lazy"
+                          className="mt-3 w-full"
+                          style={{ border: "1px solid rgba(61, 42, 34, 0.1)" }}
+                        />
+                      ) : null}
+                    </div>
                   </li>
                 ))}
               </ol>
@@ -173,21 +214,32 @@ export default async function Page({
 
           {adaptTargets.length > 0 && (
             <section className="mt-12">
-              <div className="type-caps opacity-50 mb-4">{t.diet}</div>
+              <div className="type-caps ink-muted mb-4">{t.diet}</div>
               <AdaptButton
                 lang={lang}
                 slug={recipe.slug}
                 title={recipe.title[lang]}
-                ingredients={recipe.ingredients.map((i) => ({ qty: i.qty, item: i.item[lang] }))}
+                ingredients={recipe.ingredients.map((i) => ({ qty: quantityToString(i.qty, lang), item: i.item[lang] }))}
                 targets={adaptTargets}
               />
             </section>
           )}
 
+          {recipe.tips.length > 0 && (
+            <section className="mt-12">
+              <div className="type-caps ink-muted mb-3">{t.tips}</div>
+              <ul className="type-body opacity-80 list-disc pl-5 space-y-1.5">
+                {recipe.tips.map((tip, i) => (
+                  <li key={i}>{annotateTemps(tip[lang])}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           {recipe.notes[lang].trim() !== "" && (
             <section className="mt-12">
-              <div className="type-caps opacity-50 mb-3">{t.notes}</div>
-              <p className="type-body opacity-80">{recipe.notes[lang]}</p>
+              <div className="type-caps ink-muted mb-3">{t.notes}</div>
+              <p className="type-body opacity-80">{annotateTemps(recipe.notes[lang])}</p>
             </section>
           )}
 

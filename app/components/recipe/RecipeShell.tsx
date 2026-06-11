@@ -36,13 +36,22 @@ export function RecipeShell({
 
   return (
     <div className="min-h-screen relative" style={{ backgroundColor: 'var(--vanilla-cream)' }}>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[10001] focus:px-4 focus:py-2 focus:shadow-md type-caps"
+        style={{ backgroundColor: 'var(--vanilla-cream)', color: 'var(--warm-cocoa)' }}
+      >
+        {lang === 'sv' ? 'Hoppa till innehåll' : 'Skip to content'}
+      </a>
       <ScrollProgress />
       <NoiseTexture />
       <CustomCursor />
       <FloatingElements />
       <BackToTop />
       <Header lang={lang} onLangToggle={toggleLang} />
-      {children}
+      <main id="main-content" tabIndex={-1}>
+        {children}
+      </main>
       <Footer lang={lang} />
     </div>
   );

@@ -145,7 +145,7 @@ export const Corporate = ({ lang }: CorporateProps) => {
         </div>
 
         <div className="text-center mt-12">
-          <p className="type-body italic mb-8 opacity-70">
+          <p className="type-body italic mb-8 ink-muted">
             {t.footnote}
           </p>
 

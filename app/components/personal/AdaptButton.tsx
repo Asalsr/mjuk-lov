@@ -42,6 +42,7 @@ export function AdaptButton({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mode: "adapt", lang, target, recipe: { slug, title, ingredients } }),
+        signal: AbortSignal.timeout(30000),
       });
       const out = await res.json();
       if (!res.ok || out.error) setError(true);
@@ -64,7 +65,7 @@ export function AdaptButton({
             className="type-caps tap px-5 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
             style={{ border: "1px solid var(--warm-cocoa)" }}
           >
-            {loading === "vegetarian" ? t.thinking : t.makeVegetarian}
+            {loading === "vegetarian" ? <span role="status" aria-live="polite">{t.thinking}</span> : t.makeVegetarian}
           </button>
         )}
         {targets.includes("vegan") && (
@@ -75,7 +76,7 @@ export function AdaptButton({
             className="type-caps tap px-5 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
             style={{ border: "1px solid var(--warm-cocoa)" }}
           >
-            {loading === "vegan" ? t.thinking : t.makeVegan}
+            {loading === "vegan" ? <span role="status" aria-live="polite">{t.thinking}</span> : t.makeVegan}
           </button>
         )}
         {targets.includes("gluten-free") && (
@@ -86,28 +87,28 @@ export function AdaptButton({
             className="type-caps tap px-5 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
             style={{ border: "1px solid var(--warm-cocoa)" }}
           >
-            {loading === "gluten-free" ? t.thinking : t.makeGlutenFree}
+            {loading === "gluten-free" ? <span role="status" aria-live="polite">{t.thinking}</span> : t.makeGlutenFree}
           </button>
         )}
       </div>
 
-      {error && <p className="type-body opacity-70 mt-4" style={{ color: "var(--dusty-wine)" }}>{t.aiError}</p>}
+      {error && <p className="type-body opacity-70 mt-4" role="alert" aria-live="assertive" style={{ color: "var(--dusty-wine)" }}>{t.aiError}</p>}
 
       {result && (
         <div className="mt-6 p-6 md:p-8" style={{ backgroundColor: "var(--soft-peach)", border: "1px solid rgba(61, 42, 34, 0.15)" }}>
-          <div className="type-caps opacity-60 mb-3">{t.adaptHeading}</div>
+          <div className="type-caps ink-muted mb-3">{t.adaptHeading}</div>
           <p className="type-body mb-5">{result.summary}</p>
 
           {result.swaps.length > 0 && (
             <>
-              <div className="type-caps opacity-40 mb-2" style={{ fontSize: "0.6875rem" }}>{t.swapsHeading}</div>
+              <div className="type-caps ink-muted mb-2" style={{ fontSize: "0.75rem" }}>{t.swapsHeading}</div>
               <ul className="space-y-2 mb-5">
                 {result.swaps.map((s, i) => (
                   <li key={i} className="type-body">
-                    <span className="opacity-60 line-through">{s.from}</span>
+                    <span className="ink-muted line-through">{s.from}</span>
                     {" → "}
                     <span style={{ color: "var(--dusty-terracotta)" }}>{s.to}</span>
-                    {s.note ? <span className="opacity-60"> — {s.note}</span> : null}
+                    {s.note ? <span className="ink-muted"> — {s.note}</span> : null}
                   </li>
                 ))}
               </ul>
@@ -116,7 +117,7 @@ export function AdaptButton({
 
           {result.tips.length > 0 && (
             <>
-              <div className="type-caps opacity-40 mb-2" style={{ fontSize: "0.6875rem" }}>{t.tipsHeading}</div>
+              <div className="type-caps ink-muted mb-2" style={{ fontSize: "0.75rem" }}>{t.tipsHeading}</div>
               <ul className="space-y-2 mb-5 list-disc pl-5">
                 {result.tips.map((tip, i) => (
                   <li key={i} className="type-body">{tip}</li>
@@ -127,12 +128,12 @@ export function AdaptButton({
 
           {result.allergens && (
             <div className="mb-4">
-              <div className="type-caps opacity-40 mb-1" style={{ fontSize: "0.6875rem" }}>{t.adaptedAllergens}</div>
+              <div className="type-caps ink-muted mb-1" style={{ fontSize: "0.75rem" }}>{t.adaptedAllergens}</div>
               <p className="type-body">{result.allergens.declaration[lang]}</p>
             </div>
           )}
 
-          <p className="type-caps opacity-40" style={{ fontSize: "0.625rem" }}>{t.aiDisclaimer}</p>
+          <p className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>{t.aiDisclaimer}</p>
         </div>
       )}
     </div>

@@ -6,6 +6,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { RecipeSchema } from "../lib/recipes/schema";
+import { quantityToString } from "../lib/recipes/qty";
 import { aiDetect } from "../lib/allergen/provider";
 import { draftLabel } from "../lib/allergen/engine";
 
@@ -19,7 +20,9 @@ async function main() {
   const file = path.join(process.cwd(), "content", "recipes", `${slug}.json`);
   const recipe = RecipeSchema.parse(JSON.parse(readFileSync(file, "utf8")));
 
-  const ingredientStrings = recipe.ingredients.map((i) => `${i.qty} ${i.item.sv} / ${i.item.en}`);
+  const ingredientStrings = recipe.ingredients.map(
+    (i) => `${quantityToString(i.qty, "sv")} ${i.item.sv} / ${i.item.en}`,
+  );
   const label = await draftLabel(ingredientStrings, aiDetect);
 
   console.log(`\nDraft allergen label for "${slug}":`);

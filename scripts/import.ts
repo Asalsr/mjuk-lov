@@ -8,6 +8,8 @@ import { writeFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { chat } from "../lib/ai/chat";
 import { RecipeSchema } from "../lib/recipes/schema";
+import { parseQty } from "../lib/units/parse";
+import { resolveDensityKey } from "../lib/units/densities";
 
 function youtubeId(url: string): string | null {
   const m = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]{11})/);
@@ -70,8 +72,23 @@ async function main() {
     ? (data.diet as string[]).filter((d) => d === "vegan" || d === "vegetarian")
     : [];
 
+  // The AI extracts qty as free text ("250 g", "1 tsk"); convert to the
+  // structured form and assign a densityKey. Unparseable strings fall back to
+  // a qualitative text quantity for the author to fix.
+  const rawIngredients = Array.isArray(data.ingredients) ? data.ingredients : [];
+  const ingredients = (rawIngredients as { qty?: unknown; item?: { sv: string; en: string } }[]).map(
+    (ing) => {
+      const item = ing.item ?? { sv: "", en: "" };
+      const parsed = typeof ing.qty === "string" ? parseQty(ing.qty) : null;
+      const qty = parsed ?? { text: { sv: String(ing.qty ?? ""), en: String(ing.qty ?? "") } };
+      const densityKey = resolveDensityKey(`${item.sv} ${item.en}`);
+      return { qty, item, ...(densityKey ? { densityKey } : {}) };
+    },
+  );
+
   const recipe = {
     ...data,
+    ingredients,
     youtubeId: vid,
     diet,
     allergens: { codes: [], declaration: { sv: "", en: "" }, needsReview: [], approvedBy: "", approvedAt: "" },

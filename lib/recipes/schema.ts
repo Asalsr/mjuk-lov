@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { UNIT_CODES } from "@/lib/units/units";
 
 /** The 14 EU major allergens (Reg 1169/2011 Annex II). */
 export const ALLERGEN_CODES = [
@@ -18,6 +19,33 @@ export type DietTag = z.infer<typeof DietTag>;
 const Localized = z.object({ sv: z.string(), en: z.string() });
 export type Localized = z.infer<typeof Localized>;
 
+/** A structured, convertible amount (e.g. 250 g, 1 tsp) … */
+export const Amount = z.object({
+  value: z.number().positive(),
+  unit: z.enum(UNIT_CODES),
+});
+export type Amount = z.infer<typeof Amount>;
+
+/** … or a qualitative quantity that can't be converted ("a pinch", "to taste"). */
+export const Quantity = z.union([Amount, z.object({ text: Localized })]);
+export type Quantity = z.infer<typeof Quantity>;
+
+/** A method step: localized text plus optional per-step timing and photo.
+ *  Legacy recipes authored a step as a bare { sv, en }; `z.preprocess` wraps
+ *  that into { text } so every consumer can read `step.text` uniformly. */
+const StepBody = z.object({
+  text: Localized,
+  /** Hands-on/elapsed minutes for this step (optional; shown as a chip). */
+  durationMin: z.number().int().positive().optional(),
+  /** Photo for this step — /public path or URL (optional; M9b). */
+  image: z.string().optional(),
+});
+export const Step = z.preprocess(
+  (v) => (v && typeof v === "object" && "text" in v ? v : { text: v }),
+  StepBody,
+);
+export type Step = z.infer<typeof Step>;
+
 export const RecipeSchema = z.object({
   slug: z.string().min(1),
   title: Localized,
@@ -36,11 +64,31 @@ export const RecipeSchema = z.object({
     .object({ channel: z.string(), url: z.string() })
     .nullable()
     .default(null),
-  ingredients: z.array(z.object({ qty: z.string(), item: Localized })).min(1),
+  ingredients: z
+    .array(
+      z.object({
+        qty: Quantity,
+        item: Localized,
+        /** Optional ref into the density table, enabling mass↔volume conversion for this row. */
+        densityKey: z.string().optional(),
+      }),
+    )
+    .min(1),
+  /** Optional oven temperature, shown with a °C/°F toggle. */
+  oven: z
+    .object({ value: z.number(), unit: z.enum(["C", "F"]) })
+    .nullable()
+    .default(null),
   /** Dietary tags this recipe satisfies (optional; defaults to none). */
   diet: z.array(DietTag).default([]),
-  steps: z.array(Localized).min(1),
+  /** Equipment/tools needed (optional; bilingual). */
+  equipment: z.array(Localized).default([]),
+  /** Richer yield than `servings` alone, e.g. "one 20 cm cake" (optional). */
+  yieldNote: Localized.optional(),
+  steps: z.array(Step).min(1),
   notes: Localized,
+  /** Actionable technique tips, distinct from `notes` (optional; bilingual). */
+  tips: z.array(Localized).default([]),
   /** Engine output — must be human-approved before publishing (see index.ts). */
   allergens: z.object({
     codes: z.array(AllergenCode),

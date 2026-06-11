@@ -65,6 +65,7 @@ export function RecipeCard({
             />
           ) : (
             <span
+              aria-hidden="true"
               className="type-display opacity-20"
               style={{ color: "var(--dusty-terracotta)", fontSize: "clamp(2rem, 6vw, 3.5rem)" }}
             >
@@ -74,15 +75,15 @@ export function RecipeCard({
         </div>
 
         <div className="p-6 md:p-8">
-          <div className="type-caps mb-2 opacity-50">
+          <div className="type-caps mb-2 ink-muted">
             {t.minutes(recipe.time.totalMin)} · {t.servings(recipe.servings)}
           </div>
-          <h3
+          <h2
             className="mb-3 transition-colors duration-300 group-hover:text-[var(--dusty-terracotta)]"
             style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}
           >
             {recipe.title[lang]}
-          </h3>
+          </h2>
           <p className="type-body mb-4 opacity-80">{recipe.headnote[lang]}</p>
           <AllergenChips codes={recipe.allergens.codes} lang={lang} />
         </div>

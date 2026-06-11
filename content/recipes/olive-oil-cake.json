@@ -1,39 +1,151 @@
 {
   "slug": "olive-oil-cake",
-  "title": { "sv": "Olivoljekaka", "en": "Olive oil cake" },
+  "title": {
+    "sv": "Olivoljekaka",
+    "en": "Olive oil cake"
+  },
   "headnote": {
     "sv": "Fuktig, doftande kaka där olivolja ger djup och saftighet. Förvånansvärt enkel. Se videon ovan för Chefs metod.",
     "en": "A moist, fragrant cake where olive oil brings depth and tenderness. Surprisingly simple. Watch the video above for Chef John's method."
   },
   "servings": 10,
-  "time": { "prepMin": 15, "totalMin": 60 },
+  "time": {
+    "prepMin": 15,
+    "totalMin": 60
+  },
   "youtubeId": "CaG0A0r6Iq4",
-  "inspiredBy": { "channel": "Food Wishes", "url": "https://www.youtube.com/watch?v=CaG0A0r6Iq4" },
+  "inspiredBy": {
+    "channel": "Food Wishes",
+    "url": "https://www.youtube.com/watch?v=CaG0A0r6Iq4"
+  },
   "ingredients": [
-    { "qty": "3", "item": { "sv": "ägg", "en": "eggs" } },
-    { "qty": "200 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
-    { "qty": "180 ml", "item": { "sv": "olivolja", "en": "olive oil" } },
-    { "qty": "120 ml", "item": { "sv": "mjölk", "en": "milk" } },
-    { "qty": "1", "item": { "sv": "apelsin, rivet skal + saft", "en": "orange, zest + juice" } },
-    { "qty": "220 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
-    { "qty": "2 tsk", "item": { "sv": "bakpulver", "en": "baking powder" } },
-    { "qty": "1/2 tsk", "item": { "sv": "salt", "en": "salt" } }
+    {
+      "qty": {
+        "value": 3,
+        "unit": "piece"
+      },
+      "item": {
+        "sv": "ägg",
+        "en": "eggs"
+      }
+    },
+    {
+      "qty": {
+        "value": 200,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "strösocker",
+        "en": "granulated sugar"
+      },
+      "densityKey": "sugar"
+    },
+    {
+      "qty": {
+        "value": 180,
+        "unit": "ml"
+      },
+      "item": {
+        "sv": "olivolja",
+        "en": "olive oil"
+      },
+      "densityKey": "oil"
+    },
+    {
+      "qty": {
+        "value": 120,
+        "unit": "ml"
+      },
+      "item": {
+        "sv": "mjölk",
+        "en": "milk"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "piece"
+      },
+      "item": {
+        "sv": "apelsin, rivet skal + saft",
+        "en": "orange, zest + juice"
+      },
+      "densityKey": "juice"
+    },
+    {
+      "qty": {
+        "value": 220,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "vetemjöl",
+        "en": "all-purpose flour"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 2,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "bakpulver",
+        "en": "baking powder"
+      },
+      "densityKey": "bakingPowder"
+    },
+    {
+      "qty": {
+        "value": 0.5,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "salt",
+        "en": "salt"
+      },
+      "densityKey": "salt"
+    }
   ],
-  "diet": ["vegetarian"],
+  "diet": [
+    "vegetarian"
+  ],
   "steps": [
-    { "sv": "Sätt ugnen på 175°C och smörj en form (ca 23 cm).", "en": "Heat the oven to 175°C and grease a tin (about 23 cm)." },
-    { "sv": "Vispa ägg och socker ljust, tillsätt olivolja, mjölk, skal och saft.", "en": "Whisk the eggs and sugar pale, add the olive oil, milk, zest and juice." },
-    { "sv": "Vänd ner mjöl, bakpulver och salt till en slät smet.", "en": "Fold in the flour, baking powder and salt to a smooth batter." },
-    { "sv": "Häll i formen och grädda 40–45 minuter tills en sticka kommer ut ren.", "en": "Pour into the tin and bake 40–45 minutes until a skewer comes out clean." },
-    { "sv": "Låt svalna. Se videon för detaljer.", "en": "Let cool. See the video for details." }
+    {
+      "sv": "Sätt ugnen på 175°C och smörj en form (ca 23 cm).",
+      "en": "Heat the oven to 175°C and grease a tin (about 23 cm)."
+    },
+    {
+      "sv": "Vispa ägg och socker ljust, tillsätt olivolja, mjölk, skal och saft.",
+      "en": "Whisk the eggs and sugar pale, add the olive oil, milk, zest and juice."
+    },
+    {
+      "sv": "Vänd ner mjöl, bakpulver och salt till en slät smet.",
+      "en": "Fold in the flour, baking powder and salt to a smooth batter."
+    },
+    {
+      "sv": "Häll i formen och grädda 40–45 minuter tills en sticka kommer ut ren.",
+      "en": "Pour into the tin and bake 40–45 minutes until a skewer comes out clean."
+    },
+    {
+      "sv": "Låt svalna. Se videon för detaljer.",
+      "en": "Let cool. See the video for details."
+    }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Använd en god, fruktig olivolja.",
     "en": "At-home version — follow the video above. Use a good fruity olive oil."
   },
   "allergens": {
-    "codes": ["gluten", "egg", "milk"],
-    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "codes": [
+      "gluten",
+      "egg",
+      "milk"
+    ],
+    "declaration": {
+      "sv": "Innehåller: gluten, ägg, mjölk",
+      "en": "Contains: gluten, egg, milk"
+    },
     "needsReview": [],
     "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"

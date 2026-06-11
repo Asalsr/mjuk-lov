@@ -1,38 +1,140 @@
 {
   "slug": "lemon-bars",
-  "title": { "sv": "Citronrutor", "en": "Lemon bars" },
+  "title": {
+    "sv": "Citronrutor",
+    "en": "Lemon bars"
+  },
   "headnote": {
     "sv": "Frasig mördegsbotten under en len, syrlig citronkräm, pudrad med florsocker. Se videon ovan.",
     "en": "A crisp shortbread base under a silky, tangy lemon curd, dusted with icing sugar. Watch the video above."
   },
   "servings": 16,
-  "time": { "prepMin": 25, "totalMin": 75 },
+  "time": {
+    "prepMin": 25,
+    "totalMin": 75
+  },
   "youtubeId": "fUinvtDigVk",
-  "inspiredBy": { "channel": "America's Test Kitchen", "url": "https://www.youtube.com/watch?v=fUinvtDigVk" },
+  "inspiredBy": {
+    "channel": "America's Test Kitchen",
+    "url": "https://www.youtube.com/watch?v=fUinvtDigVk"
+  },
   "ingredients": [
-    { "qty": "170 g", "item": { "sv": "vetemjöl (botten)", "en": "all-purpose flour (base)" } },
-    { "qty": "115 g", "item": { "sv": "smör (botten)", "en": "butter (base)" } },
-    { "qty": "50 g", "item": { "sv": "florsocker (botten)", "en": "icing sugar (base)" } },
-    { "qty": "4", "item": { "sv": "ägg (fyllning)", "en": "eggs (filling)" } },
-    { "qty": "250 g", "item": { "sv": "strösocker (fyllning)", "en": "granulated sugar (filling)" } },
-    { "qty": "120 ml", "item": { "sv": "citronsaft", "en": "lemon juice" } },
-    { "qty": "3 msk", "item": { "sv": "vetemjöl (fyllning)", "en": "all-purpose flour (filling)" } }
+    {
+      "qty": {
+        "value": 170,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "vetemjöl (botten)",
+        "en": "all-purpose flour (base)"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 115,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "smör (botten)",
+        "en": "butter (base)"
+      },
+      "densityKey": "butter"
+    },
+    {
+      "qty": {
+        "value": 50,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "florsocker (botten)",
+        "en": "icing sugar (base)"
+      },
+      "densityKey": "powderedSugar"
+    },
+    {
+      "qty": {
+        "value": 4,
+        "unit": "piece"
+      },
+      "item": {
+        "sv": "ägg (fyllning)",
+        "en": "eggs (filling)"
+      }
+    },
+    {
+      "qty": {
+        "value": 250,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "strösocker (fyllning)",
+        "en": "granulated sugar (filling)"
+      },
+      "densityKey": "sugar"
+    },
+    {
+      "qty": {
+        "value": 120,
+        "unit": "ml"
+      },
+      "item": {
+        "sv": "citronsaft",
+        "en": "lemon juice"
+      },
+      "densityKey": "juice"
+    },
+    {
+      "qty": {
+        "value": 3,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "vetemjöl (fyllning)",
+        "en": "all-purpose flour (filling)"
+      },
+      "densityKey": "flour"
+    }
   ],
-  "diet": ["vegetarian"],
+  "diet": [
+    "vegetarian"
+  ],
   "steps": [
-    { "sv": "Sätt ugnen på 175°C. Nyp ihop mjöl, smör och florsocker till en smulig botten, tryck ut i en form.", "en": "Heat the oven to 175°C. Rub the flour, butter and icing sugar into a crumbly base, press into a tin." },
-    { "sv": "Förgrädda botten 18–20 minuter tills ljust gyllene.", "en": "Pre-bake the base 18–20 minutes until lightly golden." },
-    { "sv": "Vispa ägg, strösocker, citronsaft och mjöl till fyllningen.", "en": "Whisk the eggs, sugar, lemon juice and flour for the filling." },
-    { "sv": "Häll över den varma botten och grädda 20–25 minuter tills precis fast.", "en": "Pour over the warm base and bake 20–25 minutes until just set." },
-    { "sv": "Låt svalna, pudra med florsocker och skär. Se videon för detaljer.", "en": "Cool, dust with icing sugar and cut. See the video for details." }
+    {
+      "sv": "Sätt ugnen på 175°C. Nyp ihop mjöl, smör och florsocker till en smulig botten, tryck ut i en form.",
+      "en": "Heat the oven to 175°C. Rub the flour, butter and icing sugar into a crumbly base, press into a tin."
+    },
+    {
+      "sv": "Förgrädda botten 18–20 minuter tills ljust gyllene.",
+      "en": "Pre-bake the base 18–20 minutes until lightly golden."
+    },
+    {
+      "sv": "Vispa ägg, strösocker, citronsaft och mjöl till fyllningen.",
+      "en": "Whisk the eggs, sugar, lemon juice and flour for the filling."
+    },
+    {
+      "sv": "Häll över den varma botten och grädda 20–25 minuter tills precis fast.",
+      "en": "Pour over the warm base and bake 20–25 minutes until just set."
+    },
+    {
+      "sv": "Låt svalna, pudra med florsocker och skär. Se videon för detaljer.",
+      "en": "Cool, dust with icing sugar and cut. See the video for details."
+    }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Kyl helt innan du skär för rena kanter.",
     "en": "At-home version — follow the video above. Chill fully before cutting for clean edges."
   },
   "allergens": {
-    "codes": ["gluten", "egg", "milk"],
-    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "codes": [
+      "gluten",
+      "egg",
+      "milk"
+    ],
+    "declaration": {
+      "sv": "Innehåller: gluten, ägg, mjölk",
+      "en": "Contains: gluten, egg, milk"
+    },
     "needsReview": [],
     "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"

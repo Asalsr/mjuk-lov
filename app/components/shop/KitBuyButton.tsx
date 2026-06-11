@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ui, type Lang } from "@/lib/i18n";
 
@@ -9,8 +9,13 @@ export function KitBuyButton({ productId, lang }: { productId: string; lang: Lan
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Ref guard: blocks a second click before the `loading` state re-renders,
+  // which would otherwise open two Stripe checkout sessions (double charge).
+  const inFlight = useRef(false);
 
   const buy = async () => {
+    if (inFlight.current) return;
+    inFlight.current = true;
     setLoading(true);
     setError(null);
     try {
@@ -30,6 +35,7 @@ export function KitBuyButton({ productId, lang }: { productId: string; lang: Lan
       setError(t.aiError);
     } finally {
       setLoading(false);
+      inFlight.current = false;
     }
   };
 

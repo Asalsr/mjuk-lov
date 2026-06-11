@@ -25,7 +25,7 @@ async function main() {
     title: recipe.title,
     headnote: recipe.headnote,
     notes: recipe.notes,
-    steps: recipe.steps,
+    steps: recipe.steps.map((s) => s.text),
     ingredients: recipe.ingredients.map((i) => i.item),
   };
 
@@ -41,10 +41,12 @@ async function main() {
   if (t.title) recipe.title = t.title;
   if (t.headnote) recipe.headnote = t.headnote;
   if (t.notes) recipe.notes = t.notes;
-  if (Array.isArray(t.steps)) recipe.steps = t.steps;
+  if (Array.isArray(t.steps)) {
+    recipe.steps = recipe.steps.map((s, i) => ({ ...s, text: t.steps?.[i] ?? s.text }));
+  }
   if (Array.isArray(t.ingredients)) {
     recipe.ingredients = recipe.ingredients.map((ing, i) => ({
-      qty: ing.qty,
+      ...ing, // preserve structured qty + densityKey
       item: t.ingredients?.[i] ?? ing.item,
     }));
   }

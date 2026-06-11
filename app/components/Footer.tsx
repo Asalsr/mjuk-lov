@@ -66,7 +66,7 @@ export const Footer = ({ lang }: FooterProps) => {
           </div>
 
           <div>
-            <div className="type-caps mb-3 opacity-60">
+            <div className="type-caps mb-3 ink-muted">
               {t.location.title}
             </div>
             <div className="type-body">
@@ -77,7 +77,7 @@ export const Footer = ({ lang }: FooterProps) => {
           </div>
 
           <div>
-            <div className="type-caps mb-3 opacity-60">
+            <div className="type-caps mb-3 ink-muted">
               {t.contact.title}
             </div>
             <div className="type-body">
@@ -98,7 +98,7 @@ export const Footer = ({ lang }: FooterProps) => {
         </div>
 
         <div
-          className="type-body flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t opacity-60"
+          className="type-body flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t ink-muted"
           style={{ borderColor: 'rgba(61, 42, 34, 0.1)' }}
         >
           <div>{t.allergen}</div>

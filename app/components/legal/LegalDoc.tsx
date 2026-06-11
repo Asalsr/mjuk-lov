@@ -23,7 +23,7 @@ export function LegalDoc({
     >
       <div className="max-w-[760px] mx-auto" lang={lang}>
         <h1 className="mb-3" style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}>{title}</h1>
-        <p className="type-caps opacity-50 mb-10">{updated}</p>
+        <p className="type-caps ink-muted mb-10">{updated}</p>
         <p className="type-body mb-12 opacity-90">{intro}</p>
 
         <div className="flex flex-col gap-10">

@@ -49,10 +49,10 @@ export function RecipeList({ recipes, lang }: { recipes: Recipe[]; lang: Lang })
       </div>
 
       {visible.length === 0 && (
-        <p className="type-body opacity-70 text-center">{ui[lang].empty}</p>
+        <p className="type-body ink-muted text-center">{ui[lang].empty}</p>
       )}
       {hidden > 0 && (
-        <p className="type-caps opacity-50 text-center mt-8">{t.hiddenByFilter(hidden)}</p>
+        <p className="type-caps ink-muted text-center mt-8">{t.hiddenByFilter(hidden)}</p>
       )}
     </>
   );

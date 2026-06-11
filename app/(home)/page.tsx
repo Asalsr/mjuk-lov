@@ -37,8 +37,12 @@ export default function Page() {
     if (initial) setLang(initial);
 
     // Intro loading screen plays once per browser session — on a fresh visit,
-    // but not on every internal navigation within the same session.
-    if (sessionStorage.getItem('mjuklov_intro_seen')) {
+    // but not on every internal navigation within the same session. Users who
+    // prefer reduced motion skip the animated intro entirely.
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion || sessionStorage.getItem('mjuklov_intro_seen')) {
       setIsLoading(false);
     }
   }, []);
@@ -56,13 +60,6 @@ export default function Page() {
     localStorage.setItem('mjuklov_lang', newLang);
   };
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (prefersReducedMotion.matches) {
-      document.documentElement.style.setProperty('--animation-duration', '0ms');
-    }
-  }, []);
-
   return (
     <>
       {isLoading && (
@@ -78,12 +75,20 @@ export default function Page() {
         />
       )}
       <div className="min-h-screen relative" style={{ scrollBehavior: 'smooth' }}>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[10001] focus:px-4 focus:py-2 focus:shadow-md type-caps"
+          style={{ backgroundColor: 'var(--vanilla-cream)', color: 'var(--warm-cocoa)' }}
+        >
+          {lang === 'sv' ? 'Hoppa till innehåll' : 'Skip to content'}
+        </a>
         <ScrollProgress />
         <NoiseTexture />
         <CustomCursor />
         <FloatingElements />
         <BackToTop />
         <Header lang={lang} onLangToggle={toggleLang} />
+        <main id="main-content" tabIndex={-1}>
         <Hero lang={lang} />
         <TheIdea lang={lang} />
         <SectionDivider fromColor="var(--vanilla-cream)" toColor="var(--soft-peach)" />
@@ -97,6 +102,7 @@ export default function Page() {
         <SectionDivider fromColor="var(--vanilla-cream)" toColor="var(--warm-cocoa)" />
         <Order lang={lang} />
         <WaveDivider fromColor="var(--warm-cocoa)" toColor="var(--vanilla-cream)" />
+        </main>
         <Footer lang={lang} />
       </div>
     </>

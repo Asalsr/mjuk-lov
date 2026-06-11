@@ -1,38 +1,141 @@
 {
   "slug": "microwave-mug-brownie",
-  "title": { "sv": "Muggbrownie (mikro)", "en": "Microwave mug brownie" },
+  "title": {
+    "sv": "Muggbrownie (mikro)",
+    "en": "Microwave mug brownie"
+  },
   "headnote": {
     "sv": "En enda kladdig brownie, rörd i muggen och klar i mikron på en minut. Se videon ovan för Gemmas metod.",
     "en": "A single fudgy brownie, stirred in the mug and done in the microwave in a minute. Watch the video above for Gemma's method."
   },
   "servings": 1,
-  "time": { "prepMin": 3, "totalMin": 5 },
+  "time": {
+    "prepMin": 3,
+    "totalMin": 5
+  },
   "youtubeId": "6eslIRo9als",
-  "inspiredBy": { "channel": "Bigger Bolder Baking", "url": "https://www.biggerbolderbaking.com/microwave-mug-brownie/" },
+  "inspiredBy": {
+    "channel": "Bigger Bolder Baking",
+    "url": "https://www.biggerbolderbaking.com/microwave-mug-brownie/"
+  },
   "ingredients": [
-    { "qty": "3 msk", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
-    { "qty": "3 msk", "item": { "sv": "strösocker", "en": "granulated sugar" } },
-    { "qty": "2 msk", "item": { "sv": "kakao", "en": "cocoa powder" } },
-    { "qty": "1 nypa", "item": { "sv": "salt", "en": "salt" } },
-    { "qty": "3 msk", "item": { "sv": "mjölk", "en": "milk" } },
-    { "qty": "2 msk", "item": { "sv": "neutral olja", "en": "neutral oil" } },
-    { "qty": "1 msk", "item": { "sv": "chokladbitar (valfritt)", "en": "chocolate chips (optional)" } }
+    {
+      "qty": {
+        "value": 3,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "vetemjöl",
+        "en": "all-purpose flour"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 3,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "strösocker",
+        "en": "granulated sugar"
+      },
+      "densityKey": "sugar"
+    },
+    {
+      "qty": {
+        "value": 2,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "kakao",
+        "en": "cocoa powder"
+      },
+      "densityKey": "cocoa"
+    },
+    {
+      "qty": {
+        "text": {
+          "sv": "1 nypa",
+          "en": "1 pinch"
+        }
+      },
+      "item": {
+        "sv": "salt",
+        "en": "salt"
+      },
+      "densityKey": "salt"
+    },
+    {
+      "qty": {
+        "value": 3,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "mjölk",
+        "en": "milk"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 2,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "neutral olja",
+        "en": "neutral oil"
+      },
+      "densityKey": "oil"
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "chokladbitar (valfritt)",
+        "en": "chocolate chips (optional)"
+      },
+      "densityKey": "chocolateChips"
+    }
   ],
-  "diet": ["vegetarian"],
+  "diet": [
+    "vegetarian"
+  ],
   "steps": [
-    { "sv": "Rör ihop mjöl, socker, kakao och salt i en stor mugg.", "en": "Stir the flour, sugar, cocoa and salt together in a large mug." },
-    { "sv": "Tillsätt mjölk och olja, rör till en slät smet.", "en": "Add the milk and oil, stir to a smooth batter." },
-    { "sv": "Strö över chokladbitar och mikra 40–60 sekunder tills precis stelnat.", "en": "Scatter over the chocolate chips and microwave 40–60 seconds until just set." },
-    { "sv": "Låt vila en minut innan du äter. Se videon för tips.", "en": "Let rest a minute before eating. See the video for tips." }
+    {
+      "sv": "Rör ihop mjöl, socker, kakao och salt i en stor mugg.",
+      "en": "Stir the flour, sugar, cocoa and salt together in a large mug."
+    },
+    {
+      "sv": "Tillsätt mjölk och olja, rör till en slät smet.",
+      "en": "Add the milk and oil, stir to a smooth batter."
+    },
+    {
+      "sv": "Strö över chokladbitar och mikra 40–60 sekunder tills precis stelnat.",
+      "en": "Scatter over the chocolate chips and microwave 40–60 seconds until just set."
+    },
+    {
+      "sv": "Låt vila en minut innan du äter. Se videon för tips.",
+      "en": "Let rest a minute before eating. See the video for tips."
+    }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Mikrovågsugnar skiljer sig; börja kort och lägg till i steg.",
     "en": "At-home version — follow the video above. Microwaves vary; start short and add in steps."
   },
   "allergens": {
-    "codes": ["gluten", "milk"],
-    "declaration": { "sv": "Innehåller: gluten, mjölk", "en": "Contains: gluten, milk" },
-    "needsReview": ["chokladbitar / chocolate chips may contain soy and milk traces"],
+    "codes": [
+      "gluten",
+      "milk"
+    ],
+    "declaration": {
+      "sv": "Innehåller: gluten, mjölk",
+      "en": "Contains: gluten, milk"
+    },
+    "needsReview": [
+      "chokladbitar / chocolate chips may contain soy and milk traces"
+    ],
     "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"
   },

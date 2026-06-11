@@ -50,7 +50,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
       >
         <div className="max-w-[1200px] mx-auto" lang={lang}>
           <div className="text-center mb-16 md:mb-20">
-            <div className="type-caps opacity-50 mb-4">Mjuk&nbsp;Lov</div>
+            <div className="type-caps ink-muted mb-4">Mjuk&nbsp;Lov</div>
             <h1 style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)" }}>{t.recipes}</h1>
           </div>
           <DietFilter lang={lang} />

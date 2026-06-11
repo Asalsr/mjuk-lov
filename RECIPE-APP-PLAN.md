@@ -247,8 +247,25 @@ When the brand launches / personalization proves valuable:
 ## 17b. Noted enhancements (captured 2026-06-02, not yet scheduled)
 
 - **Richer / more practical detail pages.** User wants recipe pages to be more detailed and practical than the current first pass. Revisit content depth (step images, timings per step, equipment, tips, yield notes) in a later pass.
-- **Ingredient unit conversion.** Let users convert measures (g ↔ oz, dl ↔ ml ↔ cups, °C ↔ °F). Requires a schema change: store quantities as structured `{ value, unit }` (not the current free-text `qty` string) plus an ingredient density table for weight↔volume. Client-side converter component on the detail page. Plan as its own milestone.
+- **Ingredient unit conversion. ✅ BUILT 2026-06-11 (M13).** Let users convert measures (g ↔ oz, dl ↔ ml ↔ cups, tsp/tbsp, °C ↔ °F). Decisions: **default = EU/metric** (cup 250 ml, tsk 5 / msk 15), **US customary selectable** (cup 236.6, tsp 4.93 / tbsp 14.79); **global system toggle + per-row unit dropdown**; **structured oven temp** with °C/°F toggle.
+  Implementation: `lib/units/` (units, convert, densities + keyword resolver, format with fractions, parse, temps) — pure + 14 Vitest tests; schema `qty: string` → `{value,unit} | {text}` + optional `densityKey` + nullable `oven`; deterministic backfill `npm run structure-qty` migrated all 41 recipes (counts→piece, Swedish abbr tsk/msk/krm/dl, fractions/comma-decimals, qualitative→text) and assigns `densityKey` from ingredient names.
+  **UX (redesigned per user 2026-06-11):** NOT per-row dropdowns. The ingredient list shows **one dropdown per distinct unit** the recipe uses, at the top; changing a unit reconverts **all ingredients of that unit at once** (e.g. g→tsp converts every gram line). The choice is a **global `localStorage` map `mjuklov_unitmap`** (sourceUnit→targetUnit), so it carries across recipes. Rows whose cross-dimension conversion lacks a density fall back to the native unit (dotted underline + title). **Temperatures: always show both inline** ("215°C (419°F)") via `annotateTemps()` applied to step text + notes (option B, no toggle); `OvenTemp` shows both too. Density table expanded to cover leaveners/seasonings/mix-ins so weight↔volume works on every line. Authoring rules documented in `content/recipes/AUTHORING.md` (+ pointer in `AGENTS.md`); `scripts/import.ts` emits structured qty; `vitest.config.ts` added for the `@` alias. **Follow-up:** author real `oven` temps where useful; add density keys as new ingredients appear.
 - **YouTube Data API resolver (fill the remaining video IDs).** Only 6 of 40 gallery videos currently embed; the rest are link-only because IDs can't be reliably scraped. Fix: a one-off script (`scripts/resolve-video-ids.ts`) that, given a free **YouTube Data API v3** key (`YOUTUBE_API_KEY` env), iterates `lib/recipeVideos.ts` entries with `youtubeId === null`, calls `search.list` scoped to each entry's `channelId` with the recipe title as query, takes the top result, verifies the returned title reasonably matches, and writes `youtubeId` back into the file (leaving non-matches null for manual review). Turns ~28 link cards into real embeds. **User action needed:** create an API key in Google Cloud Console (YouTube Data API v3 — free tier ~10k units/day; each search costs 100 units → ~100 lookups/day). Then ask Claude to build + run the resolver.
+
+## 17c. Phase 3 backlog plan (M9–M12, added 2026-06-11)
+
+Four of the captured-but-unbuilt items from §17b/§16 are planned in detail in
+**`RECIPE-APP-PLAN-PHASE3.md`**, verified against the codebase:
+
+- **M11 — GDPR self-service** (data export + account deletion + consent records). *Legal priority.*
+- **M9 — Richer / practical recipe detail pages** (equipment, per-step timings, step images, yield, tips).
+- **M10 — Server-side AI memory** (durable, cross-device, consent-gated).
+- **M12 — DIY-kit QR companion** (per-kit build guide + author-time QR assets).
+
+Recommended order: **M11 → M9 → M10 → M12**. *(Still open, not yet planned in
+detail: Persian/RTL locale, personalized offers & discounts — both §16.)*
+
+---
 
 ## 18. Risks
 

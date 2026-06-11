@@ -16,53 +16,79 @@
   "youtubeId": null,
   "ingredients": [
     {
-      "qty": "300 g",
+      "qty": {
+        "value": 300,
+        "unit": "g"
+      },
       "item": {
         "sv": "savoiardi",
         "en": "ladyfingers"
       }
     },
     {
-      "qty": "4",
+      "qty": {
+        "value": 4,
+        "unit": "piece"
+      },
       "item": {
         "sv": "ägg",
         "en": "eggs"
       }
     },
     {
-      "qty": "500 g",
+      "qty": {
+        "value": 500,
+        "unit": "g"
+      },
       "item": {
         "sv": "mascarpone",
         "en": "mascarpone"
-      }
+      },
+      "densityKey": "mascarpone"
     },
     {
-      "qty": "100 g",
+      "qty": {
+        "value": 100,
+        "unit": "g"
+      },
       "item": {
         "sv": "strösocker",
         "en": "caster sugar"
-      }
+      },
+      "densityKey": "sugar"
     },
     {
-      "qty": "3 dl",
+      "qty": {
+        "value": 3,
+        "unit": "dl"
+      },
       "item": {
         "sv": "starkt espresso, kallt",
         "en": "strong espresso, cooled"
       }
     },
     {
-      "qty": "4 msk",
+      "qty": {
+        "value": 4,
+        "unit": "tbsp"
+      },
       "item": {
         "sv": "marsala",
         "en": "marsala"
       }
     },
     {
-      "qty": "till garnering",
+      "qty": {
+        "text": {
+          "sv": "till garnering",
+          "en": "to garnish"
+        }
+      },
       "item": {
         "sv": "kakao",
         "en": "cocoa"
-      }
+      },
+      "densityKey": "cocoa"
     }
   ],
   "diet": [

@@ -16,53 +16,80 @@
   "youtubeId": null,
   "ingredients": [
     {
-      "qty": "250 g",
+      "qty": {
+        "value": 250,
+        "unit": "g"
+      },
       "item": {
         "sv": "vetemjöl",
         "en": "wheat flour"
-      }
+      },
+      "densityKey": "flour"
     },
     {
-      "qty": "200 g",
+      "qty": {
+        "value": 200,
+        "unit": "g"
+      },
       "item": {
         "sv": "strösocker",
         "en": "caster sugar"
-      }
+      },
+      "densityKey": "sugar"
     },
     {
-      "qty": "2",
+      "qty": {
+        "value": 2,
+        "unit": "piece"
+      },
       "item": {
         "sv": "ägg",
         "en": "eggs"
       }
     },
     {
-      "qty": "150 g",
+      "qty": {
+        "value": 150,
+        "unit": "g"
+      },
       "item": {
         "sv": "hela mandlar",
         "en": "whole almonds"
-      }
+      },
+      "densityKey": "nuts"
     },
     {
-      "qty": "1 tsk",
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
       "item": {
         "sv": "bakpulver",
         "en": "baking powder"
-      }
+      },
+      "densityKey": "bakingPowder"
     },
     {
-      "qty": "1 krm",
+      "qty": {
+        "value": 1,
+        "unit": "ml"
+      },
       "item": {
         "sv": "salt",
         "en": "salt"
-      }
+      },
+      "densityKey": "salt"
     },
     {
-      "qty": "1 tsk",
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
       "item": {
         "sv": "vaniljsocker",
         "en": "vanilla sugar"
-      }
+      },
+      "densityKey": "vanilla"
     }
   ],
   "diet": [

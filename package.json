@@ -11,7 +11,8 @@
     "label": "tsx scripts/label.ts",
     "import": "tsx scripts/import.ts",
     "translate": "tsx scripts/translate.ts",
-    "resolve-videos": "tsx scripts/resolve-video-ids.ts"
+    "resolve-videos": "tsx scripts/resolve-video-ids.ts",
+    "structure-qty": "tsx scripts/structure-qty.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",

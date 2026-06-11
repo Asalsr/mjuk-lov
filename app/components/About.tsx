@@ -55,8 +55,8 @@ export const About = ({ lang }: AboutProps) => {
     >
       <div className="max-w-[720px] mx-auto">
         <div
-          className={`type-caps text-center mb-6 opacity-60 transition-all duration-700 ${
-            isVisible ? 'opacity-60 translate-y-0' : 'opacity-0 translate-y-4'
+          className={`type-caps text-center mb-6 ink-muted transition-all duration-700 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
           {t.eyebrow}

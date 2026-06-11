@@ -75,7 +75,7 @@ export function LoginForm({ lang }: { lang: Lang }) {
   if (notice) {
     return (
       <div className="flex flex-col gap-4">
-        <p className="type-body">{notice}</p>
+        <p className="type-body" role="status" aria-live="polite">{notice}</p>
         <button
           type="button"
           onClick={() => { setNotice(null); setMode("signin"); setPassword(""); setConfirm(""); }}
@@ -112,7 +112,7 @@ export function LoginForm({ lang }: { lang: Lang }) {
             autoComplete={mode === "signup" ? "new-password" : "current-password"}
           />
           {mode === "signup" && (
-            <p className="type-caps opacity-50">{t.passwordHint}</p>
+            <p className="type-caps ink-muted">{t.passwordHint}</p>
           )}
         </div>
       )}
@@ -134,26 +134,26 @@ export function LoginForm({ lang }: { lang: Lang }) {
       >
         {loading ? t.thinking : cta}
       </button>
-      {error && <p className="type-body" style={{ color: "var(--dusty-wine)", whiteSpace: "pre-line" }}>{error}</p>}
+      {error && <p className="type-body" role="alert" aria-live="assertive" style={{ color: "var(--dusty-wine)", whiteSpace: "pre-line" }}>{error}</p>}
 
       <div className="flex flex-col gap-1 mt-1">
         {mode === "signin" && (
           <>
-            <button type="button" onClick={() => { setMode("reset"); setError(null); }} className="type-caps opacity-60 self-start transition-colors hover:text-[var(--dusty-terracotta)]">
+            <button type="button" onClick={() => { setMode("reset"); setError(null); }} className="type-caps ink-muted self-start transition-colors hover:text-[var(--dusty-terracotta)]">
               {t.forgotPassword}
             </button>
-            <button type="button" onClick={() => { setMode("signup"); setError(null); setConfirm(""); }} className="type-caps opacity-60 self-start transition-colors hover:text-[var(--dusty-terracotta)]">
+            <button type="button" onClick={() => { setMode("signup"); setError(null); setConfirm(""); }} className="type-caps ink-muted self-start transition-colors hover:text-[var(--dusty-terracotta)]">
               {t.noAccount}
             </button>
           </>
         )}
         {mode === "signup" && (
-          <button type="button" onClick={() => { setMode("signin"); setError(null); }} className="type-caps opacity-60 self-start transition-colors hover:text-[var(--dusty-terracotta)]">
+          <button type="button" onClick={() => { setMode("signin"); setError(null); }} className="type-caps ink-muted self-start transition-colors hover:text-[var(--dusty-terracotta)]">
             {t.haveAccount}
           </button>
         )}
         {mode === "reset" && (
-          <button type="button" onClick={() => { setMode("signin"); setError(null); }} className="type-caps opacity-60 self-start transition-colors hover:text-[var(--dusty-terracotta)]">
+          <button type="button" onClick={() => { setMode("signin"); setError(null); }} className="type-caps ink-muted self-start transition-colors hover:text-[var(--dusty-terracotta)]">
             {t.signIn}
           </button>
         )}

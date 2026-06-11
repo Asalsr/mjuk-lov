@@ -118,10 +118,11 @@ export const Order = ({ lang }: OrderProps) => {
               }`}
             >
               <div>
-                <label className="type-caps block mb-3 opacity-80">
+                <label htmlFor="contact-type" className="type-caps block mb-3 opacity-80">
                   {t.typeLabel}
                 </label>
                 <select
+                  id="contact-type"
                   required
                   value={formData.type}
                   onChange={(e) => handleChange('type', e.target.value)}
@@ -141,10 +142,11 @@ export const Order = ({ lang }: OrderProps) => {
               </div>
 
               <div>
-                <label className="type-caps block mb-3 opacity-80">
+                <label htmlFor="contact-product" className="type-caps block mb-3 opacity-80">
                   {t.productLabel}
                 </label>
                 <input
+                  id="contact-product"
                   type="text"
                   value={formData.product}
                   onChange={(e) => handleChange('product', e.target.value)}
@@ -158,11 +160,13 @@ export const Order = ({ lang }: OrderProps) => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div>
-                  <label className="type-caps block mb-3 opacity-80">
+                  <label htmlFor="contact-name" className="type-caps block mb-3 opacity-80">
                     {t.nameLabel}
                   </label>
                   <input
+                    id="contact-name"
                     type="text"
+                    autoComplete="name"
                     required
                     value={formData.name}
                     onChange={(e) => handleChange('name', e.target.value)}
@@ -175,11 +179,13 @@ export const Order = ({ lang }: OrderProps) => {
                 </div>
 
                 <div>
-                  <label className="type-caps block mb-3 opacity-80">
+                  <label htmlFor="contact-email" className="type-caps block mb-3 opacity-80">
                     {t.emailLabel}
                   </label>
                   <input
+                    id="contact-email"
                     type="email"
+                    autoComplete="email"
                     required
                     value={formData.email}
                     onChange={(e) => handleChange('email', e.target.value)}
@@ -193,10 +199,11 @@ export const Order = ({ lang }: OrderProps) => {
               </div>
 
               <div>
-                <label className="type-caps block mb-3 opacity-80">
+                <label htmlFor="contact-message" className="type-caps block mb-3 opacity-80">
                   {t.messageLabel}
                 </label>
                 <textarea
+                  id="contact-message"
                   rows={4}
                   value={formData.message}
                   onChange={(e) => handleChange('message', e.target.value)}
@@ -216,14 +223,14 @@ export const Order = ({ lang }: OrderProps) => {
                 {isSending ? '…' : t.submit}
               </MagneticButton>
               {hasError && (
-                <p className="type-body" style={{ opacity: 0.8 }}>
+                <p className="type-body" role="alert" aria-live="assertive" style={{ opacity: 0.8 }}>
                   {lang === 'sv' ? 'Något gick fel. Försök igen.' : 'Something went wrong. Please try again.'}
                 </p>
               )}
             </form>
           </div>
         ) : (
-          <div className="text-center py-16">
+          <div className="text-center py-16" role="status" aria-live="polite">
             <h2 className="mb-4" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
               {t.successHeading}
             </h2>

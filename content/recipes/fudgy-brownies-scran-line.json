@@ -1,40 +1,154 @@
 {
   "slug": "fudgy-brownies-scran-line",
-  "title": { "sv": "Kladdiga brownies", "en": "Fudgy brownies" },
+  "title": {
+    "sv": "Kladdiga brownies",
+    "en": "Fudgy brownies"
+  },
   "headnote": {
     "sv": "The Scran Lines superkladdiga brownies med blank yta och tät, chokladig mitt. Se videon ovan.",
     "en": "The Scran Line's super-fudgy brownies with a shiny top and a dense, chocolatey middle. Watch the video above."
   },
   "servings": 16,
-  "time": { "prepMin": 15, "totalMin": 45 },
+  "time": {
+    "prepMin": 15,
+    "totalMin": 45
+  },
   "youtubeId": "LyiUrq77LvE",
-  "inspiredBy": { "channel": "The Scran Line", "url": "https://www.youtube.com/watch?v=LyiUrq77LvE" },
+  "inspiredBy": {
+    "channel": "The Scran Line",
+    "url": "https://www.youtube.com/watch?v=LyiUrq77LvE"
+  },
   "ingredients": [
-    { "qty": "200 g", "item": { "sv": "mörk choklad", "en": "dark chocolate" } },
-    { "qty": "170 g", "item": { "sv": "smör", "en": "butter" } },
-    { "qty": "250 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
-    { "qty": "3", "item": { "sv": "ägg", "en": "eggs" } },
-    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
-    { "qty": "90 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
-    { "qty": "30 g", "item": { "sv": "kakao", "en": "cocoa powder" } },
-    { "qty": "1/2 tsk", "item": { "sv": "salt", "en": "salt" } }
+    {
+      "qty": {
+        "value": 200,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "mörk choklad",
+        "en": "dark chocolate"
+      },
+      "densityKey": "chocolate"
+    },
+    {
+      "qty": {
+        "value": 170,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "smör",
+        "en": "butter"
+      },
+      "densityKey": "butter"
+    },
+    {
+      "qty": {
+        "value": 250,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "strösocker",
+        "en": "granulated sugar"
+      },
+      "densityKey": "sugar"
+    },
+    {
+      "qty": {
+        "value": 3,
+        "unit": "piece"
+      },
+      "item": {
+        "sv": "ägg",
+        "en": "eggs"
+      }
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "vaniljextrakt",
+        "en": "vanilla extract"
+      },
+      "densityKey": "vanilla"
+    },
+    {
+      "qty": {
+        "value": 90,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "vetemjöl",
+        "en": "all-purpose flour"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 30,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "kakao",
+        "en": "cocoa powder"
+      },
+      "densityKey": "cocoa"
+    },
+    {
+      "qty": {
+        "value": 0.5,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "salt",
+        "en": "salt"
+      },
+      "densityKey": "salt"
+    }
   ],
-  "diet": ["vegetarian"],
+  "diet": [
+    "vegetarian"
+  ],
   "steps": [
-    { "sv": "Sätt ugnen på 175°C och klä en form med bakplåtspapper.", "en": "Heat the oven to 175°C and line a tin with baking paper." },
-    { "sv": "Smält choklad och smör ihop, rör ner sockret.", "en": "Melt the chocolate and butter together, stir in the sugar." },
-    { "sv": "Vispa i ägg och vanilj tills blankt.", "en": "Whisk in the eggs and vanilla until glossy." },
-    { "sv": "Vänd ner mjöl, kakao och salt. Häll i formen.", "en": "Fold in the flour, cocoa and salt. Pour into the tin." },
-    { "sv": "Grädda 25–30 minuter. Låt svalna helt innan du skär. Se videon.", "en": "Bake 25–30 minutes. Cool completely before cutting. See the video." }
+    {
+      "sv": "Sätt ugnen på 175°C och klä en form med bakplåtspapper.",
+      "en": "Heat the oven to 175°C and line a tin with baking paper."
+    },
+    {
+      "sv": "Smält choklad och smör ihop, rör ner sockret.",
+      "en": "Melt the chocolate and butter together, stir in the sugar."
+    },
+    {
+      "sv": "Vispa i ägg och vanilj tills blankt.",
+      "en": "Whisk in the eggs and vanilla until glossy."
+    },
+    {
+      "sv": "Vänd ner mjöl, kakao och salt. Häll i formen.",
+      "en": "Fold in the flour, cocoa and salt. Pour into the tin."
+    },
+    {
+      "sv": "Grädda 25–30 minuter. Låt svalna helt innan du skär. Se videon.",
+      "en": "Bake 25–30 minutes. Cool completely before cutting. See the video."
+    }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Underbaka något för extra kladd.",
     "en": "At-home version — follow the video above. Slightly underbake for extra fudge."
   },
   "allergens": {
-    "codes": ["gluten", "egg", "milk"],
-    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
-    "needsReview": ["mörk choklad / dark chocolate may carry soy and nut traces"],
+    "codes": [
+      "gluten",
+      "egg",
+      "milk"
+    ],
+    "declaration": {
+      "sv": "Innehåller: gluten, ägg, mjölk",
+      "en": "Contains: gluten, egg, milk"
+    },
+    "needsReview": [
+      "mörk choklad / dark chocolate may carry soy and nut traces"
+    ],
     "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"
   },

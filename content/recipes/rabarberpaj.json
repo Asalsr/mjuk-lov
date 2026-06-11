@@ -16,49 +16,75 @@
   "youtubeId": null,
   "ingredients": [
     {
-      "qty": "500 g",
+      "qty": {
+        "value": 500,
+        "unit": "g"
+      },
       "item": {
         "sv": "rabarber",
         "en": "rhubarb"
       }
     },
     {
-      "qty": "100 g",
+      "qty": {
+        "value": 100,
+        "unit": "g"
+      },
       "item": {
         "sv": "strösocker",
         "en": "caster sugar"
-      }
+      },
+      "densityKey": "sugar"
     },
     {
-      "qty": "150 g",
+      "qty": {
+        "value": 150,
+        "unit": "g"
+      },
       "item": {
         "sv": "vetemjöl",
         "en": "wheat flour"
-      }
+      },
+      "densityKey": "flour"
     },
     {
-      "qty": "100 g",
+      "qty": {
+        "value": 100,
+        "unit": "g"
+      },
       "item": {
         "sv": "smör",
         "en": "butter"
-      }
+      },
+      "densityKey": "butter"
     },
     {
-      "qty": "75 g",
+      "qty": {
+        "value": 75,
+        "unit": "g"
+      },
       "item": {
         "sv": "havregryn",
         "en": "rolled oats"
-      }
+      },
+      "densityKey": "oats"
     },
     {
-      "qty": "50 g",
+      "qty": {
+        "value": 50,
+        "unit": "g"
+      },
       "item": {
         "sv": "farinsocker",
         "en": "brown sugar"
-      }
+      },
+      "densityKey": "brownSugar"
     },
     {
-      "qty": "1 tsk",
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
       "item": {
         "sv": "kanel",
         "en": "cinnamon"

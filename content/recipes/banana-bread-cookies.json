@@ -16,81 +16,122 @@
   "youtubeId": "mFQdlYa1vGA",
   "ingredients": [
     {
-      "qty": "2",
+      "qty": {
+        "value": 2,
+        "unit": "piece"
+      },
       "item": {
         "sv": "mosade mogna bananer",
         "en": "mashed ripe bananas"
       }
     },
     {
-      "qty": "115 g",
+      "qty": {
+        "value": 115,
+        "unit": "g"
+      },
       "item": {
         "sv": "smör, smält",
         "en": "butter, melted"
-      }
+      },
+      "densityKey": "butter"
     },
     {
-      "qty": "100 g",
+      "qty": {
+        "value": 100,
+        "unit": "g"
+      },
       "item": {
         "sv": "farinsocker",
         "en": "brown sugar"
-      }
+      },
+      "densityKey": "brownSugar"
     },
     {
-      "qty": "50 g",
+      "qty": {
+        "value": 50,
+        "unit": "g"
+      },
       "item": {
         "sv": "strösocker",
         "en": "granulated sugar"
-      }
+      },
+      "densityKey": "sugar"
     },
     {
-      "qty": "1",
+      "qty": {
+        "value": 1,
+        "unit": "piece"
+      },
       "item": {
         "sv": "ägg",
         "en": "egg"
       }
     },
     {
-      "qty": "1 tsk",
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
       "item": {
         "sv": "vaniljextrakt",
         "en": "vanilla extract"
-      }
+      },
+      "densityKey": "vanilla"
     },
     {
-      "qty": "280 g",
+      "qty": {
+        "value": 280,
+        "unit": "g"
+      },
       "item": {
         "sv": "vetemjöl",
         "en": "all-purpose flour"
-      }
+      },
+      "densityKey": "flour"
     },
     {
-      "qty": "1 tsk",
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
       "item": {
         "sv": "bakpulver",
         "en": "baking powder"
-      }
+      },
+      "densityKey": "bakingPowder"
     },
     {
-      "qty": "1 tsk",
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
       "item": {
         "sv": "kanel",
         "en": "cinnamon"
       }
     },
     {
-      "qty": "1 krm",
+      "qty": {
+        "value": 1,
+        "unit": "ml"
+      },
       "item": {
         "sv": "salt",
         "en": "salt"
-      }
+      },
+      "densityKey": "salt"
     },
     {
-      "qty": "150 g",
+      "qty": {
+        "value": 150,
+        "unit": "g"
+      },
       "item": {
         "sv": "chokladchips",
         "en": "chocolate chips"
-      }
+      },
+      "densityKey": "chocolateChips"
     }
   ],
   "diet": [

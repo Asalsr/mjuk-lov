@@ -1,41 +1,165 @@
 {
   "slug": "soft-chocolate-chip-cookies",
-  "title": { "sv": "Mjuka chokladkakor", "en": "Soft chocolate chip cookies" },
+  "title": {
+    "sv": "Mjuka chokladkakor",
+    "en": "Soft chocolate chip cookies"
+  },
   "headnote": {
     "sv": "Extra mjuka, tjocka chokladkakor som håller sig sega i dagar. Se videon ovan för Bincys metod.",
     "en": "Extra soft, thick chocolate chip cookies that stay chewy for days. Watch the video above for Bincy's method."
   },
   "servings": 18,
-  "time": { "prepMin": 15, "totalMin": 30 },
+  "time": {
+    "prepMin": 15,
+    "totalMin": 30
+  },
   "youtubeId": "uweI34rjj5E",
-  "inspiredBy": { "channel": "Bincy Chris", "url": "https://merryboosters.com/soft-chocolate-chip-cookies/" },
+  "inspiredBy": {
+    "channel": "Bincy Chris",
+    "url": "https://merryboosters.com/soft-chocolate-chip-cookies/"
+  },
   "ingredients": [
-    { "qty": "115 g", "item": { "sv": "smör, smält", "en": "butter, melted" } },
-    { "qty": "120 g", "item": { "sv": "farinsocker", "en": "brown sugar" } },
-    { "qty": "60 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
-    { "qty": "1", "item": { "sv": "ägg", "en": "egg" } },
-    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
-    { "qty": "200 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
-    { "qty": "1/2 tsk", "item": { "sv": "bikarbonat", "en": "baking soda" } },
-    { "qty": "1/4 tsk", "item": { "sv": "salt", "en": "salt" } },
-    { "qty": "150 g", "item": { "sv": "chokladbitar", "en": "chocolate chips" } }
+    {
+      "qty": {
+        "value": 115,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "smör, smält",
+        "en": "butter, melted"
+      },
+      "densityKey": "butter"
+    },
+    {
+      "qty": {
+        "value": 120,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "farinsocker",
+        "en": "brown sugar"
+      },
+      "densityKey": "brownSugar"
+    },
+    {
+      "qty": {
+        "value": 60,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "strösocker",
+        "en": "granulated sugar"
+      },
+      "densityKey": "sugar"
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "piece"
+      },
+      "item": {
+        "sv": "ägg",
+        "en": "egg"
+      }
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "vaniljextrakt",
+        "en": "vanilla extract"
+      },
+      "densityKey": "vanilla"
+    },
+    {
+      "qty": {
+        "value": 200,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "vetemjöl",
+        "en": "all-purpose flour"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 0.5,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "bikarbonat",
+        "en": "baking soda"
+      },
+      "densityKey": "bakingSoda"
+    },
+    {
+      "qty": {
+        "value": 0.25,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "salt",
+        "en": "salt"
+      },
+      "densityKey": "salt"
+    },
+    {
+      "qty": {
+        "value": 150,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "chokladbitar",
+        "en": "chocolate chips"
+      },
+      "densityKey": "chocolateChips"
+    }
   ],
-  "diet": ["vegetarian"],
+  "diet": [
+    "vegetarian"
+  ],
   "steps": [
-    { "sv": "Rör ihop smält smör med sockerarterna, sedan ägg och vanilj.", "en": "Mix the melted butter with the sugars, then the egg and vanilla." },
-    { "sv": "Vänd ner mjöl, bikarbonat och salt, sedan chokladbitarna.", "en": "Fold in the flour, baking soda and salt, then the chocolate chips." },
-    { "sv": "Klicka ut bollar på plåt med bakplåtspapper.", "en": "Scoop balls onto a lined tray." },
-    { "sv": "Grädda 175°C i 9–11 minuter tills kanterna precis fått färg.", "en": "Bake at 175°C for 9–11 minutes until the edges are just coloured." },
-    { "sv": "Låt svalna på plåten. Se videon för tips.", "en": "Cool on the tray. See the video for tips." }
+    {
+      "sv": "Rör ihop smält smör med sockerarterna, sedan ägg och vanilj.",
+      "en": "Mix the melted butter with the sugars, then the egg and vanilla."
+    },
+    {
+      "sv": "Vänd ner mjöl, bikarbonat och salt, sedan chokladbitarna.",
+      "en": "Fold in the flour, baking soda and salt, then the chocolate chips."
+    },
+    {
+      "sv": "Klicka ut bollar på plåt med bakplåtspapper.",
+      "en": "Scoop balls onto a lined tray."
+    },
+    {
+      "sv": "Grädda 175°C i 9–11 minuter tills kanterna precis fått färg.",
+      "en": "Bake at 175°C for 9–11 minutes until the edges are just coloured."
+    },
+    {
+      "sv": "Låt svalna på plåten. Se videon för tips.",
+      "en": "Cool on the tray. See the video for tips."
+    }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Ta ut dem tidigt — de stelnar på plåten.",
     "en": "At-home version — follow the video above. Pull them early — they firm up on the tray."
   },
   "allergens": {
-    "codes": ["gluten", "egg", "milk"],
-    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
-    "needsReview": ["chokladbitar / chocolate chips may contain soy and milk traces"],
+    "codes": [
+      "gluten",
+      "egg",
+      "milk"
+    ],
+    "declaration": {
+      "sv": "Innehåller: gluten, ägg, mjölk",
+      "en": "Contains: gluten, egg, milk"
+    },
+    "needsReview": [
+      "chokladbitar / chocolate chips may contain soy and milk traces"
+    ],
     "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"
   },

@@ -93,7 +93,7 @@ export function AddressAutocomplete({
     <div className="flex flex-col gap-3">
       {searchEnabled && (
         <div className="relative" ref={boxRef}>
-          <label className="type-caps opacity-50" style={{ fontSize: "0.6875rem" }}>{t.addressSearchHint}</label>
+          <label className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>{t.addressSearchHint}</label>
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -117,7 +117,7 @@ export function AddressAutocomplete({
                     className="w-full text-left px-3 py-2 type-body transition-colors hover:bg-[var(--soft-peach)]"
                   >
                     <span>{s.main}</span>
-                    {s.secondary && <span className="opacity-50"> · {s.secondary}</span>}
+                    {s.secondary && <span className="ink-muted"> · {s.secondary}</span>}
                   </button>
                 </li>
               ))}

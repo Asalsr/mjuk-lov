@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { CardamomPod, Magnolia } from './Icons';
 import { Logo } from './Logo';
 import { useIsTouch } from '../hooks/useIsTouch';
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 
 interface HeroProps {
   lang: 'sv' | 'en';
@@ -24,6 +25,7 @@ export const Hero = ({ lang }: HeroProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const isTouch = useIsTouch();
+  const reduced = usePrefersReducedMotion();
   const t = content[lang];
 
   useEffect(() => {
@@ -31,19 +33,29 @@ export const Hero = ({ lang }: HeroProps) => {
   }, []);
 
   useEffect(() => {
-    if (isTouch) return;
+    if (isTouch || reduced) return;
+    let raf = 0;
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20
-      });
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() =>
+        setMousePos({
+          x: (e.clientX / window.innerWidth - 0.5) * 20,
+          y: (e.clientY / window.innerHeight - 0.5) * 20
+        })
+      );
     };
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [isTouch]);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [isTouch, reduced]);
 
   return (
     <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
+      {/* The visible wordmark is the Logo image; this gives the page a real,
+          screen-reader/SEO-visible <h1> without altering the design. */}
+      <h1 className="sr-only">Mjuk Lov — {t.promise}</h1>
       {/* Decorative watercolor corners — raised opacity to 25% because
           full-color illustrations look muddy at the old 10%. Adjust to taste. */}
       <div className="absolute inset-0 hidden md:block pointer-events-none">
@@ -92,7 +104,7 @@ export const Hero = ({ lang }: HeroProps) => {
         className="absolute left-1/2 -translate-x-1/2 group cursor-pointer p-2"
         style={{ bottom: 'calc(2rem + env(safe-area-inset-bottom))' }}
       >
-        <div className="flex flex-col items-center gap-2 opacity-40 group-hover:opacity-100 transition-all duration-300">
+        <div className="flex flex-col items-center gap-2 ink-muted group-hover:text-[var(--warm-cocoa)] transition-all duration-300">
           <span className="type-caps">{t.scroll}</span>
           <div className="w-0.5 h-12 bg-current group-hover:h-16 transition-all duration-500" />
         </div>

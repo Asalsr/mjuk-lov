@@ -1,40 +1,161 @@
 {
   "slug": "blueberry-muffins-natashas",
-  "title": { "sv": "Blåbärsmuffins", "en": "Blueberry muffins" },
+  "title": {
+    "sv": "Blåbärsmuffins",
+    "en": "Blueberry muffins"
+  },
   "headnote": {
     "sv": "Mjuka, smöriga muffins med massor av blåbär och en gyllene topp. Se videon ovan för Natashas metod.",
     "en": "Soft, buttery muffins loaded with blueberries and a golden top. Watch the video above for Natasha's method."
   },
   "servings": 12,
-  "time": { "prepMin": 15, "totalMin": 40 },
+  "time": {
+    "prepMin": 15,
+    "totalMin": 40
+  },
   "youtubeId": "DWqmTGSJiEg",
-  "inspiredBy": { "channel": "Natasha's Kitchen", "url": "https://natashaskitchen.com/blueberry-muffins-recipe/" },
+  "inspiredBy": {
+    "channel": "Natasha's Kitchen",
+    "url": "https://natashaskitchen.com/blueberry-muffins-recipe/"
+  },
   "ingredients": [
-    { "qty": "280 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
-    { "qty": "2 tsk", "item": { "sv": "bakpulver", "en": "baking powder" } },
-    { "qty": "1/2 tsk", "item": { "sv": "salt", "en": "salt" } },
-    { "qty": "115 g", "item": { "sv": "smör, rumsvarmt", "en": "butter, softened" } },
-    { "qty": "180 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
-    { "qty": "2", "item": { "sv": "ägg", "en": "eggs" } },
-    { "qty": "180 ml", "item": { "sv": "mjölk", "en": "milk" } },
-    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
-    { "qty": "250 g", "item": { "sv": "blåbär", "en": "blueberries" } }
+    {
+      "qty": {
+        "value": 280,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "vetemjöl",
+        "en": "all-purpose flour"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 2,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "bakpulver",
+        "en": "baking powder"
+      },
+      "densityKey": "bakingPowder"
+    },
+    {
+      "qty": {
+        "value": 0.5,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "salt",
+        "en": "salt"
+      },
+      "densityKey": "salt"
+    },
+    {
+      "qty": {
+        "value": 115,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "smör, rumsvarmt",
+        "en": "butter, softened"
+      },
+      "densityKey": "butter"
+    },
+    {
+      "qty": {
+        "value": 180,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "strösocker",
+        "en": "granulated sugar"
+      },
+      "densityKey": "sugar"
+    },
+    {
+      "qty": {
+        "value": 2,
+        "unit": "piece"
+      },
+      "item": {
+        "sv": "ägg",
+        "en": "eggs"
+      }
+    },
+    {
+      "qty": {
+        "value": 180,
+        "unit": "ml"
+      },
+      "item": {
+        "sv": "mjölk",
+        "en": "milk"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "vaniljextrakt",
+        "en": "vanilla extract"
+      },
+      "densityKey": "vanilla"
+    },
+    {
+      "qty": {
+        "value": 250,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "blåbär",
+        "en": "blueberries"
+      }
+    }
   ],
-  "diet": ["vegetarian"],
+  "diet": [
+    "vegetarian"
+  ],
   "steps": [
-    { "sv": "Sätt ugnen på 190°C och klä en muffinsform med 12 papperformar.", "en": "Heat the oven to 190°C and line a muffin tin with 12 paper cases." },
-    { "sv": "Vispa smör och socker pösigt, tillsätt ägg och vanilj.", "en": "Beat the butter and sugar fluffy, add the eggs and vanilla." },
-    { "sv": "Vänd ner mjöl, bakpulver och salt växelvis med mjölken.", "en": "Fold in the flour, baking powder and salt alternately with the milk." },
-    { "sv": "Vänd försiktigt i blåbären och fyll formarna.", "en": "Gently fold in the blueberries and fill the cases." },
-    { "sv": "Grädda 18–22 minuter tills gyllene. Se videon för tips.", "en": "Bake 18–22 minutes until golden. See the video for tips." }
+    {
+      "sv": "Sätt ugnen på 190°C och klä en muffinsform med 12 papperformar.",
+      "en": "Heat the oven to 190°C and line a muffin tin with 12 paper cases."
+    },
+    {
+      "sv": "Vispa smör och socker pösigt, tillsätt ägg och vanilj.",
+      "en": "Beat the butter and sugar fluffy, add the eggs and vanilla."
+    },
+    {
+      "sv": "Vänd ner mjöl, bakpulver och salt växelvis med mjölken.",
+      "en": "Fold in the flour, baking powder and salt alternately with the milk."
+    },
+    {
+      "sv": "Vänd försiktigt i blåbären och fyll formarna.",
+      "en": "Gently fold in the blueberries and fill the cases."
+    },
+    {
+      "sv": "Grädda 18–22 minuter tills gyllene. Se videon för tips.",
+      "en": "Bake 18–22 minutes until golden. See the video for tips."
+    }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Vänd blåbären i lite mjöl så sjunker de inte.",
     "en": "At-home version — follow the video above. Toss the blueberries in a little flour so they don't sink."
   },
   "allergens": {
-    "codes": ["gluten", "egg", "milk"],
-    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "codes": [
+      "gluten",
+      "egg",
+      "milk"
+    ],
+    "declaration": {
+      "sv": "Innehåller: gluten, ägg, mjölk",
+      "en": "Contains: gluten, egg, milk"
+    },
     "needsReview": [],
     "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"

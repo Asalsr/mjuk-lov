@@ -1,35 +1,127 @@
 {
   "slug": "3-ingredient-peanut-butter-cookies",
-  "title": { "sv": "Jordnötskakor (3 ingredienser)", "en": "3-ingredient peanut butter cookies" },
+  "title": {
+    "sv": "Jordnötskakor (3 ingredienser)",
+    "en": "3-ingredient peanut butter cookies"
+  },
   "headnote": {
     "sv": "Tre ingredienser, ingen mjöl, klara på en kvart — naturligt glutenfria. Se videon ovan för Tastys metod.",
     "en": "Three ingredients, no flour, done in fifteen minutes — naturally gluten-free. Watch the video above for Tasty's method."
   },
   "servings": 12,
-  "time": { "prepMin": 5, "totalMin": 18 },
+  "time": {
+    "prepMin": 5,
+    "totalMin": 18
+  },
   "youtubeId": "4hMfOmqD720",
-  "inspiredBy": { "channel": "Tasty", "url": "https://tasty.co/recipe/3-ingredient-peanut-butter-cookies" },
+  "inspiredBy": {
+    "channel": "Tasty",
+    "url": "https://tasty.co/recipe/3-ingredient-peanut-butter-cookies"
+  },
   "ingredients": [
-    { "qty": "250 g", "item": { "sv": "jordnötssmör", "en": "peanut butter" } },
-    { "qty": "200 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
-    { "qty": "1", "item": { "sv": "ägg", "en": "egg" } }
+    {
+      "qty": {
+        "value": 250,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "jordnötssmör",
+        "en": "peanut butter"
+      },
+      "densityKey": "peanutButter"
+    },
+    {
+      "qty": {
+        "value": 200,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "strösocker",
+        "en": "granulated sugar"
+      },
+      "densityKey": "sugar"
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "piece"
+      },
+      "item": {
+        "sv": "ägg",
+        "en": "egg"
+      }
+    }
   ],
-  "diet": ["vegetarian"],
+  "diet": [
+    "vegetarian"
+  ],
+  "equipment": [
+    { "sv": "Bunke", "en": "Mixing bowl" },
+    { "sv": "Plåt + bakplåtspapper", "en": "Baking tray + baking paper" },
+    { "sv": "Gaffel", "en": "Fork" }
+  ],
+  "yieldNote": { "sv": "ca 12 kakor", "en": "about 12 cookies" },
   "steps": [
-    { "sv": "Sätt ugnen på 175°C och klä en plåt med bakplåtspapper.", "en": "Heat the oven to 175°C and line a tray with baking paper." },
-    { "sv": "Rör ihop jordnötssmör, socker och ägg till en deg.", "en": "Stir the peanut butter, sugar and egg together into a dough." },
-    { "sv": "Rulla bollar, lägg ut och tryck till ett rutmönster med en gaffel.", "en": "Roll balls, place out and press a criss-cross with a fork." },
-    { "sv": "Grädda 10–12 minuter tills kanterna precis fått färg.", "en": "Bake 10–12 minutes until the edges are just coloured." },
-    { "sv": "Låt svalna på plåten — de är sköra varma. Se videon för tips.", "en": "Cool on the tray — they're fragile when warm. See the video for tips." }
+    {
+      "text": {
+        "sv": "Sätt ugnen på 175°C och klä en plåt med bakplåtspapper.",
+        "en": "Heat the oven to 175°C and line a tray with baking paper."
+      }
+    },
+    {
+      "text": {
+        "sv": "Rör ihop jordnötssmör, socker och ägg till en deg.",
+        "en": "Stir the peanut butter, sugar and egg together into a dough."
+      },
+      "durationMin": 3
+    },
+    {
+      "text": {
+        "sv": "Rulla bollar, lägg ut och tryck till ett rutmönster med en gaffel.",
+        "en": "Roll balls, place out and press a criss-cross with a fork."
+      },
+      "durationMin": 5
+    },
+    {
+      "text": {
+        "sv": "Grädda 10–12 minuter tills kanterna precis fått färg.",
+        "en": "Bake 10–12 minutes until the edges are just coloured."
+      },
+      "durationMin": 12
+    },
+    {
+      "text": {
+        "sv": "Låt svalna på plåten — de är sköra varma. Se videon för tips.",
+        "en": "Cool on the tray — they're fragile when warm. See the video for tips."
+      }
+    }
+  ],
+  "tips": [
+    {
+      "sv": "Väg jordnötssmöret för jämn smet — naturligt jordnötssmör kan behöva röras om först.",
+      "en": "Weigh the peanut butter for a consistent dough — natural peanut butter may need stirring first."
+    },
+    {
+      "sv": "Överstek inte; de stelnar när de svalnar.",
+      "en": "Don't overbake; they firm up as they cool."
+    }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Naturligt glutenfria, men kontrollera att jordnötssmöret är fritt från tillsatser.",
     "en": "At-home version — follow the video above. Naturally gluten-free, but check the peanut butter has no added ingredients."
   },
   "allergens": {
-    "codes": ["egg", "peanut"],
-    "declaration": { "sv": "Innehåller: ägg, jordnötter", "en": "Contains: egg, peanuts" },
-    "needsReview": ["peanut butter may carry traces of other nuts depending on brand"],
+    "codes": [
+      "egg",
+      "peanut"
+    ],
+    "declaration": {
+      "sv": "Innehåller: ägg, jordnötter",
+      "en": "Contains: egg, peanuts"
+    },
+    "needsReview": [
+      "peanut butter may carry traces of other nuts depending on brand"
+    ],
     "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"
   },

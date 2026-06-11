@@ -119,7 +119,7 @@ export const Kits = ({ lang }: KitsProps) => {
 
 
               <div className="p-6 md:p-8">
-                <div className="type-caps mb-2 opacity-50">
+                <div className="type-caps mb-2 ink-muted">
                   {kit.size}
                 </div>
 

@@ -10,9 +10,9 @@ export function AllergenChips({ codes, lang }: { codes: AllergenCode[]; lang: La
       {codes.map((c) => (
         <li
           key={c}
-          className="type-caps opacity-60"
+          className="type-caps ink-muted"
           style={{
-            fontSize: "0.625rem",
+            fontSize: "0.75rem",
             padding: "0.2rem 0.55rem",
             border: "1px solid rgba(61, 42, 34, 0.18)",
           }}
@@ -36,20 +36,20 @@ export function AllergenBlock({
 }) {
   const t = ui[lang];
   return (
-    <aside
+    <div
       className="p-6 md:p-8"
       style={{ backgroundColor: "var(--soft-peach)", border: "1px solid rgba(61, 42, 34, 0.15)" }}
     >
-      <div className="type-caps opacity-50 mb-3">{t.allergens}</div>
+      <div className="type-caps ink-muted mb-3">{t.allergens}</div>
       <p className="type-serif" style={{ fontSize: "clamp(1.1rem, 2vw, 1.35rem)" }}>
         {declaration[lang]}
       </p>
-      <p className="type-caps opacity-50 mt-4" style={{ fontSize: "0.6875rem", lineHeight: 1.6 }}>
+      <p className="type-caps ink-muted mt-4" style={{ fontSize: "0.75rem", lineHeight: 1.6 }}>
         {t.crossContamination}
       </p>
-      <p className="type-caps opacity-50 mt-2" style={{ fontSize: "0.6875rem", lineHeight: 1.6 }}>
+      <p className="type-caps ink-muted mt-2" style={{ fontSize: "0.75rem", lineHeight: 1.6 }}>
         {t.checkPackaging}
       </p>
-    </aside>
+    </div>
   );
 }

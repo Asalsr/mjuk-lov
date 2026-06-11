@@ -13,12 +13,12 @@ export function DietFilter({ lang }: { lang: Lang }) {
   return (
     <div className="mb-12 p-6 md:p-8" style={{ border: "1px solid rgba(61, 42, 34, 0.15)" }}>
       <div className="flex items-center justify-between mb-5">
-        <div className="type-caps opacity-60">{t.yourPreferences}</div>
+        <div className="type-caps ink-muted">{t.yourPreferences}</div>
         {active && (
           <button
             type="button"
             onClick={clearFilters}
-            className="type-caps opacity-50 transition-colors hover:opacity-100 hover:text-[var(--dusty-terracotta)]"
+            className="type-caps ink-muted transition-colors hover:text-[var(--dusty-terracotta)]"
           >
             {t.clearFilters}
           </button>
@@ -26,7 +26,7 @@ export function DietFilter({ lang }: { lang: Lang }) {
       </div>
 
       <div className="mb-5">
-        <div className="type-caps opacity-40 mb-2" style={{ fontSize: "0.6875rem" }}>{t.diet}</div>
+        <div className="type-caps ink-muted mb-2" style={{ fontSize: "0.75rem" }}>{t.diet}</div>
         <div className="flex flex-wrap gap-2">
           {DIET_TAGS.map((tag) => {
             const on = data.profile.diet.includes(tag);
@@ -35,13 +35,15 @@ export function DietFilter({ lang }: { lang: Lang }) {
                 key={tag}
                 type="button"
                 onClick={() => toggleDiet(tag)}
+                aria-pressed={on}
                 className="type-caps tap px-3"
                 style={{
-                  border: "1px solid rgba(61, 42, 34, 0.2)",
+                  border: on ? "1px solid var(--warm-cocoa)" : "1px solid rgba(61, 42, 34, 0.2)",
                   backgroundColor: on ? "var(--warm-peach)" : "transparent",
+                  fontWeight: on ? 600 : undefined,
                 }}
               >
-                {t[tag]}
+                {on ? "✓ " : ""}{t[tag]}
               </button>
             );
           })}
@@ -49,7 +51,7 @@ export function DietFilter({ lang }: { lang: Lang }) {
       </div>
 
       <div>
-        <div className="type-caps opacity-40 mb-2" style={{ fontSize: "0.6875rem" }}>{t.avoidAllergens}</div>
+        <div className="type-caps ink-muted mb-2" style={{ fontSize: "0.75rem" }}>{t.avoidAllergens}</div>
         <div className="flex flex-wrap gap-2">
           {ALLERGEN_CODES.map((code) => {
             const on = data.profile.allergies.includes(code);
@@ -58,23 +60,24 @@ export function DietFilter({ lang }: { lang: Lang }) {
                 key={code}
                 type="button"
                 onClick={() => toggleAllergy(code)}
+                aria-pressed={on}
                 className="type-caps tap"
                 style={{
-                  fontSize: "0.625rem",
+                  fontSize: "0.75rem",
                   padding: "0.25rem 0.6rem",
-                  border: "1px solid rgba(61, 42, 34, 0.2)",
+                  border: on ? "1px solid var(--dusty-terracotta)" : "1px solid rgba(61, 42, 34, 0.2)",
                   backgroundColor: on ? "var(--dusty-terracotta)" : "transparent",
                   color: on ? "var(--vanilla-cream)" : "inherit",
                 }}
               >
-                {LABELS[code][lang]}
+                {on ? "✓ " : ""}{LABELS[code][lang]}
               </button>
             );
           })}
         </div>
       </div>
 
-      <p className="type-caps opacity-40 mt-5" style={{ fontSize: "0.625rem" }}>
+      <p className="type-caps ink-muted mt-5" style={{ fontSize: "0.75rem" }}>
         {t.savedOnDevice}
       </p>
     </div>

@@ -28,6 +28,7 @@ export function AskAssistant({ lang }: { lang: Lang }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mode: "ask", lang, question, userContext }),
+        signal: AbortSignal.timeout(30000),
       });
       const out = await res.json();
       if (!res.ok || out.error) setError(true);
@@ -41,7 +42,7 @@ export function AskAssistant({ lang }: { lang: Lang }) {
 
   return (
     <div className="mt-16 p-6 md:p-8" style={{ border: "1px solid rgba(61, 42, 34, 0.15)", backgroundColor: "var(--vanilla-cream)" }}>
-      <div className="type-caps opacity-60 mb-4">{t.askHeading}</div>
+      <div className="type-caps ink-muted mb-4">{t.askHeading}</div>
 
       <textarea
         value={question}
@@ -60,7 +61,7 @@ export function AskAssistant({ lang }: { lang: Lang }) {
           onChange={(e) => setProfile({ consentAi: e.target.checked })}
           className="mt-1"
         />
-        <span className="type-body opacity-70" style={{ fontSize: "0.85rem" }}>
+        <span className="type-body ink-muted" style={{ fontSize: "0.85rem" }}>
           {t.consentLabel}
         </span>
       </label>
@@ -72,14 +73,14 @@ export function AskAssistant({ lang }: { lang: Lang }) {
         className="type-caps tap mt-5 px-6 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
         style={{ border: "1px solid var(--warm-cocoa)" }}
       >
-        {loading ? t.thinking : t.askButton}
+        {loading ? <span role="status" aria-live="polite">{t.thinking}</span> : t.askButton}
       </button>
 
-      {error && <p className="type-body opacity-70 mt-5" style={{ color: "var(--dusty-wine)" }}>{t.aiError}</p>}
+      {error && <p className="type-body opacity-70 mt-5" role="alert" aria-live="assertive" style={{ color: "var(--dusty-wine)" }}>{t.aiError}</p>}
       {answer && (
         <div className="mt-6 pt-6" style={{ borderTop: "1px solid rgba(61, 42, 34, 0.12)" }}>
           <p className="type-body whitespace-pre-wrap">{answer}</p>
-          <p className="type-caps opacity-40 mt-4" style={{ fontSize: "0.625rem" }}>{t.aiDisclaimer}</p>
+          <p className="type-caps ink-muted mt-4" style={{ fontSize: "0.75rem" }}>{t.aiDisclaimer}</p>
         </div>
       )}
     </div>

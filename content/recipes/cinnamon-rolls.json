@@ -1,40 +1,161 @@
 {
   "slug": "cinnamon-rolls",
-  "title": { "sv": "Kanelbullar (rolls)", "en": "Cinnamon rolls" },
+  "title": {
+    "sv": "Kanelbullar (rolls)",
+    "en": "Cinnamon rolls"
+  },
   "headnote": {
     "sv": "Mjuka, lindade kanelbullar med klibbig kanelfyllning och frostingsvirvel. Se videon ovan för Joshuas metod.",
     "en": "Soft, coiled cinnamon rolls with a gooey cinnamon filling and a swirl of frosting. Watch the video above for Joshua's method."
   },
   "servings": 12,
-  "time": { "prepMin": 40, "totalMin": 180 },
+  "time": {
+    "prepMin": 40,
+    "totalMin": 180
+  },
   "youtubeId": "f6kzypYDLRg",
-  "inspiredBy": { "channel": "Joshua Weissman", "url": "https://www.youtube.com/watch?v=f6kzypYDLRg" },
+  "inspiredBy": {
+    "channel": "Joshua Weissman",
+    "url": "https://www.youtube.com/watch?v=f6kzypYDLRg"
+  },
   "ingredients": [
-    { "qty": "500 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
-    { "qty": "7 g", "item": { "sv": "torrjäst", "en": "dried yeast" } },
-    { "qty": "240 ml", "item": { "sv": "mjölk, ljummen", "en": "milk, warm" } },
-    { "qty": "60 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
-    { "qty": "1", "item": { "sv": "ägg", "en": "egg" } },
-    { "qty": "60 g", "item": { "sv": "smör, mjukt", "en": "butter, softened" } },
-    { "qty": "100 g", "item": { "sv": "farinsocker (fyllning)", "en": "brown sugar (filling)" } },
-    { "qty": "2 msk", "item": { "sv": "kanel (fyllning)", "en": "cinnamon (filling)" } },
-    { "qty": "100 g", "item": { "sv": "färskost (frosting)", "en": "cream cheese (frosting)" } }
+    {
+      "qty": {
+        "value": 500,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "vetemjöl",
+        "en": "all-purpose flour"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 7,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "torrjäst",
+        "en": "dried yeast"
+      },
+      "densityKey": "yeast"
+    },
+    {
+      "qty": {
+        "value": 240,
+        "unit": "ml"
+      },
+      "item": {
+        "sv": "mjölk, ljummen",
+        "en": "milk, warm"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 60,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "strösocker",
+        "en": "granulated sugar"
+      },
+      "densityKey": "sugar"
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "piece"
+      },
+      "item": {
+        "sv": "ägg",
+        "en": "egg"
+      }
+    },
+    {
+      "qty": {
+        "value": 60,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "smör, mjukt",
+        "en": "butter, softened"
+      },
+      "densityKey": "butter"
+    },
+    {
+      "qty": {
+        "value": 100,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "farinsocker (fyllning)",
+        "en": "brown sugar (filling)"
+      },
+      "densityKey": "brownSugar"
+    },
+    {
+      "qty": {
+        "value": 2,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "kanel (fyllning)",
+        "en": "cinnamon (filling)"
+      }
+    },
+    {
+      "qty": {
+        "value": 100,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "färskost (frosting)",
+        "en": "cream cheese (frosting)"
+      },
+      "densityKey": "creamCheese"
+    }
   ],
-  "diet": ["vegetarian"],
+  "diet": [
+    "vegetarian"
+  ],
   "steps": [
-    { "sv": "Blanda mjöl, jäst, ljummen mjölk, socker, ägg och smör till en smidig deg. Knåda och låt jäsa ca 1 timme.", "en": "Mix the flour, yeast, warm milk, sugar, egg and butter to a smooth dough. Knead and let rise about 1 hour." },
-    { "sv": "Kavla ut, bred på mjukt smör och strö farinsocker + kanel.", "en": "Roll out, spread with soft butter and scatter brown sugar + cinnamon." },
-    { "sv": "Rulla ihop, skär i bitar och lägg i en form. Låt jäsa 30 minuter.", "en": "Roll up, cut into pieces and place in a tin. Let rise 30 minutes." },
-    { "sv": "Grädda 180°C i 20–25 minuter tills gyllene.", "en": "Bake at 180°C for 20–25 minutes until golden." },
-    { "sv": "Bred på frosting av färskost. Se videon för detaljer.", "en": "Spread with cream cheese frosting. See the video for details." }
+    {
+      "sv": "Blanda mjöl, jäst, ljummen mjölk, socker, ägg och smör till en smidig deg. Knåda och låt jäsa ca 1 timme.",
+      "en": "Mix the flour, yeast, warm milk, sugar, egg and butter to a smooth dough. Knead and let rise about 1 hour."
+    },
+    {
+      "sv": "Kavla ut, bred på mjukt smör och strö farinsocker + kanel.",
+      "en": "Roll out, spread with soft butter and scatter brown sugar + cinnamon."
+    },
+    {
+      "sv": "Rulla ihop, skär i bitar och lägg i en form. Låt jäsa 30 minuter.",
+      "en": "Roll up, cut into pieces and place in a tin. Let rise 30 minutes."
+    },
+    {
+      "sv": "Grädda 180°C i 20–25 minuter tills gyllene.",
+      "en": "Bake at 180°C for 20–25 minutes until golden."
+    },
+    {
+      "sv": "Bred på frosting av färskost. Se videon för detaljer.",
+      "en": "Spread with cream cheese frosting. See the video for details."
+    }
   ],
   "notes": {
     "sv": "Hemlagad version — följ videon ovan. Jästiderna varierar med rumstemperaturen.",
     "en": "At-home version — follow the video above. Rise times vary with room temperature."
   },
   "allergens": {
-    "codes": ["gluten", "egg", "milk"],
-    "declaration": { "sv": "Innehåller: gluten, ägg, mjölk", "en": "Contains: gluten, egg, milk" },
+    "codes": [
+      "gluten",
+      "egg",
+      "milk"
+    ],
+    "declaration": {
+      "sv": "Innehåller: gluten, ägg, mjölk",
+      "en": "Contains: gluten, egg, milk"
+    },
     "needsReview": [],
     "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"

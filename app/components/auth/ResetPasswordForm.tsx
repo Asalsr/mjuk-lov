@@ -83,14 +83,14 @@ export function ResetPasswordForm({ lang }: { lang: Lang }) {
     }
   };
 
-  if (done) return <p className="type-body">{t.passwordUpdated}</p>;
+  if (done) return <p className="type-body" role="status" aria-live="polite">{t.passwordUpdated}</p>;
 
   // The recovery link never created a session (expired, already used, or opened
   // in a different browser) — guide the user to request a fresh one.
   if (hasSession === false) {
     return (
       <div className="flex flex-col gap-4 max-w-[400px]">
-        <p className="type-body" style={{ color: "var(--dusty-wine)" }}>{t.resetLinkInvalid}</p>
+        <p className="type-body" role="alert" aria-live="assertive" style={{ color: "var(--dusty-wine)" }}>{t.resetLinkInvalid}</p>
         <Link
           href={`/${lang}/logga-in`}
           className="type-caps tap px-6 py-3 self-start transition-all hover:bg-[var(--warm-peach)]"
@@ -113,7 +113,7 @@ export function ResetPasswordForm({ lang }: { lang: Lang }) {
           minLength={6}
           autoComplete="new-password"
         />
-        <p className="type-caps opacity-50">{t.passwordHint}</p>
+        <p className="type-caps ink-muted">{t.passwordHint}</p>
       </div>
       <PasswordInput
         lang={lang}
@@ -131,7 +131,7 @@ export function ResetPasswordForm({ lang }: { lang: Lang }) {
       >
         {loading ? t.thinking : t.updatePassword}
       </button>
-      {error && <p className="type-body" style={{ color: "var(--dusty-wine)", whiteSpace: "pre-line" }}>{error}</p>}
+      {error && <p className="type-body" role="alert" aria-live="assertive" style={{ color: "var(--dusty-wine)", whiteSpace: "pre-line" }}>{error}</p>}
     </form>
   );
 }

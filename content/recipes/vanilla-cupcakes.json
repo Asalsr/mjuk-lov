@@ -19,18 +19,119 @@
     "url": "https://www.youtube.com/watch?v=lC51CynVHAU"
   },
   "ingredients": [
-    { "qty": "125 g", "item": { "sv": "smör, rumsvarmt", "en": "butter, softened" } },
-    { "qty": "125 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
-    { "qty": "2", "item": { "sv": "ägg", "en": "eggs" } },
-    { "qty": "125 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
-    { "qty": "1,5 tsk", "item": { "sv": "bakpulver", "en": "baking powder" } },
-    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
-    { "qty": "2 msk", "item": { "sv": "mjölk", "en": "milk" } },
-    { "qty": "150 g", "item": { "sv": "smör för smörkräm, rumsvarmt", "en": "butter for buttercream, softened" } },
-    { "qty": "300 g", "item": { "sv": "florsocker", "en": "icing sugar" } },
-    { "qty": "1 msk", "item": { "sv": "mjölk till smörkrämen", "en": "milk for the buttercream" } }
+    {
+      "qty": {
+        "value": 125,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "smör, rumsvarmt",
+        "en": "butter, softened"
+      },
+      "densityKey": "butter"
+    },
+    {
+      "qty": {
+        "value": 125,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "strösocker",
+        "en": "granulated sugar"
+      },
+      "densityKey": "sugar"
+    },
+    {
+      "qty": {
+        "value": 2,
+        "unit": "piece"
+      },
+      "item": {
+        "sv": "ägg",
+        "en": "eggs"
+      }
+    },
+    {
+      "qty": {
+        "value": 125,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "vetemjöl",
+        "en": "all-purpose flour"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 1.5,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "bakpulver",
+        "en": "baking powder"
+      },
+      "densityKey": "bakingPowder"
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "vaniljextrakt",
+        "en": "vanilla extract"
+      },
+      "densityKey": "vanilla"
+    },
+    {
+      "qty": {
+        "value": 2,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "mjölk",
+        "en": "milk"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 150,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "smör för smörkräm, rumsvarmt",
+        "en": "butter for buttercream, softened"
+      },
+      "densityKey": "butter"
+    },
+    {
+      "qty": {
+        "value": 300,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "florsocker",
+        "en": "icing sugar"
+      },
+      "densityKey": "powderedSugar"
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "tbsp"
+      },
+      "item": {
+        "sv": "mjölk till smörkrämen",
+        "en": "milk for the buttercream"
+      },
+      "densityKey": "flour"
+    }
   ],
-  "diet": ["vegetarian"],
+  "diet": [
+    "vegetarian"
+  ],
   "steps": [
     {
       "sv": "Sätt ugnen på 175°C och klä en muffinsform med 12 papperformar.",
@@ -58,7 +159,11 @@
     "en": "This is an at-home version — follow the video above for Jemma's exact method and quantities. Room-temperature eggs and butter give the airiest result."
   },
   "allergens": {
-    "codes": ["gluten", "egg", "milk"],
+    "codes": [
+      "gluten",
+      "egg",
+      "milk"
+    ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
       "en": "Contains: gluten, egg, milk"

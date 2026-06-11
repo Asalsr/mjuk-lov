@@ -19,14 +19,75 @@
     "url": "https://www.youtube.com/watch?v=SbGpjrHcsIk"
   },
   "ingredients": [
-    { "qty": "200 g", "item": { "sv": "chokladkex, smulade", "en": "chocolate biscuits, crushed" } },
-    { "qty": "80 g", "item": { "sv": "smör, smält", "en": "butter, melted" } },
-    { "qty": "300 g", "item": { "sv": "mörk choklad", "en": "dark chocolate" } },
-    { "qty": "400 ml", "item": { "sv": "vispgrädde", "en": "double cream" } },
-    { "qty": "3", "item": { "sv": "ägg, delade", "en": "eggs, separated" } },
-    { "qty": "50 g", "item": { "sv": "strösocker", "en": "granulated sugar" } }
+    {
+      "qty": {
+        "value": 200,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "chokladkex, smulade",
+        "en": "chocolate biscuits, crushed"
+      },
+      "densityKey": "chocolate"
+    },
+    {
+      "qty": {
+        "value": 80,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "smör, smält",
+        "en": "butter, melted"
+      },
+      "densityKey": "butter"
+    },
+    {
+      "qty": {
+        "value": 300,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "mörk choklad",
+        "en": "dark chocolate"
+      },
+      "densityKey": "chocolate"
+    },
+    {
+      "qty": {
+        "value": 400,
+        "unit": "ml"
+      },
+      "item": {
+        "sv": "vispgrädde",
+        "en": "double cream"
+      },
+      "densityKey": "cream"
+    },
+    {
+      "qty": {
+        "value": 3,
+        "unit": "piece"
+      },
+      "item": {
+        "sv": "ägg, delade",
+        "en": "eggs, separated"
+      }
+    },
+    {
+      "qty": {
+        "value": 50,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "strösocker",
+        "en": "granulated sugar"
+      },
+      "densityKey": "sugar"
+    }
   ],
-  "diet": ["vegetarian"],
+  "diet": [
+    "vegetarian"
+  ],
   "steps": [
     {
       "sv": "Blanda kexsmulor med smält smör och tryck ut i botten på en springform (ca 20 cm). Ställ kallt.",
@@ -54,7 +115,11 @@
     "en": "This is an at-home version — follow the video above for the exact method. This contains raw egg white; use fresh, pasteurised eggs and serve chilled."
   },
   "allergens": {
-    "codes": ["gluten", "egg", "milk"],
+    "codes": [
+      "gluten",
+      "egg",
+      "milk"
+    ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
       "en": "Contains: gluten, egg, milk"

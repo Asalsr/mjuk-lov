@@ -19,16 +19,96 @@
     "url": "https://natashaskitchen.com/banana-bread-recipe-video/"
   },
   "ingredients": [
-    { "qty": "3", "item": { "sv": "mycket mogna bananer, mosade", "en": "very ripe bananas, mashed" } },
-    { "qty": "115 g", "item": { "sv": "smör, smält", "en": "butter, melted" } },
-    { "qty": "150 g", "item": { "sv": "strösocker", "en": "granulated sugar" } },
-    { "qty": "2", "item": { "sv": "ägg", "en": "eggs" } },
-    { "qty": "1 tsk", "item": { "sv": "vaniljextrakt", "en": "vanilla extract" } },
-    { "qty": "250 g", "item": { "sv": "vetemjöl", "en": "all-purpose flour" } },
-    { "qty": "1 tsk", "item": { "sv": "bikarbonat", "en": "baking soda" } },
-    { "qty": "1/2 tsk", "item": { "sv": "salt", "en": "salt" } }
+    {
+      "qty": {
+        "value": 3,
+        "unit": "piece"
+      },
+      "item": {
+        "sv": "mycket mogna bananer, mosade",
+        "en": "very ripe bananas, mashed"
+      }
+    },
+    {
+      "qty": {
+        "value": 115,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "smör, smält",
+        "en": "butter, melted"
+      },
+      "densityKey": "butter"
+    },
+    {
+      "qty": {
+        "value": 150,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "strösocker",
+        "en": "granulated sugar"
+      },
+      "densityKey": "sugar"
+    },
+    {
+      "qty": {
+        "value": 2,
+        "unit": "piece"
+      },
+      "item": {
+        "sv": "ägg",
+        "en": "eggs"
+      }
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "vaniljextrakt",
+        "en": "vanilla extract"
+      },
+      "densityKey": "vanilla"
+    },
+    {
+      "qty": {
+        "value": 250,
+        "unit": "g"
+      },
+      "item": {
+        "sv": "vetemjöl",
+        "en": "all-purpose flour"
+      },
+      "densityKey": "flour"
+    },
+    {
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "bikarbonat",
+        "en": "baking soda"
+      },
+      "densityKey": "bakingSoda"
+    },
+    {
+      "qty": {
+        "value": 0.5,
+        "unit": "tsp"
+      },
+      "item": {
+        "sv": "salt",
+        "en": "salt"
+      },
+      "densityKey": "salt"
+    }
   ],
-  "diet": ["vegetarian"],
+  "diet": [
+    "vegetarian"
+  ],
   "steps": [
     {
       "sv": "Sätt ugnen på 175°C och smörj en avlång brödform (ca 23×13 cm).",
@@ -56,7 +136,11 @@
     "en": "This is an at-home version — follow the video above for Natasha's exact method. Want walnuts? Fold in a handful — note that this adds the nuts allergen."
   },
   "allergens": {
-    "codes": ["gluten", "egg", "milk"],
+    "codes": [
+      "gluten",
+      "egg",
+      "milk"
+    ],
     "declaration": {
       "sv": "Innehåller: gluten, ägg, mjölk",
       "en": "Contains: gluten, egg, milk"

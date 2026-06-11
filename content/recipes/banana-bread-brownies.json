@@ -16,60 +16,90 @@
   "youtubeId": "6HTb7Ietwmo",
   "ingredients": [
     {
-      "qty": "3",
+      "qty": {
+        "value": 3,
+        "unit": "piece"
+      },
       "item": {
         "sv": "mosade mogna bananer",
         "en": "mashed ripe bananas"
       }
     },
     {
-      "qty": "150 g",
+      "qty": {
+        "value": 150,
+        "unit": "g"
+      },
       "item": {
         "sv": "smör, smält",
         "en": "butter, melted"
-      }
+      },
+      "densityKey": "butter"
     },
     {
-      "qty": "200 g",
+      "qty": {
+        "value": 200,
+        "unit": "g"
+      },
       "item": {
         "sv": "strösocker",
         "en": "granulated sugar"
-      }
+      },
+      "densityKey": "sugar"
     },
     {
-      "qty": "2",
+      "qty": {
+        "value": 2,
+        "unit": "piece"
+      },
       "item": {
         "sv": "ägg",
         "en": "eggs"
       }
     },
     {
-      "qty": "1 tsk",
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
       "item": {
         "sv": "vaniljextrakt",
         "en": "vanilla extract"
-      }
+      },
+      "densityKey": "vanilla"
     },
     {
-      "qty": "250 g",
+      "qty": {
+        "value": 250,
+        "unit": "g"
+      },
       "item": {
         "sv": "vetemjöl",
         "en": "all-purpose flour"
-      }
+      },
+      "densityKey": "flour"
     },
     {
-      "qty": "1 tsk",
+      "qty": {
+        "value": 1,
+        "unit": "tsp"
+      },
       "item": {
         "sv": "bakpulver",
         "en": "baking powder"
-      }
+      },
+      "densityKey": "bakingPowder"
     },
     {
-      "qty": "1 krm",
+      "qty": {
+        "value": 1,
+        "unit": "ml"
+      },
       "item": {
         "sv": "salt",
         "en": "salt"
-      }
+      },
+      "densityKey": "salt"
     }
   ],
   "diet": [

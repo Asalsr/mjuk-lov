@@ -25,6 +25,7 @@ export const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
 
   return (
     <div
+      aria-hidden="true"
       className={`fixed inset-0 z-[10000] flex flex-col items-center overflow-hidden transition-opacity duration-[350ms] ${
         isExiting ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}

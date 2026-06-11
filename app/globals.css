@@ -50,6 +50,13 @@
   --input: transparent;
   --ring: var(--dusty-terracotta);
 
+  /* Accessible de-emphasis. Text opacity renders far too faint on cream
+     (opacity-50 ≈ 2.5:1, a WCAG failure). These solid browns are the
+     *lightest* tones that still clear AA, so muted text stays visually soft
+     while remaining readable. Use the .ink-muted / .ink-faint utilities. */
+  --ink-muted: #7c6152;  /* ≈5.1:1 on cream — secondary text, labels, meta, hints */
+  --ink-faint: #8c7365;  /* ≈4.0:1 on cream — large decorative numerals only (≥24px) */
+
   --font-weight-medium: 500;
   --font-weight-normal: 400;
 
@@ -139,11 +146,12 @@
     font-size: clamp(1.125rem, 1.5vw, 1.375rem);
   }
 
-  /* Buttons / labels default to Spaced Caps so CTAs are consistent. */
+  /* Buttons / labels default to Spaced Caps so CTAs are consistent.
+     Bumped 14→15px: spaced uppercase is the hardest style to read small. */
   label,
   button {
     font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
@@ -155,6 +163,22 @@
     font-size: 1rem;
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
+  }
+
+  /* Placeholders are guidance, not chrome — keep them readable, and stop
+     Firefox from halving their opacity. */
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--ink-muted);
+    opacity: 1;
+  }
+
+  /* Visible keyboard focus for everyone. The previous `outline-ring/50` was
+     terracotta at 50% (~2:1) — invisible on cream. This is a solid, offset
+     terracotta ring (4.4:1, clears the 3:1 UI bar). */
+  :focus-visible {
+    outline: 2px solid var(--dusty-terracotta);
+    outline-offset: 2px;
   }
 }
 
@@ -181,8 +205,10 @@
 
 .type-caps {
   font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
-  font-size: 0.8125rem;
-  letter-spacing: 0.15em;
+  /* 13→14px and slightly tighter tracking: keeps the spaced-caps look but
+     pulls it back from the unreadable end of the scale. */
+  font-size: 0.875rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: var(--font-weight-medium);
   line-height: 1.4;
@@ -193,6 +219,16 @@
   font-size: clamp(1rem, 1.05vw, 1.25rem);
   line-height: 1.6;
   font-weight: var(--font-weight-normal);
+}
+
+/* De-emphasis without going invisible. Prefer these over `opacity-*` on text:
+   .ink-muted for secondary copy/labels/meta; .ink-faint ONLY for large
+   decorative text (≥24px), where the 3:1 large-text bar applies. */
+.ink-muted {
+  color: var(--ink-muted);
+}
+.ink-faint {
+  color: var(--ink-faint);
 }
 
 /* ============================================================
@@ -213,5 +249,27 @@
 @media (pointer: coarse) {
   [class*="group-hover:opacity-100"] {
     opacity: 1 !important;
+  }
+}
+
+/* ============================================================
+   Reduced motion (WCAG 2.3.3 / vestibular safety)
+   When the user asks the OS to reduce motion, flatten every CSS
+   animation and transition and disable smooth scrolling. JS-driven
+   motion (parallax, magnetic button, custom cursor, loading intro)
+   is gated separately via usePrefersReducedMotion().
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
   }
 }

@@ -25,13 +25,18 @@ export async function POST(req: Request) {
     const foreignId = session.metadata?.foreign_id;
     if (foreignId && isAdminConfigured) {
       const admin = createAdminClient();
+      // Idempotent: only the initial pending → paid transition is applied.
+      // Stripe re-delivers webhooks, so scoping to status="pending" makes a
+      // duplicate delivery a no-op and prevents clobbering a later status
+      // (e.g. an order already advanced past "paid").
       await admin
         .from("orders")
         .update({
           status: "paid",
           stripe_payment_intent: typeof session.payment_intent === "string" ? session.payment_intent : null,
         })
-        .eq("id", foreignId);
+        .eq("id", foreignId)
+        .eq("status", "pending");
     }
   }
 

@@ -28,7 +28,7 @@ const STATUS_COLOR: Record<string, string> = {
   requested: "var(--dusty-terracotta)",
   confirmed: "var(--warm-cocoa)",
   done: "var(--dusty-wine)",
-  declined: "rgba(61, 42, 34, 0.4)",
+  declined: "#6e5a50",
 };
 
 export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
@@ -101,7 +101,7 @@ export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
       </div>
 
       {shown.length === 0 ? (
-        <p className="type-body opacity-70">{t.nothingYet}</p>
+        <p className="type-body ink-muted">{t.nothingYet}</p>
       ) : (
         <div className="space-y-6">
           {shown.map((o) => {
@@ -117,20 +117,20 @@ export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
                   </div>
                   <span
                     className="type-caps shrink-0"
-                    style={{ fontSize: "0.625rem", padding: "0.2rem 0.55rem", color: "var(--vanilla-cream)", backgroundColor: STATUS_COLOR[o.status] ?? "var(--warm-cocoa)" }}
+                    style={{ fontSize: "0.75rem", padding: "0.2rem 0.55rem", color: "var(--vanilla-cream)", backgroundColor: STATUS_COLOR[o.status] ?? "var(--warm-cocoa)" }}
                   >
                     {statusLabel(o.status)}
                   </span>
                 </div>
 
-                <div className="type-caps opacity-50 mt-1">
+                <div className="type-caps ink-muted mt-1">
                   {new Date(o.created_at).toLocaleString(lang === "sv" ? "sv-SE" : "en-GB")} · {t.orderRef} {o.id.slice(0, 8)}
                 </div>
 
-                <div className="type-body mt-3">
+                <div className="type-body mt-3 break-words">
                   {o.contact_name} — {o.contact_email || ""} {o.contact_phone || ""}
                 </div>
-                <div className="type-body opacity-80">
+                <div className="type-body opacity-80 break-words">
                   {o.fulfilment === "delivery" ? t.delivery : t.pickup}
                   {o.address ? ` · ${o.address}` : ""}
                   {o.desired_date ? ` · ${o.desired_date}` : ""}
@@ -158,7 +158,7 @@ export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
 
                 {/* Price + internal note */}
                 <div className="mt-4 flex flex-wrap items-end gap-3">
-                  <label className="flex flex-col gap-1 type-caps opacity-70">
+                  <label className="flex flex-col gap-1 type-caps ink-muted">
                     {t.priceQuote}
                     <input
                       type="number"
@@ -169,7 +169,7 @@ export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
                       style={{ border: "1px solid rgba(61, 42, 34, 0.2)", width: 120 }}
                     />
                   </label>
-                  <label className="flex flex-col gap-1 type-caps opacity-70 flex-1" style={{ minWidth: 200 }}>
+                  <label className="flex flex-col gap-1 type-caps ink-muted flex-1" style={{ minWidth: 200 }}>
                     {t.adminNote}
                     <input
                       type="text"

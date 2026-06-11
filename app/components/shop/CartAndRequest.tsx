@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useCart, setQty, removeFromCart, clearCart } from "@/lib/cart/store";
 import { useUserData } from "@/lib/userdata/store";
@@ -37,6 +37,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const submitting = useRef(false); // ref guard against double-submit (duplicate orders)
 
   // Address selection: a saved address id, or NEW to enter a fresh one.
   const [selectedAddrId, setSelectedAddrId] = useState<string>(NEW);
@@ -89,6 +90,9 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Guard against double-submit: a fast second click (or Enter) before React
+    // re-renders the disabled button would otherwise create a duplicate order.
+    if (submitting.current) return;
     if (!name.trim() || (!email.trim() && !phone.trim())) {
       setError(t.contactRequired);
       return;
@@ -134,6 +138,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
       }
     }
 
+    submitting.current = true;
     setSending(true);
     setError(null);
     try {
@@ -157,11 +162,12 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
       setError(t.aiError);
     } finally {
       setSending(false);
+      submitting.current = false;
     }
   };
 
-  if (done) return <p className="type-body">{t.requestSent}</p>;
-  if (items.length === 0) return <p className="type-body opacity-70">{t.cartEmpty}</p>;
+  if (done) return <p className="type-body" role="status" aria-live="polite">{t.requestSent}</p>;
+  if (items.length === 0) return <p className="type-body ink-muted">{t.cartEmpty}</p>;
 
   return (
     <div className="grid gap-12 md:grid-cols-[1.2fr_1fr]">
@@ -177,7 +183,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
               >
                 <div>
                   <div className="type-serif" style={{ fontSize: "1.25rem" }}>{p?.name[lang] ?? i.productId}</div>
-                  <div className="type-caps opacity-50">{p?.priceSek} kr</div>
+                  <div className="type-caps ink-muted">{p?.priceSek} kr</div>
                 </div>
                 <div className="flex items-center gap-3">
                   <input
@@ -189,7 +195,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
                     className="w-16 p-2 type-body bg-transparent"
                     style={inputStyle}
                   />
-                  <button type="button" onClick={() => removeFromCart(i.productId)} className="type-caps opacity-50 hover:text-[var(--dusty-terracotta)]">
+                  <button type="button" onClick={() => removeFromCart(i.productId)} className="type-caps ink-muted hover:text-[var(--dusty-terracotta)]">
                     {t.remove}
                   </button>
                 </div>
@@ -198,32 +204,32 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
           })}
         </ul>
         <div className="mt-4 flex flex-col gap-1">
-          <div className="flex justify-between type-body opacity-70">
+          <div className="flex justify-between type-body ink-muted">
             <span>{t.subtotal}</span>
             <span>{subtotal} kr</span>
           </div>
           {deliveryFee > 0 && (
-            <div className="flex justify-between type-body opacity-70">
+            <div className="flex justify-between type-body ink-muted">
               <span>{t.deliveryFee}</span>
               <span>{deliveryFee} kr</span>
             </div>
           )}
           <div className="flex justify-between type-serif mt-1" style={{ fontSize: "1.25rem" }}>
             <span>{t.total}</span>
-            <span>{total} kr <span className="type-caps opacity-50">(est.)</span></span>
+            <span>{total} kr <span className="type-caps ink-muted">{t.estimated}</span></span>
           </div>
         </div>
       </div>
 
       <form onSubmit={submit} className="flex flex-col gap-4">
-        <div className="type-caps opacity-60">{t.yourDetails}</div>
-        <input required placeholder={t.name} value={name} onChange={(e) => setName(e.target.value)} className="p-3 type-body bg-transparent" style={inputStyle} />
-        <input type="email" placeholder={t.email} value={email} onChange={(e) => setEmail(e.target.value)} className="p-3 type-body bg-transparent" style={inputStyle} />
-        <input placeholder={t.phone} value={phone} onChange={(e) => setPhone(e.target.value)} className="p-3 type-body bg-transparent" style={inputStyle} />
+        <div className="type-caps ink-muted">{t.yourDetails}</div>
+        <input required placeholder={t.name} value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className="p-3 type-body bg-transparent" style={inputStyle} />
+        <input type="email" placeholder={t.email} value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" inputMode="email" className="p-3 type-body bg-transparent" style={inputStyle} />
+        <input type="tel" placeholder={t.phone} value={phone} onChange={(e) => setPhone(e.target.value)} autoComplete="tel" inputMode="tel" className="p-3 type-body bg-transparent" style={inputStyle} />
 
-        <label className="type-caps opacity-50" style={{ fontSize: "0.6875rem" }}>{t.desiredDate}</label>
+        <label className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>{t.desiredDate}</label>
         <input type="date" required min={minDate} value={date} onChange={(e) => setDate(e.target.value)} className="p-3 type-body bg-transparent" style={inputStyle} />
-        <p className="type-caps opacity-40" style={{ fontSize: "0.625rem" }}>{t.leadTimeHint}</p>
+        <p className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>{t.leadTimeHint}</p>
 
         <div className="flex gap-6 type-body">
           <label className="flex items-center gap-2">
@@ -239,7 +245,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
           <div className="flex flex-col gap-3">
             {loggedIn && addresses.length > 0 && (
               <div className="flex flex-col gap-2">
-                <div className="type-caps opacity-50" style={{ fontSize: "0.6875rem" }}>{t.savedAddresses}</div>
+                <div className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>{t.savedAddresses}</div>
                 {addresses.map((a) => (
                   <label key={a.id} className="flex items-start gap-2 p-3 cursor-pointer" style={inputStyle}>
                     <input type="radio" name="addr" checked={selectedAddrId === a.id} onChange={() => setSelectedAddrId(a.id)} className="mt-1" />
@@ -247,22 +253,22 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
                       <span className="type-body flex items-center gap-2">
                         {a.label}
                         {a.isDefault && (
-                          <span className="type-caps opacity-50" style={{ fontSize: "0.6rem" }}>· {t.defaultBadge}</span>
+                          <span className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>· {t.defaultBadge}</span>
                         )}
                       </span>
-                      <span className="type-caps opacity-50 block" style={{ fontSize: "0.625rem" }}>{addrSummary(a)}</span>
+                      <span className="type-caps ink-muted block" style={{ fontSize: "0.75rem" }}>{addrSummary(a)}</span>
                       {(a.receiverName || a.receiverPhone) && (
-                        <span className="type-caps opacity-40 block" style={{ fontSize: "0.6rem" }}>
+                        <span className="type-caps ink-muted block" style={{ fontSize: "0.75rem" }}>
                           {[a.receiverName, a.receiverPhone].filter(Boolean).join(" · ")}
                         </span>
                       )}
                       <span className="flex gap-3 mt-1">
                         {!a.isDefault && (
-                          <button type="button" onClick={async () => { await setDefaultAddress(a.id); void refreshAddresses(); }} className="type-caps opacity-50 hover:text-[var(--dusty-terracotta)]" style={{ fontSize: "0.6rem" }}>
+                          <button type="button" onClick={async () => { await setDefaultAddress(a.id); void refreshAddresses(); }} className="type-caps ink-muted hover:text-[var(--dusty-terracotta)]" style={{ fontSize: "0.75rem" }}>
                             {t.setDefault}
                           </button>
                         )}
-                        <button type="button" onClick={async () => { await deleteAddress(a.id); setSelectedAddrId((cur) => (cur === a.id ? NEW : cur)); void refreshAddresses(); }} className="type-caps opacity-50 hover:text-[var(--dusty-terracotta)]" style={{ fontSize: "0.6rem" }}>
+                        <button type="button" onClick={async () => { if (!window.confirm(t.confirmDeleteAddress)) return; await deleteAddress(a.id); setSelectedAddrId((cur) => (cur === a.id ? NEW : cur)); void refreshAddresses(); }} className="type-caps ink-muted hover:text-[var(--dusty-terracotta)]" style={{ fontSize: "0.75rem" }}>
                           {t.remove}
                         </button>
                       </span>
@@ -286,7 +292,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
                     <input placeholder={t.receiverPhone} value={recvPhone} onChange={(e) => setRecvPhone(e.target.value)} className="p-3 type-body bg-transparent" style={inputStyle} />
                   </>
                 ) : (
-                  <Link href={`/${lang}/logga-in`} className="type-caps opacity-60 self-start hover:text-[var(--dusty-terracotta)]" style={{ fontSize: "0.6875rem" }}>
+                  <Link href={`/${lang}/logga-in`} className="type-caps ink-muted self-start hover:text-[var(--dusty-terracotta)]" style={{ fontSize: "0.75rem" }}>
                     {t.logInToSave}
                   </Link>
                 )}
@@ -301,7 +307,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
         <button type="submit" disabled={sending} className="type-caps tap px-6 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40" style={{ border: "1px solid var(--warm-cocoa)" }}>
           {sending ? t.sending : t.submitRequest}
         </button>
-        {error && <p className="type-body" style={{ color: "var(--dusty-wine)" }}>{error}</p>}
+        {error && <p className="type-body" role="alert" aria-live="assertive" style={{ color: "var(--dusty-wine)" }}>{error}</p>}
       </form>
     </div>
   );

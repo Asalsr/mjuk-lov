@@ -46,10 +46,10 @@ export function RecipeVideoCard({ video, lang }: { video: RecipeVideo; lang: Lan
         </a>
       )}
       <div className="p-5">
-        <div className="type-caps opacity-50 mb-1">{video.channel} · {video.category}</div>
+        <div className="type-caps ink-muted mb-1">{video.channel} · {video.category}</div>
         <h3 className="type-serif" style={{ fontSize: "1.15rem" }}>{video.recipe}</h3>
         {video.ratingProof && (
-          <div className="type-caps opacity-40 mt-2" style={{ fontSize: "0.625rem" }}>★ {video.ratingProof}</div>
+          <div className="type-caps ink-muted mt-2" style={{ fontSize: "0.75rem" }}>★ {video.ratingProof}</div>
         )}
       </div>
     </div>

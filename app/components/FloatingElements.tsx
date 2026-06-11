@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { FlourSack, Truffles, Butter } from './Icons';
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 
 /**
  * Floating decorative illustrations in the background, parallax on scroll.
@@ -13,14 +14,22 @@ import { FlourSack, Truffles, Butter } from './Icons';
  */
 export const FloatingElements = () => {
   const [scrollY, setScrollY] = useState(0);
+  const reduced = usePrefersReducedMotion();
 
   useEffect(() => {
+    // Reduced motion: leave the illustrations static (scrollY stays 0).
+    if (reduced) return;
+    let raf = 0;
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => setScrollY(window.scrollY));
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [reduced]);
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden hidden lg:block">

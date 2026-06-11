@@ -116,7 +116,7 @@ export const TheCraft = ({ lang }: TheCraftProps) => {
                 <div
                   className="inline-flex items-center justify-center mb-6 relative z-10 transform group-hover:scale-125 group-hover:rotate-12 transition-all duration-500"
                 >
-                  <Icon className="w-72 h-72 sm:w-48 sm:h-48 md:w-[10.5rem] md:h-[10.5rem]" />
+                  <Icon className="w-40 h-40 sm:w-48 sm:h-48 md:w-[10.5rem] md:h-[10.5rem]" />
                 </div>
 
                 <div className="type-caps mb-3 opacity-30 group-hover:opacity-60 transition-opacity duration-300">
