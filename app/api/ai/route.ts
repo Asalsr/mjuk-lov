@@ -4,6 +4,8 @@ import { generateAdaptation } from "@/lib/ai/adapt";
 import { aiDetect } from "@/lib/allergen/provider";
 import { buildLabel } from "@/lib/allergen/engine";
 import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
+import { hasMemoryConsent, loadMemory, saveTurn } from "@/lib/ai/memory";
 import type { Lang } from "@/lib/i18n";
 
 // Needs the Node runtime (the AI/env helpers use node:fs). Never prerendered.
@@ -49,10 +51,30 @@ export async function POST(req: Request) {
       if (!question) return json({ error: "empty" }, 400);
       // userContext (diet/allergies) is only present if the user consented client-side.
       const ctx = body.userContext ? JSON.stringify(body.userContext).slice(0, 1500) : "(none)";
+
+      // Durable cross-device memory — only for a logged-in user who has an
+      // explicit `ai_memory` consent. Best-effort: with no session or no consent
+      // (the default), `userId` stays null and the route is stateless, as before.
+      let userId: string | null = null;
+      let memory = "";
+      const db = await createClient().catch(() => null);
+      if (db) {
+        try {
+          const user = (await db.auth.getUser()).data.user;
+          if (user && (await hasMemoryConsent(db, user.id))) {
+            userId = user.id;
+            memory = await loadMemory(db, user.id);
+          }
+        } catch {
+          /* anonymous → stateless */
+        }
+      }
+
       const answer = await chat({
         system: askSystem(lang),
-        user: `Question: ${question}\n\nUser context: ${ctx}`,
+        user: `${memory ? `${memory}\n\n` : ""}Question: ${question}\n\nUser context: ${ctx}`,
       });
+      if (db && userId) await saveTurn(db, userId, question, answer, lang);
       return json({ answer });
     }
 

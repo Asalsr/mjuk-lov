@@ -10,23 +10,29 @@ import { ui, type Lang } from "@/lib/i18n";
 export function MyPageClient({
   lang,
   email,
+  userId,
   profile,
   favorites,
   wishlist,
   notes,
   made,
   orders,
+  memoryConsent,
+  memoryCount,
   isOwner = false,
   titles,
 }: {
   lang: Lang;
   email: string;
+  userId: string;
   isOwner?: boolean;
   profile: { fullName: string; phone: string; address: string };
   favorites: string[];
   wishlist: string[];
   notes: { slug: string; body: string }[];
   made: string[];
+  memoryConsent: boolean;
+  memoryCount: number;
   orders: {
     id: string;
     status: string;
@@ -43,6 +49,9 @@ export function MyPageClient({
   const [name, setName] = useState(profile.fullName);
   const [phone, setPhone] = useState(profile.phone);
   const [justSaved, setJustSaved] = useState(false);
+  const [memOn, setMemOn] = useState(memoryConsent);
+  const [memCount, setMemCount] = useState(memoryCount);
+  const [memCleared, setMemCleared] = useState(false);
   const savedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => {
     if (savedTimerRef.current) clearTimeout(savedTimerRef.current);
@@ -99,6 +108,29 @@ export function MyPageClient({
     savedTimerRef.current = setTimeout(() => setJustSaved(false), 12000);
   };
 
+  // AI memory consent + erasure run through the browser client; RLS scopes
+  // every row to this signed-in user, so no service key is involved.
+  const toggleMemory = async (on: boolean) => {
+    setMemOn(on); // optimistic — the toggle is low-stakes and reversible
+    setMemCleared(false);
+    await createClient()
+      .from("consents")
+      .upsert(
+        { user_id: userId, kind: "ai_memory", granted: on, updated_at: new Date().toISOString() },
+        { onConflict: "user_id,kind" },
+      );
+  };
+
+  const clearAiMemory = async () => {
+    const db = createClient();
+    await Promise.all([
+      db.from("ai_messages").delete().eq("user_id", userId),
+      db.from("ai_summary").delete().eq("user_id", userId),
+    ]);
+    setMemCount(0);
+    setMemCleared(true);
+  };
+
   const inputStyle = { border: "1px solid rgba(61, 42, 34, 0.2)" } as const;
 
   return (
@@ -148,6 +180,29 @@ export function MyPageClient({
         </button>
       </form>
       <p className="type-caps ink-muted mb-12" style={{ fontSize: "0.75rem" }}>{t.autoSyncNote}</p>
+
+      <h2 className="type-caps ink-muted mb-3">{t.aiMemoryHeading}</h2>
+      <label className="flex items-start gap-3 mb-3 cursor-pointer max-w-[420px]">
+        <input type="checkbox" checked={memOn} onChange={(e) => toggleMemory(e.target.checked)} className="mt-1" />
+        <span className="type-body ink-muted" style={{ fontSize: "0.85rem" }}>{t.aiMemoryConsent}</span>
+      </label>
+      {memCount > 0 ? (
+        <div className="flex items-center gap-4 mb-12">
+          <span className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>{t.aiMemoryCount(memCount)}</span>
+          <button
+            type="button"
+            onClick={clearAiMemory}
+            className="type-caps tap px-4 py-2 transition-all hover:bg-[var(--warm-peach)]"
+            style={{ border: "1px solid var(--warm-cocoa)" }}
+          >
+            {t.clearAiMemory}
+          </button>
+        </div>
+      ) : (
+        <p className="type-caps ink-muted mb-12" role="status" aria-live="polite" style={{ fontSize: "0.75rem" }}>
+          {memCleared ? t.aiMemoryCleared : " "}
+        </p>
+      )}
 
       {activeOrders.length > 0 && (
         <>
