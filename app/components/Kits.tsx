@@ -103,7 +103,7 @@ export const Kits = ({ lang }: KitsProps) => {
             return (
             <div
               key={i}
-              className={`bg-[var(--vanilla-cream)] transition-all duration-700 group md:hover:-translate-y-2 md:hover:shadow-2xl ${
+              className={`bg-[var(--vanilla-cream)] flex flex-col transition-all duration-700 group md:hover:-translate-y-2 md:hover:shadow-2xl ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
               style={{
@@ -118,7 +118,7 @@ export const Kits = ({ lang }: KitsProps) => {
               </div>
 
 
-              <div className="p-6 md:p-8">
+              <div className="p-6 md:p-8 flex flex-col flex-1">
                 <div className="type-caps mb-2 opacity-50">
                   {kit.size}
                 </div>
@@ -131,7 +131,10 @@ export const Kits = ({ lang }: KitsProps) => {
                   {kit.description}
                 </p>
 
-                <div className="type-serif mb-6" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)' }}>
+                {/* mt-auto pins price + CTA to the bottom of the card, so the
+                    Order buttons line up across all three cards regardless of
+                    how many lines each description wraps to. */}
+                <div className="type-serif mt-auto mb-6" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)' }}>
                   {kit.price}
                 </div>
 
