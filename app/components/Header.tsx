@@ -42,7 +42,7 @@ const content = {
     myPage: 'صفحه من',
     shop: 'فروشگاه',
     cart: 'سبد خرید',
-    account: 'حساب',
+    account: 'حساب کاربری',
     logIn: 'ورود',
     logOut: 'خروج',
   },
@@ -58,9 +58,9 @@ const NAV: ({ id: string; sv: string; en: string; fa: string } | { path: string;
   { id: 'idea', sv: 'Idén', en: 'The Idea', fa: 'ایده' },
   { path: 'recept', sv: 'Recept', en: 'Recipes', fa: 'دستورها' },
   { path: 'butik', sv: 'Butik', en: 'Shop', fa: 'فروشگاه' },
-  { id: 'kits', sv: 'Tårtkit', en: 'Kits', fa: 'کیت کیک' },
-  { id: 'about', sv: 'Om', en: 'About', fa: 'درباره' },
-  { id: 'order', sv: 'Kontakt', en: 'Contact', fa: 'تماس' },
+  { id: 'kits', sv: 'Tårtkit', en: 'Kits', fa: 'کیت‌های کیک' },
+  { id: 'about', sv: 'Om', en: 'About', fa: 'درباره ما' },
+  { id: 'order', sv: 'Kontakt', en: 'Contact', fa: 'تماس با ما' },
 ];
 
 // Tagline shown beneath each marketing section in the mobile hamburger sheet

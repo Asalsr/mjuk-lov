@@ -53,7 +53,7 @@ const content = {
       line2: 'یوتبوری'
     },
     contact: {
-      title: 'تماس',
+      title: 'تماس با ما',
       email: 'mjuklov.se@gmail.com',
       phone: '+46 76 576 1526' // PLACEHOLDER
     },
