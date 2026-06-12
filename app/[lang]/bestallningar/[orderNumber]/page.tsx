@@ -56,6 +56,11 @@ export default async function Page({ params }: { params: Promise<{ lang: string;
   const statusLabel =
     ({ requested: t.statusRequested, confirmed: t.statusConfirmed, paid: t.statusConfirmed, delivered: t.statusDelivered, done: t.statusDelivered, declined: t.statusDeclined } as Record<string, string>)[order.status] ??
     order.status;
+  // Same per-status palette as the orders list and profile preview, so a given
+  // status reads as the same colour on every page.
+  const statusColor =
+    ({ requested: "var(--dusty-terracotta)", confirmed: "var(--warm-cocoa)", paid: "var(--warm-cocoa)", delivered: "var(--dusty-wine)", done: "var(--dusty-wine)", declined: "#6e5a50" } as Record<string, string>)[order.status] ??
+    "var(--warm-cocoa)";
   const totalSek =
     order.amount != null ? Math.round(order.amount / 100) : order.quoted_price ?? null;
   const fmt = (d: string) => new Date(d).toLocaleDateString(lang === "sv" ? "sv-SE" : lang === "fa" ? "fa-IR" : "en-GB");
@@ -79,7 +84,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string;
             <h1 className="type-caps" style={{ fontSize: "clamp(1.375rem, 3vw, 1.875rem)", letterSpacing: "0.08em" }}>{order.order_number ?? order.id.slice(0, 8)}</h1>
             <span
               className="type-caps shrink-0 mt-2"
-              style={{ fontSize: "0.75rem", padding: "0.15rem 0.5rem", color: "var(--vanilla-cream)", backgroundColor: order.status === "declined" ? "#6e5a50" : "var(--warm-cocoa)" }}
+              style={{ fontSize: "0.75rem", padding: "0.15rem 0.5rem", color: "var(--vanilla-cream)", backgroundColor: statusColor }}
             >
               {statusLabel}
             </span>
