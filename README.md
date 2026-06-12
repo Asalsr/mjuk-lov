@@ -1,6 +1,8 @@
 # Mjuk Lov · *ett mjukt löfte*
 
-A bilingual (Swedish / English) website and **AI-powered dessert platform** for a small artisan brand in Gothenburg. It pairs a polished editorial brand site with a 40+ recipe app, customer accounts, an order-management back office, and a no-friction “request to order” shop.
+A trilingual (Swedish / English / Persian-RTL) website and **AI-powered dessert platform** for a small artisan brand in Gothenburg. It pairs a polished editorial brand site with a 40+ recipe app, customer accounts, an order-management back office, and a no-friction “request to order” shop.
+
+📜 Full release history in [`CHANGELOG.md`](CHANGELOG.md).
 
 <p>
 <img alt="Next.js" src="https://img.shields.io/badge/Next.js_16-000?style=flat-square&logo=nextdotjs&logoColor=white">
@@ -65,12 +67,21 @@ A bilingual (Swedish / English) website and **AI-powered dessert platform** for 
 - Stored **device-local** for guests, then **synced to the account on login** (write-through + merge) — nothing is lost.
 
 **Accounts & ordering**
-- Email + password auth with confirmation and reset; show/hide password; a **“My page”** with profile, likes, wishlist, and **order status + history** (active vs past, status badges, confirmed price).
+- Email + password auth with confirmation and reset; show/hide password; a **“My page”** with profile, likes, wishlist, a 3-order **Recent orders** preview, and self-service **GDPR data export + account deletion**.
 - **Request to order** (no online payment): cart → request form (pickup/delivery, desired date, structured + Google-validated address) → saved to Supabase + emailed.
+- **Orders** (`/bestallningar`): human-readable order numbers (`ML-YYYY-NNNN`), status + date-range filtering, a per-order detail page, a **delivered** status, and a printable **receipt / kvitto**. Customers see their orders by confirmed email (RLS), with guest-order backfill on sign-up.
 
 **Order-management back office (owner-only)**
-- `/admin` panel: filter tabs with counts, **accept / decline / mark-done / reopen**, enter a **price quote** + internal note, and **email / call** the customer.
-- Status changes flow through an **owner-gated server route** (service role) that also emails the customer on confirm/decline.
+- `/admin` panel: filter tabs with counts, **accept / decline / mark-delivered / reopen**, enter a **price quote** + internal note, and **email / call** the customer.
+- Status changes flow through an **owner-gated server route** (service role) that also emails the customer (bilingual sv/en) on confirm/decline/deliver.
+
+**Internationalization & accessibility**
+- **Three locales** — Swedish, English, and **Persian (RTL)** with Persian digits and idiomatic, research-backed UI copy; per-locale `<html lang>` and `hreflang`.
+- **Accessibility-audited**: solid `ink-muted`/`ink-faint` text tokens (no opacity on text), reduced-motion-gated JS animation, a visible focus ring, non-color status cues, and a `contrast-audit` guardrail in CI.
+
+**Extras**
+- **Ingredient unit converter**: structured EU/metric quantities → US units + dual °C/°F oven temps on demand (weight↔volume via densities; Vitest-covered).
+- **Consent-gated, cross-device AI memory** for the assistant; **personalized offers / discount codes** (opt-in, server-minted); **DIY-kit QR companions**.
 
 ---
 
@@ -82,6 +93,8 @@ A bilingual (Swedish / English) website and **AI-powered dessert platform** for 
 - **Offline-first, account-aware data.** A single `lib/userdata` store works for guests (localStorage) and logged-in users (Supabase write-through), with a merge on login.
 - **Security model.** Per-user RLS on every table; the **service-role key is used only in server routes** and only after re-verifying the owner — so the back office reads all orders without weakening client-side RLS. `NEXT_PUBLIC_` keys are publishable-only.
 - **Resilient by design.** Email is best-effort and never blocks an order; failures are logged, not swallowed. Migrations are idempotent (`add column if not exists`). The app degrades gracefully when an integration’s env var is absent.
+- **Structured units, not free text.** Recipe quantities are authored once in EU/metric and converted to US units + dual °C/°F at render time — no hand-written conversions to drift out of sync.
+- **Verification gate before every push.** A pre-push hook runs typecheck, Vitest, production build, lint, and the contrast audit — broken work can't reach `master` (and therefore production).
 
 ---
 
@@ -124,6 +137,9 @@ npm run label -- <slug>      # AI-draft an allergen label for a recipe
 npm run import -- <url>      # AI-import a recipe from a URL
 npm run translate -- <slug>  # fill missing sv/en fields
 npm run resolve-videos       # match recipes to official YouTube videos (YouTube Data API)
+npm run structure-qty        # auto-assign density keys + structure ingredient quantities
+npm run kit-qr               # generate the DIY-kit QR companion SVGs
+npm run gate                 # full verification gate (typecheck, test, build, lint, contrast)
 ```
 
 ---
@@ -131,16 +147,17 @@ npm run resolve-videos       # match recipes to official YouTube videos (YouTube
 ## 📁 Structure
 
 ```
-app/                 # App Router: [lang] routes (recept, butik, varukorg, min-sida, admin), api/
+app/                 # App Router: [lang] routes (recept, butik, varukorg, bestallningar, min-sida, admin), api/
 app/components/      # recipe / personal / shop / auth / admin + brand UI
-lib/                 # recipes, allergen engine, userdata store, cart, ai, supabase, i18n
+lib/                 # recipes, allergen engine, units converter, userdata store, cart, ai, offers, supabase, i18n
 content/recipes/     # recipe content (JSON, Zod-validated) — git as CMS
-scripts/             # author-time AI + YouTube tooling
-supabase/migrations/ # SQL schema + RLS
+content/kits/        # DIY cake-kit definitions
+scripts/             # author-time AI + YouTube + QR tooling
+supabase/migrations/ # SQL schema + RLS (idempotent)
 ```
 
 ---
 
 ## 📌 Status
 
-Live at **[mjuklov.se](https://mjuklov.se)** (Vercel, auto-deploy from `master`). Core product — 40+ recipes, personalization, AI, accounts, request-to-order, and the admin back office — is in production. Roadmap: real payments (Stripe un-parked), corporate subscriptions, personalized offers, Persian (RTL) locale.
+Live at **[mjuklov.se](https://mjuklov.se)** (Vercel, auto-deploy from `master`). In production: 40+ recipes, personalization, AI assistant + memory, accounts, request-to-order with order numbers / receipts / a delivered status, the admin back office, three locales (incl. Persian RTL), personalized offers, kit QR companions, and GDPR self-service. Roadmap: real payments (Stripe un-parked), corporate subscriptions. See [`CHANGELOG.md`](CHANGELOG.md) for the full history.
