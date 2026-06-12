@@ -111,7 +111,8 @@ export async function POST(req: Request) {
         ),
       );
     } else if (status === "delivered") {
-      const receiptUrl = `${process.env.APP_URL || ""}/sv/bestallningar/${orderNumber}/kvitto`;
+      const origin = process.env.APP_URL || new URL(req.url).origin;
+      const receiptUrl = `${origin}/sv/bestallningar/${orderNumber}/kvitto`;
       await sendEmail(
         email,
         `Mjuk Lov — ${bilingualSubject("Din beställning är levererad", "Your order has been delivered")}`,
