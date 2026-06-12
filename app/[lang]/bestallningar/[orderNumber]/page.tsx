@@ -73,7 +73,10 @@ export default async function Page({ params }: { params: Promise<{ lang: string;
           </Link>
 
           <div className="mt-6 flex items-start justify-between gap-4">
-            <h1 style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>{order.order_number ?? order.id.slice(0, 8)}</h1>
+            {/* The heading is an order code, not prose — render it in the Inter
+                caps face so it matches how order numbers appear in the list and
+                receipt, rather than the serif display face used for title words. */}
+            <h1 className="type-caps" style={{ fontSize: "clamp(1.375rem, 3vw, 1.875rem)", letterSpacing: "0.08em" }}>{order.order_number ?? order.id.slice(0, 8)}</h1>
             <span
               className="type-caps shrink-0 mt-2"
               style={{ fontSize: "0.75rem", padding: "0.15rem 0.5rem", color: "var(--vanilla-cream)", backgroundColor: order.status === "declined" ? "#6e5a50" : "var(--warm-cocoa)" }}

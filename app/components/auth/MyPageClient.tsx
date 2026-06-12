@@ -75,32 +75,40 @@ export function MyPageClient({
   const statusColor = (s: string) =>
     ({ requested: "var(--dusty-terracotta)", confirmed: "var(--warm-cocoa)", done: "var(--dusty-wine)", delivered: "var(--dusty-wine)", declined: "#6e5a50" } as Record<string, string>)[s] ?? "var(--warm-cocoa)";
 
-  const activeOrders = orders.filter((o) => o.status === "requested" || o.status === "confirmed");
-  const pastOrders = orders.filter((o) => o.status === "delivered" || o.status === "done" || o.status === "declined");
+  // Profile shows a preview of the 3 most recent orders (any status); the full,
+  // filterable list lives behind the "see all" link. Every row links straight to
+  // its detail page — including delivered/past ones — so users don't have to open
+  // the orders page first.
+  const recentOrders = orders.slice(0, 3);
 
   const OrderRow = (o: (typeof orders)[number]) => (
-    <li key={o.id} className="flex flex-col gap-1 py-3" style={{ borderTop: "1px solid rgba(61, 42, 34, 0.1)" }}>
-      <div className="flex items-start justify-between gap-3">
-        <span className="type-body">
-          {(o.items ?? []).map((it) => `${it.qty}× ${lang === "sv" ? it.nameSv : it.name}`).join(", ") || "—"}
+    <li key={o.id} style={{ borderTop: "1px solid rgba(61, 42, 34, 0.1)" }}>
+      <Link
+        href={`/${lang}/bestallningar/${o.order_number ?? o.id}`}
+        className="flex flex-col gap-1 py-3 transition-colors hover:text-[var(--dusty-terracotta)]"
+      >
+        <div className="flex items-start justify-between gap-3">
+          <span className="type-body">
+            {(o.items ?? []).map((it) => `${it.qty}× ${lang === "sv" ? it.nameSv : it.name}`).join(", ") || "—"}
+          </span>
+          <span
+            className="type-caps shrink-0"
+            style={{ fontSize: "0.75rem", padding: "0.15rem 0.5rem", color: "var(--vanilla-cream)", backgroundColor: statusColor(o.status) }}
+          >
+            {statusLabel(o.status)}
+          </span>
+        </div>
+        <span className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>
+          {o.order_number ? `${o.order_number} · ` : ""}{new Date(o.created_at).toLocaleDateString(lang === "sv" ? "sv-SE" : lang === "fa" ? "fa-IR" : "en-GB")}
+          {o.desired_date ? ` · ${o.desired_date}` : ""}
+          {o.fulfilment ? ` · ${o.fulfilment === "delivery" ? t.delivery : t.pickup}` : ""}
         </span>
-        <span
-          className="type-caps shrink-0"
-          style={{ fontSize: "0.75rem", padding: "0.15rem 0.5rem", color: "var(--vanilla-cream)", backgroundColor: statusColor(o.status) }}
-        >
-          {statusLabel(o.status)}
-        </span>
-      </div>
-      <span className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>
-        {o.order_number ? `${o.order_number} · ` : ""}{new Date(o.created_at).toLocaleDateString(lang === "sv" ? "sv-SE" : lang === "fa" ? "fa-IR" : "en-GB")}
-        {o.desired_date ? ` · ${o.desired_date}` : ""}
-        {o.fulfilment ? ` · ${o.fulfilment === "delivery" ? t.delivery : t.pickup}` : ""}
-      </span>
-      {o.quoted_price != null && (
-        <span className="type-body" style={{ fontSize: "0.875rem" }}>
-          <b>{t.confirmedPrice}: {locNum(o.quoted_price, lang)} kr</b>
-        </span>
-      )}
+        {o.quoted_price != null && (
+          <span className="type-body" style={{ fontSize: "0.875rem" }}>
+            <b>{t.confirmedPrice}: {locNum(o.quoted_price, lang)} kr</b>
+          </span>
+        )}
+      </Link>
     </li>
   );
 
@@ -294,22 +302,15 @@ export function MyPageClient({
         </p>
       )}
 
-      <p className="mb-6">
-        <Link href={`/${lang}/bestallningar`} className="type-caps underline transition-colors hover:text-[var(--dusty-terracotta)]">
-          {t.orders} →
-        </Link>
-      </p>
-      {activeOrders.length > 0 && (
+      {recentOrders.length > 0 && (
         <>
-          <h2 className="type-caps ink-muted mb-1">{t.activeOrders}</h2>
-          <ul className="mb-10">{activeOrders.map(OrderRow)}</ul>
-        </>
-      )}
-
-      {pastOrders.length > 0 && (
-        <>
-          <h2 className="type-caps ink-muted mb-1">{t.pastOrders}</h2>
-          <ul className="mb-10" style={{ opacity: 0.7 }}>{pastOrders.map(OrderRow)}</ul>
+          <div className="flex items-baseline justify-between gap-4 mb-1">
+            <h2 className="type-caps ink-muted">{t.recentOrders}</h2>
+            <Link href={`/${lang}/bestallningar`} className="type-caps underline transition-colors hover:text-[var(--dusty-terracotta)]">
+              {t.seeAllOrders} →
+            </Link>
+          </div>
+          <ul className="mb-10">{recentOrders.map(OrderRow)}</ul>
         </>
       )}
 
