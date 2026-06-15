@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Leaf, Pour, Packing, CakeStand } from './Icons';
-import type { Lang } from '@/lib/i18n';
+import { ProductGallery } from './media/ProductGallery';
+import { ui, type Lang } from '@/lib/i18n';
 
 interface TheCraftProps {
   lang: Lang;
@@ -76,6 +77,15 @@ const content = {
 
 const icons = [Leaf, Pour, Packing, CakeStand];
 
+// Photo per step, parallel to icons. Placeholder-backed until the real
+// process shots land in /public/photos/.
+const stepPhotos = [
+  '/photos/craft-season.jpg',
+  '/photos/craft-bake.jpg',
+  '/photos/craft-package.jpg',
+  '/photos/craft-enjoy.jpg',
+];
+
 export const TheCraft = ({ lang }: TheCraftProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -135,11 +145,17 @@ export const TheCraft = ({ lang }: TheCraftProps) => {
                 }`}
                 style={{ transitionDelay: `${(i + 1) * 150}ms` }}
               >
-                <div
-                  className="inline-flex items-center justify-center mb-6 relative z-10 transform group-hover:scale-125 group-hover:rotate-12 transition-all duration-500"
-                >
-                  <Icon className="w-40 h-40 sm:w-48 sm:h-48 md:w-[10.5rem] md:h-[10.5rem]" />
-                </div>
+                {/* Watercolor illustration first, then the (placeholder-backed)
+                    process photo — one gallery with a thumbnail strip. */}
+                <ProductGallery
+                  items={[
+                    { kind: 'illustration', Icon, alt: ui[lang].craftIllustrationAlt(step.label) },
+                    { kind: 'photo', src: stepPhotos[i], alt: ui[lang].craftPhotoAlt(step.label) },
+                  ]}
+                  aspect="4/5"
+                  sizes="(min-width: 768px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  className="mb-5"
+                />
 
                 <div className="type-caps mb-3 opacity-30 group-hover:opacity-60 transition-opacity duration-300">
                   {String(i + 1).padStart(2, '0')}

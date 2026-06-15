@@ -6,6 +6,7 @@ import { annotateTemps } from "@/lib/units/temps";
 import { ui, isLang, LANGS, type Lang } from "@/lib/i18n";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { YouTubeEmbed } from "@/app/components/recipe/YouTubeEmbed";
+import { ProductImage } from "@/app/components/ProductImage";
 
 export const dynamicParams = false;
 
@@ -85,6 +86,32 @@ export default async function Page({
           <p className="type-serif italic ink-muted mt-4" style={{ fontSize: "clamp(1.15rem, 2.5vw, 1.5rem)" }}>
             {guide.intro[lang]}
           </p>
+
+          <div className="mt-8">
+            <ProductImage
+              src={`/photos/kits/${id}.jpg`}
+              alt={t.kitHeroAlt(guide.title[lang])}
+              aspect="4/3"
+              priority
+              sizes="(min-width: 560px) 560px, 100vw"
+            />
+          </div>
+
+          {/* Secondary detail shots — the narrow column comfortably holds a pair. */}
+          <div className="mt-4 grid grid-cols-2 gap-4">
+            <ProductImage
+              src={`/photos/kits/${id}-1.jpg`}
+              alt={t.kitDetailAlt(guide.title[lang])}
+              aspect="1/1"
+              sizes="(min-width: 560px) 272px, 50vw"
+            />
+            <ProductImage
+              src={`/photos/kits/${id}-2.jpg`}
+              alt={t.kitDetailAlt(guide.title[lang])}
+              aspect="1/1"
+              sizes="(min-width: 560px) 272px, 50vw"
+            />
+          </div>
 
           {guide.youtubeId && (
             <div className="mt-8">

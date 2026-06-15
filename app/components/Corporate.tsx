@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { MagneticButton } from './MagneticButton';
-import type { Lang } from '@/lib/i18n';
+import { ProductImage } from './ProductImage';
+import { ui, type Lang } from '@/lib/i18n';
 
 interface CorporateProps {
   lang: Lang;
@@ -124,6 +125,20 @@ export const Corporate = ({ lang }: CorporateProps) => {
         >
           {t.heading}
         </h2>
+
+        <div
+          className={`max-w-[800px] mx-auto mb-16 md:mb-20 transition-all duration-700 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+          style={{ transitionDelay: '100ms' }}
+        >
+          <ProductImage
+            src="/photos/corporate-office-box.jpg"
+            alt={ui[lang].corporatePhotoAlt}
+            aspect="16/9"
+            sizes="(min-width: 832px) 800px, 100vw"
+          />
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {t.tiers.map((tier, i) => (

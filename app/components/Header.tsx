@@ -62,7 +62,7 @@ const NAV: ({ id: string; sv: string; en: string; fa: string } | { path: string;
   { id: 'idea', sv: 'Idén', en: 'The Idea', fa: 'ایده' },
   { path: 'recept', sv: 'Recept', en: 'Recipes', fa: 'دستورها' },
   { path: 'butik', sv: 'Butik', en: 'Shop', fa: 'فروشگاه' },
-  { id: 'kits', sv: 'Tårtkit', en: 'Kits', fa: 'کیت‌های کیک' },
+  { path: 'kit', sv: 'Tårtkit', en: 'Kits', fa: 'کیت‌های کیک' },
   { id: 'about', sv: 'Om', en: 'About', fa: 'درباره ما' },
   { id: 'order', sv: 'Kontakt', en: 'Contact', fa: 'تماس با ما' },
 ];

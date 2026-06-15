@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Standard, Deluxe, GiftEdition } from './Icons';
 import { MagneticButton } from './MagneticButton';
-import type { Lang } from '@/lib/i18n';
+import { ProductGallery } from './media/ProductGallery';
+import { ui, type Lang } from '@/lib/i18n';
 
 interface KitsProps {
   lang: Lang;
@@ -87,6 +88,14 @@ const content = {
 
 const kitIcons = [Standard, Deluxe, GiftEdition];
 
+// Photo per card, parallel to kitIcons. Placeholder-backed until the real
+// product shots land in /public/photos/.
+const kitPhotos = [
+  '/photos/kit-standard.jpg',
+  '/photos/kit-deluxe.jpg',
+  '/photos/kit-gift.jpg',
+];
+
 export const Kits = ({ lang }: KitsProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -136,11 +145,16 @@ export const Kits = ({ lang }: KitsProps) => {
                 boxShadow: '0 4px 20px rgba(61, 42, 34, 0.05)'
               }}
             >
-              <div
-                className="relative aspect-[4/3] sm:aspect-[4/5] bg-[var(--warm-peach)]/20 flex items-center justify-center overflow-hidden group-hover:bg-[var(--warm-peach)]/30 transition-colors duration-500"
-              >
-                <Icon className="w-full h-full transform group-hover:scale-110 transition-transform duration-500" />
-              </div>
+              {/* Watercolor illustration first, then the (placeholder-backed)
+                  product photo — one gallery with a thumbnail strip. */}
+              <ProductGallery
+                items={[
+                  { kind: 'illustration', Icon, alt: ui[lang].kitIllustrationAlt(kit.name) },
+                  { kind: 'photo', src: kitPhotos[i], alt: ui[lang].kitPhotoAlt(kit.name) },
+                ]}
+                aspect="4/5"
+                sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+              />
 
 
               <div className="p-6 md:p-8 flex flex-col flex-1">
