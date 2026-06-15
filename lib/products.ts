@@ -14,27 +14,20 @@ export type Product = {
 // Flat delivery fee in kronor (pickup is free).
 export const DELIVERY_FEE_SEK = 79;
 
+// Order here is the display order on /kit and /butik: Standard first (the
+// recommended entry point), then Gift Edition, then Deluxe. `popular` marks the
+// recommended tier — Standard only.
 export const KITS: Product[] = [
   {
     id: "kit-standard",
     size: "15 cm",
     priceSek: 345,
+    popular: true,
     name: { sv: "Standard", en: "Standard", fa: "استاندارد" },
     description: {
       sv: "Perfekt för 6–8 personer. Allt du behöver för att skapa din tårta hemma.",
       en: "Perfect for 6–8 people. Everything you need to create your cake at home.",
       fa: "مناسب برای ۶ تا ۸ نفر. هر آنچه برای ساختن کیک در خانه نیاز دارید.",
-    },
-  },
-  {
-    id: "kit-deluxe",
-    size: "20 cm",
-    priceSek: 445,
-    name: { sv: "Deluxe", en: "Deluxe", fa: "دلوکس" },
-    description: {
-      sv: "För 10–12 personer. Extra höjd, extra smak, extra allt.",
-      en: "For 10–12 people. Extra height, extra flavour, extra everything.",
-      fa: "برای ۱۰ تا ۱۲ نفر. ارتفاع بیشتر، طعم بیشتر، همه‌چیز بیشتر.",
     },
   },
   {
@@ -46,6 +39,17 @@ export const KITS: Product[] = [
       sv: "Som Standard, men i vacker presentask med en hälsning.",
       en: "Like Standard, but in a beautiful gift box with a dedication.",
       fa: "مانند استاندارد، اما در جعبه‌ای زیبا همراه با یک پیام.",
+    },
+  },
+  {
+    id: "kit-deluxe",
+    size: "20 cm",
+    priceSek: 445,
+    name: { sv: "Deluxe", en: "Deluxe", fa: "دلوکس" },
+    description: {
+      sv: "För 10–12 personer. Extra höjd, extra smak, extra allt.",
+      en: "For 10–12 people. Extra height, extra flavour, extra everything.",
+      fa: "برای ۱۰ تا ۱۲ نفر. ارتفاع بیشتر، طعم بیشتر، همه‌چیز بیشتر.",
     },
   },
 ];

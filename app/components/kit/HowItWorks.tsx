@@ -1,8 +1,9 @@
 import { ui, locNum, type Lang } from '@/lib/i18n';
 
-/** "Så funkar det" — the four-step explainer for the DIY cake kit. Pure
- *  presentational; all copy comes from lib/i18n (ui[lang].kitHowSteps). Square
- *  corners, brand tokens, RTL-safe (logical spacing + localized step numbers). */
+/** "Så funkar det" — the four-step explainer for the cake kit. Pure
+ *  presentational; all copy comes from lib/i18n (ui[lang].kitHowSteps). One
+ *  number per step (no doubled numbering). Square corners, brand tokens,
+ *  RTL-safe (logical spacing + localized step numbers). */
 export function HowItWorks({ lang }: { lang: Lang }) {
   const t = ui[lang];
 
@@ -37,6 +38,9 @@ export function HowItWorks({ lang }: { lang: Lang }) {
           </li>
         ))}
       </ol>
+
+      {/* Pickup is a sub-line, not a fifth numbered step. */}
+      <p className="type-body ink-muted text-center mt-10 md:mt-12">{t.kitHowSubline}</p>
     </section>
   );
 }

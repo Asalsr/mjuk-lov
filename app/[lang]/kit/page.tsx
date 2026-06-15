@@ -7,6 +7,7 @@ import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { ProductImage } from "@/app/components/ProductImage";
 import { HowItWorks } from "@/app/components/kit/HowItWorks";
 import { Gallery } from "@/app/components/Gallery";
+import { GALLERY_IMAGES } from "@/lib/gallery";
 import { AddToCartButton } from "@/app/components/shop/AddToCartButton";
 
 export const dynamicParams = false;
@@ -50,19 +51,29 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
         <section className="pt-32 md:pt-40 pb-[clamp(3rem,7vw,6rem)] px-4 md:px-8">
           <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
             <div>
-              <div className="type-caps ink-muted mb-4">Mjuk&nbsp;Lov</div>
+              <div className="type-caps ink-muted mb-4">{t.kitHeroKicker}</div>
               <h1 className="type-display" style={{ marginBottom: "1.25rem" }}>
                 {t.kitHeroTitle}
               </h1>
-              <p className="type-body ink-muted mb-8 max-w-md">{t.kitHeroLede}</p>
-              <a
-                href="#kit-variants"
-                className="type-caps inline-flex items-center gap-2 px-8 py-3 tap transition-all hover:bg-[var(--warm-peach)]"
-                style={{ border: "1px solid var(--warm-cocoa)" }}
-              >
-                {t.kitHeroCta}
-                <span aria-hidden="true">{arrow}</span>
-              </a>
+              <p className="type-body ink-muted mb-6 max-w-md">{t.kitHeroLede}</p>
+              <p className="type-caps ink-muted mb-8">{t.kitHeroMeta}</p>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
+                <a
+                  href="#kit-variants"
+                  className="type-caps inline-flex items-center gap-2 px-8 py-3 tap transition-all hover:bg-[var(--warm-peach)]"
+                  style={{ border: "1px solid var(--warm-cocoa)" }}
+                >
+                  {t.kitHeroCta}
+                  <span aria-hidden="true">{arrow}</span>
+                </a>
+                <a
+                  href="#kit-how"
+                  className="type-caps inline-flex items-center gap-2 tap transition-colors hover:text-[var(--dusty-terracotta)]"
+                >
+                  {t.kitHeroCtaSecondary}
+                  <span aria-hidden="true">{arrow}</span>
+                </a>
+              </div>
             </div>
             <ProductImage
               src="/photos/kit-hero.jpg"
@@ -74,9 +85,31 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           </div>
         </section>
 
-        {/* 2 · Så funkar det */}
+        {/* 2 · Why we leave the best part to you — the psychology, told once. */}
+        <section className="py-[clamp(3.5rem,8vw,7rem)] px-4 md:px-8">
+          <div className="max-w-[46rem] mx-auto">
+            <h2 className="mb-8" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>
+              {t.kitWhyHeading}
+            </h2>
+            <p className="type-body mb-10 md:mb-12">{t.kitWhyBody}</p>
+            <blockquote
+              className="type-serif"
+              style={{
+                borderInlineStart: "2px solid var(--dusty-terracotta)",
+                paddingInlineStart: "1.25rem",
+                fontSize: "clamp(1.35rem, 3vw, 1.85rem)",
+                lineHeight: 1.4,
+              }}
+            >
+              {t.kitWhyQuote}
+            </blockquote>
+          </div>
+        </section>
+
+        {/* 3 · Så funkar det */}
         <section
-          className="py-[clamp(3.5rem,8vw,7rem)] px-4 md:px-8"
+          id="kit-how"
+          className="py-[clamp(3.5rem,8vw,7rem)] px-4 md:px-8 scroll-mt-24"
           style={{ backgroundColor: "var(--soft-peach)" }}
         >
           <div className="max-w-[1100px] mx-auto">
@@ -84,12 +117,25 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           </div>
         </section>
 
-        {/* 3 · Varianter */}
-        <section id="kit-variants" className="py-[clamp(3.5rem,8vw,7rem)] px-4 md:px-8">
+        {/* 4 · Reassurance — removes the fear of getting it wrong. */}
+        <section className="py-[clamp(3.5rem,8vw,7rem)] px-4 md:px-8">
+          <div className="max-w-[720px] mx-auto text-center">
+            <h2 className="mb-6" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>
+              {t.kitReassureHeading}
+            </h2>
+            <p className="type-body ink-muted">{t.kitReassureBody}</p>
+          </div>
+        </section>
+
+        {/* 5 · Varianter */}
+        <section id="kit-variants" className="py-[clamp(3.5rem,8vw,7rem)] px-4 md:px-8 scroll-mt-24">
           <div className="max-w-[1200px] mx-auto">
-            <h2 className="text-center mb-12 md:mb-16" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>
+            <h2 className="text-center mb-3" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>
               {t.kitVariantsHeading}
             </h2>
+            <p className="type-body ink-muted text-center max-w-[40rem] mx-auto mb-12 md:mb-16">
+              {t.kitVariantsIntro}
+            </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
               {KITS.map((p) => (
                 <div
@@ -107,6 +153,11 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
                     />
                   </Link>
                   <div className="p-6 md:p-8 flex flex-col flex-1">
+                    {p.popular && (
+                      <div className="type-caps mb-2" style={{ color: "var(--dusty-wine)" }}>
+                        {t.kitRecommended}
+                      </div>
+                    )}
                     <div className="type-caps ink-muted mb-2">{p.size}</div>
                     <Link
                       href={`/${lang}/kit/${p.id}`}
@@ -116,7 +167,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
                         {p.name[lang]}
                       </h3>
                     </Link>
-                    <p className="type-body ink-muted mb-4">{p.description[lang]}</p>
+                    <p className="type-body ink-muted mb-4">{t.kitOccasions[p.id] ?? p.description[lang]}</p>
                     <div className="type-serif mb-5" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)" }}>
                       {locNum(p.priceSek, lang)} kr
                     </div>
@@ -137,7 +188,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           </div>
         </section>
 
-        {/* 4 · Vad ingår */}
+        {/* 5 · Vad ingår */}
         <section
           className="py-[clamp(3.5rem,8vw,7rem)] px-4 md:px-8"
           style={{ backgroundColor: "var(--soft-peach)" }}
@@ -167,33 +218,40 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           </div>
         </section>
 
-        {/* 5 · Allergener & hållbarhet */}
-        <section className="py-[clamp(3.5rem,8vw,7rem)] px-4 md:px-8">
-          <div className="max-w-[720px] mx-auto text-center">
-            <h2 className="mb-6" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>
-              {t.kitAllergensHeading}
-            </h2>
-            <p className="type-body ink-muted mb-3">{t.crossContamination}</p>
-            <p className="type-body ink-muted mb-3">{t.checkPackaging}</p>
-            <p className="type-body ink-muted">{t.kitShelfLife(3)}</p>
-          </div>
-        </section>
-
-        {/* 6 · Kundresultat */}
+        {/* 7 · The Moment — the experience you're really buying. */}
         <section
           className="py-[clamp(3.5rem,8vw,7rem)] px-4 md:px-8"
           style={{ backgroundColor: "var(--soft-peach)" }}
         >
-          <div className="max-w-[1200px] mx-auto">
-            <div className="text-center mb-12 md:mb-16">
-              <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>{t.kitGalleryHeading}</h2>
-              <p className="type-body ink-muted mt-3">{t.kitGalleryNote}</p>
-            </div>
-            <Gallery lang={lang} />
+          <div className="max-w-[720px] mx-auto text-center">
+            <h2 className="mb-6" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>
+              {t.kitMomentHeading}
+            </h2>
+            <p className="type-body ink-muted">{t.kitMomentBody}</p>
           </div>
         </section>
 
-        {/* 7 · Vanliga frågor */}
+        {/* 8 · Made by you */}
+        <section className="py-[clamp(3.5rem,8vw,7rem)] px-4 md:px-8">
+          <div className="max-w-[1200px] mx-auto">
+            <h2 className="text-center mb-12 md:mb-16" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>
+              {t.kitGalleryHeading}
+            </h2>
+            {GALLERY_IMAGES.length > 0 ? (
+              <Gallery lang={lang} />
+            ) : (
+              <p
+                className="type-serif text-center ink-muted"
+                style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.6rem)" }}
+              >
+                {t.kitGalleryEmpty}
+              </p>
+            )}
+            <p className="type-body ink-muted text-center mt-10 md:mt-12">{t.kitGalleryInvite}</p>
+          </div>
+        </section>
+
+        {/* 9 · Vanliga frågor */}
         <section className="py-[clamp(3.5rem,8vw,7rem)] px-4 md:px-8">
           <div className="max-w-[720px] mx-auto">
             <h2 className="text-center mb-12 md:mb-16" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>
@@ -224,6 +282,21 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               ))}
             </div>
           </div>
+        </section>
+
+        {/* 10 · Avslutande CTA */}
+        <section
+          className="py-[clamp(3.5rem,8vw,7rem)] px-4 md:px-8 text-center"
+          style={{ backgroundColor: "var(--soft-peach)" }}
+        >
+          <a
+            href="#kit-variants"
+            className="type-caps inline-flex items-center gap-2 px-10 py-4 tap transition-all hover:bg-[var(--warm-peach)]"
+            style={{ border: "1px solid var(--warm-cocoa)" }}
+          >
+            {t.kitFinalCta}
+            <span aria-hidden="true">{arrow}</span>
+          </a>
         </section>
 
         {/* Clearance so the mobile sticky CTA never hides the footer. */}
