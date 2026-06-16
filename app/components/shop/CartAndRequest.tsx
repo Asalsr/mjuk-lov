@@ -11,6 +11,7 @@ import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
 import { priceLineSek, leadDaysFor, describeLine } from "@/lib/pricing";
 import { LABELS } from "@/lib/allergen/labels";
 import { AddressAutocomplete, type Address } from "./AddressAutocomplete";
+import { Configurator } from "./Configurator";
 import { ui, locNum, type Lang } from "@/lib/i18n";
 
 const NEW = "new"; // sentinel for the "add a new address" choice
@@ -46,6 +47,8 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
   const [addrLabel, setAddrLabel] = useState("");
   const [recvName, setRecvName] = useState("");
   const [recvPhone, setRecvPhone] = useState("");
+  // Configured cart line currently being edited (reopens the configurator).
+  const [editing, setEditing] = useState<(typeof items)[number] | null>(null);
 
   // Prefill from the local profile + the logged-in session (all editable).
   useEffect(() => {
@@ -221,6 +224,15 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
                     className="w-16 p-2 type-body bg-transparent"
                     style={inputStyle}
                   />
+                  {i.config && (
+                    <button
+                      type="button"
+                      onClick={() => setEditing(i)}
+                      className="type-caps ink-muted hover:text-[var(--dusty-terracotta)]"
+                    >
+                      {t.cartEdit}
+                    </button>
+                  )}
                   <button type="button" onClick={() => removeFromCart(i.lineId)} className="type-caps ink-muted hover:text-[var(--dusty-terracotta)]">
                     {t.remove}
                   </button>
@@ -335,6 +347,21 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
         </button>
         {error && <p className="type-body" role="alert" aria-live="assertive" style={{ color: "var(--dusty-wine)" }}>{error}</p>}
       </form>
+
+      {editing && editing.config && (() => {
+        const p = getProduct(editing.productId);
+        if (!p) return null;
+        return (
+          <Configurator
+            product={p}
+            lang={lang}
+            initialConfig={editing.config}
+            initialDate={editing.date}
+            editLineId={editing.lineId}
+            onClose={() => setEditing(null)}
+          />
+        );
+      })()}
     </div>
   );
 }

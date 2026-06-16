@@ -1,5 +1,30 @@
 # Run notes
 
+## Revision — editable configured cart lines
+
+A configured kit or party line in the basket now shows an **Edit** control next
+to qty/remove. Clicking it reopens the configurator pre-filled with that line's
+flavour, fillings, tools, colours and reservation date. Saving updates the line
+in place (quantity preserved); if the new config matches another existing line,
+they merge. Plain menu lines are unaffected (qty/remove only).
+
+- `lib/cart/store.ts` — new `updateLine(oldLineId, config, { date, message })`.
+  Recomputes the lineId via `configKey` + date, carries over qty/message, and
+  merges into a colliding line when the new key matches another row.
+- `app/components/shop/Configurator.tsx` — optional `initialConfig`,
+  `initialDate`, `editLineId` props. When `editLineId` is set the seed comes
+  from the passed-in line (not the draft store), the in-progress draft save is
+  skipped, the review-step CTA reads "Save changes", and save calls
+  `updateLine` instead of `addLine` + cart redirect.
+- `app/components/shop/CartAndRequest.tsx` — Edit button per configured line,
+  renders `<Configurator>` directly (not via `MakeItYoursButton`) when editing.
+- `lib/i18n.ts` — new keys `cartEdit` (sv "Ändra" / en "Edit" / fa "ویرایش")
+  and `cfgSaveChanges` (sv "Spara ändringar" / en "Save changes" /
+  fa "ذخیره تغییرات").
+
+Gate: tsc clean, 37 vitest passes, `next build` 152 pages, eslint clean on
+touched files.
+
 ## Revision — minimalist configurator + aligned kit/party copy
 
 Built the "promise, don't expose" shop experience and aligned all kit copy to the

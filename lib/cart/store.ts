@@ -114,6 +114,39 @@ export function addLine(config: LineConfig, opts?: { date?: string; message?: st
   }
 }
 
+/** Update an existing configured line. Recomputes the lineId from the new
+ *  config + date (same rule as `addLine`); if it collides with another line
+ *  already in the cart, quantities merge into that line and the old row is
+ *  dropped. Quantity and message carry over unless explicitly overridden. */
+export function updateLine(
+  oldLineId: string,
+  config: LineConfig,
+  opts?: { date?: string; message?: string },
+) {
+  const items = read();
+  const old = items.find((i) => i.lineId === oldLineId);
+  if (!old) return;
+  const date = opts?.date;
+  const message = opts && "message" in opts ? opts.message : old.message;
+  const newLineId = date ? `${configKey(config)}@${date}` : configKey(config);
+  const without = items.filter((i) => i.lineId !== oldLineId);
+  const collision = without.find((i) => i.lineId === newLineId);
+  if (collision) {
+    write(without.map((i) => (i.lineId === newLineId ? { ...i, qty: i.qty + old.qty } : i)));
+    return;
+  }
+  // Replace in place to preserve ordering.
+  write(
+    items
+      .filter((i) => i.lineId !== newLineId || i.lineId === oldLineId)
+      .map((i) =>
+        i.lineId === oldLineId
+          ? { lineId: newLineId, productId: config.productId, qty: old.qty, config, date, message }
+          : i,
+      ),
+  );
+}
+
 /** Add a plain (non-configured) product, keyed by productId. */
 export function addToCart(productId: string) {
   const items = read();
