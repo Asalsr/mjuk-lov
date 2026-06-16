@@ -10,6 +10,9 @@ interface KitsProps {
   lang: Lang;
 }
 
+// Experience-led copy — the cake arrives white and finished, the customer
+// decorates it. No headcount language. Pricing lives in /butik (the canonical
+// product list); home cards show "Coming soon" until launch.
 const content = {
   sv: {
     heading: 'Tårtkit',
@@ -18,22 +21,22 @@ const content = {
         name: 'Standard',
         size: '15 cm',
         price: 'Kommer snart',
-        description: 'Perfekt för 6-8 personer. Allt du behöver för att skapa din tårta hemma.'
+        description: 'Vit, klar att dekorera. Du väljer smak, fyllning och verktyg — vi sköter resten.',
       },
       {
         name: 'Deluxe',
         size: '20 cm',
         price: 'Kommer snart',
-        description: 'För 10-12 personer. Extra höjd, extra smak, extra allt.'
+        description: 'Större tårta, fler verktyg — för dig som vill leka lite längre.',
       },
       {
         name: 'Presentupplaga',
         size: '15 cm',
         price: 'Kommer snart',
-        description: 'Som Standard, men i vacker presentask med dedikation.'
-      }
+        description: 'Samma tårta som Standard — i en vacker presentask med en hälsning.',
+      },
     ],
-    cta: 'Beställ'
+    cta: 'Beställ',
   },
   en: {
     heading: 'Cake Kits',
@@ -42,22 +45,22 @@ const content = {
         name: 'Standard',
         size: '15 cm',
         price: 'Coming soon',
-        description: 'Perfect for 6-8 people. Everything you need to create your cake at home.'
+        description: 'White, ready to decorate. You pick the flavour, fillings and tools — we handle the rest.',
       },
       {
         name: 'Deluxe',
         size: '20 cm',
         price: 'Coming soon',
-        description: 'For 10-12 people. Extra height, extra flavor, extra everything.'
+        description: "Bigger cake, more tools — for when you'd like to play a little longer.",
       },
       {
         name: 'Gift Edition',
         size: '15 cm',
         price: 'Coming soon',
-        description: 'Like Standard, but in a beautiful gift box with dedication.'
-      }
+        description: 'The same cake as Standard — in a beautiful gift box with a dedication.',
+      },
     ],
-    cta: 'Order'
+    cta: 'Order',
   },
   fa: {
     heading: 'کیت‌های کیک',
@@ -66,23 +69,23 @@ const content = {
         name: 'استاندارد',
         size: '۱۵ سانتی‌متر',
         price: 'به زودی',
-        description: 'مناسب برای ۶ تا ۸ نفر. هر آنچه برای ساختن کیک در خانه نیاز دارید.'
+        description: 'سفید و آماده تزیین. شما طعم، پرکننده و ابزار را انتخاب می‌کنید — بقیه با ماست.',
       },
       {
         name: 'دلوکس',
         size: '۲۰ سانتی‌متر',
         price: 'به زودی',
-        description: 'برای ۱۰ تا ۱۲ نفر. ارتفاع بیشتر، طعم بیشتر، همه‌چیز بیشتر.'
+        description: 'کیک بزرگ‌تر، ابزار بیشتر — برای وقتی که می‌خواهید کمی بیشتر سرگرم شوید.',
       },
       {
         name: 'نسخه هدیه',
         size: '۱۵ سانتی‌متر',
         price: 'به زودی',
-        description: 'مانند استاندارد، اما در جعبه‌ای زیبا همراه با یک پیام.'
-      }
+        description: 'همان کیک استاندارد — در جعبه‌ای زیبا همراه با یک پیام.',
+      },
     ],
-    cta: 'سفارش'
-  }
+    cta: 'سفارش',
+  },
 };
 
 const kitIcons = [Standard, Deluxe, GiftEdition];
@@ -152,7 +155,7 @@ export const Kits = ({ lang }: KitsProps) => {
                   {kit.name}
                 </h3>
 
-                <p className="type-body mb-4 opacity-80">
+                <p className="type-body ink-muted mb-4">
                   {kit.description}
                 </p>
 
