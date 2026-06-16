@@ -149,3 +149,41 @@ removed the now-unused colour-count strings.
 
 **Gate:** `tsc --noEmit` ✓ · `vitest` 35/35 ✓ · `npm run build` ✓ · eslint on
 changed files ✓ · contrast audit unchanged (baseline; no text-opacity added).
+
+## Consolidated pass — typography, em-dash guard, modal portal
+
+The remaining sections of the consolidated brief (1, 3, and Section 2's guard;
+4/5/6 had already landed in `3d68d76`).
+
+**Section 1 — typography roles.** Two source-of-truth utilities in
+`globals.css`: `.type-price` (Inter, medium, tabular lining figures, +0.01em) and
+`.type-product` (Cormorant *italic*, the one editorial touch). `html[lang="fa"]
+.type-product { font-style: normal }` keeps Persian upright (Vazirmatn has no
+italic).
+- *1a — every price moves OFF the serif onto `.type-price`.* Audited all `kr`
+  displays: butik cards, kit page (variant + sticky), homepage Kits, MenuLineCard,
+  CartAndRequest (line price, subtotal, delivery, total), Receipt, the order
+  receipt page, AdminOrders (estimate + quoted), MyPageClient, OrdersClient, and
+  the configurator (review + footer price, stepper count/±). `grep type-serif |
+  grep kr/price` now returns nothing, no price renders in Cormorant.
+- *1b — product names + subheads to `.type-product`.* Applied to shop cards
+  (kit + menu), homepage Kits/Party/Bakes item names, kit-page variant names + the
+  sticky-bar name, the configurator's product name, and the cart line label.
+  Section H2 headings stay plain (upright) Cormorant.
+
+**Section 2 — em-dash guard.** The string-value purge was already done (the only
+`—` left in `lib/i18n.ts` are in code comments, which don't render).
+`lib/i18n.test.ts` guards it two ways: it recurses the exported `ui` dictionary
+(string values + function outputs) and re-reads the source with full-line and
+block comments stripped, asserting no `—` in either.
+
+**Section 3 — portal the modal.** The configurator modal now renders through
+`createPortal(…, document.body)` (SSR-guarded by a `mounted` flag), so no
+ancestor `transform` (the cards' scroll-reveal / hover animations) can reparent
+or clip the `position: fixed` panel, which was the cause of the "vanishes when I
+move onto it" behaviour. Focus trap, focus restore, Esc/backdrop/✕ close, scroll
+lock and `role="dialog"`/`aria-modal` all preserved (the trap effect now also
+keys on `mounted` so initial focus lands once the portal is in the DOM).
+
+**Gate:** `tsc --noEmit` ✓ · `vitest` 37/37 ✓ · `npm run build` ✓ · eslint on
+changed files ✓ · contrast audit baseline unchanged (no text-opacity added).

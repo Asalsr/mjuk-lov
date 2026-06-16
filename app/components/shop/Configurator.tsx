@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { ui, locNum, isRtl, type Lang } from "@/lib/i18n";
 import type { Product } from "@/lib/products";
@@ -67,10 +68,21 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
   const [step, setStep] = useState(0);
   const dialogRef = useRef<HTMLDivElement>(null);
 
+  // Render through a portal to document.body so no ancestor `transform` (the
+  // shop cards' scroll-reveal and hover animations) can reparent or clip the
+  // fixed modal — that ancestor-transform clipping was why the panel appeared
+  // to "vanish" when the pointer entered it. Guard for SSR: only portal after
+  // mount, when document.body exists.
+  const [mounted, setMounted] = useState(false);
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time SSR mount flag so the portal only renders client-side
+  useEffect(() => setMounted(true), []);
+
   // Lock background scroll, trap focus inside the dialog, wire Escape-to-close,
   // and restore focus to the trigger on close. Opens on click and only closes
   // via ✕ / backdrop / Esc — there is no hover-driven open/close anywhere.
+  // Runs once the dialog is actually in the DOM (after the portal mounts).
   useEffect(() => {
+    if (!mounted) return;
     const previouslyFocused = document.activeElement as HTMLElement | null;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -106,7 +118,7 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
       document.body.style.overflow = prev;
       previouslyFocused?.focus?.();
     };
-  }, [onClose]);
+  }, [onClose, mounted]);
 
   // Layer A persistence: debounce-save the working draft as choices change.
   useEffect(() => {
@@ -198,12 +210,12 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
           onClick={onDec}
           disabled={decDisabled}
           aria-label={`${t.cfgDecrease}: ${label}`}
-          className="w-11 h-11 type-serif transition-all hover:bg-[var(--warm-peach)] disabled:opacity-30"
+          className="w-11 h-11 type-price transition-all hover:bg-[var(--warm-peach)] disabled:opacity-30"
           style={{ border: "1px solid var(--warm-cocoa)" }}
         >
           −
         </button>
-        <span className="type-serif min-w-[1.5rem] text-center" style={{ fontSize: "1.15rem" }}>
+        <span className="type-price min-w-[1.5rem] text-center" style={{ fontSize: "1.15rem" }}>
           {locNum(value, lang)}
         </span>
         <button
@@ -211,7 +223,7 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
           onClick={onInc}
           disabled={incDisabled}
           aria-label={`${t.cfgIncrease}: ${label}`}
-          className="w-11 h-11 type-serif transition-all hover:bg-[var(--warm-peach)] disabled:opacity-30"
+          className="w-11 h-11 type-price transition-all hover:bg-[var(--warm-peach)] disabled:opacity-30"
           style={{ border: "1px solid var(--warm-cocoa)" }}
         >
           +
@@ -436,7 +448,7 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
             ))}
           </ul>
         )}
-        <div className="type-serif" style={{ fontSize: "1.5rem" }}>
+        <div className="type-price" style={{ fontSize: "1.5rem" }}>
           {locNum(price, lang)} kr
         </div>
       </div>
@@ -464,7 +476,9 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
     split: t.cfgSplitIncluded,
   };
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <div
       className="fixed inset-0 z-[10000] flex items-end sm:items-center justify-center p-0 sm:p-6"
       style={{ backgroundColor: "rgba(61, 42, 34, 0.45)" }}
@@ -485,7 +499,8 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
         {/* Header: name + close + progress dots */}
         <div className="flex items-center justify-between gap-4 px-6 pt-6">
           <div className="type-caps ink-muted">
-            {t.cfgStepWord} {locNum(step + 1, lang)} {t.cfgOfWord} {locNum(steps.length, lang)} · {product.name[lang]}
+            {t.cfgStepWord} {locNum(step + 1, lang)} {t.cfgOfWord} {locNum(steps.length, lang)} ·{" "}
+            <span className="type-product" style={{ textTransform: "none" }}>{product.name[lang]}</span>
           </div>
           <button
             type="button"
@@ -529,7 +544,7 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
         >
           <div className="leading-tight">
             <div className="type-caps ink-muted">{t.cfgPrice}</div>
-            <div className="type-serif" style={{ fontSize: "1.35rem" }}>
+            <div className="type-price" style={{ fontSize: "1.35rem" }}>
               {locNum(price, lang)} kr
             </div>
           </div>
@@ -564,6 +579,7 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
