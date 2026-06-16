@@ -6,15 +6,15 @@
     "fa": "نسخه هدیه (۱۵ سانتی‌متر)"
   },
   "intro": {
-    "sv": "Samma tårta som Standard, men i en vacker presentask med en hälsning. Bygg tårtan — eller överlämna kitet som det är och låt mottagaren göra det.",
-    "en": "The same cake as Standard, but in a beautiful gift box with a dedication. Build the cake — or hand over the kit as it is and let the recipient make it.",
-    "fa": "این کیک همانند نسخه استاندارد است، اما در یک جعبه هدیه زیبا با یک پیام اختصاصی. کیک را بسازید — یا کیت را به همان صورت به گیرنده تحویل دهید و بگذارید خودشان آن را درست کنند."
+    "sv": "Samma tårta som Standard, men i en vacker presentask med en hälsning. Bygg tårtan, eller överlämna kitet som det är och låt mottagaren göra det.",
+    "en": "The same cake as Standard, but in a beautiful gift box with a dedication. Build the cake, or hand over the kit as it is and let the recipient make it.",
+    "fa": "این کیک همانند نسخه استاندارد است، اما در یک جعبه هدیه زیبا با یک پیام اختصاصی. کیک را بسازید، یا کیت را به همان صورت به گیرنده تحویل دهید و بگذارید خودشان آن را درست کنند."
   },
   "youtubeId": null,
   "steps": [
     {
       "text": {
-        "sv": "Ta ut presentasken och hälsningskortet. Vill du ge bort kitet oöppnat — hoppa till sista steget.",
+        "sv": "Ta ut presentasken och hälsningskortet. Vill du ge bort kitet oöppnat, hoppa till sista steget.",
         "en": "Take out the gift box and the dedication card. If you'd like to give the kit unopened, skip to the last step.",
         "fa": "جعبه هدیه و کارت پیام را خارج کنید. اگر می‌خواهید کیت را بدون باز کردن هدیه دهید، به مرحله آخر بروید."
       }
@@ -45,8 +45,8 @@
     {
       "text": {
         "sv": "Skriv din hälsning på kortet och placera tårtan eller det oöppnade kitet i presentasken.",
-        "en": "Write your message on the card and place the cake — or the unopened kit — in the gift box.",
-        "fa": "پیام خود را روی کارت بنویسید و کیک — یا کیت بسته‌نشده — را در جعبه هدیه قرار دهید."
+        "en": "Write your message on the card and place the cake, or the unopened kit, in the gift box.",
+        "fa": "پیام خود را روی کارت بنویسید و کیک، یا کیت بسته‌نشده، را در جعبه هدیه قرار دهید."
       }
     }
   ],

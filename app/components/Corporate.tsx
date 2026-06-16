@@ -16,12 +16,12 @@ const content = {
   },
   en: {
     heading: 'Corporate Subscriptions',
-    pitch: 'Treat the team to fresh-baked fika every week — we deliver, you enjoy.',
+    pitch: 'Treat the team to fresh-baked fika every week. We deliver, you enjoy.',
     footnote: 'Delivery within Gothenburg. Monthly invoicing.',
   },
   fa: {
     heading: 'اشتراک‌های شرکتی',
-    pitch: 'هر هفته تیم را با فیکای تازه مهمان کنید — ما می‌رسانیم، شما لذت می‌برید.',
+    pitch: 'هر هفته تیم را با فیکای تازه مهمان کنید، ما می‌رسانیم، شما لذت می‌برید.',
     footnote: 'ارسال در محدوده یوتبوری. صورت‌حساب ماهانه.',
   }
 };

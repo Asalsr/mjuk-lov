@@ -147,9 +147,9 @@
     },
     {
       "text": {
-        "sv": "Vänd ner mjöl, kakao och salt — rör precis tills det går ihop.",
-        "en": "Fold in the flour, cocoa and salt — stir just until combined.",
-        "fa": "آرد، پودر کاکائو و نمک را اضافه کنید — فقط تا زمانی که ترکیب شوند هم بزنید."
+        "sv": "Vänd ner mjöl, kakao och salt. Rör precis tills det går ihop.",
+        "en": "Fold in the flour, cocoa and salt. Stir just until combined.",
+        "fa": "آرد، پودر کاکائو و نمک را اضافه کنید. فقط تا زمانی که ترکیب شوند هم بزنید."
       }
     },
     {
@@ -161,9 +161,9 @@
     }
   ],
   "notes": {
-    "sv": "Hemlagad version — följ videon ovan för exakt metod. Underbaka något för extra kladd.",
-    "en": "At-home version — follow the video above for the exact method. Slightly underbake for extra fudge.",
-    "fa": "نسخه خانگی — برای روش دقیق، ویدیو بالا را دنبال کنید. کمی کمتر بپزید تا فاج بیشتری داشته باشید."
+    "sv": "Hemlagad version. Följ videon ovan för exakt metod. Underbaka något för extra kladd.",
+    "en": "At-home version. Follow the video above for the exact method. Slightly underbake for extra fudge.",
+    "fa": "نسخه خانگی. برای روش دقیق، ویدیو بالا را دنبال کنید. کمی کمتر بپزید تا فاج بیشتری داشته باشید."
   },
   "tips": [],
   "allergens": {

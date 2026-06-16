@@ -39,14 +39,14 @@ export async function generateMetadata({
   const recipe = getRecipe(slug);
   if (!recipe || !isLang(lang)) return {};
   return {
-    title: `${recipe.title[lang]} — Mjuk Lov`,
+    title: `${recipe.title[lang]}, Mjuk Lov`,
     description: recipe.headnote[lang],
     alternates: {
       canonical: `/${lang}/recept/${slug}`,
       languages: { sv: `/sv/recept/${slug}`, en: `/en/recept/${slug}` },
     },
     openGraph: {
-      title: `${recipe.title[lang]} — Mjuk Lov`,
+      title: `${recipe.title[lang]}, Mjuk Lov`,
       description: recipe.headnote[lang],
       locale: lang === "sv" ? "sv_SE" : "en_US",
       type: "article",

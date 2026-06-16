@@ -6,9 +6,9 @@
     "fa": "نان موز آسان"
   },
   "headnote": {
-    "sv": "Saftigt, gyllene bananbröd av övermogna bananer — en skål, ingen elvisp, omöjligt att misslyckas. Se Natashas video ovan för hela metoden.",
-    "en": "Moist, golden banana bread from over-ripe bananas — one bowl, no mixer, hard to get wrong. Watch Natasha's video above for the full method.",
-    "fa": "نان موز مرطوب و طلایی از موزهای کاملاً رسیده — یک کاسه، بدون همزن، و سخت است که اشتباه کنید. ویدیو ناتاشا را در بالا برای روش کامل مشاهده کنید."
+    "sv": "Saftigt, gyllene bananbröd av övermogna bananer: en skål, ingen elvisp, omöjligt att misslyckas. Se Natashas video ovan för hela metoden.",
+    "en": "Moist, golden banana bread from over-ripe bananas: one bowl, no mixer, hard to get wrong. Watch Natasha's video above for the full method.",
+    "fa": "نان موز مرطوب و طلایی از موزهای کاملاً رسیده: یک کاسه، بدون همزن، و سخت است که اشتباه کنید. ویدیو ناتاشا را در بالا برای روش کامل مشاهده کنید."
   },
   "servings": 10,
   "time": {
@@ -139,9 +139,9 @@
     },
     {
       "text": {
-        "sv": "Vänd ner mjöl, bikarbonat och salt — rör precis tills det går ihop, inte mer.",
-        "en": "Fold in the flour, baking soda and salt — stir just until combined, no more.",
-        "fa": "آرد، جوش شیرین و نمک را اضافه کنید — فقط تا زمانی که ترکیب شوند هم بزنید، بیشتر نه."
+        "sv": "Vänd ner mjöl, bikarbonat och salt. Rör precis tills det går ihop, inte mer.",
+        "en": "Fold in the flour, baking soda and salt. Stir just until combined, no more.",
+        "fa": "آرد، جوش شیرین و نمک را اضافه کنید. فقط تا زمانی که ترکیب شوند هم بزنید، بیشتر نه."
       }
     },
     {
@@ -160,9 +160,9 @@
     }
   ],
   "notes": {
-    "sv": "Det här är en hemlagad version — följ videon ovan för Natashas exakta metod. Vill du ha valnötter? Vänd ner en näve — då tillkommer allergenet nötter.",
-    "en": "This is an at-home version — follow the video above for Natasha's exact method. Want walnuts? Fold in a handful — note that this adds the nuts allergen.",
-    "fa": "این نسخه خانگی است — برای روش دقیق ناتاشا ویدیو بالا را دنبال کنید. آیا گردو می‌خواهید؟ یک مشت اضافه کنید — توجه داشته باشید که این ماده آلرژی‌زا است."
+    "sv": "Det här är en hemlagad version. Följ videon ovan för Natashas exakta metod. Vill du ha valnötter? Vänd ner en näve. Då tillkommer allergenet nötter.",
+    "en": "This is an at-home version. Follow the video above for Natasha's exact method. Want walnuts? Fold in a handful. Note that this adds the nuts allergen.",
+    "fa": "این نسخه خانگی است. برای روش دقیق ناتاشا ویدیو بالا را دنبال کنید. آیا گردو می‌خواهید؟ یک مشت اضافه کنید. توجه داشته باشید که این ماده آلرژی‌زا است."
   },
   "tips": [],
   "allergens": {

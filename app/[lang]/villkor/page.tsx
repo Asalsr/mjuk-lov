@@ -140,7 +140,7 @@ const content: Record<"sv" | "en", { title: string; intro: string; updated: stri
         h: "5. Right of withdrawal",
         p: [
           "Under the Swedish Distance Contracts Act (2005:59) and EU Directive 2011/83/EU, distance purchases normally carry a 14-day right of withdrawal. However, this right does not apply to goods made to your specifications or clearly personalised, nor to perishable goods or foodstuffs that may deteriorate quickly.",
-          "Because our cakes and kits are made to order and are perishable, they are therefore normally not covered by the right of withdrawal. Please contact us as soon as possible if you need to change or cancel — see below.",
+          "Because our cakes and kits are made to order and are perishable, they are therefore normally not covered by the right of withdrawal. Please contact us as soon as possible if you need to change or cancel; see below.",
         ],
       },
       {

@@ -98,7 +98,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string;
                 <dt className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>
                   {order.fulfilment === "delivery" ? l.delivery : l.pickup}
                 </dt>
-                <dd>{order.address || (order.desired_date ? fmt(order.desired_date) : "—")}</dd>
+                <dd>{order.address || (order.desired_date ? fmt(order.desired_date) : "–")}</dd>
               </>
             )}
             {order.delivered_at && (

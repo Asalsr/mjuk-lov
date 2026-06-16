@@ -166,9 +166,9 @@ export const MENU: Product[] = [
     leadDays: 2,
     name: { sv: "Citronkaka", en: "Lemon cake", fa: "کیک لیمو" },
     description: {
-      sv: "Klassisk, fuktig citronkaka — färsk citronzest och en mild glasyr.",
-      en: "Classic moist lemon cake — fresh zest and a soft glaze.",
-      fa: "کیک کلاسیک و لطیف لیمو — پوست تازه لیمو و یک لعاب ملایم.",
+      sv: "Klassisk, fuktig citronkaka: färsk citronzest och en mild glasyr.",
+      en: "Classic moist lemon cake: fresh zest and a soft glaze.",
+      fa: "کیک کلاسیک و لطیف لیمو: پوست تازه لیمو و یک لعاب ملایم.",
     },
     variants: [{ id: "loaf", priceSek: 200, label: { sv: "Hel limpa", en: "Whole loaf", fa: "یک قالب کامل" } }],
   },

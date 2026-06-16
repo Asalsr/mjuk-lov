@@ -6,9 +6,9 @@
     "fa": "موس شکلات تلخ"
   },
   "headnote": {
-    "sv": "Djup, nästan allvarlig chokladmousse — luftig men intensiv. Få ingredienser, ingenstans att gömma sig. Använd choklad du tycker om.",
-    "en": "Deep, almost serious chocolate mousse — airy yet intense. Few ingredients, nowhere to hide. Use a chocolate you love.",
-    "fa": "موس شکلاتی عمیق و تقریباً جدی — سبک اما پر از طعم. چند ماده، هیچ جایی برای پنهان شدن. از شکلاتی که دوست دارید استفاده کنید."
+    "sv": "Djup, nästan allvarlig chokladmousse, luftig men intensiv. Få ingredienser, ingenstans att gömma sig. Använd choklad du tycker om.",
+    "en": "Deep, almost serious chocolate mousse, airy yet intense. Few ingredients, nowhere to hide. Use a chocolate you love.",
+    "fa": "موس شکلاتی عمیق و تقریباً جدی، سبک اما پر از طعم. چند ماده، هیچ جایی برای پنهان شدن. از شکلاتی که دوست دارید استفاده کنید."
   },
   "servings": 6,
   "time": {
@@ -115,9 +115,9 @@
     }
   ],
   "notes": {
-    "sv": "Innehåller rå äggvita — använd färska ägg och servera kyld. Mörk choklad kan innehålla spår av soja och mjölk; läs förpackningen.",
-    "en": "Contains raw egg white — use fresh eggs and serve chilled. Dark chocolate may contain traces of soy and milk; check the label.",
-    "fa": "شامل سفیده تخم‌مرغ خام است — از تخم‌مرغ‌های تازه استفاده کنید و سرد سرو کنید. شکلات تلخ ممکن است حاوی آثار سویا و شیر باشد؛ برچسب را بررسی کنید."
+    "sv": "Innehåller rå äggvita. Använd färska ägg och servera kyld. Mörk choklad kan innehålla spår av soja och mjölk; läs förpackningen.",
+    "en": "Contains raw egg white. Use fresh eggs and serve chilled. Dark chocolate may contain traces of soy and milk; check the label.",
+    "fa": "شامل سفیده تخم‌مرغ خام است. از تخم‌مرغ‌های تازه استفاده کنید و سرد سرو کنید. شکلات تلخ ممکن است حاوی آثار سویا و شیر باشد؛ برچسب را بررسی کنید."
   },
   "tips": [],
   "allergens": {

@@ -25,7 +25,7 @@ export function YouTubeEmbed({ id, title }: { id: string; title: string }) {
         <button
           type="button"
           onClick={() => setActive(true)}
-          aria-label={`${title} — spela video / play video`}
+          aria-label={`${title}, spela video / play video`}
           className="group absolute inset-0 h-full w-full cursor-pointer"
         >
           <Image

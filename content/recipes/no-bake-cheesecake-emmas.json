@@ -6,9 +6,9 @@
     "fa": "چیزکیک بدون پخت با ۵ ماده"
   },
   "headnote": {
-    "sv": "Emmas minimalistiska cheesecake — bara fem ingredienser, ingen ugn, helt krämig. Se videon ovan.",
-    "en": "Emma's minimalist cheesecake — just five ingredients, no oven, perfectly creamy. Watch the video above.",
-    "fa": "چیزکیک مینیمالیستی اما — فقط پنج ماده، بدون فر، کاملاً خامه‌ای. ویدیو را در بالا تماشا کنید."
+    "sv": "Emmas minimalistiska cheesecake: bara fem ingredienser, ingen ugn, helt krämig. Se videon ovan.",
+    "en": "Emma's minimalist cheesecake: just five ingredients, no oven, perfectly creamy. Watch the video above.",
+    "fa": "چیزکیک مینیمالیستی اما: فقط پنج ماده، بدون فر، کاملاً خامه‌ای. ویدیو را در بالا تماشا کنید."
   },
   "servings": 8,
   "time": {
@@ -118,9 +118,9 @@
     }
   ],
   "notes": {
-    "sv": "Hemlagad version — följ videon ovan. Toppa med färska bär.",
-    "en": "At-home version — follow the video above. Top with fresh berries.",
-    "fa": "نسخه خانگی — ویدیو را در بالا دنبال کنید. با توت‌های تازه تزئین کنید."
+    "sv": "Hemlagad version. Följ videon ovan. Toppa med färska bär.",
+    "en": "At-home version. Follow the video above. Top with fresh berries.",
+    "fa": "نسخه خانگی. ویدیو را در بالا دنبال کنید. با توت‌های تازه تزئین کنید."
   },
   "tips": [],
   "allergens": {

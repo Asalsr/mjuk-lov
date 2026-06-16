@@ -19,7 +19,7 @@ function ProductCard({ p, lang, comingSoon }: { p: Product; lang: Lang; comingSo
     >
       {p.popular && !comingSoon && (
         <div className="type-caps italic mb-3" style={{ color: "var(--dusty-wine)" }}>
-          — {t.mostPopular} —
+          {t.mostPopular}
         </div>
       )}
       <div className="type-caps ink-muted mb-2">{p.unit ? p.unit[lang] : p.size}</div>

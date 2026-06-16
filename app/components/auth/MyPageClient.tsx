@@ -89,7 +89,7 @@ export function MyPageClient({
       >
         <div className="flex items-start justify-between gap-3">
           <span className="type-body">
-            {(o.items ?? []).map((it) => `${it.qty}× ${lang === "sv" ? it.nameSv : it.name}`).join(", ") || "—"}
+            {(o.items ?? []).map((it) => `${it.qty}× ${lang === "sv" ? it.nameSv : it.name}`).join(", ") || "–"}
           </span>
           <span
             className="type-caps shrink-0"

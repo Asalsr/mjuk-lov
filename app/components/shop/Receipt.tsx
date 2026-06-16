@@ -88,7 +88,7 @@ export function Receipt({
               <dt className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>
                 {data.fulfilment === "delivery" ? "Leverans / Delivery" : "Upphämtning / Pickup"}
               </dt>
-              <dd className="type-body">{data.address || "—"}</dd>
+              <dd className="type-body">{data.address || "–"}</dd>
             </>
           )}
         </dl>

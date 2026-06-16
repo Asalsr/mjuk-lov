@@ -50,7 +50,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string;
 
   const isKit = o.amount != null;
   const lines = isKit
-    ? [{ name: o.product_name ?? "—", qty: 1, lineTotalSek: Math.round((o.amount ?? 0) / 100) }]
+    ? [{ name: o.product_name ?? "–", qty: 1, lineTotalSek: Math.round((o.amount ?? 0) / 100) }]
     : (o.items ?? []).map((i) => ({
         name: lang === "sv" ? i.nameSv : i.name,
         qty: i.qty,

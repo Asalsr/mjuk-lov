@@ -6,9 +6,9 @@
     "fa": "چیزکیک بدون پخت"
   },
   "headnote": {
-    "sv": "Krämig, sval cheesecake på en knaprig kexbotten — ingen ugn, bara kyltid. Se videon ovan för metoden.",
-    "en": "Creamy, cool cheesecake on a crunchy biscuit base — no oven, just chill time. Watch the video above for the method.",
-    "fa": "چیزکیک خامه‌ای و خنک بر روی پایه‌ای ترد از بیسکویت — بدون نیاز به فر، فقط زمان خنک شدن. برای روش کار ویدیو بالا را تماشا کنید."
+    "sv": "Krämig, sval cheesecake på en knaprig kexbotten: ingen ugn, bara kyltid. Se videon ovan för metoden.",
+    "en": "Creamy, cool cheesecake on a crunchy biscuit base: no oven, just chill time. Watch the video above for the method.",
+    "fa": "چیزکیک خامه‌ای و خنک بر روی پایه‌ای ترد از بیسکویت: بدون نیاز به فر، فقط زمان خنک شدن. برای روش کار ویدیو بالا را تماشا کنید."
   },
   "servings": 10,
   "time": {
@@ -130,9 +130,9 @@
     }
   ],
   "notes": {
-    "sv": "Hemlagad version — följ videon ovan. Toppa med bär eller chokladsås.",
-    "en": "At-home version — follow the video above. Top with berries or chocolate sauce.",
-    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. با توت‌ها یا سس شکلاتی تزئین کنید."
+    "sv": "Hemlagad version. Följ videon ovan. Toppa med bär eller chokladsås.",
+    "en": "At-home version. Follow the video above. Top with berries or chocolate sauce.",
+    "fa": "نسخه خانگی. ویدیو بالا را دنبال کنید. با توت‌ها یا سس شکلاتی تزئین کنید."
   },
   "tips": [],
   "allergens": {

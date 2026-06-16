@@ -6,9 +6,9 @@
     "fa": "کیک شکلاتی در فنجان (مایکروویو)"
   },
   "headnote": {
-    "sv": "En enda portion varm, fuktig chokladkaka på under fem minuter — rörd ihop direkt i muggen, ingen ugn. Se videon ovan för Gemmas metod.",
-    "en": "A single serving of warm, moist chocolate cake in under five minutes — stirred right in the mug, no oven. Watch the video above for Gemma's method.",
-    "fa": "یک وعده کیک شکلاتی گرم و مرطوب در کمتر از پنج دقیقه — مستقیماً در فنجان هم زده می‌شود، بدون فر. ویدئو بالا را برای روش جِما تماشا کنید."
+    "sv": "En enda portion varm, fuktig chokladkaka på under fem minuter, rörd ihop direkt i muggen, ingen ugn. Se videon ovan för Gemmas metod.",
+    "en": "A single serving of warm, moist chocolate cake in under five minutes, stirred right in the mug, no oven. Watch the video above for Gemma's method.",
+    "fa": "یک وعده کیک شکلاتی گرم و مرطوب در کمتر از پنج دقیقه، مستقیماً در فنجان هم زده می‌شود، بدون فر. ویدئو بالا را برای روش جِما تماشا کنید."
   },
   "servings": 1,
   "time": {
@@ -163,16 +163,16 @@
     },
     {
       "text": {
-        "sv": "Låt vila en minut — den eftersteks i muggen. Ät direkt, gärna med en klick glass. Se videon för tips.",
-        "en": "Let it rest a minute — it keeps cooking in the mug. Eat right away, ideally with a scoop of ice cream. See the video for tips.",
-        "fa": "اجازه دهید یک دقیقه استراحت کند — در فنجان به پختن ادامه می‌دهد. بلافاصله میل کنید، ایده‌آل با یک اسکوپ بستنی. برای نکات، ویدئو را ببینید."
+        "sv": "Låt vila en minut. Den eftersteks i muggen. Ät direkt, gärna med en klick glass. Se videon för tips.",
+        "en": "Let it rest a minute. It keeps cooking in the mug. Eat right away, ideally with a scoop of ice cream. See the video for tips.",
+        "fa": "اجازه دهید یک دقیقه استراحت کند. در فنجان به پختن ادامه می‌دهد. بلافاصله میل کنید، ایده‌آل با یک اسکوپ بستنی. برای نکات، ویدئو را ببینید."
       }
     }
   ],
   "notes": {
-    "sv": "Det här är en hemlagad version — följ videon ovan för den exakta metoden. Mikrovågsugnar skiljer sig; börja med 60 sekunder och lägg till i steg om 10.",
-    "en": "This is an at-home version — follow the video above for the exact method. Microwaves vary; start at 60 seconds and add in 10-second steps.",
-    "fa": "این نسخه خانگی است — برای روش دقیق، ویدئو بالا را دنبال کنید. مایکروویوها متفاوت هستند؛ از 60 ثانیه شروع کنید و در مراحل 10 ثانیه‌ای اضافه کنید."
+    "sv": "Det här är en hemlagad version. Följ videon ovan för den exakta metoden. Mikrovågsugnar skiljer sig; börja med 60 sekunder och lägg till i steg om 10.",
+    "en": "This is an at-home version. Follow the video above for the exact method. Microwaves vary; start at 60 seconds and add in 10-second steps.",
+    "fa": "این نسخه خانگی است. برای روش دقیق، ویدئو بالا را دنبال کنید. مایکروویوها متفاوت هستند؛ از 60 ثانیه شروع کنید و در مراحل 10 ثانیه‌ای اضافه کنید."
   },
   "tips": [],
   "allergens": {

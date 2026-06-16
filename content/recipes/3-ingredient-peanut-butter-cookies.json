@@ -6,9 +6,9 @@
     "fa": "کوکی‌های کره بادام‌زمینی با ۳ ماده"
   },
   "headnote": {
-    "sv": "Tre ingredienser, ingen mjöl, klara på en kvart — naturligt glutenfria. Se videon ovan för Tastys metod.",
-    "en": "Three ingredients, no flour, done in fifteen minutes — naturally gluten-free. Watch the video above for Tasty's method.",
-    "fa": "سه ماده، بدون آرد، در پانزده دقیقه آماده — به‌طور طبیعی بدون گلوتن. ویدیو بالا را برای روش Tasty تماشا کنید."
+    "sv": "Tre ingredienser, ingen mjöl, klara på en kvart, naturligt glutenfria. Se videon ovan för Tastys metod.",
+    "en": "Three ingredients, no flour, done in fifteen minutes, naturally gluten-free. Watch the video above for Tasty's method.",
+    "fa": "سه ماده، بدون آرد، در پانزده دقیقه آماده، به‌طور طبیعی بدون گلوتن. ویدیو بالا را برای روش Tasty تماشا کنید."
   },
   "servings": 12,
   "time": {
@@ -118,22 +118,22 @@
     },
     {
       "text": {
-        "sv": "Låt svalna på plåten — de är sköra varma. Se videon för tips.",
-        "en": "Cool on the tray — they're fragile when warm. See the video for tips.",
-        "fa": "روی سینی خنک کنید — وقتی گرم هستند، شکننده‌اند. برای نکات بیشتر ویدیو را ببینید."
+        "sv": "Låt svalna på plåten. De är sköra varma. Se videon för tips.",
+        "en": "Cool on the tray. They're fragile when warm. See the video for tips.",
+        "fa": "روی سینی خنک کنید. وقتی گرم هستند، شکننده‌اند. برای نکات بیشتر ویدیو را ببینید."
       }
     }
   ],
   "notes": {
-    "sv": "Hemlagad version — följ videon ovan. Naturligt glutenfria, men kontrollera att jordnötssmöret är fritt från tillsatser.",
-    "en": "At-home version — follow the video above. Naturally gluten-free, but check the peanut butter has no added ingredients.",
-    "fa": "نسخه خانگی — ویدیو بالا را دنبال کنید. به‌طور طبیعی بدون گلوتن، اما مطمئن شوید که کره بادام‌زمینی هیچ ماده اضافی ندارد."
+    "sv": "Hemlagad version. Följ videon ovan. Naturligt glutenfria, men kontrollera att jordnötssmöret är fritt från tillsatser.",
+    "en": "At-home version. Follow the video above. Naturally gluten-free, but check the peanut butter has no added ingredients.",
+    "fa": "نسخه خانگی. ویدیو بالا را دنبال کنید. به‌طور طبیعی بدون گلوتن، اما مطمئن شوید که کره بادام‌زمینی هیچ ماده اضافی ندارد."
   },
   "tips": [
     {
-      "sv": "Väg jordnötssmöret för jämn smet — naturligt jordnötssmör kan behöva röras om först.",
-      "en": "Weigh the peanut butter for a consistent dough — natural peanut butter may need stirring first.",
-      "fa": "کره بادام‌زمینی را وزن کنید تا خمیر یکنواختی داشته باشید — ممکن است کره بادام‌زمینی طبیعی نیاز به هم زدن داشته باشد."
+      "sv": "Väg jordnötssmöret för jämn smet. Naturligt jordnötssmör kan behöva röras om först.",
+      "en": "Weigh the peanut butter for a consistent dough. Natural peanut butter may need stirring first.",
+      "fa": "کره بادام‌زمینی را وزن کنید تا خمیر یکنواختی داشته باشید. ممکن است کره بادام‌زمینی طبیعی نیاز به هم زدن داشته باشد."
     },
     {
       "sv": "Överstek inte; de stelnar när de svalnar.",

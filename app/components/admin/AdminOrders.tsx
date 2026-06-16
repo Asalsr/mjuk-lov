@@ -107,7 +107,7 @@ export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
 
   const mailtoFor = (o: Order) => {
     const items = (o.items ?? []).map((it) => `${it.qty}× ${lang === "sv" ? it.nameSv : it.name}`).join(", ");
-    const subject = `Mjuk Lov — ${t.orderRef} ${(o.order_number ?? o.id.slice(0, 8))}`;
+    const subject = `Mjuk Lov: ${t.orderRef} ${(o.order_number ?? o.id.slice(0, 8))}`;
     const body = `${o.contact_name ?? ""}\n${items}${o.desired_date ? `\n${o.desired_date}` : ""}`;
     return `mailto:${o.contact_email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
@@ -170,7 +170,7 @@ export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
               <div key={o.id} className="p-5 md:p-6" style={{ border: "1px solid rgba(61, 42, 34, 0.15)", backgroundColor: "var(--vanilla-cream)" }}>
                 <div className="flex items-start justify-between gap-3">
                   <div className="type-serif" style={{ fontSize: "1.25rem" }}>
-                    {(o.items ?? []).map((it) => `${it.qty}× ${lang === "sv" ? it.nameSv : it.name}`).join(", ") || o.product_name || "—"}
+                    {(o.items ?? []).map((it) => `${it.qty}× ${lang === "sv" ? it.nameSv : it.name}`).join(", ") || o.product_name || "–"}
                   </div>
                   <span
                     className="type-caps shrink-0"
@@ -185,7 +185,7 @@ export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
                 </div>
 
                 <div className="type-body mt-3 break-words">
-                  {o.contact_name} — {o.contact_email || ""} {o.contact_phone || ""}
+                  {o.contact_name}, {o.contact_email || ""} {o.contact_phone || ""}
                 </div>
                 <div className="type-body opacity-80 break-words">
                   {o.fulfilment === "delivery" ? t.delivery : t.pickup}

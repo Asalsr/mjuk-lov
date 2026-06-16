@@ -19,7 +19,7 @@ export async function generateMetadata({
   const { lang } = await params;
   const l: Lang = isLang(lang) ? lang : "sv";
   const title =
-    l === "sv" ? "Galleri — Mjuk Lov" : l === "fa" ? "گالری — Mjuk Lov" : "Gallery — Mjuk Lov";
+    l === "sv" ? "Galleri, Mjuk Lov" : l === "fa" ? "گالری، Mjuk Lov" : "Gallery, Mjuk Lov";
   const description = ui[l].galleryIntro;
   return {
     title,

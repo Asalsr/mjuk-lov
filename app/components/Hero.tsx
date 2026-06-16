@@ -60,7 +60,7 @@ export const Hero = ({ lang }: HeroProps) => {
     <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
       {/* The visible wordmark is the Logo image; this gives the page a real,
           screen-reader/SEO-visible <h1> without altering the design. */}
-      <h1 className="sr-only">Mjuk Lov — {t.promise}</h1>
+      <h1 className="sr-only">Mjuk Lov: {t.promise}</h1>
       {/* Decorative watercolor corners — raised opacity to 25% because
           full-color illustrations look muddy at the old 10%. Adjust to taste. */}
       <div className="absolute inset-0 hidden md:block pointer-events-none">

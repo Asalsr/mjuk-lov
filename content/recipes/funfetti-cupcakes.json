@@ -6,9 +6,9 @@
     "fa": "کاپ کیک فانفتی"
   },
   "headnote": {
-    "sv": "Födelsedagscupcakes fyllda med strössel i smeten — fluffiga, festliga och gjorda för att fira. Se videon ovan för Jemmas finish.",
-    "en": "Birthday cupcakes shot through with sprinkles in the batter — fluffy, festive and made to celebrate. Watch the video above for Jemma's finish.",
-    "fa": "کاپ کیک‌های تولدی که با دانه‌های رنگی در خمیر تزئین شده‌اند — نرم، شاداب و مناسب برای جشن. ویدیو بالا را برای نحوه‌ی نهایی جمیلا تماشا کنید."
+    "sv": "Födelsedagscupcakes fyllda med strössel i smeten, fluffiga, festliga och gjorda för att fira. Se videon ovan för Jemmas finish.",
+    "en": "Birthday cupcakes shot through with sprinkles in the batter, fluffy, festive and made to celebrate. Watch the video above for Jemma's finish.",
+    "fa": "کاپ کیک‌های تولدی که با دانه‌های رنگی در خمیر تزئین شده‌اند، نرم، شاداب و مناسب برای جشن. ویدیو بالا را برای نحوه‌ی نهایی جمیلا تماشا کنید."
   },
   "servings": 12,
   "time": {
@@ -197,9 +197,9 @@
     }
   ],
   "notes": {
-    "sv": "Det här är en hemlagad version — följ videon ovan för Jemmas exakta metod. Vänd ner strösslet sist så smeten inte färgas.",
-    "en": "This is an at-home version — follow the video above for Jemma's exact method. Add the sprinkles last so the batter doesn't take on colour.",
-    "fa": "این نسخه خانگی است — برای روش دقیق جمیلا ویدیو بالا را دنبال کنید. دانه‌های رنگی را در آخر اضافه کنید تا خمیر رنگ نگیرد."
+    "sv": "Det här är en hemlagad version. Följ videon ovan för Jemmas exakta metod. Vänd ner strösslet sist så smeten inte färgas.",
+    "en": "This is an at-home version. Follow the video above for Jemma's exact method. Add the sprinkles last so the batter doesn't take on colour.",
+    "fa": "این نسخه خانگی است. برای روش دقیق جمیلا ویدیو بالا را دنبال کنید. دانه‌های رنگی را در آخر اضافه کنید تا خمیر رنگ نگیرد."
   },
   "tips": [],
   "allergens": {
@@ -214,7 +214,7 @@
       "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [
-      "strössel / sprinkles may contain soy and traces depending on brand — check the packet"
+      "strössel / sprinkles may contain soy and traces depending on brand. Check the packet"
     ],
     "approvedBy": "saeedeh",
     "approvedAt": "2026-06-07"

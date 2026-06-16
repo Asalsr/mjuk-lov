@@ -6,9 +6,9 @@
     "fa": "کوکی‌های نان موزی"
   },
   "headnote": {
-    "sv": "Allt du älskar med bananbröd — mjukt, kryddigt, gyllene — fast i kakform. Perfekt sätt att rädda övermogna bananer. Se videon för hela metoden.",
-    "en": "Everything you love about banana bread — soft, spiced, golden — in cookie form. The perfect way to rescue over-ripe bananas. Watch the video for the full method.",
-    "fa": "همه چیزهایی که در مورد نان موز دوست دارید — نرم، معطر، طلایی — در قالب کوکی. بهترین راه برای نجات موزهای خیلی رسیده. ویدیو را برای روش کامل تماشا کنید."
+    "sv": "Allt du älskar med bananbröd, mjukt, kryddigt, gyllene, fast i kakform. Perfekt sätt att rädda övermogna bananer. Se videon för hela metoden.",
+    "en": "Everything you love about banana bread, soft, spiced, golden, in cookie form. The perfect way to rescue over-ripe bananas. Watch the video for the full method.",
+    "fa": "همه چیزهایی که در مورد نان موز دوست دارید، نرم، معطر، طلایی، در قالب کوکی. بهترین راه برای نجات موزهای خیلی رسیده. ویدیو را برای روش کامل تماشا کنید."
   },
   "servings": 24,
   "time": {
@@ -192,9 +192,9 @@
     }
   ],
   "notes": {
-    "sv": "Receptet är en hemlagad version — följ videon ovan för den exakta metoden.",
-    "en": "This is an at-home version — follow the video above for the exact method.",
-    "fa": "این نسخه خانگی است — برای روش دقیق به ویدیو بالا مراجعه کنید."
+    "sv": "Receptet är en hemlagad version. Följ videon ovan för den exakta metoden.",
+    "en": "This is an at-home version. Follow the video above for the exact method.",
+    "fa": "این نسخه خانگی است. برای روش دقیق به ویدیو بالا مراجعه کنید."
   },
   "tips": [],
   "allergens": {

@@ -6,9 +6,9 @@
     "fa": "تیرا میسو"
   },
   "headnote": {
-    "sv": "Vår signaturdessert i glasburk — silkeslen mascarponekräm över espressodoppade savoiardi. Ett mjukt löfte, sked för sked.",
-    "en": "Our signature dessert in a glass jar — silken mascarpone cream over espresso-dipped savoiardi. A soft promise, spoonful by spoonful.",
-    "fa": "دسر ویژه ما در یک شیشه — خامه ماسکارپونه نرم بر روی بیسکویت‌های ساوایاردی غوطه‌ور در اسپرسو. وعده‌ای نرم، قاشق به قاشق."
+    "sv": "Vår signaturdessert i glasburk: silkeslen mascarponekräm över espressodoppade savoiardi. Ett mjukt löfte, sked för sked.",
+    "en": "Our signature dessert in a glass jar: silken mascarpone cream over espresso-dipped savoiardi. A soft promise, spoonful by spoonful.",
+    "fa": "دسر ویژه ما در یک شیشه: خامه ماسکارپونه نرم بر روی بیسکویت‌های ساوایاردی غوطه‌ور در اسپرسو. وعده‌ای نرم، قاشق به قاشق."
   },
   "servings": 8,
   "time": {
@@ -125,9 +125,9 @@
     },
     {
       "text": {
-        "sv": "Blanda espresso och marsala. Doppa savoiardi snabbt — de ska vara fuktiga, inte blöta.",
-        "en": "Combine the espresso and marsala. Dip the savoiardi briefly — moist, not soggy.",
-        "fa": "اسپرسو و مارزالا را ترکیب کنید. بیسکویت‌های ساوایاردی را به‌طور مختصر غوطه‌ور کنید — مرطوب، نه خیس."
+        "sv": "Blanda espresso och marsala. Doppa savoiardi snabbt, de ska vara fuktiga, inte blöta.",
+        "en": "Combine the espresso and marsala. Dip the savoiardi briefly: moist, not soggy.",
+        "fa": "اسپرسو و مارزالا را ترکیب کنید. بیسکویت‌های ساوایاردی را به‌طور مختصر غوطه‌ور کنید: مرطوب، نه خیس."
       }
     },
     {

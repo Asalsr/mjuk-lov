@@ -108,7 +108,7 @@ export function AdaptButton({
                     <span className="ink-muted line-through">{s.from}</span>
                     {" → "}
                     <span style={{ color: "var(--dusty-terracotta)" }}>{s.to}</span>
-                    {s.note ? <span className="ink-muted"> — {s.note}</span> : null}
+                    {s.note ? <span className="ink-muted">, {s.note}</span> : null}
                   </li>
                 ))}
               </ul>

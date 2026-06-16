@@ -146,7 +146,7 @@ export const Order = ({ lang }: OrderProps) => {
                     fontSize: '1.125rem'
                   }}
                 >
-                  <option value="" disabled style={{ color: 'var(--warm-cocoa)' }}>—</option>
+                  <option value="" disabled style={{ color: 'var(--warm-cocoa)' }}>–</option>
                   {t.typeOptions.map(opt => (
                     <option key={opt} value={opt} style={{ color: 'var(--warm-cocoa)' }}>
                       {opt}

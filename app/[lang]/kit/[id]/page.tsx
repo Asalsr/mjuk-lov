@@ -24,7 +24,7 @@ export async function generateMetadata({
   const guide = getKitGuide(id);
   if (!guide || !isLang(lang)) return {};
   return {
-    title: `${guide.title[lang]} — Mjuk Lov`,
+    title: `${guide.title[lang]}, Mjuk Lov`,
     description: guide.intro[lang],
     alternates: {
       canonical: `/${lang}/kit/${id}`,

@@ -6,9 +6,9 @@
     "fa": "کیت لوکس (۲۰ سانتی‌متر)"
   },
   "intro": {
-    "sv": "Den större tårtan — för 10–12 personer, med extra höjd. Samma metod som Standard, men ta det lugnt med de tyngre lagren.",
-    "en": "The bigger cake — for 10–12 people, with extra height. Same method as Standard, just take your time with the heavier layers.",
-    "fa": "کیک بزرگ‌تر — برای ۱۰–۱۲ نفر، با ارتفاع اضافی. همان روش کیت استاندارد، فقط با لایه‌های سنگین‌تر زمان بیشتری بگذارید."
+    "sv": "Den större tårtan, för 10–12 personer, med extra höjd. Samma metod som Standard, men ta det lugnt med de tyngre lagren.",
+    "en": "The bigger cake, for 10–12 people, with extra height. Same method as Standard, just take your time with the heavier layers.",
+    "fa": "کیک بزرگ‌تر، برای ۱۰–۱۲ نفر، با ارتفاع اضافی. همان روش کیت استاندارد، فقط با لایه‌های سنگین‌تر زمان بیشتری بگذارید."
   },
   "youtubeId": null,
   "steps": [
@@ -45,18 +45,18 @@
     },
     {
       "text": {
-        "sv": "Dekorera med strösslet och kyl minst 45 minuter — den större tårtan behöver lite längre för att sätta sig.",
-        "en": "Decorate with the sprinkles and chill for at least 45 minutes — the larger cake needs a little longer to set.",
-        "fa": "با تزیینات تزئین کنید و حداقل به مدت ۴۵ دقیقه در یخچال قرار دهید — کیک بزرگ‌تر نیاز به زمان بیشتری برای سفت شدن دارد."
+        "sv": "Dekorera med strösslet och kyl minst 45 minuter, den större tårtan behöver lite längre för att sätta sig.",
+        "en": "Decorate with the sprinkles and chill for at least 45 minutes; the larger cake needs a little longer to set.",
+        "fa": "با تزیینات تزئین کنید و حداقل به مدت ۴۵ دقیقه در یخچال قرار دهید، کیک بزرگ‌تر نیاز به زمان بیشتری برای سفت شدن دارد."
       },
       "durationMin": 45
     }
   ],
   "tips": [
     {
-      "sv": "Kyl tårtan 10 minuter efter frostingen innan du dekorerar — då fäster strösslet bättre på den fastare ytan.",
-      "en": "Chill the cake for 10 minutes after frosting before decorating — the sprinkles stick better to the firmer surface.",
-      "fa": "پس از خامه‌کشی، کیک را به مدت ۱۰ دقیقه در یخچال قرار دهید قبل از تزیین — تزیینات بهتر به سطح محکم می‌چسبند."
+      "sv": "Kyl tårtan 10 minuter efter frostingen innan du dekorerar, då fäster strösslet bättre på den fastare ytan.",
+      "en": "Chill the cake for 10 minutes after frosting before decorating; the sprinkles stick better to the firmer surface.",
+      "fa": "پس از خامه‌کشی، کیک را به مدت ۱۰ دقیقه در یخچال قرار دهید قبل از تزیین، تزیینات بهتر به سطح محکم می‌چسبند."
     },
     {
       "sv": "Allergier? Kontrollera alltid innehållsförteckningen på kitets förpackning.",

@@ -177,7 +177,7 @@ export function describeLine(cfg: LineConfig, lang: Lang): string {
           ? `${cfg.vanilla} وانیل / ${choc} شکلات`
           : `${cfg.vanilla} vanilla / ${choc} chocolate`;
     const cakesWord = lang === "sv" ? "tårtor" : lang === "fa" ? "کیک" : "cakes";
-    return [`${name} — ${cfg.cakes} ${cakesWord}`, split, fillings, toolBits.join(", ")]
+    return [`${name}: ${cfg.cakes} ${cakesWord}`, split, fillings, toolBits.join(", ")]
       .filter(Boolean)
       .join(sep);
   }

@@ -6,9 +6,9 @@
     "fa": "کوکی‌های جو دوسر و کشمش نرم"
   },
   "headnote": {
-    "sv": "Sega, kryddiga havrekakor fulla av russin — hemtrevliga och snabba. Se videon ovan för Sallys metod.",
-    "en": "Chewy, spiced oatmeal cookies full of raisins — homey and quick. Watch the video above for Sally's method.",
-    "fa": "کوکی‌های جو دوسر معطر و نرم پر از کشمش — خانگی و سریع. ویدیو بالا را برای روش سالی مشاهده کنید."
+    "sv": "Sega, kryddiga havrekakor fulla av russin, hemtrevliga och snabba. Se videon ovan för Sallys metod.",
+    "en": "Chewy, spiced oatmeal cookies full of raisins, homey and quick. Watch the video above for Sally's method.",
+    "fa": "کوکی‌های جو دوسر معطر و نرم پر از کشمش، خانگی و سریع. ویدیو بالا را برای روش سالی مشاهده کنید."
   },
   "servings": 20,
   "time": {
@@ -196,9 +196,9 @@
     }
   ],
   "notes": {
-    "sv": "Hemlagad version — följ videon ovan för exakt metod. Blötlägg russinen 10 min för extra saftighet.",
-    "en": "At-home version — follow the video above for the exact method. Soak the raisins 10 min for extra plumpness.",
-    "fa": "نسخه خانگی — برای روش دقیق، ویدیو بالا را دنبال کنید. کشمش‌ها را به مدت 10 دقیقه بخیسانید تا نرم‌تر شوند."
+    "sv": "Hemlagad version. Följ videon ovan för exakt metod. Blötlägg russinen 10 min för extra saftighet.",
+    "en": "At-home version. Follow the video above for the exact method. Soak the raisins 10 min for extra plumpness.",
+    "fa": "نسخه خانگی. برای روش دقیق، ویدیو بالا را دنبال کنید. کشمش‌ها را به مدت 10 دقیقه بخیسانید تا نرم‌تر شوند."
   },
   "tips": [],
   "allergens": {
@@ -213,7 +213,7 @@
       "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [
-      "oats / havregryn are often cross-contaminated with gluten — use certified gluten-free oats if needed"
+      "oats / havregryn are often cross-contaminated with gluten. Use certified gluten-free oats if needed"
     ],
     "approvedBy": "saeedeh",
     "approvedAt": "2026-06-08"

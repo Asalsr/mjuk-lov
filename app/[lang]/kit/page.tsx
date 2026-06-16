@@ -26,7 +26,7 @@ export async function generateMetadata({
   const l: Lang = isLang(lang) ? lang : "sv";
   const t = ui[l];
   return {
-    title: `${t.kits} — Mjuk Lov`,
+    title: `${t.kits}, Mjuk Lov`,
     description: t.kitHeroLede,
     alternates: {
       canonical: `/${l}/kit`,

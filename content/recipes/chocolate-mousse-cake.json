@@ -6,9 +6,9 @@
     "fa": "کیک موس شکلاتی"
   },
   "headnote": {
-    "sv": "En knaprig kexbotten under en luftig, mörk chokladmousse — imponerande men förvånansvärt enkel, och inget gräddande av mousselagret. Se videon ovan för Anns finish.",
-    "en": "A crisp biscuit base under an airy dark-chocolate mousse — impressive but surprisingly simple, with no baking of the mousse layer. Watch the video above for Ann's finish.",
-    "fa": "یک پایه بیسکویتی ترد زیر موس شکلات تلخ سبک — چشمگیر اما به طرز شگفت‌انگیزی ساده، بدون نیاز به پخت لایه موس. ویدیو بالا را برای نحوه نهایی آن تماشا کنید."
+    "sv": "En knaprig kexbotten under en luftig, mörk chokladmousse. Imponerande men förvånansvärt enkel, och inget gräddande av mousselagret. Se videon ovan för Anns finish.",
+    "en": "A crisp biscuit base under an airy dark-chocolate mousse. Impressive but surprisingly simple, with no baking of the mousse layer. Watch the video above for Ann's finish.",
+    "fa": "یک پایه بیسکویتی ترد زیر موس شکلات تلخ سبک. چشمگیر اما به طرز شگفت‌انگیزی ساده، بدون نیاز به پخت لایه موس. ویدیو بالا را برای نحوه نهایی آن تماشا کنید."
   },
   "servings": 12,
   "time": {
@@ -123,9 +123,9 @@
     },
     {
       "text": {
-        "sv": "Vänd först ner grädden i chokladen, sedan äggvitorna i två omgångar — behåll luftigheten.",
-        "en": "Fold the cream into the chocolate first, then the egg whites in two additions — keep it airy.",
-        "fa": "ابتدا خامه را به شکلات اضافه کنید، سپس سفیده‌های تخم‌مرغ را در دو مرحله اضافه کنید — آن را سبک نگه دارید."
+        "sv": "Vänd först ner grädden i chokladen, sedan äggvitorna i två omgångar. Behåll luftigheten.",
+        "en": "Fold the cream into the chocolate first, then the egg whites in two additions. Keep it airy.",
+        "fa": "ابتدا خامه را به شکلات اضافه کنید، سپس سفیده‌های تخم‌مرغ را در دو مرحله اضافه کنید. آن را سبک نگه دارید."
       }
     },
     {
@@ -137,9 +137,9 @@
     }
   ],
   "notes": {
-    "sv": "Det här är en hemlagad version — följ videon ovan för den exakta metoden. Receptet innehåller rå äggvita; använd färska, pastöriserade ägg och servera kylt.",
-    "en": "This is an at-home version — follow the video above for the exact method. This contains raw egg white; use fresh, pasteurised eggs and serve chilled.",
-    "fa": "این نسخه خانگی است — برای روش دقیق، ویدیو بالا را دنبال کنید. این دستور شامل سفیده تخم‌مرغ خام است؛ از تخم‌مرغ‌های تازه و پاستوریزه استفاده کنید و سرد سرو کنید."
+    "sv": "Det här är en hemlagad version. Följ videon ovan för den exakta metoden. Receptet innehåller rå äggvita; använd färska, pastöriserade ägg och servera kylt.",
+    "en": "This is an at-home version. Follow the video above for the exact method. This contains raw egg white; use fresh, pasteurised eggs and serve chilled.",
+    "fa": "این نسخه خانگی است. برای روش دقیق، ویدیو بالا را دنبال کنید. این دستور شامل سفیده تخم‌مرغ خام است؛ از تخم‌مرغ‌های تازه و پاستوریزه استفاده کنید و سرد سرو کنید."
   },
   "tips": [],
   "allergens": {
@@ -154,7 +154,7 @@
       "fa": "شامل: گلوتن، تخم‌مرغ، شیر"
     },
     "needsReview": [
-      "dark chocolate may carry soy and nut traces — check the bar",
+      "dark chocolate may carry soy and nut traces, check the bar",
       "biscuit base assumed wheat-based (gluten); some chocolate biscuits also contain soy"
     ],
     "approvedBy": "saeedeh",

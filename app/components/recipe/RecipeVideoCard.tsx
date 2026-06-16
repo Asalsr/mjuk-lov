@@ -25,7 +25,7 @@ export function RecipeVideoCard({ video, lang }: { video: RecipeVideo; lang: Lan
           </span>
         </Link>
       ) : video.youtubeId ? (
-        <YouTubeEmbed id={video.youtubeId} title={`${video.recipe} — ${video.channel}`} />
+        <YouTubeEmbed id={video.youtubeId} title={`${video.recipe}, ${video.channel}`} />
       ) : image ? (
         <a href={href} target="_blank" rel="noopener noreferrer" className="group relative block overflow-hidden" style={{ aspectRatio: "16 / 9" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}

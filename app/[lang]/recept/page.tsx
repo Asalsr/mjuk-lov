@@ -20,11 +20,11 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const title = lang === "sv" ? "Recept — Mjuk Lov" : "Recipes — Mjuk Lov";
+  const title = lang === "sv" ? "Recept, Mjuk Lov" : "Recipes, Mjuk Lov";
   const description =
     lang === "sv"
-      ? "Desserter och bakverk från Mjuk Lov — med teknikvideor och allergeninformation."
-      : "Desserts and bakes from Mjuk Lov — with technique videos and allergen information.";
+      ? "Desserter och bakverk från Mjuk Lov, med teknikvideor och allergeninformation."
+      : "Desserts and bakes from Mjuk Lov, with technique videos and allergen information.";
   return {
     title,
     description,

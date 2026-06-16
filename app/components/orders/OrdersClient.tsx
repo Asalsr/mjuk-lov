@@ -48,7 +48,7 @@ function orderTotalSek(o: OrderView): number | null {
 
 function orderSummary(o: OrderView, lang: Lang): string {
   if (o.items && o.items.length) return o.items.map((i) => `${i.qty}× ${lang === "sv" ? i.nameSv : i.name}`).join(", ");
-  return o.product_name ?? "—";
+  return o.product_name ?? "–";
 }
 
 /** Inclusive [start, end) bounds for a preset, or null = unbounded. */

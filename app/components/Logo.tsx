@@ -29,7 +29,7 @@ export const Logo = ({ height = 48, className = '', asButton = false }: LogoProp
   const img = (
     <img
       src="/brand/logo.svg"
-      alt="Mjuk Lov — a soft promise"
+      alt="Mjuk Lov: a soft promise"
       style={usingClassHeight
         ? { width: 'auto', display: 'block' }
         : { height: `${height}px`, width: 'auto', display: 'block' }}
@@ -43,7 +43,7 @@ export const Logo = ({ height = 48, className = '', asButton = false }: LogoProp
         type="button"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         className="inline-flex items-center cursor-pointer transition-opacity hover:opacity-80"
-        aria-label="Mjuk Lov — back to top"
+        aria-label="Mjuk Lov. Back to top"
       >
         {img}
       </button>
