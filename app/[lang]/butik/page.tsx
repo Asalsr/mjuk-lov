@@ -25,7 +25,7 @@ function ProductCard({ p, lang }: { p: Product; lang: Lang }) {
         {locNum(p.priceSek, lang)} kr{p.recurring && <span className="type-caps ink-muted"> {t.perMonth}</span>}
       </div>
       <div className="mt-auto">
-        <AddToCartButton productId={p.id} lang={lang} />
+        <AddToCartButton config={{ productId: p.id, qty: 1 }} lang={lang} />
       </div>
     </div>
   );

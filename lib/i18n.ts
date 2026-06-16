@@ -217,6 +217,39 @@ export const ui = {
     watchOn: "Se på",
     recipeAndVideo: "Recept & video",
     inspiredBy: "Inspirerat av",
+    // Configurator
+    configure: "Anpassa",
+    flavourLabel: "Smak",
+    fillingLabel: "Fyllning",
+    fillingHint: "Välj 1–2",
+    toolsLabel: "Verktyg",
+    toolsHint: (n: number) => `${n} ingår — välj din mix`,
+    coloursLabel: "Färger",
+    coloursHint: (n: number) => `${n} ingår`,
+    extraItemNote: (n: number) => `${n} kr per extra`,
+    addToCartWithPrice: (kr: number) => `Lägg i varukorg · ${kr} kr`,
+    chooseDate: "Välj datum",
+    // Party
+    partyHeading: "Festpaket",
+    partyTagline: "Samlas — tårtan är inte färdig än",
+    partyDescription:
+      "Födelsedagar, jubileum, en söndag med människor du älskar. Varje gäst får en egen liten tårta att dekorera — inte bara dessert, en stund att skapa något tillsammans.",
+    partyEyebrow: "samlas",
+    partyCakesLabel: "Antal tårtor",
+    partyContactOver: (n: number) => `Fler än ${n}? Kontakta oss`,
+    partyLeadNote: "Minst 7 dagars framförhållning.",
+    partyFromPrice: (kr: number) => `Från ${kr} kr`,
+    // Menu
+    menuHeading: "Kakor & bakverk",
+    menuTagline: "Bakas på beställning, hämtas eller levereras.",
+    menuIntro:
+      "En liten meny vid sidan av tårtorna — något att ta med till fikat eller helgen. Stora beställningar behöver lite längre framförhållning.",
+    formatLabel: "Format",
+    seasonalNote: "Säsongens bakverk — innehållet följer säsongen.",
+    bigOrderNote: (n: number) => `Beställningar på ${n}+ stycken behöver lite längre framförhållning.`,
+    // Corporate coming-soon
+    comingSoon: "Kommer snart",
+    corporateComingSoonNote: "Vi planerar en ny modell — mer snart.",
   },
   en: {
     recipes: "Recipes",
@@ -413,6 +446,39 @@ export const ui = {
     watchOn: "Watch on",
     recipeAndVideo: "Recipe & video",
     inspiredBy: "Inspired by",
+    // Configurator
+    configure: "Configure",
+    flavourLabel: "Flavour",
+    fillingLabel: "Filling",
+    fillingHint: "Pick 1–2",
+    toolsLabel: "Tools",
+    toolsHint: (n: number) => `${n} included — pick your mix`,
+    coloursLabel: "Colours",
+    coloursHint: (n: number) => `${n} included`,
+    extraItemNote: (n: number) => `${n} kr per extra`,
+    addToCartWithPrice: (kr: number) => `Add to cart · ${kr} kr`,
+    chooseDate: "Choose date",
+    // Party
+    partyHeading: "Party Pack",
+    partyTagline: "Gather round — the cake isn't finished yet",
+    partyDescription:
+      "Birthdays, anniversaries, a Sunday with people you love. Everyone gets their own little cake to decorate — not just dessert, an hour of making something together.",
+    partyEyebrow: "gather round",
+    partyCakesLabel: "Number of cakes",
+    partyContactOver: (n: number) => `More than ${n}? Get in touch`,
+    partyLeadNote: "At least 7 days' notice.",
+    partyFromPrice: (kr: number) => `From ${kr} kr`,
+    // Menu
+    menuHeading: "Cakes & bakes",
+    menuTagline: "Made to order, picked up or delivered.",
+    menuIntro:
+      "A small menu alongside the cakes — something to take to fika or the weekend. Larger orders need a little more notice.",
+    formatLabel: "Format",
+    seasonalNote: "Seasonal bake — the contents follow the season.",
+    bigOrderNote: (n: number) => `Orders of ${n}+ need a little more notice.`,
+    // Corporate coming-soon
+    comingSoon: "Coming soon",
+    corporateComingSoonNote: "We're rethinking the model — more soon.",
   },
   fa: {
     recipes: "دستورها",
@@ -609,5 +675,38 @@ export const ui = {
     watchOn: "تماشا در",
     recipeAndVideo: "دستور و ویدیو",
     inspiredBy: "الهام‌گرفته از",
+    // Configurator
+    configure: "سفارشی‌سازی",
+    flavourLabel: "طعم",
+    fillingLabel: "پرکننده",
+    fillingHint: "یک یا دو مورد انتخاب کنید",
+    toolsLabel: "ابزار",
+    toolsHint: (n: number) => `${faDigits(n)} مورد شامل می‌شود — ترکیب خود را انتخاب کنید`,
+    coloursLabel: "رنگ‌ها",
+    coloursHint: (n: number) => `${faDigits(n)} مورد شامل می‌شود`,
+    extraItemNote: (n: number) => `${faDigits(n)} کرون برای هر مورد اضافه`,
+    addToCartWithPrice: (kr: number) => `افزودن به سبد · ${faDigits(kr)} کرون`,
+    chooseDate: "انتخاب تاریخ",
+    // Party
+    partyHeading: "بسته جشن",
+    partyTagline: "دور هم جمع شوید — کیک هنوز تمام نشده است",
+    partyDescription:
+      "تولدها، سالگردها، یک یک‌شنبه با کسانی که دوست‌شان دارید. هر مهمان یک کیک کوچک خودش را تزیین می‌کند — فقط دسر نیست، ساعتی برای ساختن چیزی در کنار هم است.",
+    partyEyebrow: "دور هم",
+    partyCakesLabel: "تعداد کیک",
+    partyContactOver: (n: number) => `بیشتر از ${faDigits(n)}؟ با ما تماس بگیرید`,
+    partyLeadNote: "دست‌کم ۷ روز پیش‌اطلاع.",
+    partyFromPrice: (kr: number) => `از ${faDigits(kr)} کرون`,
+    // Menu
+    menuHeading: "کیک و شیرینی",
+    menuTagline: "به‌سفارش پخته می‌شود، تحویل حضوری یا ارسال.",
+    menuIntro:
+      "منویی کوچک در کنار کیک‌ها — چیزی برای فیکا یا آخر هفته. سفارش‌های بزرگ‌تر نیاز به زمان بیشتری دارند.",
+    formatLabel: "اندازه",
+    seasonalNote: "شیرینی فصلی — محتوا با فصل تغییر می‌کند.",
+    bigOrderNote: (n: number) => `سفارش‌های ${faDigits(n)} تایی و بیشتر نیاز به زمان بیشتری دارند.`,
+    // Corporate coming-soon
+    comingSoon: "به‌زودی",
+    corporateComingSoonNote: "در حال طراحی مدل جدید هستیم — به‌زودی.",
   },
 } as const;

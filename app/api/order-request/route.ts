@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
 import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
+import { priceLineSek, describeLine, earliestDateFor, type LineConfig } from "@/lib/pricing";
 import { OWNER_EMAIL } from "@/lib/owner";
 import { bilingualSubject, bilingualHtml } from "@/lib/email/bilingual";
 
@@ -15,13 +16,6 @@ function json(data: unknown, status = 200) {
 // form uses (contact_email = mjuklov.se@gmail.com) — falling back to the owner
 // account email. (OWNER_EMAIL is the login/admin account, which may differ.)
 const NOTIFY_EMAIL = process.env.CONTACT_EMAIL || process.env.contact_email || OWNER_EMAIL;
-
-// Earliest acceptable desired date: today + 3 days (UTC), as YYYY-MM-DD.
-function minDesiredDate(): string {
-  const d = new Date();
-  d.setUTCDate(d.getUTCDate() + 3);
-  return d.toISOString().slice(0, 10);
-}
 
 async function sendEmail(to: string, subject: string, html: string) {
   const key = process.env.RESEND_API_KEY;
@@ -46,6 +40,8 @@ async function sendEmail(to: string, subject: string, html: string) {
   }
 }
 
+type IncomingItem = { lineId?: string; config?: LineConfig; message?: string };
+
 export async function POST(req: Request) {
   let body: Record<string, unknown>;
   try {
@@ -54,26 +50,43 @@ export async function POST(req: Request) {
     return json({ error: "bad_request" }, 400);
   }
 
-  const rawItems = Array.isArray(body.items) ? (body.items as { productId: string; qty: number; message?: string }[]) : [];
+  const rawItems = Array.isArray(body.items) ? (body.items as IncomingItem[]) : [];
   if (rawItems.length === 0) return json({ error: "empty_cart" }, 400);
+
+  // Validate each item has a config with a real productId. Drop the rest.
+  const configs: { config: LineConfig; message: string }[] = [];
+  for (const r of rawItems) {
+    if (!r.config || typeof r.config.productId !== "string") continue;
+    const p = getProduct(r.config.productId);
+    if (!p) continue;
+    const qty = Math.max(1, Number(r.config.qty) || 1);
+    configs.push({ config: { ...r.config, qty }, message: (r.message ?? "").toString() });
+  }
+  if (configs.length === 0) return json({ error: "empty_cart" }, 400);
 
   const name = String(body.name ?? "").trim();
   const email = String(body.email ?? "").trim();
   const phone = String(body.phone ?? "").trim();
   if (!name || (!email && !phone)) return json({ error: "contact_required" }, 400);
 
+  // Per-product lead time: the cart's required date is today + max(leadDaysFor)
+  // across all lines. A party item forces ≥ 7 days; a large menu order ≥ 4.
+  const requiredMinDate = earliestDateFor(configs.map((c) => c.config));
   const desiredDate = String(body.desiredDate ?? "").trim();
-  if (!desiredDate || desiredDate < minDesiredDate()) return json({ error: "date_too_soon" }, 400);
+  if (!desiredDate || desiredDate < requiredMinDate) return json({ error: "date_too_soon" }, 400);
 
-  const items = rawItems.map((i) => {
-    const p = getProduct(i.productId);
+  // Recompute every price server-side; never trust the client.
+  const items = configs.map((c) => {
+    const p = getProduct(c.config.productId)!;
     return {
-      productId: i.productId,
-      name: p?.name.en ?? i.productId,
-      nameSv: p?.name.sv ?? i.productId,
-      qty: Number(i.qty) || 1,
-      priceSek: p?.priceSek ?? null,
-      message: i.message ?? "",
+      productId: c.config.productId,
+      name: p.name.en,
+      nameSv: p.name.sv,
+      nameFa: p.name.fa,
+      qty: c.config.qty,
+      config: c.config,
+      priceSek: priceLineSek(c.config),
+      message: c.message,
     };
   });
 
@@ -123,11 +136,15 @@ export async function POST(req: Request) {
     return json({ error: "save_failed" }, 500);
   }
 
-  // Notify (best-effort).
+  // Notify (best-effort). Use describeLine() so the owner email shows the
+  // flavour/fillings/tools picked, not just the kit name.
   const lines = items
-    .map((li) => `${li.qty}× ${li.name}${li.priceSek ? ` (${li.priceSek} kr)` : ""}${li.message ? ` — “${li.message}”` : ""}`)
+    .map((li) => {
+      const desc = describeLine(li.config, "en");
+      return `${li.qty}× ${desc} (${li.priceSek} kr)${li.message ? ` — “${li.message}”` : ""}`;
+    })
     .join("<br>");
-  const subtotal = items.reduce((s, li) => s + (li.priceSek ?? 0) * li.qty, 0);
+  const subtotal = items.reduce((s, li) => s + li.priceSek, 0);
   const deliveryFee = fulfilment === "delivery" ? DELIVERY_FEE_SEK : 0;
   const total = subtotal + deliveryFee;
   const summary =

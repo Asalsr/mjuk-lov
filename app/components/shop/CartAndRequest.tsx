@@ -7,7 +7,8 @@ import { useUserData } from "@/lib/userdata/store";
 import { useAddresses, addAddress, deleteAddress, setDefaultAddress } from "@/lib/addresses/store";
 import { createClient } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
-import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
+import { DELIVERY_FEE_SEK } from "@/lib/products";
+import { priceLineSek, describeLine, earliestDateFor } from "@/lib/pricing";
 import { LABELS } from "@/lib/allergen/labels";
 import { AddressAutocomplete, type Address } from "./AddressAutocomplete";
 import { ui, locNum, type Lang } from "@/lib/i18n";
@@ -75,18 +76,22 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
   }, [addrLoading, addresses]);
 
   const subtotal = useMemo(
-    () => items.reduce((s, i) => s + (getProduct(i.productId)?.priceSek ?? 0) * i.qty, 0),
+    () => items.reduce((s, i) => s + priceLineSek(i.config), 0),
     [items],
   );
   const deliveryFee = fulfilment === "delivery" ? DELIVERY_FEE_SEK : 0;
   const total = subtotal + deliveryFee;
 
-  // Earliest selectable date: today + 3 days (no past, not within the next 2 days).
-  const minDate = useMemo(() => {
-    const d = new Date();
-    d.setDate(d.getDate() + 3);
-    return d.toISOString().slice(0, 10);
-  }, []);
+  // Earliest selectable date: max lead-day across the cart (party = 7, big menu = 4,
+  // kits = 3, small menu = 2). Empty cart falls back to a kit-equivalent +3.
+  const minDate = useMemo(
+    () => (items.length ? earliestDateFor(items.map((i) => i.config)) : (() => {
+      const d = new Date();
+      d.setUTCDate(d.getUTCDate() + 3);
+      return d.toISOString().slice(0, 10);
+    })()),
+    [items],
+  );
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -149,7 +154,10 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
       const res = await fetch("/api/order-request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items, name, email, phone, desiredDate: date || null, fulfilment, address, receiverName, receiverPhone, dietary, notes }),
+        body: JSON.stringify({
+          items: items.map((i) => ({ lineId: i.lineId, config: i.config, message: i.message })),
+          name, email, phone, desiredDate: date || null, fulfilment, address, receiverName, receiverPhone, dietary, notes,
+        }),
       });
       const out = await res.json();
       if (out.ok) {
@@ -174,28 +182,28 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
       <div>
         <ul className="divide-y" style={{ borderColor: "rgba(61, 42, 34, 0.1)" }}>
           {items.map((i) => {
-            const p = getProduct(i.productId);
+            const linePrice = priceLineSek(i.config);
             return (
               <li
-                key={i.productId}
+                key={i.lineId}
                 className="py-4 flex items-center justify-between gap-4"
                 style={{ borderColor: "rgba(61, 42, 34, 0.1)" }}
               >
                 <div>
-                  <div className="type-serif" style={{ fontSize: "1.25rem" }}>{p?.name[lang] ?? i.productId}</div>
-                  <div className="type-caps ink-muted">{locNum(p?.priceSek ?? 0, lang)} kr</div>
+                  <div className="type-serif" style={{ fontSize: "1.25rem" }}>{describeLine(i.config, lang)}</div>
+                  <div className="type-caps ink-muted">{locNum(linePrice, lang)} kr</div>
                 </div>
                 <div className="flex items-center gap-3">
                   <input
                     type="number"
                     min={1}
-                    value={i.qty}
-                    onChange={(e) => setQty(i.productId, parseInt(e.target.value) || 1)}
+                    value={i.config.qty}
+                    onChange={(e) => setQty(i.lineId, parseInt(e.target.value) || 1)}
                     aria-label={t.quantity}
                     className="w-16 p-2 type-body bg-transparent"
                     style={inputStyle}
                   />
-                  <button type="button" onClick={() => removeFromCart(i.productId)} className="type-caps ink-muted hover:text-[var(--dusty-terracotta)]">
+                  <button type="button" onClick={() => removeFromCart(i.lineId)} className="type-caps ink-muted hover:text-[var(--dusty-terracotta)]">
                     {t.remove}
                   </button>
                 </div>
