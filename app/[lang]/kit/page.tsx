@@ -8,7 +8,8 @@ import { ProductImage } from "@/app/components/ProductImage";
 import { HowItWorks } from "@/app/components/kit/HowItWorks";
 import { Gallery } from "@/app/components/Gallery";
 import { GALLERY_IMAGES } from "@/lib/gallery";
-import { AddToCartButton } from "@/app/components/shop/AddToCartButton";
+import { MakeItYoursButton } from "@/app/components/shop/MakeItYoursButton";
+import { Party } from "@/app/components/Party";
 
 export const dynamicParams = false;
 
@@ -180,12 +181,19 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
                       <span aria-hidden="true">{arrow}</span>
                     </Link>
                     <div className="mt-auto">
-                      <AddToCartButton productId={p.id} lang={lang} />
+                      <MakeItYoursButton product={p} lang={lang} />
                     </div>
                   </div>
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* 5b · Party Pack — sold by occasion, a first-class option */}
+        <section className="py-[clamp(2.5rem,6vw,5rem)] px-4 md:px-8">
+          <div className="max-w-[1100px] mx-auto">
+            <Party lang={lang} />
           </div>
         </section>
 
@@ -321,7 +329,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           </div>
         </div>
         <div className="min-w-[8.5rem]">
-          <AddToCartButton productId={leadKit.id} lang={lang} />
+          <MakeItYoursButton product={leadKit} lang={lang} />
         </div>
       </div>
     </RecipeShell>

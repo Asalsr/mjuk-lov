@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
 import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
+import { priceLineSek, leadDaysFor, describeLine, type LineConfig } from "@/lib/pricing";
 import { OWNER_EMAIL } from "@/lib/owner";
 import { bilingualSubject, bilingualHtml } from "@/lib/email/bilingual";
 
@@ -16,10 +17,11 @@ function json(data: unknown, status = 200) {
 // account email. (OWNER_EMAIL is the login/admin account, which may differ.)
 const NOTIFY_EMAIL = process.env.CONTACT_EMAIL || process.env.contact_email || OWNER_EMAIL;
 
-// Earliest acceptable desired date: today + 3 days (UTC), as YYYY-MM-DD.
-function minDesiredDate(): string {
+// Earliest acceptable desired date: today + the longest lead time in the cart
+// (UTC), as YYYY-MM-DD. Kits need 3 days, party packs 7.
+function minDesiredDate(leadDays: number): string {
   const d = new Date();
-  d.setUTCDate(d.getUTCDate() + 3);
+  d.setUTCDate(d.getUTCDate() + leadDays);
   return d.toISOString().slice(0, 10);
 }
 
@@ -54,7 +56,9 @@ export async function POST(req: Request) {
     return json({ error: "bad_request" }, 400);
   }
 
-  const rawItems = Array.isArray(body.items) ? (body.items as { productId: string; qty: number; message?: string }[]) : [];
+  const rawItems = Array.isArray(body.items)
+    ? (body.items as { productId: string; qty: number; config?: LineConfig; date?: string; message?: string }[])
+    : [];
   if (rawItems.length === 0) return json({ error: "empty_cart" }, 400);
 
   const name = String(body.name ?? "").trim();
@@ -62,17 +66,26 @@ export async function POST(req: Request) {
   const phone = String(body.phone ?? "").trim();
   if (!name || (!email && !phone)) return json({ error: "contact_required" }, 400);
 
+  // The longest lead time in the cart sets the floor for the desired date.
+  const leadDays = rawItems.reduce(
+    (m, i) => Math.max(m, i.config ? leadDaysFor(i.config) : getProduct(i.productId)?.leadDays ?? 3),
+    3,
+  );
   const desiredDate = String(body.desiredDate ?? "").trim();
-  if (!desiredDate || desiredDate < minDesiredDate()) return json({ error: "date_too_soon" }, 400);
+  if (!desiredDate || desiredDate < minDesiredDate(leadDays)) return json({ error: "date_too_soon" }, 400);
 
+  // Names + prices are recomputed server-side from the config — never trust the
+  // price the browser sent.
   const items = rawItems.map((i) => {
     const p = getProduct(i.productId);
     return {
       productId: i.productId,
-      name: p?.name.en ?? i.productId,
-      nameSv: p?.name.sv ?? i.productId,
+      name: i.config ? describeLine(i.config, "en") : p?.name.en ?? i.productId,
+      nameSv: i.config ? describeLine(i.config, "sv") : p?.name.sv ?? i.productId,
       qty: Number(i.qty) || 1,
-      priceSek: p?.priceSek ?? null,
+      priceSek: i.config ? priceLineSek(i.config) : p?.priceSek ?? null,
+      config: i.config ?? null,
+      date: i.date ?? null,
       message: i.message ?? "",
     };
   });

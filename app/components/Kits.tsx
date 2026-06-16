@@ -1,106 +1,25 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Standard, Deluxe } from './Icons';
-import { MagneticButton } from './MagneticButton';
 import { ProductGallery } from './media/ProductGallery';
-import { ui, type Lang } from '@/lib/i18n';
+import { MakeItYoursButton } from './shop/MakeItYoursButton';
+import { Party } from './Party';
+import { ui, locNum, type Lang } from '@/lib/i18n';
+import { KITS } from '@/lib/products';
 
 interface KitsProps {
   lang: Lang;
 }
 
-const content = {
-  sv: {
-    heading: 'Tårtkit',
-    kits: [
-      {
-        name: 'Standard',
-        size: '15 cm',
-        price: '345 kr',
-        description: 'Perfekt för 6-8 personer. Allt du behöver för att skapa din tårta hemma.'
-      },
-      {
-        name: 'Deluxe',
-        size: '20 cm',
-        price: '445 kr',
-        description: 'För 10-12 personer. Extra höjd, extra smak, extra allt.'
-      },
-      {
-        name: 'Presentupplaga',
-        size: '15 cm',
-        price: '395 kr',
-        description: 'Som Standard, men i vacker presentask med dedikation.'
-      }
-    ],
-    cta: 'Beställ'
-  },
-  en: {
-    heading: 'Cake Kits',
-    kits: [
-      {
-        name: 'Standard',
-        size: '15 cm',
-        price: '345 kr',
-        description: 'Perfect for 6-8 people. Everything you need to create your cake at home.'
-      },
-      {
-        name: 'Deluxe',
-        size: '20 cm',
-        price: '445 kr',
-        description: 'For 10-12 people. Extra height, extra flavor, extra everything.'
-      },
-      {
-        name: 'Gift Edition',
-        size: '15 cm',
-        price: '395 kr',
-        description: 'Like Standard, but in a beautiful gift box with dedication.'
-      }
-    ],
-    cta: 'Order'
-  },
-  fa: {
-    heading: 'کیت‌های کیک',
-    kits: [
-      {
-        name: 'استاندارد',
-        size: '۱۵ سانتی‌متر',
-        price: '۳۴۵ kr',
-        description: 'مناسب برای ۶ تا ۸ نفر. هر آنچه برای ساختن کیک در خانه نیاز دارید.'
-      },
-      {
-        name: 'دلوکس',
-        size: '۲۰ سانتی‌متر',
-        price: '۴۴۵ kr',
-        description: 'برای ۱۰ تا ۱۲ نفر. ارتفاع بیشتر، طعم بیشتر، همه‌چیز بیشتر.'
-      },
-      {
-        name: 'نسخه هدیه',
-        size: '۱۵ سانتی‌متر',
-        price: '۳۹۵ kr',
-        description: 'مانند استاندارد، اما در جعبه‌ای زیبا همراه با یک پیام.'
-      }
-    ],
-    cta: 'سفارش'
-  }
-};
-
-const kitIcons = [Standard, Deluxe, Standard];
-
-// Photo per card, parallel to kitIcons. Placeholder-backed until the real
-// product shots land in /public/photos/.
-const kitPhotos = [
-  '/photos/kit-standard.jpg',
-  '/photos/kit-deluxe.jpg',
-  '/photos/kit-gift.jpg',
-];
+// Watercolour illustration per kit id. Gift reuses the Standard mark (same cake,
+// different box); Deluxe has its own.
+const kitIcon = (id: string) => (id === 'kit-deluxe' ? Deluxe : Standard);
 
 export const Kits = ({ lang }: KitsProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const router = useRouter();
-  const t = content[lang];
+  const t = ui[lang];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -128,66 +47,58 @@ export const Kits = ({ lang }: KitsProps) => {
           }`}
           style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}
         >
-          {t.heading}
+          {t.kits}
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
-          {t.kits.map((kit, i) => {
-            const Icon = kitIcons[i];
+          {KITS.map((p, i) => {
+            const Icon = kitIcon(p.id);
+            const name = p.name[lang];
             return (
-            <div
-              key={i}
-              className={`bg-[var(--vanilla-cream)] flex flex-col transition-all duration-700 group md:hover:-translate-y-2 md:hover:shadow-2xl ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
-              style={{
-                transitionDelay: `${(i + 1) * 150}ms`,
-                boxShadow: '0 4px 20px rgba(61, 42, 34, 0.05)'
-              }}
-            >
-              {/* Watercolor illustration first, then the (placeholder-backed)
-                  product photo — one gallery with a thumbnail strip. */}
-              <ProductGallery
-                items={[
-                  { kind: 'illustration', Icon, alt: ui[lang].kitIllustrationAlt(kit.name) },
-                  { kind: 'photo', src: kitPhotos[i], alt: ui[lang].kitPhotoAlt(kit.name) },
-                ]}
-                aspect="4/5"
-                sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
-              />
+              <div
+                key={p.id}
+                className={`bg-[var(--vanilla-cream)] flex flex-col transition-all duration-700 group md:hover:-translate-y-2 md:hover:shadow-2xl ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}
+                style={{
+                  transitionDelay: `${(i + 1) * 150}ms`,
+                  boxShadow: '0 4px 20px rgba(61, 42, 34, 0.05)',
+                }}
+              >
+                <ProductGallery
+                  items={[
+                    { kind: 'illustration', Icon, alt: t.kitIllustrationAlt(name) },
+                    { kind: 'photo', src: `/photos/${p.id}.jpg`, alt: t.kitPhotoAlt(name) },
+                  ]}
+                  aspect="4/5"
+                  sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+                />
 
+                <div className="p-6 md:p-8 flex flex-col flex-1">
+                  <div className="type-caps mb-2 ink-muted">{p.size}</div>
 
-              <div className="p-6 md:p-8 flex flex-col flex-1">
-                <div className="type-caps mb-2 ink-muted">
-                  {kit.size}
+                  <h3 className="mb-3" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)' }}>
+                    {name}
+                  </h3>
+
+                  <p className="type-body mb-4 ink-muted">{t.kitOccasions[p.id] ?? p.description[lang]}</p>
+
+                  {/* mt-auto pins price + CTA to the bottom so they line up across cards. */}
+                  <div className="type-serif mt-auto mb-2" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)' }}>
+                    {t.kitFrom} {locNum(p.priceSek, lang)} kr
+                  </div>
+
+                  <MakeItYoursButton product={p} lang={lang} />
+                  <p className="type-caps ink-muted mt-3">{t.cardPromise}</p>
                 </div>
-
-                <h3 className="mb-3" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)' }}>
-                  {kit.name}
-                </h3>
-
-                <p className="type-body mb-4 opacity-80">
-                  {kit.description}
-                </p>
-
-                {/* mt-auto pins price + CTA to the bottom of the card, so the
-                    Order buttons line up across all three cards regardless of
-                    how many lines each description wraps to. */}
-                <div className="type-serif mt-auto mb-6" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)' }}>
-                  {kit.price}
-                </div>
-
-                <MagneticButton
-                  onClick={() => router.push(`/${lang}/butik`)}
-                  className="type-caps w-full px-6 py-3 transition-all duration-300 hover:bg-[var(--warm-peach)] hover:shadow-lg relative overflow-hidden"
-                  style={{ border: '1px solid var(--warm-cocoa)' }}
-                >
-                  <span className="relative z-10">{t.cta}</span>
-                </MagneticButton>
               </div>
-            </div>
             );
           })}
+        </div>
+
+        {/* The Party Pack, sold by occasion — a first-class option here. */}
+        <div className="mt-16 md:mt-20">
+          <Party lang={lang} />
         </div>
       </div>
     </section>

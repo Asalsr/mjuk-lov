@@ -6,9 +6,14 @@ export type Product = {
   size: string; // e.g. "15 cm" — empty for subscriptions, which use `unit`
   unit?: { sv: string; en: string; fa: string }; // e.g. "12 portions/month" (subscriptions)
   description: { sv: string; en: string; fa: string };
-  priceSek: number; // kronor
+  priceSek: number; // kronor — for the party pack this is the "from" base price
   recurring?: boolean; // subscription billed monthly
   popular?: boolean; // highlighted tier
+  // Product family. "kit" and "party" open the step-by-step configurator;
+  // subscriptions are not configurable. Defaults to "kit" when omitted.
+  kind?: "kit" | "party" | "subscription";
+  configurable?: boolean; // routed through the "Make it yours" configurator
+  leadDays?: number; // minimum days' notice (kit 3, party 7) — see lib/pricing
 };
 
 // Flat delivery fee in kronor (pickup is free).
@@ -23,6 +28,9 @@ export const KITS: Product[] = [
     size: "15 cm",
     priceSek: 345,
     popular: true,
+    kind: "kit",
+    configurable: true,
+    leadDays: 3,
     name: { sv: "Standard", en: "Standard", fa: "استاندارد" },
     description: {
       sv: "Perfekt för 6–8 personer. Allt du behöver för att skapa din tårta hemma.",
@@ -34,6 +42,9 @@ export const KITS: Product[] = [
     id: "kit-gift",
     size: "15 cm",
     priceSek: 395,
+    kind: "kit",
+    configurable: true,
+    leadDays: 3,
     name: { sv: "Presentupplaga", en: "Gift Edition", fa: "نسخه هدیه" },
     description: {
       sv: "Som Standard, men i vacker presentask med en hälsning.",
@@ -45,11 +56,35 @@ export const KITS: Product[] = [
     id: "kit-deluxe",
     size: "20 cm",
     priceSek: 445,
+    kind: "kit",
+    configurable: true,
+    leadDays: 3,
     name: { sv: "Deluxe", en: "Deluxe", fa: "دلوکس" },
     description: {
       sv: "För 10–12 personer. Extra höjd, extra smak, extra allt.",
       en: "For 10–12 people. Extra height, extra flavour, extra everything.",
       fa: "برای ۱۰ تا ۱۲ نفر. ارتفاع بیشتر، طعم بیشتر، همه‌چیز بیشتر.",
+    },
+  },
+];
+
+// Party Pack — the same kit, multiplied: one little cake per guest, each
+// decorated by them. `priceSek` is the "from" base (covers two cakes); the
+// configurator adds per-cake and any extras. See lib/pricing for the maths.
+export const PARTY: Product[] = [
+  {
+    id: "party-pack",
+    size: "",
+    priceSek: 390,
+    kind: "party",
+    configurable: true,
+    leadDays: 7,
+    name: { sv: "Festpaket", en: "Party Pack", fa: "بسته جشن" },
+    unit: { sv: "från 2 tårtor", en: "from 2 cakes", fa: "از ۲ کیک" },
+    description: {
+      sv: "En liten tårta per gäst, var och en dekorerad av dem. Dekorerandet är festen.",
+      en: "One little cake per guest, each decorated by them. The decorating is the party.",
+      fa: "یک کیک کوچک برای هر مهمان، هرکدام تزیین‌شده به دست خودشان. تزیین کردن، خودِ جشن است.",
     },
   },
 ];
@@ -100,7 +135,9 @@ export const SUBSCRIPTIONS: Product[] = [
 ];
 
 // Everything orderable, in one list.
-export const PRODUCTS: Product[] = [...KITS, ...SUBSCRIPTIONS];
+export const PRODUCTS: Product[] = [...KITS, ...PARTY, ...SUBSCRIPTIONS];
+
+export const PARTY_PACK = PARTY[0];
 
 export function getProduct(id: string): Product | null {
   return PRODUCTS.find((p) => p.id === id) ?? null;

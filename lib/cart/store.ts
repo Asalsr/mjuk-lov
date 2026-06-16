@@ -1,8 +1,20 @@
 import { useSyncExternalStore } from "react";
+import { configKey, type LineConfig } from "@/lib/pricing";
 
 // Device-local cart. Stays in the browser until the customer submits an order
 // request; nothing hits the server before that.
-export type CartItem = { productId: string; qty: number; message?: string };
+//
+// A line is keyed by `lineId`: for a configured kit/party that's a hash of the
+// configuration (so two Standard kits with different flavours stay separate),
+// and for a plain product it's just the productId (so they merge and bump qty).
+export type CartItem = {
+  lineId: string;
+  productId: string;
+  qty: number;
+  config?: LineConfig; // present for configurable kit/party lines
+  date?: string; // reservation date chosen in the configurator (YYYY-MM-DD)
+  message?: string;
+};
 
 const KEY = "mjuklov_cart";
 let cache: CartItem[] | null = null;
@@ -10,11 +22,34 @@ let cache: CartItem[] | null = null;
 // call makes useSyncExternalStore loop ("getServerSnapshot should be cached").
 const EMPTY: CartItem[] = [];
 
+// Tolerate carts written by an older build: items used to be keyed by productId
+// with no lineId. Backfill lineId so the rest of the app can assume it.
+function migrate(raw: unknown): CartItem[] {
+  if (!Array.isArray(raw)) return [];
+  const out: CartItem[] = [];
+  for (const it of raw) {
+    if (!it || typeof it !== "object") continue;
+    const r = it as Partial<CartItem>;
+    const productId = typeof r.productId === "string" ? r.productId : null;
+    if (!productId) continue;
+    const lineId = typeof r.lineId === "string" && r.lineId ? r.lineId : productId;
+    out.push({
+      lineId,
+      productId,
+      qty: Number(r.qty) || 1,
+      config: r.config,
+      date: r.date,
+      message: r.message,
+    });
+  }
+  return out;
+}
+
 function read(): CartItem[] {
   if (cache) return cache;
   if (typeof window === "undefined") return [];
   try {
-    cache = JSON.parse(localStorage.getItem(KEY) || "[]");
+    cache = migrate(JSON.parse(localStorage.getItem(KEY) || "[]"));
   } catch {
     cache = [];
   }
@@ -59,22 +94,37 @@ export function getCart(): CartItem[] {
   return read();
 }
 
+/** Add a configured line (kit/party). Identical configurations on the same
+ *  reserved date merge and bump quantity rather than stacking duplicate rows. */
+export function addLine(config: LineConfig, opts?: { date?: string; message?: string }) {
+  const date = opts?.date;
+  const lineId = date ? `${configKey(config)}@${date}` : configKey(config);
+  const items = read();
+  const existing = items.find((i) => i.lineId === lineId);
+  if (existing) {
+    write(items.map((i) => (i.lineId === lineId ? { ...i, qty: i.qty + 1 } : i)));
+  } else {
+    write([...items, { lineId, productId: config.productId, qty: 1, config, date, message: opts?.message }]);
+  }
+}
+
+/** Add a plain (non-configured) product, keyed by productId. */
 export function addToCart(productId: string) {
   const items = read();
-  const existing = items.find((i) => i.productId === productId);
-  if (existing) write(items.map((i) => (i.productId === productId ? { ...i, qty: i.qty + 1 } : i)));
-  else write([...items, { productId, qty: 1 }]);
+  const existing = items.find((i) => i.lineId === productId);
+  if (existing) write(items.map((i) => (i.lineId === productId ? { ...i, qty: i.qty + 1 } : i)));
+  else write([...items, { lineId: productId, productId, qty: 1 }]);
 }
-export function setQty(productId: string, qty: number) {
+export function setQty(lineId: string, qty: number) {
   const items = read();
-  if (qty <= 0) write(items.filter((i) => i.productId !== productId));
-  else write(items.map((i) => (i.productId === productId ? { ...i, qty } : i)));
+  if (qty <= 0) write(items.filter((i) => i.lineId !== lineId));
+  else write(items.map((i) => (i.lineId === lineId ? { ...i, qty } : i)));
 }
-export function setItemMessage(productId: string, message: string) {
-  write(read().map((i) => (i.productId === productId ? { ...i, message } : i)));
+export function setItemMessage(lineId: string, message: string) {
+  write(read().map((i) => (i.lineId === lineId ? { ...i, message } : i)));
 }
-export function removeFromCart(productId: string) {
-  write(read().filter((i) => i.productId !== productId));
+export function removeFromCart(lineId: string) {
+  write(read().filter((i) => i.lineId !== lineId));
 }
 export function clearCart() {
   write([]);

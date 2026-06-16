@@ -8,6 +8,7 @@ import { useAddresses, addAddress, deleteAddress, setDefaultAddress } from "@/li
 import { createClient } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
+import { priceLineSek, leadDaysFor, describeLine } from "@/lib/pricing";
 import { LABELS } from "@/lib/allergen/labels";
 import { AddressAutocomplete, type Address } from "./AddressAutocomplete";
 import { ui, locNum, type Lang } from "@/lib/i18n";
@@ -74,19 +75,40 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
     setSelectedAddrId((cur) => (cur === NEW ? addresses[0].id : cur));
   }, [addrLoading, addresses]);
 
+  const lineUnitPrice = (i: (typeof items)[number]) =>
+    i.config ? priceLineSek(i.config) : getProduct(i.productId)?.priceSek ?? 0;
+
   const subtotal = useMemo(
-    () => items.reduce((s, i) => s + (getProduct(i.productId)?.priceSek ?? 0) * i.qty, 0),
+    () =>
+      items.reduce(
+        (s, i) => s + (i.config ? priceLineSek(i.config) : getProduct(i.productId)?.priceSek ?? 0) * i.qty,
+        0,
+      ),
     [items],
   );
   const deliveryFee = fulfilment === "delivery" ? DELIVERY_FEE_SEK : 0;
   const total = subtotal + deliveryFee;
 
-  // Earliest selectable date: today + 3 days (no past, not within the next 2 days).
+  // Earliest selectable date: today + the longest lead time in the cart. A party
+  // pack (7 days) raises the floor for the whole order above a kit's 3 days.
   const minDate = useMemo(() => {
+    const lead = items.reduce(
+      (m, i) => Math.max(m, i.config ? leadDaysFor(i.config) : getProduct(i.productId)?.leadDays ?? 3),
+      3,
+    );
     const d = new Date();
-    d.setDate(d.getDate() + 3);
+    d.setDate(d.getDate() + lead);
     return d.toISOString().slice(0, 10);
-  }, []);
+  }, [items]);
+
+  // Carry over the date chosen in the configurator (the latest one satisfies all).
+  useEffect(() => {
+    const dates = items.map((i) => i.date).filter((d): d is string => !!d);
+    if (!dates.length) return;
+    const latest = dates.slice().sort().at(-1)!;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time prefill from the cart line
+    setDate((d) => d || latest);
+  }, [items]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -175,27 +197,30 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
         <ul className="divide-y" style={{ borderColor: "rgba(61, 42, 34, 0.1)" }}>
           {items.map((i) => {
             const p = getProduct(i.productId);
+            const label = i.config ? describeLine(i.config, lang) : p?.name[lang] ?? i.productId;
             return (
               <li
-                key={i.productId}
+                key={i.lineId}
                 className="py-4 flex items-center justify-between gap-4"
                 style={{ borderColor: "rgba(61, 42, 34, 0.1)" }}
               >
                 <div>
-                  <div className="type-serif" style={{ fontSize: "1.25rem" }}>{p?.name[lang] ?? i.productId}</div>
-                  <div className="type-caps ink-muted">{locNum(p?.priceSek ?? 0, lang)} kr</div>
+                  <div className="type-serif" style={{ fontSize: "1.25rem" }}>{label}</div>
+                  <div className="type-caps ink-muted">
+                    {locNum(lineUnitPrice(i), lang)} kr{i.date && <span> · {locNum(i.date, lang)}</span>}
+                  </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <input
                     type="number"
                     min={1}
                     value={i.qty}
-                    onChange={(e) => setQty(i.productId, parseInt(e.target.value) || 1)}
+                    onChange={(e) => setQty(i.lineId, parseInt(e.target.value) || 1)}
                     aria-label={t.quantity}
                     className="w-16 p-2 type-body bg-transparent"
                     style={inputStyle}
                   />
-                  <button type="button" onClick={() => removeFromCart(i.productId)} className="type-caps ink-muted hover:text-[var(--dusty-terracotta)]">
+                  <button type="button" onClick={() => removeFromCart(i.lineId)} className="type-caps ink-muted hover:text-[var(--dusty-terracotta)]">
                     {t.remove}
                   </button>
                 </div>

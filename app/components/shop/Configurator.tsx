@@ -1,0 +1,483 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { ui, locNum, isRtl, type Lang } from "@/lib/i18n";
+import type { Product } from "@/lib/products";
+import { addLine } from "@/lib/cart/store";
+import {
+  FLAVOURS,
+  FILLINGS,
+  TOOLS,
+  FLAVOUR_LABELS,
+  FILLING_LABELS,
+  TOOL_LABELS,
+  EXTRA_ITEM_SEK,
+  INCLUDED_COLOURS,
+  INCLUDED_TOOLS_DEFAULT,
+  PARTY_MIN_CAKES,
+  PARTY_MAX_SELF_SERVE,
+  defaultKitConfig,
+  defaultPartyConfig,
+  includedToolsFor,
+  toolCount,
+  priceLineSek,
+  leadDaysFor,
+  describeLine,
+  type LineConfig,
+  type KitConfig,
+  type PartyConfig,
+  type Filling,
+  type ToolKey,
+} from "@/lib/pricing";
+
+const KIT_STEPS = ["flavour", "filling", "tools", "date", "review"] as const;
+const PARTY_STEPS = ["cakes", "split", "filling", "tools", "date", "review"] as const;
+
+const cardBtn = (selected: boolean): React.CSSProperties => ({
+  border: "1px solid var(--warm-cocoa)",
+  backgroundColor: selected ? "var(--warm-peach)" : "transparent",
+});
+
+/** Sequential "Make it yours" flow — one decision per screen, a single
+ *  persistent price, and "included vs +29 kr" stated in words. Rendered as a
+ *  modal over the shop. RTL-safe, keyboard-operable. */
+export function Configurator({ product, lang, onClose }: { product: Product; lang: Lang; onClose: () => void }) {
+  const t = ui[lang];
+  const router = useRouter();
+  const rtl = isRtl(lang);
+  const arrow = rtl ? "←" : "→";
+  const back = rtl ? "→" : "←";
+
+  const isParty = product.kind === "party";
+  const steps = isParty ? PARTY_STEPS : KIT_STEPS;
+
+  const [config, setConfig] = useState<LineConfig>(() =>
+    isParty ? defaultPartyConfig(product.id) : defaultKitConfig(product.id),
+  );
+  const [date, setDate] = useState("");
+  const [step, setStep] = useState(0);
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  // Lock background scroll and wire Escape-to-close while the dialog is open.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dialogRef.current?.focus();
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [onClose]);
+
+  const setKit = (patch: Partial<KitConfig>) => setConfig((c) => ({ ...(c as KitConfig), ...patch }));
+  const setParty = (patch: Partial<PartyConfig>) => setConfig((c) => ({ ...(c as PartyConfig), ...patch }));
+
+  const includedTools = isParty ? INCLUDED_TOOLS_DEFAULT : includedToolsFor(product.id);
+
+  // Earliest reservable date for this product's lead time.
+  const minDate = useMemo(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + leadDaysFor(config));
+    return d.toISOString().slice(0, 10);
+  }, [config]);
+
+  const price = priceLineSek(config);
+  const current = steps[step];
+  const onDateStep = current === "date";
+  const canAdvance = !onDateStep || (!!date && date >= minDate);
+
+  const next = () => (step < steps.length - 1 ? setStep((s) => s + 1) : add());
+  const prev = () => (step > 0 ? setStep((s) => s - 1) : onClose());
+
+  const add = () => {
+    addLine(config, { date: date || undefined });
+    onClose();
+    router.push(`/${lang}/varukorg`);
+  };
+
+  // --- shared controls ----------------------------------------------------
+  const setTool = (k: ToolKey, delta: number) => {
+    const c = config;
+    const nextVal = Math.max(0, (c.tools[k] || 0) + delta);
+    if (isParty) setParty({ tools: { ...c.tools, [k]: nextVal } });
+    else setKit({ tools: { ...c.tools, [k]: nextVal } });
+  };
+
+  const toggleFilling = (f: Filling) => {
+    const has = config.fillings.includes(f);
+    let fillings: Filling[];
+    if (has) {
+      if (config.fillings.length === 1) return; // one is always required
+      fillings = config.fillings.filter((x) => x !== f);
+    } else {
+      if (config.fillings.length >= 2) return; // cap at two
+      fillings = [...config.fillings, f];
+    }
+    if (isParty) setParty({ fillings });
+    else setKit({ fillings });
+  };
+
+  const Stepper = ({
+    label,
+    value,
+    onDec,
+    onInc,
+    decDisabled,
+    incDisabled,
+  }: {
+    label: string;
+    value: number;
+    onDec: () => void;
+    onInc: () => void;
+    decDisabled?: boolean;
+    incDisabled?: boolean;
+  }) => (
+    <div className="flex items-center justify-between gap-4 py-3" style={{ borderTop: "1px solid rgba(61, 42, 34, 0.12)" }}>
+      <span className="type-body">{label}</span>
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={onDec}
+          disabled={decDisabled}
+          aria-label={`${t.cfgDecrease}: ${label}`}
+          className="w-9 h-9 type-serif transition-all hover:bg-[var(--warm-peach)] disabled:opacity-30"
+          style={{ border: "1px solid var(--warm-cocoa)" }}
+        >
+          −
+        </button>
+        <span className="type-serif min-w-[1.5rem] text-center" style={{ fontSize: "1.15rem" }}>
+          {locNum(value, lang)}
+        </span>
+        <button
+          type="button"
+          onClick={onInc}
+          disabled={incDisabled}
+          aria-label={`${t.cfgIncrease}: ${label}`}
+          className="w-9 h-9 type-serif transition-all hover:bg-[var(--warm-peach)] disabled:opacity-30"
+          style={{ border: "1px solid var(--warm-cocoa)" }}
+        >
+          +
+        </button>
+      </div>
+    </div>
+  );
+
+  // --- step bodies --------------------------------------------------------
+  const renderFlavour = (c: KitConfig) => (
+    <div role="radiogroup" aria-label={t.cfgFlavourTitle} className="grid grid-cols-2 gap-3">
+      {FLAVOURS.map((f) => {
+        const selected = c.flavour === f;
+        return (
+          <button
+            key={f}
+            type="button"
+            role="radio"
+            aria-checked={selected}
+            onClick={() => setKit({ flavour: f })}
+            className="type-body px-4 py-4 text-start transition-all hover:bg-[var(--warm-peach)]"
+            style={cardBtn(selected)}
+          >
+            {selected && <span aria-hidden="true">✓ </span>}
+            {FLAVOUR_LABELS[f][lang]}
+          </button>
+        );
+      })}
+    </div>
+  );
+
+  const renderFilling = () => {
+    const twoChosen = config.fillings.length >= 2;
+    return (
+      <div className="flex flex-col gap-3">
+        {FILLINGS.map((f) => {
+          const selected = config.fillings.includes(f);
+          return (
+            <button
+              key={f}
+              type="button"
+              aria-pressed={selected}
+              disabled={!selected && twoChosen}
+              onClick={() => toggleFilling(f)}
+              className="type-body px-4 py-3 text-start transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
+              style={cardBtn(selected)}
+            >
+              {selected && <span aria-hidden="true">✓ </span>}
+              {FILLING_LABELS[f][lang]}
+            </button>
+          );
+        })}
+        {twoChosen && (
+          <p className="type-caps" style={{ color: "var(--dusty-wine)" }}>
+            +{locNum(EXTRA_ITEM_SEK, lang)} kr · {t.cfgReasonFilling}
+          </p>
+        )}
+      </div>
+    );
+  };
+
+  const renderTools = () => {
+    const used = toolCount(config.tools);
+    const extra = Math.max(0, used - includedTools);
+    return (
+      <div>
+        {TOOLS.map((k) => (
+          <Stepper
+            key={k}
+            label={TOOL_LABELS[k][lang]}
+            value={config.tools[k] || 0}
+            onDec={() => setTool(k, -1)}
+            onInc={() => setTool(k, +1)}
+            decDisabled={(config.tools[k] || 0) <= 0}
+          />
+        ))}
+        <p className="type-caps mt-4" style={{ color: extra > 0 ? "var(--dusty-wine)" : undefined }}>
+          {extra > 0
+            ? `+${locNum(extra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(extra, lang)} ${t.cfgReasonTool}`
+            : `${locNum(used, lang)} ${t.cfgOfWord} ${locNum(includedTools, lang)} ${t.cfgIncludedWord}`}
+        </p>
+
+        {/* Colours: always 3 included, not a primary control. A single quiet,
+            secondary stepper offers a 4th (kits only). */}
+        {!isParty && (
+          <div className="mt-8 pt-5" style={{ borderTop: "1px solid rgba(61, 42, 34, 0.12)" }}>
+            <p className="type-caps ink-muted mb-1">{t.cfgColoursNote}</p>
+            <Stepper
+              label={t.cfgColoursExtra}
+              value={(config as KitConfig).colours}
+              onDec={() => setKit({ colours: Math.max(INCLUDED_COLOURS, (config as KitConfig).colours - 1) })}
+              onInc={() => setKit({ colours: Math.min(INCLUDED_COLOURS + 3, (config as KitConfig).colours + 1) })}
+              decDisabled={(config as KitConfig).colours <= INCLUDED_COLOURS}
+            />
+            {(config as KitConfig).colours > INCLUDED_COLOURS && (
+              <p className="type-caps" style={{ color: "var(--dusty-wine)" }}>
+                +{locNum(((config as KitConfig).colours - INCLUDED_COLOURS) * EXTRA_ITEM_SEK, lang)} kr ·{" "}
+                {locNum((config as KitConfig).colours - INCLUDED_COLOURS, lang)} {t.cfgReasonColour}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderCakes = (c: PartyConfig) => {
+    const atMax = c.cakes >= PARTY_MAX_SELF_SERVE;
+    const setCakes = (n: number) => {
+      const cakes = Math.min(PARTY_MAX_SELF_SERVE, Math.max(PARTY_MIN_CAKES, n));
+      setParty({ cakes, vanilla: Math.min(c.vanilla, cakes) });
+    };
+    return (
+      <div>
+        <Stepper
+          label={t.cfgCakesAria}
+          value={c.cakes}
+          onDec={() => setCakes(c.cakes - 1)}
+          onInc={() => setCakes(c.cakes + 1)}
+          decDisabled={c.cakes <= PARTY_MIN_CAKES}
+          incDisabled={atMax}
+        />
+        <p className="type-caps ink-muted mt-3">{t.cfgCakesPer}</p>
+        {atMax && (
+          <a
+            href="mailto:mjuklov.se@gmail.com"
+            className="type-caps inline-flex items-center gap-2 mt-4 underline transition-colors hover:text-[var(--dusty-terracotta)]"
+          >
+            {t.cfgCakesContact} <span aria-hidden="true">{arrow}</span>
+          </a>
+        )}
+      </div>
+    );
+  };
+
+  const renderSplit = (c: PartyConfig) => {
+    const choc = c.cakes - c.vanilla;
+    const setVanilla = (v: number) => setParty({ vanilla: Math.min(c.cakes, Math.max(0, v)) });
+    return (
+      <div>
+        <Stepper
+          label={FLAVOUR_LABELS.vanilla[lang]}
+          value={c.vanilla}
+          onDec={() => setVanilla(c.vanilla - 1)}
+          onInc={() => setVanilla(c.vanilla + 1)}
+          decDisabled={c.vanilla <= 0}
+          incDisabled={c.vanilla >= c.cakes}
+        />
+        <Stepper
+          label={FLAVOUR_LABELS.chocolate[lang]}
+          value={choc}
+          onDec={() => setVanilla(c.vanilla + 1)}
+          onInc={() => setVanilla(c.vanilla - 1)}
+          decDisabled={choc <= 0}
+          incDisabled={choc >= c.cakes}
+        />
+      </div>
+    );
+  };
+
+  const renderDate = () => (
+    <div>
+      <input
+        type="date"
+        value={date}
+        min={minDate}
+        onChange={(e) => setDate(e.target.value)}
+        aria-label={t.cfgDateTitle}
+        className="p-3 type-body bg-transparent w-full"
+        style={{ border: "1px solid rgba(61, 42, 34, 0.2)" }}
+      />
+    </div>
+  );
+
+  const renderReview = () => {
+    const extras: string[] = [];
+    const fillExtra = config.fillings.length - 1;
+    if (fillExtra > 0) extras.push(`+${locNum(fillExtra * EXTRA_ITEM_SEK, lang)} kr · ${t.cfgReasonFilling}`);
+    const toolExtra = Math.max(0, toolCount(config.tools) - includedTools);
+    if (toolExtra > 0)
+      extras.push(`+${locNum(toolExtra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(toolExtra, lang)} ${t.cfgReasonTool}`);
+    if (!isParty) {
+      const colExtra = (config as KitConfig).colours - INCLUDED_COLOURS;
+      if (colExtra > 0)
+        extras.push(`+${locNum(colExtra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(colExtra, lang)} ${t.cfgReasonColour}`);
+    }
+    return (
+      <div className="flex flex-col gap-4">
+        <p className="type-body">{describeLine(config, lang)}</p>
+        {date && <p className="type-caps ink-muted">{locNum(date, lang)}</p>}
+        {extras.length > 0 && (
+          <ul className="list-none p-0 m-0 flex flex-col gap-1">
+            {extras.map((x, i) => (
+              <li key={i} className="type-caps" style={{ color: "var(--dusty-wine)" }}>
+                {x}
+              </li>
+            ))}
+          </ul>
+        )}
+        <div className="type-serif" style={{ fontSize: "1.5rem" }}>
+          {locNum(price, lang)} kr
+        </div>
+      </div>
+    );
+  };
+
+  const titleFor: Record<string, string> = {
+    flavour: t.cfgFlavourTitle,
+    filling: t.cfgFillingTitle,
+    tools: t.cfgToolsTitle,
+    date: t.cfgDateTitle,
+    review: t.cfgReviewTitle,
+    cakes: t.cfgCakesTitle,
+    split: t.cfgSplitTitle,
+  };
+  const includedFor: Record<string, string | null> = {
+    flavour: t.cfgFlavourIncluded,
+    filling: isParty ? t.cfgFillingPartyIncluded : t.cfgFillingIncluded,
+    tools: product.id === "kit-deluxe" ? t.cfgToolsIncludedDeluxe : t.cfgToolsIncluded,
+    date: isParty ? t.cfgDateIncludedParty : t.cfgDateIncludedKit,
+    review: null,
+    cakes: t.cfgCakesIncluded,
+    split: t.cfgSplitIncluded,
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-[10000] flex items-end sm:items-center justify-center p-0 sm:p-6"
+      style={{ backgroundColor: "rgba(61, 42, 34, 0.45)" }}
+      onClick={onClose}
+    >
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${product.name[lang]} — ${t.makeItYours}`}
+        tabIndex={-1}
+        dir={rtl ? "rtl" : "ltr"}
+        lang={lang}
+        onClick={(e) => e.stopPropagation()}
+        className="w-full sm:max-w-[34rem] max-h-[92vh] flex flex-col focus-visible:outline-none"
+        style={{ backgroundColor: "var(--vanilla-cream)", boxShadow: "0 -8px 40px rgba(61, 42, 34, 0.18)" }}
+      >
+        {/* Header: name + close + progress dots */}
+        <div className="flex items-center justify-between gap-4 px-6 pt-6">
+          <div className="type-caps ink-muted">
+            {t.cfgStepWord} {locNum(step + 1, lang)} {t.cfgOfWord} {locNum(steps.length, lang)} · {product.name[lang]}
+          </div>
+          <button type="button" onClick={onClose} aria-label={t.cfgClose} className="type-caps ink-muted hover:text-[var(--dusty-terracotta)]">
+            ✕
+          </button>
+        </div>
+        <div className="flex gap-1.5 px-6 mt-3" aria-hidden="true">
+          {steps.map((s, i) => (
+            <span
+              key={s}
+              className="h-1 flex-1"
+              style={{ backgroundColor: i <= step ? "var(--dusty-terracotta)" : "rgba(61, 42, 34, 0.15)" }}
+            />
+          ))}
+        </div>
+
+        {/* Step body */}
+        <div className="px-6 py-6 overflow-y-auto">
+          <h2 className="mb-1" style={{ fontSize: "clamp(1.4rem, 3vw, 1.9rem)" }}>
+            {titleFor[current]}
+          </h2>
+          {includedFor[current] && <p className="type-body ink-muted mb-6">{includedFor[current]}</p>}
+          {current === "flavour" && renderFlavour(config as KitConfig)}
+          {current === "filling" && renderFilling()}
+          {current === "tools" && renderTools()}
+          {current === "cakes" && renderCakes(config as PartyConfig)}
+          {current === "split" && renderSplit(config as PartyConfig)}
+          {current === "date" && renderDate()}
+          {current === "review" && renderReview()}
+        </div>
+
+        {/* Footer: single persistent price + Back/Next/Add */}
+        <div
+          className="mt-auto flex items-center justify-between gap-4 px-6 py-4"
+          style={{ borderTop: "1px solid rgba(61, 42, 34, 0.12)" }}
+        >
+          <div className="leading-tight">
+            <div className="type-caps ink-muted">{t.cfgPrice}</div>
+            <div className="type-serif" style={{ fontSize: "1.35rem" }}>
+              {locNum(price, lang)} kr
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={prev}
+              className="type-caps px-4 py-3 transition-colors hover:text-[var(--dusty-terracotta)]"
+            >
+              <span aria-hidden="true">{back}</span> {t.cfgBack}
+            </button>
+            {current === "review" ? (
+              <button
+                type="button"
+                onClick={add}
+                className="type-caps px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
+                style={{ border: "1px solid var(--warm-cocoa)" }}
+              >
+                {t.cfgAddWord} · {locNum(price, lang)} kr
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={next}
+                disabled={!canAdvance}
+                className="type-caps px-5 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
+                style={{ border: "1px solid var(--warm-cocoa)" }}
+              >
+                {t.cfgNext} <span aria-hidden="true">{arrow}</span>
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
