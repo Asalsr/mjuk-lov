@@ -1,15 +1,20 @@
 "use client";
 
-import { useCart, addToCart } from "@/lib/cart/store";
+import { useCart, addToCart, setQty } from "@/lib/cart/store";
 import { ui, locNum, type Lang } from "@/lib/i18n";
 import type { Product } from "@/lib/products";
 
 /** A Cakes & Bakes menu card. Each box-size variant is its own orderable
- *  product (`<menu>-<variant>`), so picking one adds a normal cart line. */
+ *  product (`<menu>-<variant>`). A variant starts with an add (+) button; once
+ *  in the basket it shows a quantity stepper, and decrementing past one removes
+ *  the line — so a customer can set any quantity (or none) right from the card,
+ *  the same as adjusting a line in the basket. */
 export function MenuLineCard({ product, lang }: { product: Product; lang: Lang }) {
   const items = useCart();
   const t = ui[lang];
   const variants = product.variants ?? [];
+
+  const sqBtn: React.CSSProperties = { border: "1px solid var(--warm-cocoa)" };
 
   return (
     <div
@@ -22,24 +27,53 @@ export function MenuLineCard({ product, lang }: { product: Product; lang: Lang }
       <div className="mt-auto flex flex-col gap-2">
         {variants.map((v) => {
           const id = `${product.id}-${v.id}`;
-          const inCart = items.find((i) => i.productId === id);
+          const qty = items.find((i) => i.productId === id)?.qty ?? 0;
           return (
-            <button
+            <div
               key={v.id}
-              type="button"
-              onClick={() => addToCart(id)}
-              className="type-caps w-full px-4 py-2.5 flex items-center justify-between gap-3 transition-all hover:bg-[var(--warm-peach)]"
-              style={{
-                border: "1px solid var(--warm-cocoa)",
-                backgroundColor: inCart ? "var(--warm-peach)" : "transparent",
-              }}
+              className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 py-2.5"
+              style={{ border: "1px solid var(--warm-cocoa)" }}
             >
-              <span>
+              <span className="type-caps">
                 {v.label[lang]}
-                {inCart && ` (${locNum(inCart.qty, lang)})`}
+                <span className="type-price ink-muted ms-2">{locNum(v.priceSek, lang)} kr</span>
               </span>
-              <span className="type-price">{locNum(v.priceSek, lang)} kr</span>
-            </button>
+              {qty === 0 ? (
+                <button
+                  type="button"
+                  onClick={() => addToCart(id)}
+                  aria-label={`${t.addToCart}: ${v.label[lang]}`}
+                  className="type-serif w-11 h-11 leading-none shrink-0 transition-all hover:bg-[var(--warm-peach)]"
+                  style={sqBtn}
+                >
+                  +
+                </button>
+              ) : (
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setQty(id, qty - 1)}
+                    aria-label={`${t.cfgDecrease}: ${v.label[lang]}`}
+                    className="type-serif w-11 h-11 leading-none transition-all hover:bg-[var(--warm-peach)]"
+                    style={sqBtn}
+                  >
+                    −
+                  </button>
+                  <span className="type-price min-w-[1.75rem] text-center" aria-label={t.quantity}>
+                    {locNum(qty, lang)}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => addToCart(id)}
+                    aria-label={`${t.cfgIncrease}: ${v.label[lang]}`}
+                    className="type-serif w-11 h-11 leading-none transition-all hover:bg-[var(--warm-peach)]"
+                    style={sqBtn}
+                  >
+                    +
+                  </button>
+                </div>
+              )}
+            </div>
           );
         })}
       </div>
