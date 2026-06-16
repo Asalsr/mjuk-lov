@@ -52,7 +52,8 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
             <div>
               <div className="type-caps ink-muted mb-4">{t.kitHeroKicker}</div>
-              <h1 className="type-display" style={{ marginBottom: "1.25rem" }}>
+              {/* Hero H1 at 70% of .type-display (clamp 3/6vw/4.5rem) per request. */}
+              <h1 className="type-display" style={{ marginBottom: "1.25rem", fontSize: "clamp(2.1rem, 4.2vw, 3.15rem)" }}>
                 {t.kitHeroTitle}
               </h1>
               <p className="type-body ink-muted mb-6 max-w-md">{t.kitHeroLede}</p>
