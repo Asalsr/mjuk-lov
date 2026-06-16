@@ -68,3 +68,20 @@ real product (a finished white cake the customer decorates). Trilingual sv/en/fa
 
 **Gate:** `tsc --noEmit` ✓ · `vitest` 34/34 ✓ · `npm run build` ✓ · eslint on
 changed files ✓ · contrast audit ✓.
+
+## Follow-up — ported the "Cakes & Bakes" menu line onto this branch
+
+The Cakes & Bakes section lived on `master` (commit `d2a2d8b`) but never on
+`recipe-mini-app`, so it was missing from the home page here. Rather than merge
+master (which carries a *parallel* configurator and would clobber this branch's
+work), the menu line was ported onto this branch's model:
+- `lib/products.ts` — `Product` gained `kind: "menu"`, `variants`, `rotating`;
+  added the `MENU` line (brownie, lemon, cookies, seasonal) and a flattened
+  `MENU_VARIANT_PRODUCTS` so each box size is an orderable line that prices and
+  labels through `getProduct` — no change to the cart/order pipeline.
+- `lib/pricing.ts` — `MENU_BIG_ORDER_QTY`.
+- `lib/i18n.ts` — `menuHeading` / `menuTagline` / `seasonalNote` (sv/en/fa).
+- `app/components/Bakes.tsx` — the homepage "Cakes & bakes" section, rendered
+  after Kits; CTA links to `/[lang]/butik#bakes`.
+- `app/components/shop/MenuLineCard.tsx` — shop card; each variant adds to cart.
+- `app/(home)/page.tsx` + `app/[lang]/butik/page.tsx` — wired in the section.

@@ -7,6 +7,7 @@ import { Header } from '@/app/components/Header';
 import { Hero } from '@/app/components/Hero';
 import { TheIdea } from '@/app/components/TheIdea';
 import { Kits } from '@/app/components/Kits';
+import { Bakes } from '@/app/components/Bakes';
 import { Corporate } from '@/app/components/Corporate';
 import { TheCraft } from '@/app/components/TheCraft';
 import { About } from '@/app/components/About';
@@ -101,6 +102,7 @@ export default function Page() {
         <TheIdea lang={lang} />
         <SectionDivider fromColor="var(--vanilla-cream)" toColor="var(--soft-peach)" />
         <Kits lang={lang} />
+        <Bakes lang={lang} />
         <WaveDivider fromColor="var(--soft-peach)" toColor="var(--vanilla-cream)" />
         <Corporate lang={lang} />
         <SectionDivider fromColor="var(--vanilla-cream)" toColor="rgba(232, 184, 154, 0.2)" />

@@ -341,6 +341,10 @@ export const ui = {
       "Alla får sin egen lilla tårta att dekorera — dekorerandet är festen. Gjort för dagarna som samlar människor: födelsedagar, bemärkelsedagar, babyshower, möhippor, eller en stilla helgeftermiddag med dem du tycker om.",
     partyBlockMeta: "Från 390 kr · minst 7 dagars framförhållning.",
     partyBlockCta: "Planera din fest",
+    // Cakes & Bakes (menu line) — shop section.
+    menuHeading: "Kakor & bakverk",
+    menuTagline: "Bakas på beställning, hämtas eller levereras.",
+    seasonalNote: "Säsongens bakverk — innehållet följer säsongen.",
   },
   en: {
     recipes: "Recipes",
@@ -661,6 +665,10 @@ export const ui = {
       "Everyone gets their own little cake to decorate — the decorating is the party. Made for the days that bring people together: birthdays, anniversaries, baby showers, möhippor, or a slow weekend afternoon with the people you love.",
     partyBlockMeta: "From 390 kr · at least 7 days' notice.",
     partyBlockCta: "Plan your party",
+    // Cakes & Bakes (menu line) — shop section.
+    menuHeading: "Cakes & bakes",
+    menuTagline: "Made to order, picked up or delivered.",
+    seasonalNote: "Seasonal bake — the contents follow the season.",
   },
   fa: {
     recipes: "دستورها",
@@ -981,5 +989,9 @@ export const ui = {
       "هر کس کیک کوچک خودش را برای تزیین دارد — تزیین کردن، خودِ جشن است. ساخته‌شده برای روزهایی که آدم‌ها را کنار هم می‌آورد: تولدها، سالگردها، بیبی‌شاور، مهمانی‌های پیش از عروسی، یا یک بعدازظهر آرامِ آخر هفته با کسانی که دوستشان داری.",
     partyBlockMeta: "از ۳۹۰ کرون · دست‌کم ۷ روز فرصت.",
     partyBlockCta: "جشنت را برنامه‌ریزی کن",
+    // Cakes & Bakes (menu line) — shop section.
+    menuHeading: "کیک و شیرینی",
+    menuTagline: "به‌سفارش پخته می‌شود، تحویل حضوری یا ارسال.",
+    seasonalNote: "شیرینی فصلی — محتوا با فصل تغییر می‌کند.",
   },
 } as const;

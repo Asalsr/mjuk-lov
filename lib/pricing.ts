@@ -21,6 +21,9 @@ export const PARTY_MAX_SELF_SERVE = 10; // 11+ → "contact us"
 export const LEAD_DAYS_KIT = 3;
 export const LEAD_DAYS_PARTY = 7;
 
+// Cakes & Bakes: above this many of one bake, we ask for extra notice.
+export const MENU_BIG_ORDER_QTY = 30;
+
 // --- Option sets ----------------------------------------------------------
 export const FLAVOURS = ["vanilla", "chocolate"] as const;
 export type Flavour = (typeof FLAVOURS)[number];

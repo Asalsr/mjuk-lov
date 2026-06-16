@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import { isLang, ui, locNum, type Lang } from "@/lib/i18n";
-import { KITS, PARTY_PACK, SUBSCRIPTIONS, type Product } from "@/lib/products";
+import { KITS, MENU, PARTY_PACK, SUBSCRIPTIONS, type Product } from "@/lib/products";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { AddToCartButton } from "@/app/components/shop/AddToCartButton";
 import { MakeItYoursButton } from "@/app/components/shop/MakeItYoursButton";
+import { MenuLineCard } from "@/app/components/shop/MenuLineCard";
 import { Party } from "@/app/components/Party";
 
 export const dynamic = "force-dynamic"; // reads ?paid
@@ -109,6 +110,15 @@ export default async function Page({
               <Party lang={lang} />
             </div>
             <ProductCard p={PARTY_PACK} lang={lang} />
+          </div>
+
+          {/* Cakes & bakes (menu line) */}
+          <h2 id="bakes" className="mt-20 md:mt-28 mb-2 scroll-mt-28" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>{t.menuHeading}</h2>
+          <p className="type-body italic ink-muted mb-8 md:mb-10">{t.menuTagline}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+            {MENU.map((p) => (
+              <MenuLineCard key={p.id} product={p} lang={lang} />
+            ))}
           </div>
 
           {/* Corporate subscriptions */}
