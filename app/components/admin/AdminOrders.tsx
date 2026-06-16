@@ -191,12 +191,12 @@ export function AdminOrders({ lang, orders }: { lang: Lang; orders: Order[] }) {
                   {o.fulfilment === "delivery" ? t.delivery : t.pickup}
                   {o.address ? ` · ${o.address}` : ""}
                   {o.desired_date ? ` · ${o.desired_date}` : ""}
-                  {est ? ` · ${t.estTotal}: ${est} kr` : ""}
+                  {est ? <> · {t.estTotal}: <span className="type-price">{est} kr</span></> : ""}
                 </div>
                 {o.dietary && <div className="type-body opacity-80">{t.dietaryNeeds}: {o.dietary}</div>}
                 {o.notes && <div className="type-body opacity-80 mt-1">“{o.notes}”</div>}
                 {o.quoted_price != null && (
-                  <div className="type-body mt-1"><b>{t.confirmedPrice}: {o.quoted_price} kr</b></div>
+                  <div className="type-body mt-1"><b>{t.confirmedPrice}: <span className="type-price">{o.quoted_price} kr</span></b></div>
                 )}
 
                 {/* Contact */}

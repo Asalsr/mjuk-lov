@@ -114,7 +114,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string;
               {lines.map((i, idx) => (
                 <li key={idx} className="flex items-baseline justify-between gap-4 py-2.5" style={{ borderColor: "rgba(61, 42, 34, 0.1)" }}>
                   <span className="type-body">{i.qty}× {lang === "sv" ? i.nameSv : i.name}</span>
-                  {i.priceSek != null && <span className="type-caps ink-muted">{locNum(i.priceSek * i.qty, lang)} kr</span>}
+                  {i.priceSek != null && <span className="type-price ink-muted">{locNum(i.priceSek * i.qty, lang)} kr</span>}
                 </li>
               ))}
             </ul>
@@ -124,7 +124,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string;
           )}
 
           {totalSek != null && (
-            <div className="flex justify-between type-serif mt-4" style={{ fontSize: "1.25rem" }}>
+            <div className="flex justify-between type-price mt-4" style={{ fontSize: "1.25rem" }}>
               <span>{l.total}</span>
               <span>{locNum(totalSek, lang)} kr</span>
             </div>

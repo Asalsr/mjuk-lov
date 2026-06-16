@@ -103,6 +103,10 @@ html[lang="fa"] {
   --font-inter: var(--font-vazir);
   --font-didact: var(--font-vazir);
 }
+/* Vazirmatn has no italic; the product/subhead register stays upright in fa. */
+html[lang="fa"] .type-product {
+  font-style: normal;
+}
 
 @layer base {
   * {
@@ -220,6 +224,23 @@ html[lang="fa"] {
      a stepper/quantity changes (e.g. 9 → 10). */
   font-variant-numeric: lining-nums tabular-nums;
   font-feature-settings: 'lnum' 1, 'tnum' 1;
+}
+
+/* Prices + numbers: a single source of truth. Editorial restraint keeps the
+   serif for words; every price/number reads in Inter with tabular lining
+   figures so amounts align and don't jump as a digit count changes. */
+.type-price {
+  font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+  font-weight: var(--font-weight-medium);
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: 0.01em;
+}
+
+/* Product names + subheadings: the one editorial italic touch (Cormorant). */
+.type-product {
+  font-family: var(--font-cormorant), 'Cormorant Garamond', Garamond, serif;
+  font-style: italic;
+  font-weight: var(--font-weight-normal);
 }
 
 .type-caps {

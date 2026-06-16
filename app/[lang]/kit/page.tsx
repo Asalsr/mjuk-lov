@@ -165,12 +165,12 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
                       href={`/${lang}/kit/${p.id}`}
                       className="transition-colors hover:text-[var(--dusty-terracotta)]"
                     >
-                      <h3 className="mb-3" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}>
+                      <h3 className="type-product mb-3" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}>
                         {p.name[lang]}
                       </h3>
                     </Link>
                     <p className="type-body ink-muted mb-4">{t.kitOccasions[p.id] ?? p.description[lang]}</p>
-                    <div className="type-serif mb-5" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)" }}>
+                    <div className="type-price mb-5" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)" }}>
                       {locNum(p.priceSek, lang)} kr
                     </div>
                     <Link
@@ -323,8 +323,8 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
         }}
       >
         <div className="leading-tight">
-          <div className="type-caps">{leadKit.name[lang]}</div>
-          <div className="type-serif" style={{ fontSize: "1.1rem" }}>
+          <div className="type-product" style={{ fontSize: "1.1rem" }}>{leadKit.name[lang]}</div>
+          <div className="type-price" style={{ fontSize: "1.1rem" }}>
             {t.kitFrom} {locNum(leadKit.priceSek, lang)} kr
           </div>
         </div>

@@ -101,7 +101,7 @@ export const Bakes = ({ lang }: BakesProps) => {
                 boxShadow: '0 4px 20px rgba(61, 42, 34, 0.05)',
               }}
             >
-              <h3 className="type-serif mb-2" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.375rem)' }}>
+              <h3 className="type-product mb-2" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.375rem)' }}>
                 {m.name[lang]}
               </h3>
               {m.rotating && (

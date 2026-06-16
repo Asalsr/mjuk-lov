@@ -205,9 +205,10 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
                 style={{ borderColor: "rgba(61, 42, 34, 0.1)" }}
               >
                 <div>
-                  <div className="type-serif" style={{ fontSize: "1.25rem" }}>{label}</div>
+                  <div className="type-product" style={{ fontSize: "1.25rem" }}>{label}</div>
                   <div className="type-caps ink-muted">
-                    {locNum(lineUnitPrice(i), lang)} kr{i.date && <span> · {locNum(i.date, lang)}</span>}
+                    <span className="type-price" style={{ textTransform: "none" }}>{locNum(lineUnitPrice(i), lang)} kr</span>
+                    {i.date && <span> · {locNum(i.date, lang)}</span>}
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -231,15 +232,15 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
         <div className="mt-4 flex flex-col gap-1">
           <div className="flex justify-between type-body ink-muted">
             <span>{t.subtotal}</span>
-            <span>{locNum(subtotal, lang)} kr</span>
+            <span className="type-price">{locNum(subtotal, lang)} kr</span>
           </div>
           {deliveryFee > 0 && (
             <div className="flex justify-between type-body ink-muted">
               <span>{t.deliveryFee}</span>
-              <span>{locNum(deliveryFee, lang)} kr</span>
+              <span className="type-price">{locNum(deliveryFee, lang)} kr</span>
             </div>
           )}
-          <div className="flex justify-between type-serif mt-1" style={{ fontSize: "1.25rem" }}>
+          <div className="flex justify-between type-price mt-1" style={{ fontSize: "1.25rem" }}>
             <span>{t.total}</span>
             <span>{locNum(total, lang)} kr <span className="type-caps ink-muted">{t.estimated}</span></span>
           </div>

@@ -112,7 +112,7 @@ export function Receipt({
               <tr key={i} style={{ borderBottom: "1px solid rgba(61,42,34,0.1)" }}>
                 <td className="type-body" style={{ padding: "0.4rem 0" }}>{l.name}</td>
                 <td className="type-body" style={{ textAlign: "right", padding: "0.4rem 0" }}>{l.qty}</td>
-                <td className="type-body" style={{ textAlign: "right", padding: "0.4rem 0" }}>{kr(l.lineTotalSek)}</td>
+                <td className="type-price" style={{ textAlign: "right", padding: "0.4rem 0" }}>{kr(l.lineTotalSek)}</td>
               </tr>
             ))}
           </tbody>
@@ -120,15 +120,15 @@ export function Receipt({
 
         <div className="mt-4" style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "0.25rem 1rem", maxWidth: 320, marginLeft: "auto" }}>
           <span className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>Delsumma / Subtotal</span>
-          <span className="type-body" style={{ textAlign: "right" }}>{kr(data.subtotalSek)}</span>
+          <span className="type-price" style={{ textAlign: "right" }}>{kr(data.subtotalSek)}</span>
           {data.deliveryFeeSek > 0 && (
             <>
               <span className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>Leverans / Delivery</span>
-              <span className="type-body" style={{ textAlign: "right" }}>{kr(data.deliveryFeeSek)}</span>
+              <span className="type-price" style={{ textAlign: "right" }}>{kr(data.deliveryFeeSek)}</span>
             </>
           )}
           <span className="type-caps" style={{ fontSize: "0.875rem" }}>Totalt / Total</span>
-          <span className="type-serif" style={{ textAlign: "right", fontSize: "1.15rem" }}>{kr(data.totalSek)}</span>
+          <span className="type-price" style={{ textAlign: "right", fontSize: "1.15rem" }}>{kr(data.totalSek)}</span>
         </div>
 
         <p className="type-caps ink-muted mt-6" style={{ fontSize: "0.75rem" }}>

@@ -152,7 +152,7 @@ export function OrdersClient({ orders, lang }: { orders: OrderView[]; lang: Lang
                     </span>
                     <span className="type-body">{orderSummary(o, lang)}</span>
                     {total != null && (
-                      <span className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>{locNum(total, lang)} kr</span>
+                      <span className="type-price ink-muted" style={{ fontSize: "0.75rem" }}>{locNum(total, lang)} kr</span>
                     )}
                   </span>
                   <span

@@ -77,14 +77,14 @@ export const Kits = ({ lang }: KitsProps) => {
                 <div className="p-6 md:p-8 flex flex-col flex-1">
                   <div className="type-caps mb-2 ink-muted">{p.size}</div>
 
-                  <h3 className="mb-3" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)' }}>
+                  <h3 className="type-product mb-3" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)' }}>
                     {name}
                   </h3>
 
                   <p className="type-body mb-4 ink-muted">{t.kitOccasions[p.id] ?? p.description[lang]}</p>
 
                   {/* mt-auto pins price + CTA to the bottom so they line up across cards. */}
-                  <div className="type-serif mt-auto mb-2" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)' }}>
+                  <div className="type-price mt-auto mb-2" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)' }}>
                     {t.kitFrom} {locNum(p.priceSek, lang)} kr
                   </div>
 

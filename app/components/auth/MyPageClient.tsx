@@ -105,7 +105,7 @@ export function MyPageClient({
         </span>
         {o.quoted_price != null && (
           <span className="type-body" style={{ fontSize: "0.875rem" }}>
-            <b>{t.confirmedPrice}: {locNum(o.quoted_price, lang)} kr</b>
+            <b>{t.confirmedPrice}: <span className="type-price">{locNum(o.quoted_price, lang)} kr</span></b>
           </span>
         )}
       </Link>

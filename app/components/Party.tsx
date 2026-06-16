@@ -15,7 +15,7 @@ export function Party({ lang }: { lang: Lang }) {
     >
       <div className="max-w-[46rem]">
         <div className="type-caps ink-muted mb-3">{t.partyEyebrow}</div>
-        <h3 className="mb-5" style={{ fontSize: "clamp(1.75rem, 4vw, 2.6rem)" }}>
+        <h3 className="type-product mb-5" style={{ fontSize: "clamp(1.75rem, 4vw, 2.6rem)" }}>
           {t.partyBlockHeading}
         </h3>
         <p className="type-body mb-5">{t.partyBlockBody}</p>

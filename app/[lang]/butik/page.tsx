@@ -23,7 +23,7 @@ function ProductCard({ p, lang, comingSoon }: { p: Product; lang: Lang; comingSo
         </div>
       )}
       <div className="type-caps ink-muted mb-2">{p.unit ? p.unit[lang] : p.size}</div>
-      <h3 className="mb-3" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}>{p.name[lang]}</h3>
+      <h3 className="type-product mb-3" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}>{p.name[lang]}</h3>
       {comingSoon ? (
         // Pre-launch: no price, no buy button — a solid-token "Coming soon" pill.
         <>
@@ -41,7 +41,7 @@ function ProductCard({ p, lang, comingSoon }: { p: Product; lang: Lang; comingSo
         // Promise, don't expose: just price + one "Make it yours" button, with a
         // quiet line naming what's ahead. No options on the card.
         <>
-          <div className="type-serif mb-6" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)" }}>
+          <div className="type-price mb-6" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)" }}>
             {fromLabel && <span className="type-caps ink-muted">{t.kitFrom} </span>}
             {locNum(p.priceSek, lang)} kr
           </div>
@@ -53,7 +53,7 @@ function ProductCard({ p, lang, comingSoon }: { p: Product; lang: Lang; comingSo
       ) : (
         <>
           <p className="type-body ink-muted mb-4">{p.description[lang]}</p>
-          <div className="type-serif mb-6" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)" }}>
+          <div className="type-price mb-6" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)" }}>
             {locNum(p.priceSek, lang)} kr{p.recurring && <span className="type-caps ink-muted"> {t.perMonth}</span>}
           </div>
           <div className="mt-auto">

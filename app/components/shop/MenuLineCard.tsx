@@ -16,7 +16,7 @@ export function MenuLineCard({ product, lang }: { product: Product; lang: Lang }
       className="p-6 md:p-8 flex flex-col"
       style={{ backgroundColor: "var(--vanilla-cream)", boxShadow: "0 4px 20px rgba(61, 42, 34, 0.05)" }}
     >
-      <h3 className="mb-2" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.6rem)" }}>{product.name[lang]}</h3>
+      <h3 className="type-product mb-2" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.6rem)" }}>{product.name[lang]}</h3>
       <p className="type-body ink-muted mb-4">{product.description[lang]}</p>
       {product.rotating && <p className="type-caps ink-muted mb-4">{t.seasonalNote}</p>}
       <div className="mt-auto flex flex-col gap-2">
@@ -38,7 +38,7 @@ export function MenuLineCard({ product, lang }: { product: Product; lang: Lang }
                 {v.label[lang]}
                 {inCart && ` (${locNum(inCart.qty, lang)})`}
               </span>
-              <span>{locNum(v.priceSek, lang)} kr</span>
+              <span className="type-price">{locNum(v.priceSek, lang)} kr</span>
             </button>
           );
         })}
