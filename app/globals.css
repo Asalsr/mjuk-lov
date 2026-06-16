@@ -284,6 +284,14 @@ html[lang="fa"] {
   }
 }
 
+/* Lightbox (Gallery) — brand the native <dialog> ::backdrop scrim rather than
+   the browser default. The dialog surface itself is styled inline in the
+   component; this only colours the area behind it. */
+.gallery-dialog::backdrop {
+  background: rgba(61, 42, 34, 0.55);
+  backdrop-filter: blur(2px);
+}
+
 /* Reserve space at the bottom of the viewport on mobile so the persistent
    MobileBottomBar (md:hidden, fixed at bottom) never overlaps page content
    — including the footer and call-to-action buttons.

@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type { Lang } from '@/lib/i18n';
+import { ui, type Lang } from '@/lib/i18n';
+import { Gallery } from '@/app/components/Gallery';
 import { Header } from '@/app/components/Header';
 import { Hero } from '@/app/components/Hero';
 import { TheIdea } from '@/app/components/TheIdea';
@@ -104,7 +105,20 @@ export default function Page() {
         <Corporate lang={lang} />
         <SectionDivider fromColor="var(--vanilla-cream)" toColor="rgba(232, 184, 154, 0.2)" />
         <TheCraft lang={lang} />
-        <WaveDivider fromColor="rgba(232, 184, 154, 0.2)" toColor="var(--vanilla-cream)" />
+        <WaveDivider fromColor="rgba(232, 184, 154, 0.2)" toColor="var(--soft-peach)" />
+        <section
+          className="px-4 md:px-8 py-[clamp(3rem,8vw,7rem)]"
+          style={{ backgroundColor: 'var(--soft-peach)' }}
+        >
+          <div className="max-w-[1200px] mx-auto" lang={lang}>
+            <div className="text-center mb-10 md:mb-14">
+              <div className="type-caps ink-muted mb-3">Mjuk&nbsp;Lov</div>
+              <h2 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)' }}>{ui[lang].gallery}</h2>
+            </div>
+            <Gallery lang={lang} limit={6} seeAllHref={`/${lang}/galleri`} />
+          </div>
+        </section>
+        <SectionDivider fromColor="var(--soft-peach)" toColor="var(--vanilla-cream)" />
         <About lang={lang} />
         <SectionDivider fromColor="var(--vanilla-cream)" toColor="var(--warm-cocoa)" />
         <Order lang={lang} />
