@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { fontVars } from "@/app/fonts";
 import { AutoSync } from "@/app/components/auth/AutoSync";
+import { CartSync } from "@/app/components/auth/CartSync";
 
 // The <html>/<body> shell shared by both root layouts. `lang` is set per
 // locale (sv for the home root, the route's [lang] for the localized root) so
@@ -23,6 +24,7 @@ export function RootShell({
       </head>
       <body>
         <AutoSync />
+        <CartSync />
         {children}
         <Analytics />
         <SpeedInsights />

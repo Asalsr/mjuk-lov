@@ -35,6 +35,20 @@ export const TOOLS = ["piping", "brush", "knife"] as const;
 export type ToolKey = (typeof TOOLS)[number];
 export type Tools = Record<ToolKey, number>;
 
+// Curated gel colours we stock. The swatch hex is decorative only — the name is
+// always shown alongside (accessibility), so the fill never carries meaning.
+export const COLOURS = [
+  { key: "blush", hex: "#F4C2C2", label: { sv: "Rosa", en: "Blush pink", fa: "صورتی" } },
+  { key: "sky", hex: "#AFCBE3", label: { sv: "Himmelsblå", en: "Sky blue", fa: "آبی آسمانی" } },
+  { key: "sage", hex: "#B7C4A6", label: { sv: "Salviagrön", en: "Sage green", fa: "سبز مریم‌گلی" } },
+  { key: "butter", hex: "#F3DFA2", label: { sv: "Smörgul", en: "Butter yellow", fa: "زرد کره‌ای" } },
+  { key: "terracotta", hex: "#A85D4E", label: { sv: "Terrakotta", en: "Terracotta", fa: "تراکوتا" } },
+  { key: "lilac", hex: "#C9B6D6", label: { sv: "Lila", en: "Lilac", fa: "یاسی" } },
+  { key: "cocoa", hex: "#6B4A39", label: { sv: "Kakao", en: "Cocoa", fa: "کاکائو" } },
+  { key: "natural", hex: "#F3ECE0", label: { sv: "Naturvit", en: "Natural", fa: "طبیعی" } },
+] as const;
+export type ColourKey = (typeof COLOURS)[number]["key"];
+
 // --- Config shapes --------------------------------------------------------
 export type KitConfig = {
   kind: "kit";
@@ -42,7 +56,7 @@ export type KitConfig = {
   flavour: Flavour;
   fillings: Filling[]; // 1–2
   tools: Tools; // counts per tool
-  colours: number; // ≥ INCLUDED_COLOURS
+  colours: ColourKey[]; // chosen shades; INCLUDED_COLOURS free, extras +EXTRA_ITEM_SEK each
 };
 
 export type PartyConfig = {
@@ -91,7 +105,9 @@ export function defaultKitConfig(productId: string): KitConfig {
   const included = includedToolsFor(productId);
   // Spread the included tools across piping + brush (and knife on Deluxe).
   const tools: Tools = { piping: 1, brush: 1, knife: included >= 3 ? 1 : 0 };
-  return { kind: "kit", productId, flavour: "vanilla", fillings: ["berries"], tools, colours: INCLUDED_COLOURS };
+  // Default to the first INCLUDED_COLOURS curated shades (an even, pretty trio).
+  const colours = COLOURS.slice(0, INCLUDED_COLOURS).map((c) => c.key);
+  return { kind: "kit", productId, flavour: "vanilla", fillings: ["berries"], tools, colours };
 }
 
 export function defaultPartyConfig(productId = "party-pack"): PartyConfig {
@@ -121,7 +137,7 @@ export function extraTools(cfg: LineConfig): number {
 }
 
 export function extraColours(cfg: LineConfig): number {
-  return cfg.kind === "kit" ? Math.max(0, cfg.colours - INCLUDED_COLOURS) : 0;
+  return cfg.kind === "kit" ? Math.max(0, cfg.colours.length - INCLUDED_COLOURS) : 0;
 }
 
 // --- Price ----------------------------------------------------------------
@@ -166,7 +182,11 @@ export function describeLine(cfg: LineConfig, lang: Lang): string {
       .join(sep);
   }
 
-  return [name, FLAVOUR_LABELS[cfg.flavour][lang], fillings, toolBits.join(", ")]
+  // List chosen shades in palette order for a stable, readable summary.
+  const colours = COLOURS.filter((c) => cfg.colours.includes(c.key))
+    .map((c) => c.label[lang])
+    .join(", ");
+  return [name, FLAVOUR_LABELS[cfg.flavour][lang], fillings, toolBits.join(", "), colours]
     .filter(Boolean)
     .join(sep);
 }
@@ -190,6 +210,6 @@ export function configKey(cfg: LineConfig): string {
     cfg.flavour,
     cfg.fillings.slice().sort().join("+"),
     TOOLS.map((k) => `${k}:${cfg.tools[k] || 0}`).join(","),
-    `c:${cfg.colours}`,
+    `c:${cfg.colours.slice().sort().join("+")}`,
   ].join("|");
 }

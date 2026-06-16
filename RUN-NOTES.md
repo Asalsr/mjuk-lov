@@ -85,3 +85,67 @@ work), the menu line was ported onto this branch's model:
   after Kits; CTA links to `/[lang]/butik#bakes`.
 - `app/components/shop/MenuLineCard.tsx` — shop card; each variant adds to cart.
 - `app/(home)/page.tsx` + `app/[lang]/butik/page.tsx` — wired in the section.
+
+## Revision — configurator fixes, colour picker + cart persistence
+
+**One configurator only.** This branch already had a single configurator — the
+step wizard (`app/components/shop/Configurator.tsx`), opened everywhere via
+`MakeItYoursButton`. No stacked-form remnant exists here; nothing to delete.
+**Note for the future merge:** when this branch lands on `master`, the wizard
+*supersedes* master's older single-screen `KitConfigurator` entirely — replace
+it, don't merge master's configurator in.
+
+**Flavour split → one auto-balancing slider.** The party "Flavour split" step's
+two steppers are replaced by a single brand-styled range slider
+(`.flavour-slider` in `globals.css`: zero radius, warm-cocoa track, terracotta
+44px-tall handle). Live label "Vanilla {n} · Chocolate {m}" always sums to the
+cake count — no second control, no wrong total, no error state. Keyboard/touch
+operable with `aria-label` + `aria-valuetext`. Changing the cake count now
+**rescales the split proportionally** and re-clamps so it still sums.
+- Data model: the split is already carried end-to-end via `PartyConfig.vanilla`
+  (chocolate = cakes − vanilla) — through `configKey`, `describeLine`, the cart
+  line, the `orders.items` JSONB and the owner email. **Deviation from the
+  brief:** I did *not* add a redundant `flavourSplit?: {vanilla,chocolate}` field
+  — `vanilla` is the single source of truth and a parallel object would risk
+  desync. The acceptance ("split appears in cart line, order record and owner
+  email") holds via `describeLine` ("… 5 vanilla / 5 chocolate …").
+
+**Open/close = click only.** Already click-to-open; verified there is no
+hover-driven open/close anywhere in the flow. Added a real **focus trap** (Tab
+cycles inside the dialog), **focus restore** to the trigger on close, and
+`aria-labelledby` pointing at the step heading. Closes only via ✕ / backdrop /
+Esc.
+
+**Responsiveness.** Modal is a full-width bottom sheet under `sm`; stepper
+buttons bumped to 44px, colour tiles ≥44px, ✕ given a 44px hit area; slider and
+footer stack cleanly at ~360px. RTL (fa) mirrors via the dialog `dir`.
+
+**Colour CHOICE (replaces the colour count stepper).** New **Colours** step with
+named swatches. `lib/pricing.ts` defines `COLOURS` (8 curated gels, trilingual
+label + decorative hex) and `KitConfig.colours` is now a `ColourKey[]` (was a
+number). 3 included free; 4th+ adds 29 kr each with the same "+29 kr · 1 extra"
+reason label; min 3, cap 9. Swatches are tiles with a colour chip **plus the
+name** (never colour alone), `role="checkbox"`/`aria-checked`, check + terracotta
+ring when selected, zero radius. `describeLine` lists chosen shades; `configKey`
+and pricing updated; vitest cases updated (3 = no fee, 4 = +29).
+
+**Persistence — two layers.**
+- *Layer A (drafts, everyone incl. guests):* `lib/cart/draft.ts` saves the
+  working `LineConfig` + date to `localStorage` (`mjuklov_draft_<productId>`),
+  debounced; the configurator hydrates from it on open and clears it on add.
+- *Layer B (account cart sync, logged-in):* migration
+  `supabase/migrations/20260616120000_carts.sql` adds `public.carts`
+  (`user_id` PK → `auth.users` on delete cascade, `items jsonb`, `updated_at`),
+  **RLS on, owner-only** select/insert/update/delete (idempotent, mirrors the
+  wishlist migration). `lib/cart/store.ts` write-through upserts (debounced) when
+  authed; `app/components/auth/CartSync.tsx` (mounted in `RootShell` beside
+  `AutoSync`) merges device-local + server carts **once per login** (union by
+  `lineId`, summing qty), adopts the merged cart and writes it back; logout falls
+  back to local. All server calls best-effort/wrapped — a sync failure never
+  blocks add-to-cart. Guests unchanged.
+
+**i18n:** added `cfgSplitAria`, `cfgColoursTitle`, `cfgColoursPick` (sv/en/fa);
+removed the now-unused colour-count strings.
+
+**Gate:** `tsc --noEmit` ✓ · `vitest` 35/35 ✓ · `npm run build` ✓ · eslint on
+changed files ✓ · contrast audit unchanged (baseline; no text-opacity added).

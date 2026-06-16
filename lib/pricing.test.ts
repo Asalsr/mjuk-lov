@@ -36,8 +36,13 @@ describe("priceLineSek — kits", () => {
     expect(priceLineSek(cfg)).toBe(445);
   });
 
+  it("three chosen colours are included — no fee", () => {
+    const cfg: KitConfig = { ...defaultKitConfig("kit-standard"), colours: ["blush", "sky", "sage"] };
+    expect(priceLineSek(cfg)).toBe(345);
+  });
+
   it("a fourth colour adds one fee", () => {
-    const cfg: KitConfig = { ...defaultKitConfig("kit-standard"), colours: 4 };
+    const cfg: KitConfig = { ...defaultKitConfig("kit-standard"), colours: ["blush", "sky", "sage", "butter"] };
     expect(priceLineSek(cfg)).toBe(345 + EXTRA_ITEM_SEK);
   });
 });

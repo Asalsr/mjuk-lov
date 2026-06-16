@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 import { ui, locNum, isRtl, type Lang } from "@/lib/i18n";
 import type { Product } from "@/lib/products";
 import { addLine } from "@/lib/cart/store";
+import { loadDraft, saveDraft, clearDraft } from "@/lib/cart/draft";
 import {
   FLAVOURS,
   FILLINGS,
   TOOLS,
+  COLOURS,
   FLAVOUR_LABELS,
   FILLING_LABELS,
   TOOL_LABELS,
@@ -29,9 +31,13 @@ import {
   type PartyConfig,
   type Filling,
   type ToolKey,
+  type ColourKey,
 } from "@/lib/pricing";
 
-const KIT_STEPS = ["flavour", "filling", "tools", "date", "review"] as const;
+// Max shades a customer can pick: the included trio plus six extras.
+const MAX_COLOURS = INCLUDED_COLOURS + 6;
+
+const KIT_STEPS = ["flavour", "filling", "colour", "tools", "date", "review"] as const;
 const PARTY_STEPS = ["cakes", "split", "filling", "tools", "date", "review"] as const;
 
 const cardBtn = (selected: boolean): React.CSSProperties => ({
@@ -52,17 +58,44 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
   const isParty = product.kind === "party";
   const steps = isParty ? PARTY_STEPS : KIT_STEPS;
 
-  const [config, setConfig] = useState<LineConfig>(() =>
-    isParty ? defaultPartyConfig(product.id) : defaultKitConfig(product.id),
+  // Layer A persistence: restore an in-progress draft (guest or logged-in) if one
+  // was saved for this product; otherwise start from the defaults.
+  const [config, setConfig] = useState<LineConfig>(
+    () => loadDraft(product.id)?.config ?? (isParty ? defaultPartyConfig(product.id) : defaultKitConfig(product.id)),
   );
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(() => loadDraft(product.id)?.date ?? "");
   const [step, setStep] = useState(0);
   const dialogRef = useRef<HTMLDivElement>(null);
 
-  // Lock background scroll and wire Escape-to-close while the dialog is open.
+  // Lock background scroll, trap focus inside the dialog, wire Escape-to-close,
+  // and restore focus to the trigger on close. Opens on click and only closes
+  // via ✕ / backdrop / Esc — there is no hover-driven open/close anywhere.
   useEffect(() => {
+    const previouslyFocused = document.activeElement as HTMLElement | null;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const root = dialogRef.current;
+      if (!root) return;
+      const focusable = Array.from(
+        root.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((el) => el.offsetParent !== null || el === root);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+      if (e.shiftKey && (active === first || active === root)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow;
@@ -71,8 +104,15 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
+      previouslyFocused?.focus?.();
     };
   }, [onClose]);
+
+  // Layer A persistence: debounce-save the working draft as choices change.
+  useEffect(() => {
+    const id = setTimeout(() => saveDraft(product.id, { config, date: date || undefined }), 400);
+    return () => clearTimeout(id);
+  }, [config, date, product.id]);
 
   const setKit = (patch: Partial<KitConfig>) => setConfig((c) => ({ ...(c as KitConfig), ...patch }));
   const setParty = (patch: Partial<PartyConfig>) => setConfig((c) => ({ ...(c as PartyConfig), ...patch }));
@@ -96,6 +136,7 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
 
   const add = () => {
     addLine(config, { date: date || undefined });
+    clearDraft(product.id); // committed to cart — drop the in-progress draft
     onClose();
     router.push(`/${lang}/varukorg`);
   };
@@ -122,6 +163,18 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
     else setKit({ fillings });
   };
 
+  const toggleColour = (key: ColourKey) => {
+    const c = config as KitConfig;
+    const has = c.colours.includes(key);
+    if (has) {
+      if (c.colours.length <= INCLUDED_COLOURS) return; // can't drop below the included count
+      setKit({ colours: c.colours.filter((k) => k !== key) });
+    } else {
+      if (c.colours.length >= MAX_COLOURS) return; // cap at included + 6
+      setKit({ colours: [...c.colours, key] });
+    }
+  };
+
   const Stepper = ({
     label,
     value,
@@ -145,7 +198,7 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
           onClick={onDec}
           disabled={decDisabled}
           aria-label={`${t.cfgDecrease}: ${label}`}
-          className="w-9 h-9 type-serif transition-all hover:bg-[var(--warm-peach)] disabled:opacity-30"
+          className="w-11 h-11 type-serif transition-all hover:bg-[var(--warm-peach)] disabled:opacity-30"
           style={{ border: "1px solid var(--warm-cocoa)" }}
         >
           −
@@ -158,7 +211,7 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
           onClick={onInc}
           disabled={incDisabled}
           aria-label={`${t.cfgIncrease}: ${label}`}
-          className="w-9 h-9 type-serif transition-all hover:bg-[var(--warm-peach)] disabled:opacity-30"
+          className="w-11 h-11 type-serif transition-all hover:bg-[var(--warm-peach)] disabled:opacity-30"
           style={{ border: "1px solid var(--warm-cocoa)" }}
         >
           +
@@ -240,27 +293,49 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
             ? `+${locNum(extra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(extra, lang)} ${t.cfgReasonTool}`
             : `${locNum(used, lang)} ${t.cfgOfWord} ${locNum(includedTools, lang)} ${t.cfgIncludedWord}`}
         </p>
+      </div>
+    );
+  };
 
-        {/* Colours: always 3 included, not a primary control. A single quiet,
-            secondary stepper offers a 4th (kits only). */}
-        {!isParty && (
-          <div className="mt-8 pt-5" style={{ borderTop: "1px solid rgba(61, 42, 34, 0.12)" }}>
-            <p className="type-caps ink-muted mb-1">{t.cfgColoursNote}</p>
-            <Stepper
-              label={t.cfgColoursExtra}
-              value={(config as KitConfig).colours}
-              onDec={() => setKit({ colours: Math.max(INCLUDED_COLOURS, (config as KitConfig).colours - 1) })}
-              onInc={() => setKit({ colours: Math.min(INCLUDED_COLOURS + 3, (config as KitConfig).colours + 1) })}
-              decDisabled={(config as KitConfig).colours <= INCLUDED_COLOURS}
-            />
-            {(config as KitConfig).colours > INCLUDED_COLOURS && (
-              <p className="type-caps" style={{ color: "var(--dusty-wine)" }}>
-                +{locNum(((config as KitConfig).colours - INCLUDED_COLOURS) * EXTRA_ITEM_SEK, lang)} kr ·{" "}
-                {locNum((config as KitConfig).colours - INCLUDED_COLOURS, lang)} {t.cfgReasonColour}
-              </p>
-            )}
-          </div>
-        )}
+  const renderColours = (c: KitConfig) => {
+    const extra = Math.max(0, c.colours.length - INCLUDED_COLOURS);
+    return (
+      <div>
+        <div role="group" aria-label={t.cfgColoursTitle} className="grid grid-cols-2 gap-3">
+          {COLOURS.map(({ key, hex, label }) => {
+            const selected = c.colours.includes(key);
+            const atCap = !selected && c.colours.length >= MAX_COLOURS;
+            return (
+              <button
+                key={key}
+                type="button"
+                role="checkbox"
+                aria-checked={selected}
+                disabled={atCap}
+                onClick={() => toggleColour(key)}
+                className="type-body flex items-center gap-3 px-3 py-3 text-start transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
+                style={{
+                  minHeight: "44px",
+                  border: selected ? "2px solid var(--dusty-terracotta)" : "1px solid var(--warm-cocoa)",
+                  backgroundColor: selected ? "var(--warm-peach)" : "transparent",
+                }}
+              >
+                <span
+                  aria-hidden="true"
+                  className="inline-block shrink-0"
+                  style={{ width: "1.5rem", height: "1.5rem", backgroundColor: hex, border: "1px solid rgba(61, 42, 34, 0.25)" }}
+                />
+                <span className="flex-1">{label[lang]}</span>
+                {selected && <span aria-hidden="true">✓</span>}
+              </button>
+            );
+          })}
+        </div>
+        <p className="type-caps mt-4" style={{ color: extra > 0 ? "var(--dusty-wine)" : undefined }}>
+          {extra > 0
+            ? `+${locNum(extra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(extra, lang)} ${t.cfgReasonColour}`
+            : `${locNum(c.colours.length, lang)} ${t.cfgOfWord} ${locNum(INCLUDED_COLOURS, lang)} ${t.cfgIncludedWord}`}
+        </p>
       </div>
     );
   };
@@ -269,7 +344,10 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
     const atMax = c.cakes >= PARTY_MAX_SELF_SERVE;
     const setCakes = (n: number) => {
       const cakes = Math.min(PARTY_MAX_SELF_SERVE, Math.max(PARTY_MIN_CAKES, n));
-      setParty({ cakes, vanilla: Math.min(c.vanilla, cakes) });
+      // Rescale the split proportionally and re-clamp so it still sums to cakes.
+      const vanilla =
+        c.cakes > 0 ? Math.min(cakes, Math.max(0, Math.round((c.vanilla / c.cakes) * cakes))) : Math.ceil(cakes / 2);
+      setParty({ cakes, vanilla });
     };
     return (
       <div>
@@ -296,24 +374,24 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
 
   const renderSplit = (c: PartyConfig) => {
     const choc = c.cakes - c.vanilla;
-    const setVanilla = (v: number) => setParty({ vanilla: Math.min(c.cakes, Math.max(0, v)) });
+    // One auto-balancing control: the divide always sums to the cake count, so
+    // there's no way to produce a wrong total and no error state.
+    const splitLabel = `${FLAVOUR_LABELS.vanilla[lang]} ${locNum(c.vanilla, lang)} · ${FLAVOUR_LABELS.chocolate[lang]} ${locNum(choc, lang)}`;
     return (
       <div>
-        <Stepper
-          label={FLAVOUR_LABELS.vanilla[lang]}
+        <div className="type-serif text-center mb-5" style={{ fontSize: "1.3rem" }}>
+          {splitLabel}
+        </div>
+        <input
+          type="range"
+          className="flavour-slider w-full"
+          min={0}
+          max={c.cakes}
+          step={1}
           value={c.vanilla}
-          onDec={() => setVanilla(c.vanilla - 1)}
-          onInc={() => setVanilla(c.vanilla + 1)}
-          decDisabled={c.vanilla <= 0}
-          incDisabled={c.vanilla >= c.cakes}
-        />
-        <Stepper
-          label={FLAVOUR_LABELS.chocolate[lang]}
-          value={choc}
-          onDec={() => setVanilla(c.vanilla + 1)}
-          onInc={() => setVanilla(c.vanilla - 1)}
-          decDisabled={choc <= 0}
-          incDisabled={choc >= c.cakes}
+          onChange={(e) => setParty({ vanilla: Math.min(c.cakes, Math.max(0, Number(e.target.value))) })}
+          aria-label={t.cfgSplitAria}
+          aria-valuetext={splitLabel}
         />
       </div>
     );
@@ -341,7 +419,7 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
     if (toolExtra > 0)
       extras.push(`+${locNum(toolExtra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(toolExtra, lang)} ${t.cfgReasonTool}`);
     if (!isParty) {
-      const colExtra = (config as KitConfig).colours - INCLUDED_COLOURS;
+      const colExtra = (config as KitConfig).colours.length - INCLUDED_COLOURS;
       if (colExtra > 0)
         extras.push(`+${locNum(colExtra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(colExtra, lang)} ${t.cfgReasonColour}`);
     }
@@ -368,6 +446,7 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
   const titleFor: Record<string, string> = {
     flavour: t.cfgFlavourTitle,
     filling: t.cfgFillingTitle,
+    colour: t.cfgColoursTitle,
     tools: t.cfgToolsTitle,
     date: t.cfgDateTitle,
     review: t.cfgReviewTitle,
@@ -377,6 +456,7 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
   const includedFor: Record<string, string | null> = {
     flavour: t.cfgFlavourIncluded,
     filling: isParty ? t.cfgFillingPartyIncluded : t.cfgFillingIncluded,
+    colour: t.cfgColoursPick,
     tools: product.id === "kit-deluxe" ? t.cfgToolsIncludedDeluxe : t.cfgToolsIncluded,
     date: isParty ? t.cfgDateIncludedParty : t.cfgDateIncludedKit,
     review: null,
@@ -394,7 +474,7 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
-        aria-label={`${product.name[lang]} — ${t.makeItYours}`}
+        aria-labelledby="cfg-heading"
         tabIndex={-1}
         dir={rtl ? "rtl" : "ltr"}
         lang={lang}
@@ -407,7 +487,12 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
           <div className="type-caps ink-muted">
             {t.cfgStepWord} {locNum(step + 1, lang)} {t.cfgOfWord} {locNum(steps.length, lang)} · {product.name[lang]}
           </div>
-          <button type="button" onClick={onClose} aria-label={t.cfgClose} className="type-caps ink-muted hover:text-[var(--dusty-terracotta)]">
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={t.cfgClose}
+            className="type-caps ink-muted hover:text-[var(--dusty-terracotta)] p-2 -m-2"
+          >
             ✕
           </button>
         </div>
@@ -423,12 +508,13 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
 
         {/* Step body */}
         <div className="px-6 py-6 overflow-y-auto">
-          <h2 className="mb-1" style={{ fontSize: "clamp(1.4rem, 3vw, 1.9rem)" }}>
+          <h2 id="cfg-heading" className="mb-1" style={{ fontSize: "clamp(1.4rem, 3vw, 1.9rem)" }}>
             {titleFor[current]}
           </h2>
           {includedFor[current] && <p className="type-body ink-muted mb-6">{includedFor[current]}</p>}
           {current === "flavour" && renderFlavour(config as KitConfig)}
           {current === "filling" && renderFilling()}
+          {current === "colour" && renderColours(config as KitConfig)}
           {current === "tools" && renderTools()}
           {current === "cakes" && renderCakes(config as PartyConfig)}
           {current === "split" && renderSplit(config as PartyConfig)}

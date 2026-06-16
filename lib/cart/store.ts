@@ -1,5 +1,7 @@
 import { useSyncExternalStore } from "react";
 import { configKey, type LineConfig } from "@/lib/pricing";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { createClient } from "@/lib/supabase/client";
 
 // Device-local cart. Stays in the browser until the customer submits an order
 // request; nothing hits the server before that.
@@ -56,7 +58,7 @@ function read(): CartItem[] {
   return cache!;
 }
 
-function write(next: CartItem[]) {
+function write(next: CartItem[], { sync = true }: { sync?: boolean } = {}) {
   cache = next;
   if (typeof window !== "undefined") {
     try {
@@ -66,6 +68,10 @@ function write(next: CartItem[]) {
     }
   }
   emit();
+  // Mirror to the account (Layer B) for logged-in users. `sync: false` is used
+  // when the write *originated* from the server (hydrate) so we don't echo it
+  // straight back.
+  if (sync) schedulePush();
 }
 
 const listeners = new Set<() => void>();
@@ -131,4 +137,63 @@ export function clearCart() {
 }
 export function cartCount(items: CartItem[]): number {
   return items.reduce((n, i) => n + i.qty, 0);
+}
+
+// --- Account cart sync (Layer B) ---------------------------------------------
+// Logged-in customers see their cart from any browser/device. The CartSync
+// component (mounted globally) drives login/logout transitions; mutations made
+// while signed in write through here, debounced. Every server call is
+// best-effort and wrapped — a failed sync never blocks adding to cart.
+
+let _sb: ReturnType<typeof createClient> | null = null;
+function sb() {
+  if (!isSupabaseConfigured) return null;
+  if (!_sb) _sb = createClient();
+  return _sb;
+}
+
+let authedUserId: string | null = null;
+let pushTimer: ReturnType<typeof setTimeout> | null = null;
+
+/** Set by CartSync on auth changes. Null when logged out (guest = local-only). */
+export function setCartAuthUser(userId: string | null) {
+  authedUserId = userId;
+}
+
+function schedulePush() {
+  if (!authedUserId) return;
+  if (pushTimer) clearTimeout(pushTimer);
+  pushTimer = setTimeout(() => {
+    pushTimer = null;
+    void pushCartNow();
+  }, 600);
+}
+
+/** Upsert the current cart to the account row (last-write-wins via updated_at). */
+export async function pushCartNow(): Promise<void> {
+  const uid = authedUserId;
+  if (!uid) return;
+  try {
+    const s = sb();
+    if (!s) return;
+    await s.from("carts").upsert({ user_id: uid, items: read(), updated_at: new Date().toISOString() });
+  } catch {
+    /* best-effort — local stays the source of truth */
+  }
+}
+
+/** Replace the local cart from the server without echoing the write back up. */
+export function hydrateCart(items: CartItem[]) {
+  write(migrate(items), { sync: false });
+}
+
+/** Merge two carts by lineId, summing quantity on identical configurations. */
+export function mergeCarts(a: CartItem[], b: CartItem[]): CartItem[] {
+  const byId = new Map<string, CartItem>();
+  for (const it of [...a, ...b]) {
+    const existing = byId.get(it.lineId);
+    if (existing) byId.set(it.lineId, { ...existing, qty: existing.qty + it.qty });
+    else byId.set(it.lineId, { ...it });
+  }
+  return Array.from(byId.values());
 }
