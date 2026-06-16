@@ -204,6 +204,10 @@ html[lang="fa"] {
   line-height: 1.05;
   letter-spacing: -0.01em;
   font-weight: var(--font-weight-normal);
+  /* Cormorant defaults to old-style figures (numerals that dip below the
+     baseline). Force lining figures so any number reads level with the UI. */
+  font-variant-numeric: lining-nums;
+  font-feature-settings: 'lnum' 1;
 }
 
 .type-serif {
@@ -211,6 +215,11 @@ html[lang="fa"] {
   font-size: clamp(1.5rem, 3vw, 2.25rem);
   line-height: 1.5;
   font-weight: var(--font-weight-normal);
+  /* Lining + tabular figures: prices and counts sit on a straight baseline and
+     are equal-width, so they align with the rest of the app and don't shift as
+     a stepper/quantity changes (e.g. 9 → 10). */
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
 }
 
 .type-caps {
