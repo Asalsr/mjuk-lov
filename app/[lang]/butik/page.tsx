@@ -6,14 +6,14 @@ import { AddToCartButton } from "@/app/components/shop/AddToCartButton";
 
 export const dynamic = "force-dynamic"; // reads ?paid
 
-function ProductCard({ p, lang }: { p: Product; lang: Lang }) {
+function ProductCard({ p, lang, comingSoon }: { p: Product; lang: Lang; comingSoon?: boolean }) {
   const t = ui[lang];
   return (
     <div
       className="relative p-6 md:p-8 flex flex-col"
       style={{ backgroundColor: "var(--vanilla-cream)", boxShadow: "0 4px 20px rgba(61, 42, 34, 0.05)" }}
     >
-      {p.popular && (
+      {p.popular && !comingSoon && (
         <div className="type-caps italic mb-3" style={{ color: "var(--dusty-wine)" }}>
           — {t.mostPopular} —
         </div>
@@ -21,12 +21,26 @@ function ProductCard({ p, lang }: { p: Product; lang: Lang }) {
       <div className="type-caps ink-muted mb-2">{p.unit ? p.unit[lang] : p.size}</div>
       <h3 className="mb-3" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}>{p.name[lang]}</h3>
       <p className="type-body opacity-80 mb-4">{p.description[lang]}</p>
-      <div className="type-serif mb-6" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)" }}>
-        {locNum(p.priceSek, lang)} kr{p.recurring && <span className="type-caps ink-muted"> {t.perMonth}</span>}
-      </div>
-      <div className="mt-auto">
-        <AddToCartButton productId={p.id} lang={lang} />
-      </div>
+      {comingSoon ? (
+        // Pre-launch: no price, no buy button — a solid-token "Coming soon" pill.
+        <div className="mt-auto">
+          <span
+            className="type-caps inline-block px-4 py-1.5"
+            style={{ border: "1px solid var(--warm-cocoa)", color: "var(--warm-cocoa)" }}
+          >
+            {t.comingSoon}
+          </span>
+        </div>
+      ) : (
+        <>
+          <div className="type-serif mb-6" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)" }}>
+            {locNum(p.priceSek, lang)} kr{p.recurring && <span className="type-caps ink-muted"> {t.perMonth}</span>}
+          </div>
+          <div className="mt-auto">
+            <AddToCartButton productId={p.id} lang={lang} />
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -75,7 +89,7 @@ export default async function Page({
           <p className="type-body italic ink-muted mb-8 md:mb-10">{t.subscriptionsNote}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
             {SUBSCRIPTIONS.map((p) => (
-              <ProductCard key={p.id} p={p} lang={lang} />
+              <ProductCard key={p.id} p={p} lang={lang} comingSoon />
             ))}
           </div>
         </div>
