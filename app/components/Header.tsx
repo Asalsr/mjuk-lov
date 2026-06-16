@@ -149,6 +149,7 @@ export const Header = ({ lang, onSelectLang }: HeaderProps) => {
   const accountLinks = [{ href: `/${lang}/min-sida`, label: t.myPage }];
 
   return (
+    <>
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'bg-[var(--vanilla-cream)]/95 backdrop-blur-sm shadow-sm' : 'bg-transparent'
@@ -358,8 +359,16 @@ export const Header = ({ lang, onSelectLang }: HeaderProps) => {
         </>
       )}
 
-      {/* Mobile-only persistent bottom destination bar. */}
-      <MobileBottomBar lang={lang} isLoggedIn={isLoggedIn} />
     </header>
+
+      {/* Mobile-only persistent bottom destination bar. Rendered OUTSIDE the
+          <header> on purpose: the header gains a backdrop-filter when scrolled,
+          and a backdrop-filter makes itself the containing block for any
+          position:fixed descendant — which would snap this bar up to the header
+          (i.e. to the top of the screen) as soon as you scroll. As a sibling of
+          the header it is measured against the viewport and stays pinned to the
+          bottom in every scroll state. */}
+      <MobileBottomBar lang={lang} isLoggedIn={isLoggedIn} />
+    </>
   );
 };
