@@ -6,45 +6,37 @@
     "fa": "نسخه هدیه (۱۵ سانتی‌متر)"
   },
   "intro": {
-    "sv": "Samma tårta som Standard, men i en vacker presentask med en hälsning. Bygg tårtan — eller överlämna kitet som det är och låt mottagaren göra det.",
-    "en": "The same cake as Standard, but in a beautiful gift box with a dedication. Build the cake — or hand over the kit as it is and let the recipient make it.",
-    "fa": "این کیک همانند نسخه استاندارد است، اما در یک جعبه هدیه زیبا با یک پیام اختصاصی. کیک را بسازید — یا کیت را به همان صورت به گیرنده تحویل دهید و بگذارید خودشان آن را درست کنند."
+    "sv": "Samma tårta som Standard, i en presentask med en hälsning. Dekorera själv — eller lämna kitet oöppnat och låt mottagaren göra det.",
+    "en": "The same cake as Standard, in a gift box with a dedication. Decorate it yourself — or give the kit unopened and let the recipient do it.",
+    "fa": "همان کیک استاندارد، در جعبه هدیه با یک پیام. خودتان تزیین کنید — یا کیت را بدون باز کردن هدیه دهید و بگذارید گیرنده این کار را بکند."
   },
   "youtubeId": null,
   "steps": [
     {
       "text": {
-        "sv": "Ta ut presentasken och hälsningskortet. Vill du ge bort kitet oöppnat — hoppa till sista steget.",
-        "en": "Take out the gift box and the dedication card. If you'd like to give the kit unopened, skip to the last step.",
-        "fa": "جعبه هدیه و کارت پیام را خارج کنید. اگر می‌خواهید کیت را بدون باز کردن هدیه دهید، به مرحله آخر بروید."
+        "sv": "Bestäm vägen — ge bort kitet som det är, eller dekorera först. Båda fungerar; bygginstruktionen finns via QR-koden på asken.",
+        "en": "Pick the path — give the kit as it is, or decorate first. Both work; the build guide is on the QR code on the box.",
+        "fa": "مسیر را انتخاب کنید — کیت را به همان شکل هدیه دهید، یا اول تزیینش کنید. هر دو راه عالی هستند؛ راهنمای ساخت از طریق کد QR روی جعبه در دسترس است."
       }
     },
     {
       "text": {
-        "sv": "Låt sockerkakorna och fyllningen nå rumstemperatur, lägg sedan den första kakan på ett fat och bred på fyllning.",
-        "en": "Let the sponges and filling reach room temperature, then place the first sponge on a plate and spread on filling.",
-        "fa": "بگذارید اسفنج‌ها و پرکننده به دمای اتاق برسند، سپس اولین اسفنج را روی یک بشقاب قرار دهید و پرکننده را روی آن بمالید."
+        "sv": "Om du dekorerar: låt tårtan och färgerna stå framme några minuter, välj dina verktyg (pensel, sked, eller en spritspåse med klippt hörn).",
+        "en": "If you're decorating: let the cake and colours sit out for a few minutes, pick your tools (a brush, a spoon, or a piping bag with the corner snipped).",
+        "fa": "اگر می‌خواهید تزیین کنید: بگذارید کیک و رنگ‌ها چند دقیقه بیرون بمانند، ابزار خود را انتخاب کنید (قلم‌مو، قاشق، یا قیف خامه با گوشه قیچی‌شده)."
       },
-      "durationMin": 20
+      "durationMin": 10
     },
     {
       "text": {
-        "sv": "Stapla resten av lagren med fyllning emellan och tryck lätt så de sitter ihop.",
-        "en": "Stack the remaining layers with filling between each and press gently so they hold together.",
-        "fa": "لایه‌های باقی‌مانده را با پرکننده بین هر لایه انباشته کنید و به آرامی فشار دهید تا به هم بچسبند."
+        "sv": "Dekorera. Svep, pensla eller stapla — det finns inget fel sätt.",
+        "en": "Decorate. Swirl it, brush it, or pile it on — there's no wrong way.",
+        "fa": "تزیین کنید. بچرخانید، قلم بزنید یا روی هم بریزید — هیچ راه اشتباهی وجود ندارد."
       }
     },
     {
       "text": {
-        "sv": "Täck tårtan med frostingen, jämna till och dekorera med strösslet. Kyl minst 30 minuter.",
-        "en": "Cover the cake with the frosting, smooth it and decorate with the sprinkles. Chill for at least 30 minutes.",
-        "fa": "کیک را با خامه پوشش دهید، آن را صاف کنید و با تزیینات تزئین کنید. حداقل به مدت ۳۰ دقیقه در یخچال بگذارید."
-      },
-      "durationMin": 30
-    },
-    {
-      "text": {
-        "sv": "Skriv din hälsning på kortet och placera tårtan eller det oöppnade kitet i presentasken.",
+        "sv": "Skriv din hälsning på kortet och placera tårtan — eller det oöppnade kitet — i presentasken.",
         "en": "Write your message on the card and place the cake — or the unopened kit — in the gift box.",
         "fa": "پیام خود را روی کارت بنویسید و کیک — یا کیت بسته‌نشده — را در جعبه هدیه قرار دهید."
       }
@@ -52,9 +44,9 @@
   ],
   "tips": [
     {
-      "sv": "Ger du bort kitet oöppnat? Skriv en rad om att bygginstruktionen finns via QR-koden på asken.",
-      "en": "Giving the kit unopened? Add a note that the build guide is available via the QR code on the box.",
-      "fa": "آیا کیت را بدون باز کردن می‌دهید؟ یادداشتی اضافه کنید که راهنمای ساخت از طریق کد QR روی جعبه در دسترس است."
+      "sv": "I värsta fall är den fortfarande god — i bästa fall överraskar mottagaren sig själv.",
+      "en": "Worst case it's still delicious; best case the recipient surprises themselves.",
+      "fa": "بدترین حالت همچنان خوشمزه است؛ بهترین حالت گیرنده خودش را شگفت‌زده می‌کند."
     },
     {
       "sv": "Allergier? Kontrollera alltid innehållsförteckningen på kitets förpackning.",

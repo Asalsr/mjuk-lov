@@ -6,57 +6,47 @@
     "fa": "کیت لوکس (۲۰ سانتی‌متر)"
   },
   "intro": {
-    "sv": "Den större tårtan — för 10–12 personer, med extra höjd. Samma metod som Standard, men ta det lugnt med de tyngre lagren.",
-    "en": "The bigger cake — for 10–12 people, with extra height. Same method as Standard, just take your time with the heavier layers.",
-    "fa": "کیک بزرگ‌تر — برای ۱۰–۱۲ نفر، با ارتفاع اضافی. همان روش کیت استاندارد، فقط با لایه‌های سنگین‌تر زمان بیشتری بگذارید."
+    "sv": "Större tårta, fler verktyg. Tårtan är vit och färdig — du dekorerar i din egen takt.",
+    "en": "Bigger cake, more tools. The cake arrives white and finished — you decorate, at your own pace.",
+    "fa": "کیک بزرگ‌تر، ابزار بیشتر. کیک سفید و آماده می‌رسد — شما با سرعت خودتان تزیینش می‌کنید."
   },
   "youtubeId": null,
   "steps": [
     {
       "text": {
-        "sv": "Packa upp kitet och låt sockerkakorna och fyllningen nå rumstemperatur.",
-        "en": "Unpack the kit and let the sponges and filling come to room temperature.",
-        "fa": "کیت را باز کنید و بگذارید اسفنج‌ها و پرکننده به دمای اتاق برسند."
+        "sv": "Öppna kitet och låt tårtan och färgerna nå rumstemperatur — då blir det lättare att jobba med dem.",
+        "en": "Open the kit and let the cake and colours come to room temperature — they're easier to work with that way.",
+        "fa": "کیت را باز کنید و بگذارید کیک و رنگ‌ها به دمای اتاق برسند — این‌طور راحت‌تر می‌شود با آن‌ها کار کرد."
       },
-      "durationMin": 20
+      "durationMin": 15
     },
     {
       "text": {
-        "sv": "Lägg den första sockerkakan på ett fat och bred på ett jämnt lager fyllning. Med 20 cm-lager: håll fyllningen något tunnare så tårtan bär sin egen höjd.",
-        "en": "Place the first sponge on a plate and spread an even layer of filling. For the 20 cm layers, keep the filling slightly thinner so the cake carries its own height.",
-        "fa": "اولین اسفنج را روی یک بشقاب قرار دهید و لایه‌ای یکنواخت از پرکننده را روی آن پخش کنید. برای لایه‌های ۲۰ سانتی‌متری، پرکننده را کمی نازک‌تر نگه دارید تا کیک ارتفاع خود را حفظ کند."
-      },
-      "durationMin": 6
-    },
-    {
-      "text": {
-        "sv": "Stapla resten av lagren med fyllning emellan. Centrera varje lager innan du trycker till.",
-        "en": "Stack the remaining layers with filling between each. Centre every layer before you press it down.",
-        "fa": "لایه‌های باقی‌مانده را با پرکننده بین هر کدام روی هم قرار دهید. قبل از فشار دادن هر لایه، آن را در مرکز قرار دهید."
+        "sv": "Lägg upp dina verktyg — pensel, palettkniv, sked, och en spritspåse om du vill. Klipp av hörnet på spritspåsen för en enkel linje.",
+        "en": "Lay out your tools — a brush, a palette knife, a spoon, and a piping bag if you'd like. Snip the corner off the piping bag for a simple line.",
+        "fa": "ابزارهای خود را آماده کنید — قلم‌مو، کاردک، قاشق و اگر دوست داشتید قیف خامه. گوشه قیف را قیچی کنید تا خط ساده‌ای داشته باشید."
       }
     },
     {
       "text": {
-        "sv": "Täck tårtan med frostingen och jämna till ytan. Spara lite frosting till kanten nedtill.",
-        "en": "Cover the cake with the frosting and smooth the surface. Save a little frosting for the bottom edge.",
-        "fa": "کیک را با خامه بپوشانید و سطح آن را صاف کنید. مقداری خامه برای لبه پایینی نگه دارید."
-      },
-      "durationMin": 12
+        "sv": "Dekorera. Välj en look eller blanda fritt — svep (dra en sked genom färgen), pensla (sopa färg runt sidorna), eller stapla (strössel, frukt och bär på toppen). Den större ytan tål en lugnare hand.",
+        "en": "Decorate. Pick a look or mix freely — Swirl it (drag a spoon through the colour), Brush it (sweep colour round the sides), or Pile it on (sprinkles, fruit and berries on top). The bigger surface rewards a calm hand.",
+        "fa": "تزیین کنید. یک ظاهر را انتخاب کنید یا آزادانه ترکیب کنید — بچرخانید، قلم بزنید، یا روی هم بریزید. سطح بزرگ‌تر با دستی آرام نتیجه بهتری می‌دهد."
+      }
     },
     {
       "text": {
-        "sv": "Dekorera med strösslet och kyl minst 45 minuter — den större tårtan behöver lite längre för att sätta sig.",
-        "en": "Decorate with the sprinkles and chill for at least 45 minutes — the larger cake needs a little longer to set.",
-        "fa": "با تزیینات تزئین کنید و حداقل به مدت ۴۵ دقیقه در یخچال قرار دهید — کیک بزرگ‌تر نیاز به زمان بیشتری برای سفت شدن دارد."
-      },
-      "durationMin": 45
+        "sv": "Lägg på ljus, tänd och fira.",
+        "en": "Add candles, light them, and celebrate.",
+        "fa": "شمع بگذارید، روشن کنید و جشن بگیرید."
+      }
     }
   ],
   "tips": [
     {
-      "sv": "Kyl tårtan 10 minuter efter frostingen innan du dekorerar — då fäster strösslet bättre på den fastare ytan.",
-      "en": "Chill the cake for 10 minutes after frosting before decorating — the sprinkles stick better to the firmer surface.",
-      "fa": "پس از خامه‌کشی، کیک را به مدت ۱۰ دقیقه در یخچال قرار دهید قبل از تزیین — تزیینات بهتر به سطح محکم می‌چسبند."
+      "sv": "I värsta fall är den fortfarande god — i bästa fall överraskar du dig själv.",
+      "en": "Worst case it's still delicious; best case you surprise yourself.",
+      "fa": "بدترین حالت همچنان خوشمزه است؛ بهترین حالت خودتان را شگفت‌زده می‌کنید."
     },
     {
       "sv": "Allergier? Kontrollera alltid innehållsförteckningen på kitets förpackning.",

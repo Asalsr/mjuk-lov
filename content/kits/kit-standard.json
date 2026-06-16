@@ -6,57 +6,47 @@
     "fa": "کیت استاندارد (۱۵ سانتی‌متر)"
   },
   "intro": {
-    "sv": "Allt du behöver för att sätta ihop din Mjuk Lov-tårta hemma — för 6–8 personer. Följ stegen i din egen takt.",
-    "en": "Everything you need to assemble your Mjuk Lov cake at home — for 6–8 people. Work through the steps at your own pace.",
-    "fa": "هر آنچه برای تهیه کیک Mjuk Lov خود در خانه نیاز دارید — برای ۶–۸ نفر. مراحل را با سرعت دلخواه خود طی کنید."
+    "sv": "Tårtan kommer vit och färdig — du dekorerar. Det finns inget fel sätt: prova, lek, smaka.",
+    "en": "The cake arrives white and finished — you decorate. There's no wrong way: try, play, taste as you go.",
+    "fa": "کیک سفید و آماده می‌رسد — شما تزیینش می‌کنید. هیچ راه اشتباهی وجود ندارد: امتحان کنید، بازی کنید، طعم را بچشید."
   },
   "youtubeId": null,
   "steps": [
     {
       "text": {
-        "sv": "Packa upp kitet och låt sockerkakorna och fyllningen nå rumstemperatur — då blir tårtan jämnare.",
-        "en": "Unpack the kit and let the sponges and filling come to room temperature — it makes the cake smoother to build.",
-        "fa": "کیت را باز کنید و بگذارید اسفنج‌ها و پرکننده به دمای اتاق برسند — این کار باعث می‌شود کیک نرم‌تر ساخته شود."
-      },
-      "durationMin": 20
-    },
-    {
-      "text": {
-        "sv": "Lägg den första sockerkakan på ett fat. Bred ett jämnt lager fyllning ända ut till kanten.",
-        "en": "Place the first sponge on a plate. Spread an even layer of filling all the way to the edge.",
-        "fa": "اولین اسفنج را روی یک بشقاب قرار دهید. یک لایه یکنواخت از پرکننده را تا لبه پخش کنید."
-      },
-      "durationMin": 5
-    },
-    {
-      "text": {
-        "sv": "Lägg på nästa sockerkaka och upprepa tills alla lager är staplade. Tryck lätt så de sitter ihop.",
-        "en": "Add the next sponge and repeat until all the layers are stacked. Press gently so they hold together.",
-        "fa": "اسفنج بعدی را اضافه کنید و این کار را تکرار کنید تا همه لایه‌ها روی هم قرار گیرند. به آرامی فشار دهید تا کنار هم نگه داشته شوند."
-      }
-    },
-    {
-      "text": {
-        "sv": "Täck hela tårtan med frostingen och jämna till ytan med en palettkniv eller baksidan av en sked.",
-        "en": "Cover the whole cake with the frosting and smooth the surface with a palette knife or the back of a spoon.",
-        "fa": "کل کیک را با خامه پوشش دهید و سطح آن را با کاردک یا پشت قاشق صاف کنید."
+        "sv": "Öppna kitet och låt tårtan och färgerna stå framme några minuter — de blir mjukare att jobba med i rumstemperatur.",
+        "en": "Open the kit and let the cake and the colours sit out for a few minutes — they're easier to work with at room temperature.",
+        "fa": "کیت را باز کنید و بگذارید کیک و رنگ‌ها چند دقیقه بیرون بمانند — در دمای اتاق راحت‌تر می‌شود با آن‌ها کار کرد."
       },
       "durationMin": 10
     },
     {
       "text": {
-        "sv": "Dekorera med det medföljande strösslet. Kyl tårtan minst 30 minuter innan servering så att den sätter sig.",
-        "en": "Decorate with the sprinkles provided. Chill the cake for at least 30 minutes before serving so it sets.",
-        "fa": "با تزیینات ارائه شده تزئین کنید. کیک را حداقل ۳۰ دقیقه قبل از سرو در یخچال بگذارید تا سفت شود."
-      },
-      "durationMin": 30
+        "sv": "Välj dina verktyg — pensel, sked eller bara klipp av hörnet på en spritspåse. Spritspåsen är valfri.",
+        "en": "Pick your tools — a brush, a spoon, or just snip the corner off a piping bag. The piping bag is optional.",
+        "fa": "ابزار خود را انتخاب کنید — قلم‌مو، قاشق، یا فقط گوشه قیف خامه را قیچی کنید. قیف خامه اختیاری است."
+      }
+    },
+    {
+      "text": {
+        "sv": "Dekorera. Välj en look eller blanda fritt — svep (dra en sked genom färgen), pensla (sopa färg runt sidorna) eller stapla (strössel och bär på toppen).",
+        "en": "Decorate. Pick a look or mix freely — Swirl it (drag a spoon through the colour), Brush it (sweep colour round the sides), or Pile it on (sprinkles and berries on top).",
+        "fa": "تزیین کنید. یک ظاهر را انتخاب کنید یا آزادانه ترکیب کنید — بچرخانید (یک قاشق را در رنگ بکشید)، قلم بزنید (با قلم‌مو رنگ را دور تا دور بکشید)، یا روی هم بریزید (تزیینات و توت‌ها روی کیک)."
+      }
+    },
+    {
+      "text": {
+        "sv": "Lägg på ljus, tänd och fira.",
+        "en": "Add candles, light them, and celebrate.",
+        "fa": "شمع بگذارید، روشن کنید و جشن بگیرید."
+      }
     }
   ],
   "tips": [
     {
-      "sv": "Doppa palettkniven i varmt vatten och torka av den — då blir frostingen blank och len.",
-      "en": "Dip the palette knife in hot water and wipe it — it gives the frosting a smooth, glossy finish.",
-      "fa": "کاردک را در آب داغ فرو ببرید و سپس پاک کنید — این کار به خامه ظاهری صاف و براق می‌دهد."
+      "sv": "I värsta fall är den fortfarande god — i bästa fall överraskar du dig själv.",
+      "en": "Worst case it's still delicious; best case you surprise yourself.",
+      "fa": "بدترین حالت همچنان خوشمزه است؛ بهترین حالت خودتان را شگفت‌زده می‌کنید."
     },
     {
       "sv": "Allergier? Kontrollera alltid innehållsförteckningen på kitets förpackning.",
