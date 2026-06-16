@@ -47,7 +47,7 @@ export const Corporate = ({ lang }: CorporateProps) => {
     <section
       id="corporate"
       ref={ref}
-      className="py-[clamp(2.5rem,6vw,5rem)] px-4 md:px-8"
+      className="pt-[clamp(2rem,4.8vw,4rem)] pb-[clamp(2.5rem,6vw,5rem)] px-4 md:px-8"
       style={{ backgroundColor: 'var(--vanilla-cream)' }}
     >
       {/* Compact promo band — tease corporate fika with one selling photo while
@@ -60,9 +60,9 @@ export const Corporate = ({ lang }: CorporateProps) => {
           }`}
         >
           <ProductImage
-            src="/photos/corporate-office-box.jpg"
+            src="/icons/fika.svg"
             alt={ui[lang].corporatePhotoAlt}
-            aspect="4/3"
+            aspect="1/1"
             sizes="(min-width: 768px) 480px, 100vw"
           />
 

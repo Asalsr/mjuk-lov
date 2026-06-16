@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Standard, Deluxe, GiftEdition } from './Icons';
+import { Standard, Deluxe } from './Icons';
 import { MagneticButton } from './MagneticButton';
 import { ProductGallery } from './media/ProductGallery';
 import { ui, type Lang } from '@/lib/i18n';
@@ -86,7 +86,7 @@ const content = {
   }
 };
 
-const kitIcons = [Standard, Deluxe, GiftEdition];
+const kitIcons = [Standard, Deluxe, Standard];
 
 // Photo per card, parallel to kitIcons. Placeholder-backed until the real
 // product shots land in /public/photos/.
@@ -118,7 +118,7 @@ export const Kits = ({ lang }: KitsProps) => {
     <section
       id="kits"
       ref={ref}
-      className="py-[clamp(3.5rem,8vw,8rem)] px-4 md:px-8"
+      className="pt-[clamp(3.5rem,8vw,8rem)] pb-[clamp(2.8rem,6.4vw,6.4rem)] px-4 md:px-8"
       style={{ backgroundColor: 'var(--soft-peach)' }}
     >
       <div className="max-w-[1200px] mx-auto">
