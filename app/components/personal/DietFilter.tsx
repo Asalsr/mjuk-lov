@@ -2,16 +2,14 @@
 
 import { useUserData, toggleAllergy, toggleDiet, clearFilters } from "@/lib/userdata/store";
 import { LABELS } from "@/lib/allergen/labels";
-import { ALLERGEN_CODES, DIET_TAGS } from "@/lib/recipes/schema";
+import { DIET_TAGS, type AllergenCode } from "@/lib/recipes/schema";
 import { ui, type Lang } from "@/lib/i18n";
 
 /** The full 14 EU allergens (schema.ts) stay complete for legal recipe
- *  declarations, but this filter only needs to offer ones that actually
- *  occur on a sweets site — seafood and savory-only allergens never appear
- *  in a dessert recipe here, so they'd just be noise in the chip list. */
-const SWEETS_ALLERGEN_CODES = ALLERGEN_CODES.filter(
-  (code) => !["crustaceans", "fish", "celery", "mustard", "molluscs"].includes(code),
-);
+ *  declarations, but this filter only needs to offer ones that actually occur
+ *  across the current recipe content — everything else is noise in the chip
+ *  list on a sweets-only site. */
+const SWEETS_ALLERGEN_CODES: AllergenCode[] = ["gluten", "egg", "milk", "peanut", "nuts", "sulphites"];
 
 export function DietFilter({ lang }: { lang: Lang }) {
   const data = useUserData();
