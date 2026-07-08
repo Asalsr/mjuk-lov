@@ -7,6 +7,7 @@ import { ui, isLang, LANGS, type Lang } from "@/lib/i18n";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { YouTubeEmbed } from "@/app/components/recipe/YouTubeEmbed";
 import { ProductImage } from "@/app/components/ProductImage";
+import { PhotoDisclaimer } from "@/app/components/PhotoDisclaimer";
 
 export const dynamicParams = false;
 
@@ -112,6 +113,9 @@ export default async function Page({
               sizes="(min-width: 560px) 272px, 50vw"
             />
           </div>
+
+          {/* House rule: product photos carry the illustrative-photo notice. */}
+          <PhotoDisclaimer lang={lang} className="mt-3" />
 
           {guide.youtubeId && (
             <div className="mt-8">

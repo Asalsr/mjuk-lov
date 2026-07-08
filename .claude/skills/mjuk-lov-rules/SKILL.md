@@ -54,6 +54,17 @@ recipe. The essentials:
   `allergens.approvedBy` is set (human-approved) **and** `published: true`.
   Don't flip `published` on an unapproved label.
 
+## 2a. Product photos carry the illustrative-photo notice
+Photos are illustrative and cakes are baked to the **size (cm) and weight (kg)**
+ordered, so a real order can differ from the photo in height, layer count, and
+finish (the classic case: a three-layer birthday cake in the picture versus a
+smaller two-layer 15 cm order). Whenever you add product photography, render
+`<PhotoDisclaimer lang={lang} />` (`app/components/PhotoDisclaimer.tsx`) **once**
+beneath the photo or gallery — not per thumbnail. Copy lives in `lib/i18n.ts` as
+`photoDisclaimer` (`sv`/`en`/`fa`); keep all three locales in sync, no em dashes
+(§1, guarded by `lib/i18n.test.ts`). The kit detail page
+(`app/[lang]/kit/[id]/page.tsx`) is the reference usage.
+
 ## 3. Accessibility is enforced — don't regress it
 Full rationale in the `ui-accessibility-conventions` memory; guardrail script is
 `scripts/contrast-audit.ts` (`npx tsx scripts/contrast-audit.ts`).

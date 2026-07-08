@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { ui, locNum, isRtl, type Lang } from "@/lib/i18n";
 import type { Product } from "@/lib/products";
-import { addLine } from "@/lib/cart/store";
+import { addLine, updateLine } from "@/lib/cart/store";
 import { loadDraft, saveDraft, clearDraft } from "@/lib/cart/draft";
 import {
   FLAVOURS,
@@ -49,7 +49,21 @@ const cardBtn = (selected: boolean): React.CSSProperties => ({
 /** Sequential "Make it yours" flow — one decision per screen, a single
  *  persistent price, and "included vs +29 kr" stated in words. Rendered as a
  *  modal over the shop. RTL-safe, keyboard-operable. */
-export function Configurator({ product, lang, onClose }: { product: Product; lang: Lang; onClose: () => void }) {
+export function Configurator({
+  product,
+  lang,
+  onClose,
+  initialConfig,
+  initialDate,
+  editLineId,
+}: {
+  product: Product;
+  lang: Lang;
+  onClose: () => void;
+  initialConfig?: LineConfig;
+  initialDate?: string;
+  editLineId?: string;
+}) {
   const t = ui[lang];
   const router = useRouter();
   const rtl = isRtl(lang);
@@ -57,14 +71,20 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
   const back = rtl ? "→" : "←";
 
   const isParty = product.kind === "party";
+  const isEdit = !!editLineId;
   const steps = isParty ? PARTY_STEPS : KIT_STEPS;
 
-  // Layer A persistence: restore an in-progress draft (guest or logged-in) if one
-  // was saved for this product; otherwise start from the defaults.
-  const [config, setConfig] = useState<LineConfig>(
-    () => loadDraft(product.id)?.config ?? (isParty ? defaultPartyConfig(product.id) : defaultKitConfig(product.id)),
-  );
-  const [date, setDate] = useState(() => loadDraft(product.id)?.date ?? "");
+  // In edit mode the seed comes from the existing cart line — never from the
+  // draft (a draft is a partial new build, not a snapshot of the line being
+  // edited). Add mode keeps the in-progress draft restore.
+  const [config, setConfig] = useState<LineConfig>(() => {
+    if (initialConfig) return initialConfig;
+    return loadDraft(product.id)?.config ?? (isParty ? defaultPartyConfig(product.id) : defaultKitConfig(product.id));
+  });
+  const [date, setDate] = useState(() => {
+    if (isEdit) return initialDate ?? "";
+    return loadDraft(product.id)?.date ?? "";
+  });
   const [step, setStep] = useState(0);
   const dialogRef = useRef<HTMLDivElement>(null);
 
@@ -121,10 +141,13 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
   }, [onClose, mounted]);
 
   // Layer A persistence: debounce-save the working draft as choices change.
+  // Skip in edit mode — the source of truth is the cart line, and we don't want
+  // an open edit to overwrite an unrelated in-progress draft for the same product.
   useEffect(() => {
+    if (isEdit) return;
     const id = setTimeout(() => saveDraft(product.id, { config, date: date || undefined }), 400);
     return () => clearTimeout(id);
-  }, [config, date, product.id]);
+  }, [config, date, product.id, isEdit]);
 
   const setKit = (patch: Partial<KitConfig>) => setConfig((c) => ({ ...(c as KitConfig), ...patch }));
   const setParty = (patch: Partial<PartyConfig>) => setConfig((c) => ({ ...(c as PartyConfig), ...patch }));
@@ -147,6 +170,11 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
   const prev = () => (step > 0 ? setStep((s) => s - 1) : onClose());
 
   const add = () => {
+    if (isEdit) {
+      updateLine(editLineId, config, { date: date || undefined });
+      onClose();
+      return; // already on the cart page; let it re-render in place
+    }
     addLine(config, { date: date || undefined });
     clearDraft(product.id); // committed to cart — drop the in-progress draft
     onClose();
@@ -563,7 +591,7 @@ export function Configurator({ product, lang, onClose }: { product: Product; lan
                 className="type-caps px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
                 style={{ border: "1px solid var(--warm-cocoa)" }}
               >
-                {t.cfgAddWord} · {locNum(price, lang)} kr
+                {isEdit ? t.cfgSaveChanges : t.cfgAddWord} · {locNum(price, lang)} kr
               </button>
             ) : (
               <button
