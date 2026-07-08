@@ -14,7 +14,15 @@ export function MenuLineCard({ product, lang }: { product: Product; lang: Lang }
   const t = ui[lang];
   const variants = product.variants ?? [];
 
-  const sqBtn: React.CSSProperties = { border: "1px solid var(--warm-cocoa)" };
+  /* type-serif's line-height (1.5, at a clamp()-scaled font-size) is an
+     unlayered global rule, so it beats Tailwind's `leading-none` regardless of
+     class order — the glyph's line box overflows the fixed 44px button and
+     drifts off-center as the clamp scales with viewport width. Flex-centering
+     plus an inline line-height (which always wins) keeps +/− centered at every
+     screen size. */
+  const sqBtn: React.CSSProperties = { border: "1px solid var(--warm-cocoa)", lineHeight: 1 };
+  const sqBtnClass =
+    "type-serif w-11 h-11 leading-none shrink-0 flex items-center justify-center transition-all hover:bg-[var(--warm-peach)]";
 
   return (
     <div
@@ -43,7 +51,7 @@ export function MenuLineCard({ product, lang }: { product: Product; lang: Lang }
                   type="button"
                   onClick={() => addToCart(id)}
                   aria-label={`${t.addToCart}: ${v.label[lang]}`}
-                  className="type-serif w-11 h-11 leading-none shrink-0 transition-all hover:bg-[var(--warm-peach)]"
+                  className={sqBtnClass}
                   style={sqBtn}
                 >
                   +
@@ -54,7 +62,7 @@ export function MenuLineCard({ product, lang }: { product: Product; lang: Lang }
                     type="button"
                     onClick={() => setQty(id, qty - 1)}
                     aria-label={`${t.cfgDecrease}: ${v.label[lang]}`}
-                    className="type-serif w-11 h-11 leading-none transition-all hover:bg-[var(--warm-peach)]"
+                    className={sqBtnClass}
                     style={sqBtn}
                   >
                     −
@@ -66,7 +74,7 @@ export function MenuLineCard({ product, lang }: { product: Product; lang: Lang }
                     type="button"
                     onClick={() => addToCart(id)}
                     aria-label={`${t.cfgIncrease}: ${v.label[lang]}`}
-                    className="type-serif w-11 h-11 leading-none transition-all hover:bg-[var(--warm-peach)]"
+                    className={sqBtnClass}
                     style={sqBtn}
                   >
                     +
