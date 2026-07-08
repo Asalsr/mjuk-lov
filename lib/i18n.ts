@@ -347,6 +347,10 @@ export const ui = {
     menuHeading: "Kakor & bakverk",
     menuTagline: "Bakas på beställning, hämtas eller levereras.",
     seasonalNote: "Säsongens bakverk: innehållet följer säsongen.",
+    // Illustrative-photo notice shown with product photography. Cakes are made
+    // to the size and weight ordered, so a real order can differ from the photo.
+    photoDisclaimer:
+      "Bilderna är inspiration. Tårtans höjd och antal lager följer storleken och vikten du beställer, så en mindre tårta kan se annorlunda ut än den på bilden.",
   },
   en: {
     recipes: "Recipes",
@@ -673,6 +677,10 @@ export const ui = {
     menuHeading: "Cakes & bakes",
     menuTagline: "Made to order, picked up or delivered.",
     seasonalNote: "Seasonal bake: the contents follow the season.",
+    // Illustrative-photo notice shown with product photography. Cakes are made
+    // to the size and weight ordered, so a real order can differ from the photo.
+    photoDisclaimer:
+      "Photos are for inspiration. A cake's height and number of layers follow the size and weight you order, so a smaller cake can look different from the one pictured.",
   },
   fa: {
     recipes: "دستورها",
@@ -999,5 +1007,9 @@ export const ui = {
     menuHeading: "کیک و شیرینی",
     menuTagline: "به‌سفارش پخته می‌شود، تحویل حضوری یا ارسال.",
     seasonalNote: "شیرینی فصلی: محتوا با فصل تغییر می‌کند.",
+    // Illustrative-photo notice shown with product photography. Cakes are made
+    // to the size and weight ordered, so a real order can differ from the photo.
+    photoDisclaimer:
+      "تصاویر برای الهام‌گرفتن هستند. ارتفاع و تعداد لایه‌های کیک به اندازه و وزنی که سفارش می‌دهید بستگی دارد، بنابراین یک کیک کوچک‌تر می‌تواند با آنچه در تصویر می‌بینید متفاوت باشد.",
   },
 } as const;
