@@ -1,14 +1,14 @@
 {
-  "id": "kit-standard",
+  "id": "kit-medio",
   "title": {
-    "sv": "Standard­kit (15 cm)",
-    "en": "Standard kit (15 cm)",
-    "fa": "کیت استاندارد (۱۵ سانتی‌متر)"
+    "sv": "DIY Medio (15 cm)",
+    "en": "DIY Medio (15 cm)",
+    "fa": "DIY Medio (۱۵ سانتی‌متر)"
   },
   "intro": {
-    "sv": "Allt du behöver för att sätta ihop din Mjuk Lov-tårta hemma, för 6–8 personer. Följ stegen i din egen takt.",
-    "en": "Everything you need to assemble your Mjuk Lov cake at home, for 6–8 people. Work through the steps at your own pace.",
-    "fa": "هر آنچه برای تهیه کیک Mjuk Lov خود در خانه نیاز دارید، برای ۶–۸ نفر. مراحل را با سرعت دلخواه خود طی کنید."
+    "sv": "Allt du behöver för att sätta ihop din Mjuk Lov-tårta hemma, för sex till åtta personer. Följ stegen i din egen takt.",
+    "en": "Everything you need to assemble your Mjuk Lov cake at home, for six to eight people. Work through the steps at your own pace.",
+    "fa": "هر آنچه برای تهیه کیک Mjuk Lov خود در خانه نیاز دارید، برای شش تا هشت نفر. مراحل را با سرعت دلخواه خود طی کنید."
   },
   "youtubeId": null,
   "steps": [

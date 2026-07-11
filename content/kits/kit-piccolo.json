@@ -1,0 +1,67 @@
+{
+  "id": "kit-piccolo",
+  "title": {
+    "sv": "DIY Piccolo (10 cm)",
+    "en": "DIY Piccolo (10 cm)",
+    "fa": "DIY Piccolo (۱۰ سانتی‌متر)"
+  },
+  "intro": {
+    "sv": "Den lilla tårtan, för två till fyra personer. Samma metod som de större, men allt går lite snabbare, den är gjord för en lugn stund.",
+    "en": "The little cake, for two to four people. Same method as the bigger ones, but everything goes a little quicker; it is made for a calm moment.",
+    "fa": "کیک کوچک، برای دو تا چهار نفر. همان روش کیک‌های بزرگ‌تر، اما همه‌چیز کمی سریع‌تر پیش می‌رود؛ برای یک لحظه‌ی آرام ساخته شده است."
+  },
+  "youtubeId": null,
+  "steps": [
+    {
+      "text": {
+        "sv": "Packa upp kitet och låt sockerkakorna och fyllningen nå rumstemperatur, då blir tårtan jämnare.",
+        "en": "Unpack the kit and let the sponges and filling come to room temperature; it makes the cake smoother to build.",
+        "fa": "کیت را باز کنید و بگذارید اسفنج‌ها و پرکننده به دمای اتاق برسند، این کار باعث می‌شود کیک نرم‌تر ساخته شود."
+      },
+      "durationMin": 15
+    },
+    {
+      "text": {
+        "sv": "Lägg den första sockerkakan på ett fat. Bred ett tunt, jämnt lager fyllning ända ut till kanten, den lilla botten bär mindre.",
+        "en": "Place the first sponge on a plate. Spread a thin, even layer of filling to the edge; the small base carries less.",
+        "fa": "اولین اسفنج را روی یک بشقاب قرار دهید. یک لایه‌ی نازک و یکنواخت از پرکننده را تا لبه پخش کنید؛ پایه‌ی کوچک وزن کمتری را تحمل می‌کند."
+      },
+      "durationMin": 4
+    },
+    {
+      "text": {
+        "sv": "Lägg på nästa sockerkaka och upprepa tills alla lager är staplade. Centrera varje lager och tryck lätt.",
+        "en": "Add the next sponge and repeat until all the layers are stacked. Centre each layer and press gently.",
+        "fa": "اسفنج بعدی را اضافه کنید و تا زمانی که همه‌ی لایه‌ها روی هم قرار گیرند تکرار کنید. هر لایه را در مرکز قرار دهید و به آرامی فشار دهید."
+      }
+    },
+    {
+      "text": {
+        "sv": "Täck hela tårtan med frostingen och jämna till ytan med en palettkniv eller baksidan av en sked.",
+        "en": "Cover the whole cake with the frosting and smooth the surface with a palette knife or the back of a spoon.",
+        "fa": "کل کیک را با خامه پوشش دهید و سطح آن را با کاردک یا پشت قاشق صاف کنید."
+      },
+      "durationMin": 8
+    },
+    {
+      "text": {
+        "sv": "Dekorera med det medföljande strösslet. Kyl tårtan minst 20 minuter innan servering så att den sätter sig.",
+        "en": "Decorate with the sprinkles provided. Chill the cake for at least 20 minutes before serving so it sets.",
+        "fa": "با تزیینات ارائه شده تزئین کنید. کیک را حداقل ۲۰ دقیقه قبل از سرو در یخچال بگذارید تا سفت شود."
+      },
+      "durationMin": 20
+    }
+  ],
+  "tips": [
+    {
+      "sv": "Doppa palettkniven i varmt vatten och torka av den, då blir frostingen blank och len.",
+      "en": "Dip the palette knife in hot water and wipe it; it gives the frosting a smooth, glossy finish.",
+      "fa": "کاردک را در آب داغ فرو ببرید و سپس پاک کنید، این کار به خامه ظاهری صاف و براق می‌دهد."
+    },
+    {
+      "sv": "Allergier? Kontrollera alltid innehållsförteckningen på kitets förpackning.",
+      "en": "Allergies? Always check the ingredient list on the kit's packaging.",
+      "fa": "آلرژی دارید؟ همیشه لیست مواد را روی بسته‌بندی کیت بررسی کنید."
+    }
+  ]
+}

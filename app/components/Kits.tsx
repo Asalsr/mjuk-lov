@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Standard, Deluxe } from './Icons';
+import { Piccolo, Medio, Grande } from './Icons';
 import { ProductGallery } from './media/ProductGallery';
 import { MakeItYoursButton } from './shop/MakeItYoursButton';
 import { Party } from './Party';
@@ -12,9 +12,8 @@ interface KitsProps {
   lang: Lang;
 }
 
-// Watercolour illustration per kit id. Gift reuses the Standard mark (same cake,
-// different box); Deluxe has its own.
-const kitIcon = (id: string) => (id === 'kit-deluxe' ? Deluxe : Standard);
+// Watercolour illustration per DIY kit id — one mark per size.
+const kitIcon = (id: string) => (id === 'kit-grande' ? Grande : id === 'kit-medio' ? Medio : Piccolo);
 
 export const Kits = ({ lang }: KitsProps) => {
   const ref = useRef<HTMLDivElement>(null);
