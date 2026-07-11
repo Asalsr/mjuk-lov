@@ -1,14 +1,14 @@
 {
-  "id": "kit-deluxe",
+  "id": "kit-grande",
   "title": {
-    "sv": "Deluxe­kit (20 cm)",
-    "en": "Deluxe kit (20 cm)",
-    "fa": "کیت لوکس (۲۰ سانتی‌متر)"
+    "sv": "DIY Grande (25 cm)",
+    "en": "DIY Grande (25 cm)",
+    "fa": "DIY Grande (۲۵ سانتی‌متر)"
   },
   "intro": {
-    "sv": "Den större tårtan, för 10–12 personer, med extra höjd. Samma metod som Standard, men ta det lugnt med de tyngre lagren.",
-    "en": "The bigger cake, for 10–12 people, with extra height. Same method as Standard, just take your time with the heavier layers.",
-    "fa": "کیک بزرگ‌تر، برای ۱۰–۱۲ نفر، با ارتفاع اضافی. همان روش کیت استاندارد، فقط با لایه‌های سنگین‌تر زمان بیشتری بگذارید."
+    "sv": "Den stora tårtan, för sexton till tjugo personer, med extra höjd. Samma metod som de mindre, men ta det lugnt med de tyngre lagren.",
+    "en": "The big cake, for sixteen to twenty people, with extra height. Same method as the smaller ones, just take your time with the heavier layers.",
+    "fa": "کیک بزرگ، برای شانزده تا بیست نفر، با ارتفاع اضافی. همان روش کیک‌های کوچک‌تر، فقط با لایه‌های سنگین‌تر زمان بیشتری بگذارید."
   },
   "youtubeId": null,
   "steps": [
@@ -22,11 +22,11 @@
     },
     {
       "text": {
-        "sv": "Lägg den första sockerkakan på ett fat och bred på ett jämnt lager fyllning. Med 20 cm-lager: håll fyllningen något tunnare så tårtan bär sin egen höjd.",
-        "en": "Place the first sponge on a plate and spread an even layer of filling. For the 20 cm layers, keep the filling slightly thinner so the cake carries its own height.",
-        "fa": "اولین اسفنج را روی یک بشقاب قرار دهید و لایه‌ای یکنواخت از پرکننده را روی آن پخش کنید. برای لایه‌های ۲۰ سانتی‌متری، پرکننده را کمی نازک‌تر نگه دارید تا کیک ارتفاع خود را حفظ کند."
+        "sv": "Lägg den första sockerkakan på ett fat och bred på ett jämnt lager fyllning. Med 25 cm-lager: håll fyllningen något tunnare så tårtan bär sin egen höjd.",
+        "en": "Place the first sponge on a plate and spread an even layer of filling. For the 25 cm layers, keep the filling slightly thinner so the cake carries its own height.",
+        "fa": "اولین اسفنج را روی یک بشقاب قرار دهید و لایه‌ای یکنواخت از پرکننده را روی آن پخش کنید. برای لایه‌های ۲۵ سانتی‌متری، پرکننده را کمی نازک‌تر نگه دارید تا کیک ارتفاع خود را حفظ کند."
       },
-      "durationMin": 6
+      "durationMin": 7
     },
     {
       "text": {
@@ -41,7 +41,7 @@
         "en": "Cover the cake with the frosting and smooth the surface. Save a little frosting for the bottom edge.",
         "fa": "کیک را با خامه بپوشانید و سطح آن را صاف کنید. مقداری خامه برای لبه پایینی نگه دارید."
       },
-      "durationMin": 12
+      "durationMin": 14
     },
     {
       "text": {

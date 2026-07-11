@@ -65,6 +65,33 @@ beneath the photo or gallery — not per thumbnail. Copy lives in `lib/i18n.ts` 
 (§1, guarded by `lib/i18n.test.ts`). The kit detail page
 (`app/[lang]/kit/[id]/page.tsx`) is the reference usage.
 
+## 2b. Product sizes are a fixed vocabulary with serving counts
+Sizes and minimum orders are **fixed** — don't invent new diameters, tray sizes,
+or minimums. Every size must display with its **serving count** (customers buy by
+servings, not cm); the dimension is the secondary sub-label. DIY kits are the one
+exception to all of this (they have their own size system — already implemented).
+
+- **Round cakes** (e.g. Lotus): only **17 cm** or **25 cm** — no other diameters.
+  - `17 cm = 8 slices` (this is the reference slice: a 17 cm pan cut into 8).
+  - `25 cm ≈ 17 slices` — derived by **equal slice area**:
+    `8 × (25/17)² = 17.3 → 17`. If a new round size is ever added, compute its
+    slice count the same way; never hand-pick a number.
+  - **Minimum = 8 portions (one whole 17 cm)**; order by portion in units of
+    **8** (each 8 = another 17 cm's worth), or step up to a single 25 cm. The
+    atomic unit is 8 portions — never fewer than a whole 17 cm.
+  - The 25 cm must be priced **cheaper per slice** than 2× 17 cm, or no one picks
+    it (economy of size).
+- **Tray / square cakes** (Brownie, Lime cake): sizes **18×28 cm** and
+  **30×28 cm**. Yields `18×28 = 9 pcs`, `30×28 = 15 pcs`. **Minimum 9 pieces**,
+  then **+6** per step (9 → 15 → 21 …). Portion cut is **6×9 cm**.
+- **Jars** (Blusmisu, Limemisu): sold single, **minimum 6**.
+- Customer-facing figures may show a **range** (café/patisserie convention: 17 cm
+  → *serves 6–8*, 25 cm → *serves 15–18*) where the low number is a generous
+  slice and the high number the counter/dessert-table slice — but the atomic
+  math above (8 / 17) stays the source of truth.
+- Garnish is part of the product spec: **Lime cake → blueberry + lime**;
+  **Brownie → cream + chocolate pieces**.
+
 ## 3. Accessibility is enforced — don't regress it
 Full rationale in the `ui-accessibility-conventions` memory; guardrail script is
 `scripts/contrast-audit.ts` (`npx tsx scripts/contrast-audit.ts`).

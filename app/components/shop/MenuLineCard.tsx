@@ -3,6 +3,7 @@
 import { useCart, addToCart, setQty } from "@/lib/cart/store";
 import { ui, locNum, type Lang } from "@/lib/i18n";
 import type { Product } from "@/lib/products";
+import { ProductImageCarousel } from "@/app/components/shop/ProductImageCarousel";
 
 /** A Cakes & Bakes menu card. Each box-size variant is its own orderable
  *  product (`<menu>-<variant>`). A variant starts with an add (+) button; once
@@ -29,6 +30,12 @@ export function MenuLineCard({ product, lang }: { product: Product; lang: Lang }
       className="p-6 md:p-8 flex flex-col"
       style={{ backgroundColor: "var(--vanilla-cream)", boxShadow: "0 4px 20px rgba(61, 42, 34, 0.05)" }}
     >
+      {product.images && product.images.length > 0 && (
+        // Illustrative product photos — one framed image, or a slideshow when
+        // there are several. The shop shows a single PhotoDisclaimer beneath the
+        // grid (§2a), not per card, so none is rendered here.
+        <ProductImageCarousel images={product.images} alt={product.name[lang]} lang={lang} />
+      )}
       <h3 className="type-product mb-2" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.6rem)" }}>{product.name[lang]}</h3>
       <p className="type-body ink-muted mb-4">{product.description[lang]}</p>
       {product.rotating && <p className="type-caps ink-muted mb-4">{t.seasonalNote}</p>}

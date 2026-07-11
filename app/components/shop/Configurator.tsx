@@ -17,34 +17,63 @@ import {
   TOOL_LABELS,
   EXTRA_ITEM_SEK,
   INCLUDED_COLOURS,
-  INCLUDED_TOOLS_DEFAULT,
   PARTY_MIN_CAKES,
   PARTY_MAX_SELF_SERVE,
   defaultKitConfig,
   defaultPartyConfig,
+  defaultPartyTools,
+  defaultPartyColours,
+  defaultPartyFillings,
+  rebalanceFillings,
   includedToolsFor,
+  includedToolsForParty,
+  includedColoursForParty,
+  colourCount,
+  fillingCount,
   toolCount,
   priceLineSek,
   leadDaysFor,
   describeLine,
+  extraFillings,
   type LineConfig,
   type KitConfig,
   type PartyConfig,
   type Filling,
   type ToolKey,
+  type Tools,
   type ColourKey,
+  type ColourCounts,
 } from "@/lib/pricing";
 
 // Max shades a customer can pick: the included trio plus six extras.
 const MAX_COLOURS = INCLUDED_COLOURS + 6;
 
 const KIT_STEPS = ["flavour", "filling", "colour", "tools", "date", "review"] as const;
-const PARTY_STEPS = ["cakes", "split", "filling", "tools", "date", "review"] as const;
+// Ready-made cakes (kind "cake"): we decorate them, so no colours/tools steps.
+const CAKE_STEPS = ["flavour", "filling", "date", "review"] as const;
+const PARTY_STEPS = ["cakes", "split", "filling", "colour", "tools", "date", "review"] as const;
 
 const cardBtn = (selected: boolean): React.CSSProperties => ({
   border: "1px solid var(--warm-cocoa)",
   backgroundColor: selected ? "var(--warm-peach)" : "transparent",
 });
+
+/** Repair a config seeded from an older persisted draft or cart line: a Party
+ *  Pack saved before tools/colours scaled per guest may lack those maps, and one
+ *  saved before fillings were bucketed by sponge carries a flat `Filling[]`. */
+function ensurePartyShape(cfg: LineConfig): LineConfig {
+  if (cfg.kind !== "party") return cfg;
+  const fillings =
+    cfg.fillings && !Array.isArray(cfg.fillings)
+      ? cfg.fillings
+      : defaultPartyFillings(cfg.vanilla, cfg.cakes - cfg.vanilla);
+  return {
+    ...cfg,
+    fillings,
+    tools: cfg.tools ?? defaultPartyTools(cfg.cakes),
+    colours: cfg.colours ?? defaultPartyColours(cfg.cakes),
+  };
+}
 
 /** Sequential "Make it yours" flow — one decision per screen, a single
  *  persistent price, and "included vs +29 kr" stated in words. Rendered as a
@@ -71,15 +100,17 @@ export function Configurator({
   const back = rtl ? "→" : "←";
 
   const isParty = product.kind === "party";
+  const isSimpleCake = product.kind === "cake";
   const isEdit = !!editLineId;
-  const steps = isParty ? PARTY_STEPS : KIT_STEPS;
+  const steps = isParty ? PARTY_STEPS : isSimpleCake ? CAKE_STEPS : KIT_STEPS;
 
   // In edit mode the seed comes from the existing cart line — never from the
   // draft (a draft is a partial new build, not a snapshot of the line being
   // edited). Add mode keeps the in-progress draft restore.
   const [config, setConfig] = useState<LineConfig>(() => {
-    if (initialConfig) return initialConfig;
-    return loadDraft(product.id)?.config ?? (isParty ? defaultPartyConfig(product.id) : defaultKitConfig(product.id));
+    if (initialConfig) return ensurePartyShape(initialConfig);
+    const seed = loadDraft(product.id)?.config ?? (isParty ? defaultPartyConfig(product.id) : defaultKitConfig(product.id));
+    return ensurePartyShape(seed);
   });
   const [date, setDate] = useState(() => {
     if (isEdit) return initialDate ?? "";
@@ -152,7 +183,12 @@ export function Configurator({
   const setKit = (patch: Partial<KitConfig>) => setConfig((c) => ({ ...(c as KitConfig), ...patch }));
   const setParty = (patch: Partial<PartyConfig>) => setConfig((c) => ({ ...(c as PartyConfig), ...patch }));
 
-  const includedTools = isParty ? INCLUDED_TOOLS_DEFAULT : includedToolsFor(product.id);
+  const includedTools = isParty
+    ? includedToolsForParty((config as PartyConfig).cakes)
+    : includedToolsFor(product.id);
+  // Party colours scale per guest (INCLUDED_COLOURS per cake); kits get the flat
+  // included trio. Used by the colour step and the review extras line.
+  const includedColours = isParty ? includedColoursForParty((config as PartyConfig).cakes) : INCLUDED_COLOURS;
 
   // Earliest reservable date for this product's lead time.
   const minDate = useMemo(() => {
@@ -189,18 +225,37 @@ export function Configurator({
     else setKit({ tools: { ...c.tools, [k]: nextVal } });
   };
 
+  // Party colours are counted per shade (pots), like tools.
+  const setPartyColour = (key: ColourKey, delta: number) => {
+    const c = config as PartyConfig;
+    const nextVal = Math.max(0, (c.colours[key] || 0) + delta);
+    setParty({ colours: { ...c.colours, [key]: nextVal } });
+  };
+
+  // Party fillings are counted per filling, bucketed by sponge. A bucket can hold
+  // up to two fillings per cake (2 × its cake count), matching the kit's cap.
+  const setPartyFilling = (group: "vanilla" | "chocolate", f: Filling, delta: number) => {
+    const c = config as PartyConfig;
+    const bucketCakes = group === "vanilla" ? c.vanilla : c.cakes - c.vanilla;
+    const bucket = c.fillings[group] ?? {};
+    const nextVal = Math.max(0, (bucket[f] || 0) + delta);
+    if (delta > 0 && fillingCount(bucket) >= 2 * bucketCakes) return; // no third filling on a cake
+    setParty({ fillings: { ...c.fillings, [group]: { ...bucket, [f]: nextVal } } });
+  };
+
+  // Kit / ready-made cake fillings stay a distinct 1–2 selection.
   const toggleFilling = (f: Filling) => {
-    const has = config.fillings.includes(f);
+    const c = config as KitConfig;
+    const has = c.fillings.includes(f);
     let fillings: Filling[];
     if (has) {
-      if (config.fillings.length === 1) return; // one is always required
-      fillings = config.fillings.filter((x) => x !== f);
+      if (c.fillings.length === 1) return; // one is always required
+      fillings = c.fillings.filter((x) => x !== f);
     } else {
-      if (config.fillings.length >= 2) return; // cap at two
-      fillings = [...config.fillings, f];
+      if (c.fillings.length >= 2) return; // cap at two
+      fillings = [...c.fillings, f];
     }
-    if (isParty) setParty({ fillings });
-    else setKit({ fillings });
+    setKit({ fillings });
   };
 
   const toggleColour = (key: ColourKey) => {
@@ -217,6 +272,7 @@ export function Configurator({
 
   const Stepper = ({
     label,
+    swatch,
     value,
     onDec,
     onInc,
@@ -224,6 +280,7 @@ export function Configurator({
     incDisabled,
   }: {
     label: string;
+    swatch?: string;
     value: number;
     onDec: () => void;
     onInc: () => void;
@@ -231,7 +288,16 @@ export function Configurator({
     incDisabled?: boolean;
   }) => (
     <div className="flex items-center justify-between gap-4 py-3" style={{ borderTop: "1px solid rgba(61, 42, 34, 0.12)" }}>
-      <span className="type-body">{label}</span>
+      <span className="type-body flex items-center gap-3">
+        {swatch && (
+          <span
+            aria-hidden="true"
+            className="inline-block shrink-0"
+            style={{ width: "1.5rem", height: "1.5rem", backgroundColor: swatch, border: "1px solid rgba(61, 42, 34, 0.25)" }}
+          />
+        )}
+        {label}
+      </span>
       <div className="flex items-center gap-3">
         <button
           type="button"
@@ -284,11 +350,12 @@ export function Configurator({
   );
 
   const renderFilling = () => {
-    const twoChosen = config.fillings.length >= 2;
+    const kit = config as KitConfig;
+    const twoChosen = kit.fillings.length >= 2;
     return (
       <div className="flex flex-col gap-3">
         {FILLINGS.map((f) => {
-          const selected = config.fillings.includes(f);
+          const selected = kit.fillings.includes(f);
           return (
             <button
               key={f}
@@ -309,6 +376,50 @@ export function Configurator({
             +{locNum(EXTRA_ITEM_SEK, lang)} kr · {t.cfgReasonFilling}
           </p>
         )}
+      </div>
+    );
+  };
+
+  // Party fillings, bucketed by sponge so which filling goes on which sponge is
+  // explicit. Each bucket's portions target its cake count; a second filling on
+  // a cake (portions beyond the count) is +29, like the kit.
+  const renderPartyFillings = (c: PartyConfig) => {
+    const groups: { key: "vanilla" | "chocolate"; cakes: number }[] = [
+      { key: "vanilla", cakes: c.vanilla },
+      { key: "chocolate", cakes: c.cakes - c.vanilla },
+    ];
+    return (
+      <div className="flex flex-col gap-6">
+        {groups
+          .filter((g) => g.cakes > 0)
+          .map((g) => {
+            const bucket = c.fillings[g.key] ?? {};
+            const used = fillingCount(bucket);
+            const extra = Math.max(0, used - g.cakes);
+            return (
+              <div key={g.key}>
+                <div className="type-caps ink-muted mb-1">
+                  {FLAVOUR_LABELS[g.key][lang]} {t.cfgSpongeWord} · {locNum(g.cakes, lang)} {t.cfgCakesWord}
+                </div>
+                {FILLINGS.map((f) => (
+                  <Stepper
+                    key={f}
+                    label={FILLING_LABELS[f][lang]}
+                    value={bucket[f] || 0}
+                    onDec={() => setPartyFilling(g.key, f, -1)}
+                    onInc={() => setPartyFilling(g.key, f, +1)}
+                    decDisabled={(bucket[f] || 0) <= 0}
+                    incDisabled={used >= 2 * g.cakes}
+                  />
+                ))}
+                <p className="type-caps mt-3" style={{ color: extra > 0 ? "var(--dusty-wine)" : undefined }}>
+                  {extra > 0
+                    ? `+${locNum(extra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(extra, lang)} ${t.cfgReasonFilling}`
+                    : `${locNum(used, lang)} ${t.cfgOfWord} ${locNum(g.cakes, lang)} ${t.cfgAssignedWord}`}
+                </p>
+              </div>
+            );
+          })}
       </div>
     );
   };
@@ -380,6 +491,35 @@ export function Configurator({
     );
   };
 
+  // Party colours are pots per shade (like tools), so guests can share or spread
+  // shades freely across the party. Included allowance scales per guest.
+  const renderPartyColours = (c: PartyConfig) => {
+    const used = colourCount(c.colours);
+    const extra = Math.max(0, used - includedColours);
+    return (
+      <div>
+        <div role="group" aria-label={t.cfgColoursTitle}>
+          {COLOURS.map(({ key, hex, label }) => (
+            <Stepper
+              key={key}
+              label={label[lang]}
+              swatch={hex}
+              value={c.colours[key] || 0}
+              onDec={() => setPartyColour(key, -1)}
+              onInc={() => setPartyColour(key, +1)}
+              decDisabled={(c.colours[key] || 0) <= 0}
+            />
+          ))}
+        </div>
+        <p className="type-caps mt-4" style={{ color: extra > 0 ? "var(--dusty-wine)" : undefined }}>
+          {extra > 0
+            ? `+${locNum(extra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(extra, lang)} ${t.cfgReasonColour}`
+            : `${locNum(used, lang)} ${t.cfgOfWord} ${locNum(includedColours, lang)} ${t.cfgIncludedWord}`}
+        </p>
+      </div>
+    );
+  };
+
   const renderCakes = (c: PartyConfig) => {
     const atMax = c.cakes >= PARTY_MAX_SELF_SERVE;
     const setCakes = (n: number) => {
@@ -387,7 +527,23 @@ export function Configurator({
       // Rescale the split proportionally and re-clamp so it still sums to cakes.
       const vanilla =
         c.cakes > 0 ? Math.min(cakes, Math.max(0, Math.round((c.vanilla / c.cakes) * cakes))) : Math.ceil(cakes / 2);
-      setParty({ cakes, vanilla });
+      // Scale the tools and colours with the guest count too — each guest
+      // decorates their own cake, so the per-guest sets grow/shrink with cakes
+      // (keeps the 2 tools + 3 colours per guest default, and preserves any
+      // extra the customer added, per guest).
+      const scale = (v: number) => (c.cakes > 0 ? Math.round((v / c.cakes) * cakes) : v);
+      const tools: Tools = { piping: scale(c.tools.piping), brush: scale(c.tools.brush), knife: scale(c.tools.knife) };
+      const colours: ColourCounts = {};
+      for (const { key } of COLOURS) {
+        const scaled = scale(c.colours[key] || 0);
+        if (scaled > 0) colours[key] = scaled;
+      }
+      // Keep each sponge bucket's fillings summing to its new cake count.
+      const fillings = {
+        vanilla: rebalanceFillings(c.fillings.vanilla ?? {}, vanilla),
+        chocolate: rebalanceFillings(c.fillings.chocolate ?? {}, cakes - vanilla),
+      };
+      setParty({ cakes, vanilla, tools, colours, fillings });
     };
     return (
       <div>
@@ -429,7 +585,15 @@ export function Configurator({
           max={c.cakes}
           step={1}
           value={c.vanilla}
-          onChange={(e) => setParty({ vanilla: Math.min(c.cakes, Math.max(0, Number(e.target.value))) })}
+          onChange={(e) => {
+            const vanilla = Math.min(c.cakes, Math.max(0, Number(e.target.value)));
+            // Re-bucket the fillings so each sponge's fillings sum to its new count.
+            const fillings = {
+              vanilla: rebalanceFillings(c.fillings.vanilla ?? {}, vanilla),
+              chocolate: rebalanceFillings(c.fillings.chocolate ?? {}, c.cakes - vanilla),
+            };
+            setParty({ vanilla, fillings });
+          }}
           aria-label={t.cfgSplitAria}
           aria-valuetext={splitLabel}
         />
@@ -453,16 +617,17 @@ export function Configurator({
 
   const renderReview = () => {
     const extras: string[] = [];
-    const fillExtra = config.fillings.length - 1;
-    if (fillExtra > 0) extras.push(`+${locNum(fillExtra * EXTRA_ITEM_SEK, lang)} kr · ${t.cfgReasonFilling}`);
+    const fillExtra = extraFillings(config);
+    if (fillExtra > 0)
+      extras.push(`+${locNum(fillExtra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(fillExtra, lang)} ${t.cfgReasonFilling}`);
     const toolExtra = Math.max(0, toolCount(config.tools) - includedTools);
     if (toolExtra > 0)
       extras.push(`+${locNum(toolExtra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(toolExtra, lang)} ${t.cfgReasonTool}`);
-    if (!isParty) {
-      const colExtra = (config as KitConfig).colours.length - INCLUDED_COLOURS;
-      if (colExtra > 0)
-        extras.push(`+${locNum(colExtra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(colExtra, lang)} ${t.cfgReasonColour}`);
-    }
+    const colExtra = isParty
+      ? Math.max(0, colourCount((config as PartyConfig).colours) - includedColours)
+      : Math.max(0, (config as KitConfig).colours.length - INCLUDED_COLOURS);
+    if (colExtra > 0)
+      extras.push(`+${locNum(colExtra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(colExtra, lang)} ${t.cfgReasonColour}`);
     return (
       <div className="flex flex-col gap-4">
         <p className="type-body">{describeLine(config, lang)}</p>
@@ -496,8 +661,12 @@ export function Configurator({
   const includedFor: Record<string, string | null> = {
     flavour: t.cfgFlavourIncluded,
     filling: isParty ? t.cfgFillingPartyIncluded : t.cfgFillingIncluded,
-    colour: t.cfgColoursPick,
-    tools: product.id === "kit-deluxe" ? t.cfgToolsIncludedDeluxe : t.cfgToolsIncluded,
+    colour: isParty ? t.cfgColoursPartyIncluded : t.cfgColoursPick,
+    tools: isParty
+      ? t.cfgToolsIncludedParty
+      : product.id === "kit-grande"
+        ? t.cfgToolsIncludedDeluxe
+        : t.cfgToolsIncluded,
     date: isParty ? t.cfgDateIncludedParty : t.cfgDateIncludedKit,
     review: null,
     cakes: t.cfgCakesIncluded,
@@ -556,8 +725,8 @@ export function Configurator({
           </h2>
           {includedFor[current] && <p className="type-body ink-muted mb-6">{includedFor[current]}</p>}
           {current === "flavour" && renderFlavour(config as KitConfig)}
-          {current === "filling" && renderFilling()}
-          {current === "colour" && renderColours(config as KitConfig)}
+          {current === "filling" && (isParty ? renderPartyFillings(config as PartyConfig) : renderFilling())}
+          {current === "colour" && (isParty ? renderPartyColours(config as PartyConfig) : renderColours(config as KitConfig))}
           {current === "tools" && renderTools()}
           {current === "cakes" && renderCakes(config as PartyConfig)}
           {current === "split" && renderSplit(config as PartyConfig)}

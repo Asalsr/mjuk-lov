@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 import { isLang, ui, locNum, type Lang } from "@/lib/i18n";
-import { KITS, MENU, PARTY_PACK, SUBSCRIPTIONS, type Product } from "@/lib/products";
+import { KITS, CAKES, MENU, PARTY_PACK, SUBSCRIPTIONS, type Product } from "@/lib/products";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { AddToCartButton } from "@/app/components/shop/AddToCartButton";
 import { MakeItYoursButton } from "@/app/components/shop/MakeItYoursButton";
 import { MenuLineCard } from "@/app/components/shop/MenuLineCard";
+import { PhotoDisclaimer } from "@/app/components/PhotoDisclaimer";
 import { Party } from "@/app/components/Party";
 
 export const dynamic = "force-dynamic"; // reads ?paid
@@ -12,6 +13,7 @@ export const dynamic = "force-dynamic"; // reads ?paid
 function ProductCard({ p, lang, comingSoon }: { p: Product; lang: Lang; comingSoon?: boolean }) {
   const t = ui[lang];
   const fromLabel = p.kind === "party";
+  const isCake = p.kind === "cake"; // ready-made: we decorate, shorter flow
   return (
     <div
       className="relative p-6 md:p-8 flex flex-col"
@@ -46,8 +48,10 @@ function ProductCard({ p, lang, comingSoon }: { p: Product; lang: Lang; comingSo
             {locNum(p.priceSek, lang)} kr
           </div>
           <div className="mt-auto">
-            <MakeItYoursButton product={p} lang={lang} />
-            <p className="type-caps ink-muted mt-3">{fromLabel ? t.partyPromise : t.cardPromise}</p>
+            <MakeItYoursButton product={p} lang={lang} label={isCake ? t.chooseCake : undefined} />
+            <p className="type-caps ink-muted mt-3">
+              {isCake ? t.cakeCardPromise : fromLabel ? t.partyPromise : t.cardPromise}
+            </p>
           </div>
         </>
       ) : (
@@ -96,10 +100,19 @@ export default async function Page({
             </p>
           )}
 
-          {/* Cake kits */}
+          {/* Cake kits — the DIY signature */}
           <h2 className="mb-8 md:mb-10" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>{t.kits}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
             {KITS.map((p) => (
+              <ProductCard key={p.id} p={p} lang={lang} />
+            ))}
+          </div>
+
+          {/* Ready-made cakes — same three sizes, baked and decorated by us */}
+          <h2 className="mt-20 md:mt-28 mb-2" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>{t.cakesHeading}</h2>
+          <p className="type-body italic ink-muted mb-8 md:mb-10">{t.cakesTagline}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+            {CAKES.map((p) => (
               <ProductCard key={p.id} p={p} lang={lang} />
             ))}
           </div>
@@ -120,6 +133,8 @@ export default async function Page({
               <MenuLineCard key={p.id} product={p} lang={lang} />
             ))}
           </div>
+          {/* One illustrative-photo notice for the whole menu gallery (§2a) */}
+          <PhotoDisclaimer lang={lang} className="mt-6" />
 
           {/* Corporate subscriptions */}
           <h2 className="mt-20 md:mt-28 mb-2" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>{t.subscriptions}</h2>

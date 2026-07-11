@@ -5,7 +5,7 @@ import { Localized, Step } from "@/lib/recipes/schema";
  *  box links to. Reuses the recipe `Step` shape (localized text + optional
  *  durationMin/image) so the renderer and temperature handling are shared. */
 export const KitGuideSchema = z.object({
-  /** Must match a kit `id` in lib/products.ts (e.g. "kit-standard"). */
+  /** Must match a DIY kit `id` in lib/products.ts (e.g. "kit-medio"). */
   id: z.string().min(1),
   title: Localized,
   intro: Localized,

@@ -42,8 +42,8 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   const t = ui[lang];
   const arrow = isRtl(lang) ? "←" : "→";
 
-  // Sticky CTA promotes the entry-level kit; falls back gracefully if data shifts.
-  const leadKit = KITS.find((k) => k.id === "kit-standard") ?? KITS[0];
+  // Sticky CTA promotes the recommended kit; falls back gracefully if data shifts.
+  const leadKit = KITS.find((k) => k.popular) ?? KITS[0];
 
   return (
     <RecipeShell lang={lang} altPath={`/${lang === "sv" ? "en" : "sv"}/kit`}>

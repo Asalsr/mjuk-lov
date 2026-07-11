@@ -124,12 +124,13 @@ export const Season = (p: IconProps) => (
 export const Personal = (p: IconProps) => (
   <Illustration src="/icons/PERSONAL.svg" alt="" {...p} />
 );
-export const Standard = (p: IconProps) => (
-  <Illustration src="/icons/standard.svg" alt="" {...p} />
+// Watercolour marks per cake size (piccolo 10 cm / medio 15 cm / grande 25 cm).
+export const Piccolo = (p: IconProps) => (
+  <Illustration src="/icons/piccolo.svg" alt="" {...p} />
 );
-export const Deluxe = (p: IconProps) => (
-  <Illustration src="/icons/deluxe.svg" alt="" {...p} />
+export const Medio = (p: IconProps) => (
+  <Illustration src="/icons/medio.svg" alt="" {...p} />
 );
-export const GiftEdition = (p: IconProps) => (
-  <Illustration src="/icons/gift-edition.svg" alt="" {...p} />
+export const Grande = (p: IconProps) => (
+  <Illustration src="/icons/grande.svg" alt="" {...p} />
 );

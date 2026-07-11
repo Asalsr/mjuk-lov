@@ -9,65 +9,124 @@ export type Product = {
   priceSek: number; // kronor — for the party pack this is the "from" base price
   recurring?: boolean; // subscription billed monthly
   popular?: boolean; // highlighted tier
-  // Product family. "kit" and "party" open the step-by-step configurator;
-  // subscriptions are not configurable; "menu" is the Cakes & Bakes line, sold
-  // by box size. Defaults to "kit" when omitted.
-  kind?: "kit" | "party" | "subscription" | "menu";
+  // Product family. "kit" (DIY) and "cake" (ready-made) both open the
+  // step-by-step configurator, as does "party"; the difference is the flow —
+  // a "cake" is baked and decorated by us, so it skips the tools/colours steps
+  // (see the Configurator). Subscriptions are not configurable; "menu" is the
+  // Cakes & Bakes line, sold by box size. Defaults to "kit" when omitted.
+  kind?: "kit" | "cake" | "party" | "subscription" | "menu";
   configurable?: boolean; // routed through the "Make it yours" configurator
   leadDays?: number; // minimum days' notice (kit 3, party 7) — see lib/pricing
   // Menu line (Cakes & Bakes): box-size options and a seasonal flag.
   variants?: { id: string; label: { sv: string; en: string; fa: string }; priceSek: number }[];
   rotating?: boolean; // seasonal bake — contents follow the season
+  // Product photos under /public (illustrative; see PhotoDisclaimer). One shows a
+  // single framed photo; several become a slideshow. Filenames may contain spaces
+  // and are SVG, so they render via a plain <img> (encodeURI'd), not next/image.
+  images?: string[];
 };
 
 // Flat delivery fee in kronor (pickup is free).
 export const DELIVERY_FEE_SEK = 79;
 
-// Order here is the display order on /kit and /butik: Standard first (the
-// recommended entry point), then Gift Edition, then Deluxe. `popular` marks the
-// recommended tier — Standard only.
+// The three sizes come in two formats that share the same cakes: DIY kits
+// (KITS, below — the Mjuk Lov signature: you decorate) and ready-made cakes
+// (CAKES — we bake and decorate). Names piccolo/medio/grande are proper names,
+// never translated. DIY is priced 20% above the ready-made base.
+//
+// Display order on /kit and /butik: piccolo, medio, grande. `popular` marks the
+// recommended tier — medio (the versatile middle) only.
 export const KITS: Product[] = [
   {
-    id: "kit-standard",
+    id: "kit-piccolo",
+    size: "10 cm",
+    priceSek: 360,
+    kind: "kit",
+    configurable: true,
+    leadDays: 3,
+    name: { sv: "DIY Piccolo", en: "DIY Piccolo", fa: "DIY Piccolo" },
+    description: {
+      sv: "En liten DIY-tårta för två till fyra. Vi bakar botten, du väljer smak och fyllning och dekorerar själv.",
+      en: "A little DIY cake for two to four. We bake the base, you choose flavour and filling and decorate it yourself.",
+      fa: "یک کیک کوچک DIY برای دو تا چهار نفر. ما پایه را می‌پزیم، شما طعم و پرکننده را انتخاب می‌کنید و خودتان تزیین می‌کنید.",
+    },
+  },
+  {
+    id: "kit-medio",
     size: "15 cm",
-    priceSek: 345,
+    priceSek: 480,
     popular: true,
     kind: "kit",
     configurable: true,
     leadDays: 3,
-    name: { sv: "Standard", en: "Standard", fa: "استاندارد" },
+    name: { sv: "DIY Medio", en: "DIY Medio", fa: "DIY Medio" },
     description: {
-      sv: "Perfekt för 6–8 personer. Allt du behöver för att skapa din tårta hemma.",
-      en: "Perfect for 6–8 people. Everything you need to create your cake at home.",
-      fa: "مناسب برای ۶ تا ۸ نفر. هر آنچه برای ساختن کیک در خانه نیاز دارید.",
+      sv: "DIY-tårtan för sex till åtta. Vi bakar botten, du väljer smak och fyllning och gör dekoren till din.",
+      en: "The DIY cake for six to eight. We bake the base, you choose flavour and filling and make the decoration your own.",
+      fa: "کیک DIY برای شش تا هشت نفر. ما پایه را می‌پزیم، شما طعم و پرکننده را انتخاب می‌کنید و تزیین را به سبک خودتان انجام می‌دهید.",
     },
   },
   {
-    id: "kit-gift",
+    id: "kit-grande",
+    size: "25 cm",
+    priceSek: 540,
+    kind: "kit",
+    configurable: true,
+    leadDays: 3,
+    name: { sv: "DIY Grande", en: "DIY Grande", fa: "DIY Grande" },
+    description: {
+      sv: "Den stora DIY-tårtan för sexton till tjugo. Extra höjd, extra allt, och verktygen för att dekorera hela sällskapets tårta.",
+      en: "The big DIY cake for sixteen to twenty. Extra height, extra everything, and the tools to decorate a cake for the whole gathering.",
+      fa: "کیک بزرگ DIY برای شانزده تا بیست نفر. ارتفاع بیشتر، همه‌چیز بیشتر، و ابزار لازم برای تزیین کیکِ کل جمع.",
+    },
+  },
+];
+
+// Ready-made cakes — the same three sizes, baked and decorated by us. Shorter
+// flow (flavour + filling only; no tools, no colours) and a lower base price.
+// Sold in the shop alongside the kits; the /kit page and home stay DIY-only.
+export const CAKES: Product[] = [
+  {
+    id: "cake-piccolo",
+    size: "10 cm",
+    priceSek: 300,
+    kind: "cake",
+    configurable: true,
+    leadDays: 3,
+    name: { sv: "Piccolo", en: "Piccolo", fa: "Piccolo" },
+    description: {
+      sv: "En liten tårta för två till fyra, bakad och dekorerad av oss. Du väljer bara smak och fyllning.",
+      en: "A little cake for two to four, baked and decorated by us. You just choose flavour and filling.",
+      fa: "یک کیک کوچک برای دو تا چهار نفر، پخته و تزیین‌شده توسط ما. شما فقط طعم و پرکننده را انتخاب می‌کنید.",
+    },
+  },
+  {
+    id: "cake-medio",
     size: "15 cm",
-    priceSek: 395,
-    kind: "kit",
+    priceSek: 400,
+    popular: true,
+    kind: "cake",
     configurable: true,
     leadDays: 3,
-    name: { sv: "Presentupplaga", en: "Gift Edition", fa: "نسخه هدیه" },
+    name: { sv: "Medio", en: "Medio", fa: "Medio" },
     description: {
-      sv: "Som Standard, men i vacker presentask med en hälsning.",
-      en: "Like Standard, but in a beautiful gift box with a dedication.",
-      fa: "مانند استاندارد، اما در جعبه‌ای زیبا همراه با یک پیام.",
+      sv: "Tårtan för sex till åtta, bakad och dekorerad av oss. Välj smak och fyllning, resten fixar vi.",
+      en: "The cake for six to eight, baked and decorated by us. Choose flavour and filling, we do the rest.",
+      fa: "کیک برای شش تا هشت نفر، پخته و تزیین‌شده توسط ما. طعم و پرکننده را انتخاب کنید، بقیه‌اش با ما.",
     },
   },
   {
-    id: "kit-deluxe",
-    size: "20 cm",
-    priceSek: 445,
-    kind: "kit",
+    id: "cake-grande",
+    size: "25 cm",
+    priceSek: 450,
+    kind: "cake",
     configurable: true,
     leadDays: 3,
-    name: { sv: "Deluxe", en: "Deluxe", fa: "دلوکس" },
+    name: { sv: "Grande", en: "Grande", fa: "Grande" },
     description: {
-      sv: "För 10–12 personer. Extra höjd, extra smak, extra allt.",
-      en: "For 10–12 people. Extra height, extra flavour, extra everything.",
-      fa: "برای ۱۰ تا ۱۲ نفر. ارتفاع بیشتر، طعم بیشتر، همه‌چیز بیشتر.",
+      sv: "Den stora tårtan för sexton till tjugo, bakad och dekorerad av oss. Välj smak och fyllning.",
+      en: "The big cake for sixteen to twenty, baked and decorated by us. Choose flavour and filling.",
+      fa: "کیک بزرگ برای شانزده تا بیست نفر، پخته و تزیین‌شده توسط ما. طعم و پرکننده را انتخاب کنید.",
     },
   },
 ];
@@ -139,72 +198,102 @@ export const SUBSCRIPTIONS: Product[] = [
 ];
 
 // Cakes & Bakes — a small menu line alongside the kits, sold by box size.
-// Made to order; not configurable (no decorating). Each variant is a fixed bake.
+// Made to order; not configurable (no decorating). Each variant is a fixed box.
+//
+// Sizes are a FIXED vocabulary tied to the pans/jars we actually own, and every
+// variant label carries its serving count (customers buy by servings, not cm —
+// see house rule §2b): tray 18×28 = 9 pieces, 30×28 = 15 pieces; a round 17 cm
+// cut into 8 is the reference slice, so a 25 cm ≈ 17 by equal area; jars sold six
+// to a box. Brand names (Blusmisu, Lemomisu) are never translated. Photos live in
+// /public/gallery and are illustrative — the shop renders one PhotoDisclaimer
+// beneath the grid (§2a), not per card.
 export const MENU: Product[] = [
   {
-    id: "menu-brownie",
+    id: "menu-blusmisu",
     size: "",
-    priceSek: 120,
+    priceSek: 300,
     kind: "menu",
     leadDays: 2,
-    name: { sv: "Brownie", en: "Brownie", fa: "براونی" },
+    images: ["/gallery/blue berry tiramisu - blumisu (1).svg"],
+    name: { sv: "Blusmisu", en: "Blusmisu", fa: "Blusmisu" },
     description: {
-      sv: "Sega, mörka brownies. Säljs per ask.",
-      en: "Dense, dark brownies. Sold by the box.",
-      fa: "براونی‌های نرم و تیره. در جعبه ارائه می‌شود.",
+      sv: "Blåbärstiramisu på burk. Säljs i ask om sex.",
+      en: "Blueberry tiramisu in a jar. Sold by the box of six.",
+      fa: "تیرامیسوی بلوبری در شیشه. در جعبه‌های شش‌تایی.",
     },
     variants: [
-      { id: "box4", priceSek: 120, label: { sv: "Ask om 4", en: "Box of 4", fa: "جعبه ۴ تایی" } },
-      { id: "box9", priceSek: 230, label: { sv: "Ask om 9", en: "Box of 9", fa: "جعبه ۹ تایی" } },
+      { id: "box6", priceSek: 300, label: { sv: "Ask om 6 burkar", en: "Box of 6 jars", fa: "جعبه ۶ تایی" } },
+    ],
+  },
+  {
+    id: "menu-lemomisu",
+    size: "",
+    priceSek: 300,
+    kind: "menu",
+    leadDays: 2,
+    images: ["/gallery/lemon tiramisu - lemomisu (1).svg"],
+    name: { sv: "Lemomisu", en: "Lemomisu", fa: "Lemomisu" },
+    description: {
+      sv: "Citrontiramisu på burk. Säljs i ask om sex.",
+      en: "Lemon tiramisu in a jar. Sold by the box of six.",
+      fa: "تیرامیسوی لیمو در شیشه. در جعبه‌های شش‌تایی.",
+    },
+    variants: [
+      { id: "box6", priceSek: 300, label: { sv: "Ask om 6 burkar", en: "Box of 6 jars", fa: "جعبه ۶ تایی" } },
     ],
   },
   {
     id: "menu-lemon",
     size: "",
-    priceSek: 200,
+    priceSek: 280,
     kind: "menu",
     leadDays: 2,
+    images: ["/gallery/lemon cake (1).svg"],
     name: { sv: "Citronkaka", en: "Lemon cake", fa: "کیک لیمو" },
     description: {
-      sv: "Klassisk, fuktig citronkaka: färsk citronzest och en mild glasyr.",
-      en: "Classic moist lemon cake: fresh zest and a soft glaze.",
-      fa: "کیک کلاسیک و لطیف لیمو: پوست تازه لیمو و یک لعاب ملایم.",
-    },
-    variants: [{ id: "loaf", priceSek: 200, label: { sv: "Hel limpa", en: "Whole loaf", fa: "یک قالب کامل" } }],
-  },
-  {
-    id: "menu-cookie",
-    size: "",
-    priceSek: 100,
-    kind: "menu",
-    leadDays: 2,
-    name: { sv: "Kakor", en: "Cookies", fa: "کوکی" },
-    description: {
-      sv: "Frasiga utanpå, sega inuti. Bakas dagen innan.",
-      en: "Crisp outside, chewy inside. Baked the day before.",
-      fa: "بیرون ترد، داخل نرم. روز قبل پخته می‌شوند.",
+      sv: "Saftig citronkaka, toppad med blåbär och citron. Säljs hel.",
+      en: "Moist lemon cake, finished with blueberry and lemon. Sold whole.",
+      fa: "کیک لطیف لیمو با تزیین بلوبری و لیمو. به‌صورت کامل.",
     },
     variants: [
-      { id: "pack6", priceSek: 100, label: { sv: "6-pack", en: "Pack of 6", fa: "بسته ۶ تایی" } },
-      { id: "pack12", priceSek: 180, label: { sv: "12-pack", en: "Pack of 12", fa: "بسته ۱۲ تایی" } },
+      { id: "box9", priceSek: 280, label: { sv: "Hel kaka · 18×28 cm · 9 bitar", en: "Whole cake · 18×28 cm · serves 9", fa: "کیک کامل · ۱۸×۲۸ سانتی‌متر · ۹ برش" } },
+      { id: "box15", priceSek: 390, label: { sv: "Hel kaka · 30×28 cm · 15 bitar", en: "Whole cake · 30×28 cm · serves 15", fa: "کیک کامل · ۳۰×۲۸ سانتی‌متر · ۱۵ برش" } },
     ],
   },
   {
-    id: "menu-seasonal",
+    id: "menu-brownie",
     size: "",
-    priceSek: 120,
+    priceSek: 280,
     kind: "menu",
     leadDays: 2,
-    rotating: true,
-    name: { sv: "Säsongens bakverk", en: "Seasonal bake", fa: "شیرینی فصلی" },
+    images: ["/gallery/brownies.svg", "/gallery/brownies (2).svg"],
+    name: { sv: "Brownie", en: "Brownie", fa: "براونی" },
     description: {
-      sv: "Det vi bakar just nu. Innehållet följer säsongen.",
-      en: "Whatever we're baking right now. The bake follows the season.",
-      fa: "آنچه همین حالا می‌پزیم. محتوا با فصل تغییر می‌کند.",
+      sv: "Seg, mörk brownie, toppad med grädde och chokladbitar. Säljs hel.",
+      en: "Dense, dark brownie, finished with cream and chocolate pieces. Sold whole.",
+      fa: "براونی نرم و تیره با تزیین خامه و تکه‌های شکلات. به‌صورت کامل.",
     },
     variants: [
-      { id: "box4", priceSek: 120, label: { sv: "Ask om 4", en: "Box of 4", fa: "جعبه ۴ تایی" } },
-      { id: "box9", priceSek: 230, label: { sv: "Ask om 9", en: "Box of 9", fa: "جعبه ۹ تایی" } },
+      { id: "box9", priceSek: 280, label: { sv: "Hel kaka · 18×28 cm · 9 bitar", en: "Whole cake · 18×28 cm · serves 9", fa: "کیک کامل · ۱۸×۲۸ سانتی‌متر · ۹ برش" } },
+      { id: "box15", priceSek: 380, label: { sv: "Hel kaka · 30×28 cm · 15 bitar", en: "Whole cake · 30×28 cm · serves 15", fa: "کیک کامل · ۳۰×۲۸ سانتی‌متر · ۱۵ برش" } },
+    ],
+  },
+  {
+    id: "menu-lotus",
+    size: "",
+    priceSek: 350,
+    kind: "menu",
+    leadDays: 2,
+    images: ["/gallery/lotus cake (1).svg", "/gallery/lotus cake (2) (1).svg"],
+    name: { sv: "Lotustårta", en: "Lotus cake", fa: "کیک لوتوس" },
+    description: {
+      sv: "Lotustårta, hel. Välj 17 cm eller 25 cm.",
+      en: "Lotus cake, whole. Choose 17 cm or 25 cm.",
+      fa: "کیک لوتوس، کامل. ۱۷ یا ۲۵ سانتی‌متر.",
+    },
+    variants: [
+      { id: "box8", priceSek: 350, label: { sv: "Hel tårta · 17 cm · 8 bitar", en: "Whole cake · 17 cm · 8 slices", fa: "کیک کامل · ۱۷ سانتی‌متر · ۸ برش" } },
+      { id: "box17", priceSek: 450, label: { sv: "Hel tårta · 25 cm · 17 bitar", en: "Whole cake · 25 cm · 17 slices", fa: "کیک کامل · ۲۵ سانتی‌متر · ۱۷ برش" } },
     ],
   },
 ];
@@ -229,7 +318,7 @@ export const MENU_VARIANT_PRODUCTS: Product[] = MENU.flatMap((m) =>
 );
 
 // Everything orderable, in one list.
-export const PRODUCTS: Product[] = [...KITS, ...PARTY, ...MENU, ...MENU_VARIANT_PRODUCTS, ...SUBSCRIPTIONS];
+export const PRODUCTS: Product[] = [...KITS, ...CAKES, ...PARTY, ...MENU, ...MENU_VARIANT_PRODUCTS, ...SUBSCRIPTIONS];
 
 export const PARTY_PACK = PARTY[0];
 

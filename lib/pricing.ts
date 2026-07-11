@@ -10,7 +10,7 @@ export const EXTRA_ITEM_SEK = 29; // flat price for one extra filling / tool / c
 export const INCLUDED_FILLINGS = 1; // one filling is always included
 export const INCLUDED_COLOURS = 3; // three colours are always included (kits)
 export const INCLUDED_TOOLS_DEFAULT = 2; // two tools included
-export const INCLUDED_TOOLS_DELUXE = 3; // Deluxe includes three
+export const INCLUDED_TOOLS_GRANDE = 3; // the large DIY kit (grande) includes three
 
 export const PARTY_BASE_SEK = 390; // covers PARTY_BASE_CAKES cakes
 export const PARTY_BASE_CAKES = 2;
@@ -30,6 +30,9 @@ export type Flavour = (typeof FLAVOURS)[number];
 
 export const FILLINGS = ["berries", "chocolate-berry", "nuts-fruit", "biscoff", "caramel"] as const;
 export type Filling = (typeof FILLINGS)[number];
+/** Party fillings are counted per filling (portions), bucketed by sponge, so a
+ *  party of N cakes gets INCLUDED_FILLINGS per cake. Kits pick a distinct list. */
+export type FillingCounts = Partial<Record<Filling, number>>;
 
 export const TOOLS = ["piping", "brush", "knife"] as const;
 export type ToolKey = (typeof TOOLS)[number];
@@ -48,11 +51,17 @@ export const COLOURS = [
   { key: "natural", hex: "#F3ECE0", label: { sv: "Naturvit", en: "Natural", fa: "طبیعی" } },
 ] as const;
 export type ColourKey = (typeof COLOURS)[number]["key"];
+/** Party colours are counted per shade (pots), like tools — a party of N guests
+ *  gets INCLUDED_COLOURS pots per cake. Kits, by contrast, pick a distinct set. */
+export type ColourCounts = Partial<Record<ColourKey, number>>;
 
 // --- Config shapes --------------------------------------------------------
 export type KitConfig = {
   kind: "kit";
-  productId: string; // kit-standard | kit-gift | kit-deluxe
+  // DIY kits (kit-piccolo | kit-medio | kit-grande) or ready-made cakes
+  // (cake-piccolo | cake-medio | cake-grande). Both use this shape; a ready-made
+  // cake simply carries no tools and no colours (see defaultKitConfig).
+  productId: string;
   flavour: Flavour;
   fillings: Filling[]; // 1–2
   tools: Tools; // counts per tool
@@ -64,8 +73,11 @@ export type PartyConfig = {
   productId: string; // party-pack
   cakes: number; // PARTY_MIN_CAKES..PARTY_MAX_SELF_SERVE
   vanilla: number; // 0..cakes; chocolate = cakes - vanilla
-  fillings: Filling[]; // 1–2, shared across the party
-  tools: Tools; // shared set
+  // Fillings are bucketed by sponge so each cake's filling is unambiguous. Each
+  // bucket's portions sum to that sponge's cake count; INCLUDED_FILLINGS per cake.
+  fillings: { vanilla: FillingCounts; chocolate: FillingCounts };
+  tools: Tools; // total counts across the party; INCLUDED_TOOLS_DEFAULT per cake included
+  colours: ColourCounts; // pots per shade; INCLUDED_COLOURS per cake included
 };
 
 export type LineConfig = KitConfig | PartyConfig;
@@ -94,7 +106,47 @@ export const TOOL_LABELS: Record<ToolKey, L> = {
 
 // --- Defaults -------------------------------------------------------------
 export function includedToolsFor(productId: string): number {
-  return productId === "kit-deluxe" ? INCLUDED_TOOLS_DELUXE : INCLUDED_TOOLS_DEFAULT;
+  return productId === "kit-grande" ? INCLUDED_TOOLS_GRANDE : INCLUDED_TOOLS_DEFAULT;
+}
+
+/** A Party Pack is one DIY cake per guest, so each guest gets a kit's worth of
+ *  decorating: INCLUDED_TOOLS_DEFAULT tools per cake. The included allowance
+ *  therefore scales with the cake count (10 cakes → 20 tools, not a flat 2). */
+export function includedToolsForParty(cakes: number): number {
+  return INCLUDED_TOOLS_DEFAULT * Math.max(0, cakes);
+}
+
+/** Default party tools: a starter set per guest — one piping bag and one brush
+ *  each (= INCLUDED_TOOLS_DEFAULT per cake), so the default never costs extra. */
+export function defaultPartyTools(cakes: number): Tools {
+  const n = Math.max(0, cakes);
+  return { piping: n, brush: n, knife: 0 };
+}
+
+/** Like tools, party colours scale with guests: INCLUDED_COLOURS pots per cake
+ *  (10 cakes → 30 pots included). */
+export function includedColoursForParty(cakes: number): number {
+  return INCLUDED_COLOURS * Math.max(0, cakes);
+}
+
+/** Total pots chosen across all shades. Tolerates a missing map (a party line
+ *  persisted before colours existed) by treating it as empty. */
+export function colourCount(colours: ColourCounts | undefined): number {
+  if (!colours) return 0;
+  return COLOURS.reduce((n, c) => n + (colours[c.key] || 0), 0);
+}
+
+/** Default party colours: a starter trio per guest — one pot each of the first
+ *  three curated shades (= INCLUDED_COLOURS per cake), so it never costs extra. */
+export function defaultPartyColours(cakes: number): ColourCounts {
+  const n = Math.max(0, cakes);
+  return { [COLOURS[0].key]: n, [COLOURS[1].key]: n, [COLOURS[2].key]: n };
+}
+
+/** Ready-made cakes (kind "cake") use the shorter flavour + filling flow — no
+ *  decorating tools or colours. Everything else (DIY kits) is a full build. */
+export function isSimpleCake(productId: string): boolean {
+  return getProduct(productId)?.kind === "cake";
 }
 
 function evenSplit(count: number): { vanilla: number } {
@@ -102,23 +154,72 @@ function evenSplit(count: number): { vanilla: number } {
 }
 
 export function defaultKitConfig(productId: string): KitConfig {
+  // Ready-made cake: we decorate it, so no tools and no colours to pick.
+  if (isSimpleCake(productId)) {
+    return { kind: "kit", productId, flavour: "vanilla", fillings: ["berries"], tools: { piping: 0, brush: 0, knife: 0 }, colours: [] };
+  }
   const included = includedToolsFor(productId);
-  // Spread the included tools across piping + brush (and knife on Deluxe).
+  // Spread the included tools across piping + brush (and knife on grande).
   const tools: Tools = { piping: 1, brush: 1, knife: included >= 3 ? 1 : 0 };
   // Default to the first INCLUDED_COLOURS curated shades (an even, pretty trio).
   const colours = COLOURS.slice(0, INCLUDED_COLOURS).map((c) => c.key);
   return { kind: "kit", productId, flavour: "vanilla", fillings: ["berries"], tools, colours };
 }
 
+/** Total filling portions in a bucket. Tolerates a missing/legacy shape. */
+export function fillingCount(fc: FillingCounts | undefined): number {
+  if (!fc) return 0;
+  return FILLINGS.reduce((n, f) => n + (fc[f] || 0), 0);
+}
+
+/** Default party fillings: every cake gets berries, bucketed by sponge, so the
+ *  buckets sum to the split and nothing costs extra. */
+export function defaultPartyFillings(vanilla: number, chocolate: number): { vanilla: FillingCounts; chocolate: FillingCounts } {
+  return {
+    vanilla: vanilla > 0 ? { berries: vanilla } : {},
+    chocolate: chocolate > 0 ? { berries: chocolate } : {},
+  };
+}
+
+/** Rescale a filling bucket to a new sponge-cake count, preserving the rough
+ *  distribution and keeping the bucket summing exactly to newCount. */
+export function rebalanceFillings(fc: FillingCounts, newCount: number): FillingCounts {
+  const n = Math.max(0, newCount);
+  if (n === 0) return {};
+  const total = fillingCount(fc);
+  if (total === 0) return { berries: n };
+  const out: FillingCounts = {};
+  let assigned = 0;
+  let maxKey: Filling = FILLINGS[0];
+  let maxVal = -1;
+  for (const f of FILLINGS) {
+    const v = fc[f] || 0;
+    if (v <= 0) continue;
+    const scaled = Math.round((v / total) * n);
+    if (scaled > 0) out[f] = scaled;
+    assigned += scaled;
+    if (v > maxVal) {
+      maxVal = v;
+      maxKey = f;
+    }
+  }
+  // Land the rounding remainder on the largest bucket so the total is exactly n.
+  const diff = n - assigned;
+  if (diff !== 0) out[maxKey] = Math.max(0, (out[maxKey] || 0) + diff);
+  return out;
+}
+
 export function defaultPartyConfig(productId = "party-pack"): PartyConfig {
   const cakes = PARTY_BASE_CAKES;
+  const vanilla = evenSplit(cakes).vanilla;
   return {
     kind: "party",
     productId,
     cakes,
-    vanilla: evenSplit(cakes).vanilla,
-    fillings: ["berries"],
-    tools: { piping: 1, brush: 1, knife: 0 },
+    vanilla,
+    fillings: defaultPartyFillings(vanilla, cakes - vanilla),
+    tools: defaultPartyTools(cakes),
+    colours: defaultPartyColours(cakes),
   };
 }
 
@@ -128,16 +229,24 @@ export function toolCount(tools: Tools): number {
 }
 
 export function extraFillings(cfg: LineConfig): number {
-  return Math.max(0, cfg.fillings.length - INCLUDED_FILLINGS);
+  if (cfg.kind === "kit") return Math.max(0, cfg.fillings.length - INCLUDED_FILLINGS);
+  // Party: one filling per cake included, per sponge bucket. A cake with a
+  // second filling (bucket portions beyond its cake count) is one extra each.
+  const choc = cfg.cakes - cfg.vanilla;
+  return (
+    Math.max(0, fillingCount(cfg.fillings?.vanilla) - cfg.vanilla) +
+    Math.max(0, fillingCount(cfg.fillings?.chocolate) - choc)
+  );
 }
 
 export function extraTools(cfg: LineConfig): number {
-  const included = cfg.kind === "kit" ? includedToolsFor(cfg.productId) : INCLUDED_TOOLS_DEFAULT;
+  const included = cfg.kind === "kit" ? includedToolsFor(cfg.productId) : includedToolsForParty(cfg.cakes);
   return Math.max(0, toolCount(cfg.tools) - included);
 }
 
 export function extraColours(cfg: LineConfig): number {
-  return cfg.kind === "kit" ? Math.max(0, cfg.colours.length - INCLUDED_COLOURS) : 0;
+  if (cfg.kind === "kit") return Math.max(0, cfg.colours.length - INCLUDED_COLOURS);
+  return Math.max(0, colourCount(cfg.colours) - includedColoursForParty(cfg.cakes));
 }
 
 // --- Price ----------------------------------------------------------------
@@ -161,7 +270,6 @@ export function leadDaysFor(cfg: LineConfig): number {
 /** One-line summary for the review step, cart row and order email. */
 export function describeLine(cfg: LineConfig, lang: Lang): string {
   const sep = " · ";
-  const fillings = cfg.fillings.map((f) => FILLING_LABELS[f][lang]).join(", ");
   const toolBits = TOOLS.filter((k) => cfg.tools[k] > 0).map((k) => {
     const n = cfg.tools[k];
     return n > 1 ? `${n}× ${TOOL_LABELS[k][lang]}` : TOOL_LABELS[k][lang];
@@ -177,11 +285,33 @@ export function describeLine(cfg: LineConfig, lang: Lang): string {
           ? `${cfg.vanilla} وانیل / ${choc} شکلات`
           : `${cfg.vanilla} vanilla / ${choc} chocolate`;
     const cakesWord = lang === "sv" ? "tårtor" : lang === "fa" ? "کیک" : "cakes";
-    return [`${name}: ${cfg.cakes} ${cakesWord}`, split, fillings, toolBits.join(", ")]
+    // Fillings named under each sponge so the pairing is explicit.
+    const fillBucket = (fc: FillingCounts | undefined) =>
+      FILLINGS.filter((f) => ((fc ?? {})[f] || 0) > 0)
+        .map((f) => {
+          const n = (fc ?? {})[f] || 0;
+          return n > 1 ? `${n}× ${FILLING_LABELS[f][lang]}` : FILLING_LABELS[f][lang];
+        })
+        .join(", ");
+    const vf = fillBucket(cfg.fillings?.vanilla);
+    const cf = fillBucket(cfg.fillings?.chocolate);
+    const fillingBits = [
+      vf && `${FLAVOUR_LABELS.vanilla[lang]}: ${vf}`,
+      cf && `${FLAVOUR_LABELS.chocolate[lang]}: ${cf}`,
+    ]
+      .filter(Boolean)
+      .join(sep);
+    const cc = cfg.colours ?? {};
+    const colourBits = COLOURS.filter((c) => (cc[c.key] || 0) > 0).map((c) => {
+      const n = cc[c.key] || 0;
+      return n > 1 ? `${n}× ${c.label[lang]}` : c.label[lang];
+    });
+    return [`${name}: ${cfg.cakes} ${cakesWord}`, split, fillingBits, toolBits.join(", "), colourBits.join(", ")]
       .filter(Boolean)
       .join(sep);
   }
 
+  const fillings = cfg.fillings.map((f) => FILLING_LABELS[f][lang]).join(", ");
   // List chosen shades in palette order for a stable, readable summary.
   const colours = COLOURS.filter((c) => cfg.colours.includes(c.key))
     .map((c) => c.label[lang])
@@ -200,8 +330,10 @@ export function configKey(cfg: LineConfig): string {
       cfg.productId,
       cfg.cakes,
       cfg.vanilla,
-      cfg.fillings.slice().sort().join("+"),
+      "fv:" + FILLINGS.map((f) => `${f}:${cfg.fillings?.vanilla?.[f] || 0}`).join(","),
+      "fc:" + FILLINGS.map((f) => `${f}:${cfg.fillings?.chocolate?.[f] || 0}`).join(","),
       TOOLS.map((k) => `${k}:${cfg.tools[k] || 0}`).join(","),
+      COLOURS.map((c) => `${c.key}:${cfg.colours?.[c.key] || 0}`).join(","),
     ].join("|");
   }
   return [
