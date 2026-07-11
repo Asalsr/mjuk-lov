@@ -13,7 +13,9 @@ export type ProductGalleryItem =
  * Main image + thumbnail strip. Shows the active item large, with a row of
  * thumbnails beneath; tapping a thumb swaps the main image. Built on
  * <ProductImage> for photos (so missing photos fall back to the placeholder)
- * and renders watercolor illustrations on a --soft-peach field.
+ * and renders watercolor illustrations on an `illustrationBg` field
+ * (defaults to --soft-peach; pass 'transparent' to let the illustration sit
+ * directly on the section background).
  *
  * Square corners (--radius: 0), brand tokens, ≥44px tap targets, RTL-safe,
  * and motion is CSS-only (flattened under prefers-reduced-motion globally).
@@ -23,11 +25,13 @@ export function ProductGallery({
   aspect = '4/5',
   sizes = '100vw',
   className = '',
+  illustrationBg = 'var(--soft-peach)',
 }: {
   items: ProductGalleryItem[];
   aspect?: string;
   sizes?: string;
   className?: string;
+  illustrationBg?: string;
 }) {
   const [active, setActive] = useState(0);
   const current = items[active] ?? items[0];
@@ -43,7 +47,7 @@ export function ProductGallery({
           role="img"
           aria-label={current.alt}
           className="relative w-full overflow-hidden flex items-center justify-center"
-          style={{ aspectRatio: aspect, backgroundColor: 'var(--soft-peach)' }}
+          style={{ aspectRatio: aspect, backgroundColor: illustrationBg }}
         >
           <current.Icon className="w-full h-full" />
         </div>
@@ -74,7 +78,7 @@ export function ProductGallery({
                   ) : (
                     <span
                       className="flex items-center justify-center w-full h-full"
-                      style={{ backgroundColor: 'var(--soft-peach)' }}
+                      style={{ backgroundColor: illustrationBg }}
                     >
                       <item.Icon className="w-full h-full" />
                     </span>

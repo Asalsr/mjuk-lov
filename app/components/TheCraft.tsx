@@ -153,8 +153,9 @@ export const TheCraft = ({ lang }: TheCraftProps) => {
                     { kind: 'photo', src: stepPhotos[i], alt: ui[lang].craftPhotoAlt(step.label) },
                   ]}
                   aspect="4/5"
-                  sizes="(min-width: 768px) 25vw, (min-width: 640px) 50vw, 100vw"
-                  className="mb-5"
+                  sizes="(min-width: 768px) 25vw, (min-width: 640px) 50vw, 50vw"
+                  className="mb-5 w-1/2 mx-auto sm:w-full"
+                  illustrationBg="transparent"
                 />
 
                 <div className="type-caps mb-3 opacity-30 group-hover:opacity-60 transition-opacity duration-300">
