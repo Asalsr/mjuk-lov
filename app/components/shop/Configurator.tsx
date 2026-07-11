@@ -304,8 +304,8 @@ export function Configurator({
           onClick={onDec}
           disabled={decDisabled}
           aria-label={`${t.cfgDecrease}: ${label}`}
-          className="w-11 h-11 type-price transition-all hover:bg-[var(--warm-peach)] disabled:opacity-30"
-          style={{ border: "1px solid var(--warm-cocoa)" }}
+          className="w-11 h-11 type-price flex items-center justify-center transition-all hover:bg-[var(--warm-peach)] disabled:opacity-30"
+          style={{ border: "1px solid var(--warm-cocoa)", fontSize: "1.9rem", fontWeight: 800, lineHeight: 1 }}
         >
           −
         </button>
@@ -317,8 +317,8 @@ export function Configurator({
           onClick={onInc}
           disabled={incDisabled}
           aria-label={`${t.cfgIncrease}: ${label}`}
-          className="w-11 h-11 type-price transition-all hover:bg-[var(--warm-peach)] disabled:opacity-30"
-          style={{ border: "1px solid var(--warm-cocoa)" }}
+          className="w-11 h-11 type-price flex items-center justify-center transition-all hover:bg-[var(--warm-peach)] disabled:opacity-30"
+          style={{ border: "1px solid var(--warm-cocoa)", fontSize: "1.9rem", fontWeight: 800, lineHeight: 1 }}
         >
           +
         </button>
