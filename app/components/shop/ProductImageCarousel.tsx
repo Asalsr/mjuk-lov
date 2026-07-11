@@ -6,7 +6,8 @@ import { ui, locNum, type Lang } from "@/lib/i18n";
 
 /**
  * Photo carousel for the Cakes & Bakes cards. It mirrors `ProductImage`'s frame
- * — full width, a fixed aspect ratio, `object-cover`, square corners (the site
+ * — full width, a fixed aspect ratio, `object-contain` (so a photo is always
+ * shown whole, never cropped), square corners (the site
  * runs `--radius: 0`), and a `--soft-peach` backdrop — so the menu cards match
  * the rest of the shop. Unlike `ProductImage` it uses a plain `<img>`, because
  * our gallery files are SVG and `next/image` refuses SVG without
@@ -21,7 +22,11 @@ export function ProductImageCarousel({
   images,
   alt,
   lang,
-  aspect = "4/5",
+  // Matches the gallery SVGs' shared canvas (1485 × 1439.25) so a photo shows
+  // whole — full width, never cropped. `object-contain` (below) then guarantees
+  // any future off-ratio image letterboxes on the peach backdrop instead of
+  // being cut.
+  aspect = "1485 / 1439.25",
 }: {
   images: string[];
   alt: string;
@@ -52,8 +57,6 @@ export function ProductImageCarousel({
     "absolute top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center type-serif " +
     "opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity";
   const navStyle: React.CSSProperties = {
-    backgroundColor: "var(--vanilla-cream)",
-    border: "1px solid var(--warm-cocoa)",
     lineHeight: 1,
   };
 
@@ -81,7 +84,7 @@ export function ProductImageCarousel({
           loading="lazy"
           aria-hidden={i !== index}
           onError={() => setFailed((f) => ({ ...f, [i]: true }))}
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+          className="absolute inset-0 h-full w-full object-contain transition-opacity duration-500"
           style={{ opacity: i === index && !failed[i] ? 1 : 0 }}
         />
       ))}

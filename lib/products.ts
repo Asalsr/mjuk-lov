@@ -231,7 +231,7 @@ export const MENU: Product[] = [
     priceSek: 300,
     kind: "menu",
     leadDays: 2,
-    images: ["/gallery/lemon tiramisu - lemomisu (1).svg"],
+    images: ["/gallery/lemon tiramisu - lemomisu (1).svg", "/gallery/lemon tiramisu - lemomisu (2).svg"],
     name: { sv: "Lemomisu", en: "Lemomisu", fa: "Lemomisu" },
     description: {
       sv: "Citrontiramisu på burk. Säljs i ask om sex.",
