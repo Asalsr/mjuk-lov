@@ -248,7 +248,7 @@ export const MENU: Product[] = [
     priceSek: 280,
     kind: "menu",
     leadDays: 2,
-    images: ["/gallery/lemon cake (1).svg"],
+    images: ["/gallery/lemon cake (3).svg", "/gallery/lemon cake (2).svg"],
     name: { sv: "Citronkaka", en: "Lemon cake", fa: "کیک لیمو" },
     description: {
       sv: "Saftig citronkaka, toppad med blåbär och citron. Säljs hel.",
