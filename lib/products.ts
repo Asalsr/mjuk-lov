@@ -246,11 +246,11 @@ export const SUBSCRIPTIONS: Product[] = [
 export const MENU: Product[] = [
   {
     id: "menu-blusmisu",
-    allergens: ["gluten", "egg", "milk"],
+    allergens: ["gluten", "egg", "milk", "soy"],
     ingredients: {
-      sv: "savoiardikex (vetemjöl, ägg), mascarpone, grädde, ägg, socker, blåbär",
-      en: "ladyfingers (wheat flour, egg), mascarpone, cream, egg, sugar, blueberry",
-      fa: "بیسکویت لیدی‌فینگر (آرد گندم، تخم‌مرغ)، ماسکارپونه، خامه، تخم‌مرغ، شکر، بلوبری",
+      sv: "blåbär, vatten, socker, svart te, vispgrädde, vaniljstång, mascarpone, savoiardikex (vetemjöl, ägg, soja). Innehåller koffein (svart te).",
+      en: "blueberry, water, sugar, black tea, heavy cream, vanilla bean, mascarpone, ladyfingers (wheat flour, egg, soy). Contains caffeine (black tea).",
+      fa: "بلوبری، آب، شکر، چای سیاه، خامه غلیظ، دانه وانیل، ماسکارپونه، بیسکویت لیدی‌فینگر (آرد گندم، تخم‌مرغ، سویا). حاوی کافئین (چای سیاه) است.",
     },
     size: "",
     priceSek: 294,
@@ -316,11 +316,11 @@ export const MENU: Product[] = [
   },
   {
     id: "menu-brownie",
-    allergens: ["gluten", "egg", "milk", "soy"],
+    allergens: ["gluten", "egg", "milk", "soy", "nuts"],
     ingredients: {
-      sv: "vetemjöl, socker, ägg, smör, mörk choklad (soja), grädde, kakao",
-      en: "wheat flour, sugar, egg, butter, dark chocolate (soy), cream, cocoa",
-      fa: "آرد گندم، شکر، تخم‌مرغ، کره، شکلات تلخ (سویا)، خامه، کاکائو",
+      sv: "mörk choklad (soja), smör, ägg, socker, vetemjöl, salt, apelsinskal, lättrostade valnötter (nötter), snabbkaffe. Innehåller koffein (kaffe, choklad).",
+      en: "dark chocolate (soy), butter, egg, sugar, wheat flour, salt, orange zest, light-roasted walnuts (tree nuts), instant coffee. Contains caffeine (coffee, chocolate).",
+      fa: "شکلات تلخ (سویا)، کره، تخم‌مرغ، شکر، آرد گندم، نمک، پوست پرتقال، گردوی کمی برشته (آجیل درختی)، قهوه فوری. حاوی کافئین (قهوه، شکلات) است.",
     },
     size: "",
     priceSek: 499,
