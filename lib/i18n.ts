@@ -292,7 +292,7 @@ export const ui = {
     kitFaqHeading: "Vanliga frågor",
     kitFaq: [
       { q: "Jag har aldrig dekorerat en tårta.", a: "Perfekt, det är precis dig det är till för. Det svåra är gjort; resten är guidat och förlåtande." },
-      { q: "Funkar det bara för oss två?", a: "Det är vår favoritanledning till den. 15 cm är gjord för två till några få." },
+      { q: "Funkar det bara för oss två?", a: "Det är vår favoritanledning till den. 17 cm är gjord för två till några få." },
       { q: "Kan jag välja smaker och färger?", a: "Ja, du väljer när du beställer." },
       { q: "Hur länge håller tårtan?", a: "Komponenterna är färska. Förvara svalt och dekorera inom 3 dagar efter hämtning." },
       { q: "Passar det allergiker?", a: "Tillverkas i ett kök som även hanterar nötter, mjölk, ägg och gluten. Kontrollera alltid förpackningen på de varor du själv tillsätter hemma." },
@@ -636,7 +636,7 @@ export const ui = {
     kitFaqHeading: "FAQ",
     kitFaq: [
       { q: "I've never decorated a cake.", a: "Perfect, that's who this is for. The hard part's done; the rest is guided and forgiving." },
-      { q: "Is it good for just the two of us?", a: "It's our favourite reason for it. The 15 cm is sized for two to a few." },
+      { q: "Is it good for just the two of us?", a: "It's our favourite reason for it. The 17 cm is sized for two to a few." },
       { q: "Can I choose flavours and colours?", a: "Yes, you choose when you order." },
       { q: "How long does the cake keep?", a: "The components are fresh. Keep cool and decorate within 3 days of pickup." },
       { q: "Is it suitable for allergies?", a: "Made in a kitchen that also handles nuts, milk, eggs and gluten. Always check the packaging of any products you add at home." },
@@ -980,7 +980,7 @@ export const ui = {
     kitFaqHeading: "پرسش‌های متداول",
     kitFaq: [
       { q: "من تا حالا کیک تزیین نکرده‌ام.", a: "عالی، دقیقاً برای همین آدم‌هاست. بخش سخت انجام شده؛ بقیه‌اش راهنمایی‌شده و آسان‌گیر است." },
-      { q: "برای فقط همین دو نفرِ ما خوب است؟", a: "این محبوب‌ترین بهانه‌ی ماست برایش. اندازه‌ی ۱۵ سانتی برای دو تا چند نفر است." },
+      { q: "برای فقط همین دو نفرِ ما خوب است؟", a: "این محبوب‌ترین بهانه‌ی ماست برایش. اندازه‌ی ۱۷ سانتی برای دو تا چند نفر است." },
       { q: "می‌توانم طعم‌ها و رنگ‌ها را انتخاب کنم؟", a: "بله، هنگام سفارش انتخاب می‌کنی." },
       { q: "کیک چقدر ماندگار است؟", a: "اجزا تازه‌اند. خنک نگه دارید و ظرف ۳ روز پس از تحویل تزیین کنید." },
       { q: "برای افراد دارای آلرژی مناسب است؟", a: "در آشپزخانه‌ای تهیه می‌شود که با آجیل، شیر، تخم‌مرغ و گلوتن هم کار می‌کند. همیشه برچسب بسته‌بندی محصولاتی را که خودت در خانه اضافه می‌کنی بررسی کن." },

@@ -124,7 +124,7 @@ export const Season = (p: IconProps) => (
 export const Personal = (p: IconProps) => (
   <Illustration src="/icons/PERSONAL.svg" alt="" {...p} />
 );
-// Watercolour marks per cake size (piccolo 10 cm / medio 15 cm / grande 25 cm).
+// Watercolour marks per cake size (piccolo 10 cm / medio 17 cm / grande 25 cm).
 // These depict the finished, decorated cake — used for the ready-made cakes.
 export const Piccolo = (p: IconProps) => (
   <Illustration src="/icons/piccolo.svg" alt="" {...p} />

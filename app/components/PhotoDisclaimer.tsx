@@ -6,7 +6,7 @@ import { ui, type Lang } from "@/lib/i18n";
  * House rule: every product **photo group** carries this once. Cakes are baked
  * to the size (cm) and weight (kg) ordered, so the height, number of layers and
  * finish of a real order can differ from the example shown in a photo, e.g. a
- * three-layer birthday cake in the picture versus a smaller two-layer 15 cm
+ * three-layer birthday cake in the picture versus a smaller two-layer 17 cm
  * order. Place it under the photo (or gallery), not on every thumbnail.
  *
  * Copy lives in `lib/i18n.ts` (`photoDisclaimer`, all locales). Uses `.ink-muted`

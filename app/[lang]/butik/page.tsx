@@ -108,17 +108,8 @@ export default async function Page({
             </p>
           )}
 
-          {/* Ready-made cakes — same three sizes, baked and decorated by us */}
-          <h2 className="mb-2" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>{t.cakesHeading}</h2>
-          <p className="type-body italic ink-muted mb-8 md:mb-10">{t.cakesTagline}</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
-            {CAKES.map((p) => (
-              <ProductCard key={p.id} p={p} lang={lang} />
-            ))}
-          </div>
-
           {/* Party Pack — sold by occasion, with its own configurable card */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mt-20 md:mt-28">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             <div className="md:col-span-2">
               <Party lang={lang} />
             </div>
@@ -129,6 +120,15 @@ export default async function Page({
           <h2 className="mt-20 md:mt-28 mb-8 md:mb-10" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>{t.kits}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
             {KITS.map((p) => (
+              <ProductCard key={p.id} p={p} lang={lang} />
+            ))}
+          </div>
+
+          {/* Ready-made cakes — same three sizes, baked and decorated by us; sits after the DIY kits */}
+          <h2 className="mt-20 md:mt-28 mb-2" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>{t.cakesHeading}</h2>
+          <p className="type-body italic ink-muted mb-8 md:mb-10">{t.cakesTagline}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+            {CAKES.map((p) => (
               <ProductCard key={p.id} p={p} lang={lang} />
             ))}
           </div>

@@ -58,7 +58,7 @@ recipe. The essentials:
 Photos are illustrative and cakes are baked to the **size (cm) and weight (kg)**
 ordered, so a real order can differ from the photo in height, layer count, and
 finish (the classic case: a three-layer birthday cake in the picture versus a
-smaller two-layer 15 cm order). Whenever you add product photography, render
+smaller two-layer 17 cm order). Whenever you add product photography, render
 `<PhotoDisclaimer lang={lang} />` (`app/components/PhotoDisclaimer.tsx`) **once**
 beneath the photo or gallery — not per thumbnail. Copy lives in `lib/i18n.ts` as
 `photoDisclaimer` (`sv`/`en`/`fa`); keep all three locales in sync, no em dashes
