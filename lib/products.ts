@@ -211,7 +211,7 @@ export const MENU: Product[] = [
   {
     id: "menu-blusmisu",
     size: "",
-    priceSek: 300,
+    priceSek: 294,
     kind: "menu",
     leadDays: 2,
     images: ["/gallery/blue berry tiramisu - blumisu (1).svg"],
@@ -222,13 +222,13 @@ export const MENU: Product[] = [
       fa: "تیرامیسوی بلوبری در شیشه. در جعبه‌های شش‌تایی.",
     },
     variants: [
-      { id: "box6", priceSek: 300, label: { sv: "Ask om 6 burkar", en: "Box of 6 jars", fa: "جعبه ۶ تایی" } },
+      { id: "box6", priceSek: 294, label: { sv: "Ask om 6 burkar", en: "Box of 6 jars", fa: "جعبه ۶ تایی" } },
     ],
   },
   {
     id: "menu-lemomisu",
     size: "",
-    priceSek: 300,
+    priceSek: 294,
     kind: "menu",
     leadDays: 2,
     images: ["/gallery/lemon tiramisu - lemomisu (1).svg", "/gallery/lemon tiramisu - lemomisu (2).svg"],
@@ -239,13 +239,13 @@ export const MENU: Product[] = [
       fa: "تیرامیسوی لیمو در شیشه. در جعبه‌های شش‌تایی.",
     },
     variants: [
-      { id: "box6", priceSek: 300, label: { sv: "Ask om 6 burkar", en: "Box of 6 jars", fa: "جعبه ۶ تایی" } },
+      { id: "box6", priceSek: 294, label: { sv: "Ask om 6 burkar", en: "Box of 6 jars", fa: "جعبه ۶ تایی" } },
     ],
   },
   {
     id: "menu-lemon",
     size: "",
-    priceSek: 280,
+    priceSek: 399,
     kind: "menu",
     leadDays: 2,
     images: ["/gallery/lemon cake (3).svg", "/gallery/lemon cake (2).svg"],
@@ -256,14 +256,14 @@ export const MENU: Product[] = [
       fa: "کیک لطیف لیمو با تزیین بلوبری و لیمو. به‌صورت کامل.",
     },
     variants: [
-      { id: "box9", priceSek: 280, label: { sv: "Hel kaka · 18×28 cm · 9 bitar", en: "Whole cake · 18×28 cm · serves 9", fa: "کیک کامل · ۱۸×۲۸ سانتی‌متر · ۹ برش" } },
-      { id: "box15", priceSek: 390, label: { sv: "Hel kaka · 30×28 cm · 15 bitar", en: "Whole cake · 30×28 cm · serves 15", fa: "کیک کامل · ۳۰×۲۸ سانتی‌متر · ۱۵ برش" } },
+      { id: "box9", priceSek: 399, label: { sv: "Hel kaka · 18×28 cm · 9 bitar", en: "Whole cake · 18×28 cm · serves 9", fa: "کیک کامل · ۱۸×۲۸ سانتی‌متر · ۹ برش" } },
+      { id: "box15", priceSek: 499, label: { sv: "Hel kaka · 30×28 cm · 15 bitar", en: "Whole cake · 30×28 cm · serves 15", fa: "کیک کامل · ۳۰×۲۸ سانتی‌متر · ۱۵ برش" } },
     ],
   },
   {
     id: "menu-brownie",
     size: "",
-    priceSek: 280,
+    priceSek: 499,
     kind: "menu",
     leadDays: 2,
     images: ["/gallery/brownies.svg", "/gallery/brownies (2).svg"],
@@ -274,14 +274,14 @@ export const MENU: Product[] = [
       fa: "براونی نرم و تیره با تزیین خامه و تکه‌های شکلات. به‌صورت کامل.",
     },
     variants: [
-      { id: "box9", priceSek: 280, label: { sv: "Hel kaka · 18×28 cm · 9 bitar", en: "Whole cake · 18×28 cm · serves 9", fa: "کیک کامل · ۱۸×۲۸ سانتی‌متر · ۹ برش" } },
-      { id: "box15", priceSek: 380, label: { sv: "Hel kaka · 30×28 cm · 15 bitar", en: "Whole cake · 30×28 cm · serves 15", fa: "کیک کامل · ۳۰×۲۸ سانتی‌متر · ۱۵ برش" } },
+      { id: "box9", priceSek: 499, label: { sv: "Hel kaka · 18×28 cm · 9 bitar", en: "Whole cake · 18×28 cm · serves 9", fa: "کیک کامل · ۱۸×۲۸ سانتی‌متر · ۹ برش" } },
+      { id: "box15", priceSek: 599, label: { sv: "Hel kaka · 30×28 cm · 15 bitar", en: "Whole cake · 30×28 cm · serves 15", fa: "کیک کامل · ۳۰×۲۸ سانتی‌متر · ۱۵ برش" } },
     ],
   },
   {
     id: "menu-lotus",
     size: "",
-    priceSek: 350,
+    priceSek: 449,
     kind: "menu",
     leadDays: 2,
     images: ["/gallery/lotus cake (1).svg", "/gallery/lotus cake (2) (1).svg"],
@@ -292,8 +292,8 @@ export const MENU: Product[] = [
       fa: "کیک لوتوس، کامل. ۱۷ یا ۲۵ سانتی‌متر.",
     },
     variants: [
-      { id: "box8", priceSek: 350, label: { sv: "Hel tårta · 17 cm · 8 bitar", en: "Whole cake · 17 cm · 8 slices", fa: "کیک کامل · ۱۷ سانتی‌متر · ۸ برش" } },
-      { id: "box17", priceSek: 450, label: { sv: "Hel tårta · 25 cm · 17 bitar", en: "Whole cake · 25 cm · 17 slices", fa: "کیک کامل · ۲۵ سانتی‌متر · ۱۷ برش" } },
+      { id: "box8", priceSek: 449, label: { sv: "Hel tårta · 17 cm · 8 bitar", en: "Whole cake · 17 cm · 8 slices", fa: "کیک کامل · ۱۷ سانتی‌متر · ۸ برش" } },
+      { id: "box17", priceSek: 549, label: { sv: "Hel tårta · 25 cm · 17 bitar", en: "Whole cake · 25 cm · 17 slices", fa: "کیک کامل · ۲۵ سانتی‌متر · ۱۷ برش" } },
     ],
   },
 ];
