@@ -366,9 +366,9 @@ export const MENU: Product[] = [
     id: "menu-chocolate",
     allergens: ["gluten", "egg", "milk", "soy"],
     ingredients: {
-      sv: "vetemjöl, socker, ägg, smör, mjölk, mörk choklad (soja), kakao, bakpulver",
-      en: "wheat flour, sugar, egg, butter, milk, dark chocolate (soy), cocoa, baking powder",
-      fa: "آرد گندم، شکر، تخم‌مرغ، کره، شیر، شکلات تلخ (سویا)، کاکائو، بکینگ‌پودر",
+      sv: "ägg, socker, vetemjöl, kakao (soja), smör, vanilj, vispgrädde, florsocker",
+      en: "egg, sugar, wheat flour, cocoa (soy), butter, vanilla, heavy cream, powdered sugar",
+      fa: "تخم‌مرغ، شکر، آرد گندم، کاکائو (سویا)، کره، وانیل، خامه غلیظ، شکر پودر",
     },
     size: "",
     priceSek: 449,
