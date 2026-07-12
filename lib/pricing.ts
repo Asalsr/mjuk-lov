@@ -14,8 +14,8 @@ export const INCLUDED_TOOLS_DEFAULT = 2; // two tools included
 export const INCLUDED_TOOLS_GRANDE = 4; // the large DIY kit (grande) includes four
 
 export const PARTY_BASE_SEK = 390; // covers PARTY_BASE_CAKES cakes
-export const PARTY_BASE_CAKES = 2;
-export const PARTY_PER_CAKE_SEK = 185; // each cake beyond the base
+export const PARTY_BASE_CAKES = 1;
+export const PARTY_PER_CAKE_SEK = 290; // each cake beyond the base
 export const PARTY_MIN_CAKES = 2;
 export const PARTY_MAX_SELF_SERVE = 10; // 11+ → "contact us"
 
@@ -218,7 +218,7 @@ export function rebalanceFillings(fc: FillingCounts, newCount: number): FillingC
 }
 
 export function defaultPartyConfig(productId = "party-pack"): PartyConfig {
-  const cakes = PARTY_BASE_CAKES;
+  const cakes = PARTY_MIN_CAKES; // configurator always opens at the minimum order
   const vanilla = evenSplit(cakes).vanilla;
   return {
     kind: "party",

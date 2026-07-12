@@ -118,6 +118,10 @@ export function Configurator({
     return loadDraft(product.id)?.date ?? "";
   });
   const [step, setStep] = useState(0);
+  // The furthest step reached so far — lets the progress dots act as tabs back
+  // to any already-visited step, without letting a click skip ahead past
+  // steps that haven't been validated yet (e.g. an empty date).
+  const [maxStep, setMaxStep] = useState(0);
   const dialogRef = useRef<HTMLDivElement>(null);
 
   // Render through a portal to document.body so no ancestor `transform` (the
@@ -204,7 +208,18 @@ export function Configurator({
   const onDateStep = current === "date";
   const canAdvance = !onDateStep || (!!date && date >= minDate);
 
-  const next = () => (step < steps.length - 1 ? setStep((s) => s + 1) : add());
+  const goToStep = (i: number) => {
+    if (i <= maxStep) setStep(i);
+  };
+  const next = () => {
+    if (step < steps.length - 1) {
+      const s = step + 1;
+      setStep(s);
+      setMaxStep((m) => Math.max(m, s));
+    } else {
+      add();
+    }
+  };
   const prev = () => (step > 0 ? setStep((s) => s - 1) : onClose());
 
   const add = () => {
@@ -559,6 +574,7 @@ export function Configurator({
           incDisabled={atMax}
         />
         <p className="type-caps ink-muted mt-3">{t.cfgCakesPer}</p>
+        <p className="type-caps ink-muted mt-1">{t.cfgCakesSize}</p>
         {atMax && (
           <a
             href="mailto:mjuklov.se@gmail.com"
@@ -711,12 +727,20 @@ export function Configurator({
             ✕
           </button>
         </div>
-        <div className="flex gap-1.5 px-6 mt-3" aria-hidden="true">
+        <div className="flex gap-1.5 px-6 mt-3">
           {steps.map((s, i) => (
-            <span
+            <button
               key={s}
-              className="h-1 flex-1"
-              style={{ backgroundColor: i <= step ? "var(--dusty-terracotta)" : "rgba(61, 42, 34, 0.15)" }}
+              type="button"
+              onClick={() => goToStep(i)}
+              disabled={i > maxStep}
+              aria-label={`${t.cfgStepWord} ${locNum(i + 1, lang)}: ${titleFor[s]}`}
+              aria-current={i === step ? "step" : undefined}
+              className="h-1 flex-1 disabled:cursor-default"
+              style={{
+                backgroundColor: i <= step ? "var(--dusty-terracotta)" : "rgba(61, 42, 34, 0.15)",
+                cursor: i <= maxStep ? "pointer" : "default",
+              }}
             />
           ))}
         </div>
