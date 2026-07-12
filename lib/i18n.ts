@@ -307,7 +307,7 @@ export const ui = {
     partyPromise: "Antal, smaker, fyllning och din dag, ett lugnt steg i taget.",
     // Ready-made cakes (shop): shorter flow, we decorate.
     cakesHeading: "Färdiga tårtor",
-    cakesTagline: "Vi bakar och dekorerar. Du väljer smak och fyllning.",
+    cakesTagline: "Vi dekorerar med säsongens frukt. Du väljer smak och fyllning.",
     chooseCake: "Välj och beställ",
     cakeCardPromise: "Välj smak och fyllning, ett lugnt steg i taget.",
     cfgStepWord: "Steg",
@@ -652,7 +652,7 @@ export const ui = {
     partyPromise: "Cakes, flavours, filling and your day, one calm step at a time.",
     // Ready-made cakes (shop): shorter flow, we decorate.
     cakesHeading: "Ready-made cakes",
-    cakesTagline: "We bake and decorate. You choose flavour and filling.",
+    cakesTagline: "We decorate with seasonal fruits. You choose flavour and filling.",
     chooseCake: "Choose and order",
     cakeCardPromise: "Choose flavour and filling, one calm step at a time.",
     cfgStepWord: "Step",
@@ -997,7 +997,7 @@ export const ui = {
     partyPromise: "تعداد، طعم‌ها، فیلینگ و روزت، هر بار یک قدمِ آرام.",
     // Ready-made cakes (shop): shorter flow, we decorate.
     cakesHeading: "کیک‌های آماده",
-    cakesTagline: "ما می‌پزیم و تزیین می‌کنیم. شما طعم و پرکننده را انتخاب می‌کنید.",
+    cakesTagline: "با میوه‌های فصل تزیین می‌کنیم. شما طعم و پرکننده را انتخاب می‌کنید.",
     chooseCake: "انتخاب و سفارش",
     cakeCardPromise: "طعم و فیلینگ را انتخاب کن، هر بار یک قدمِ آرام.",
     cfgStepWord: "قدم",
