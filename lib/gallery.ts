@@ -75,10 +75,6 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     alt: { sv: "Citronkaka, hel kaka", en: "Lemon cake, whole", fa: "کیک لیمو، کامل" },
   },
   {
-    src: "/gallery/brownies.svg",
-    alt: { sv: "Brownie, toppad med grädde och chokladbitar", en: "Brownie, finished with cream and chocolate pieces", fa: "براونی با تزیین خامه و تکه‌های شکلات" },
-  },
-  {
     src: "/gallery/brownies (2).svg",
     alt: { sv: "Brownie, hel kaka", en: "Brownie, whole", fa: "براونی، کامل" },
   },
@@ -107,15 +103,7 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     alt: { sv: "Chokladtårta, hel", en: "Chocolate cake, whole", fa: "کیک شکلاتی، کامل" },
   },
   {
-    src: "/gallery/chocolate cake (3) (1).svg",
-    alt: { sv: "Chokladtårta, dekorerad", en: "Chocolate cake, decorated", fa: "کیک شکلاتی، تزیین‌شده" },
-  },
-  {
     src: "/gallery/chocolate cake (4).svg",
-    alt: { sv: "Chokladtårta, uppskuren bit", en: "Chocolate cake, cut slice", fa: "کیک شکلاتی، برش" },
-  },
-  {
-    src: "/gallery/chocolate cake (4) (1).svg",
     alt: { sv: "Chokladtårta, uppskuren bit", en: "Chocolate cake, cut slice", fa: "کیک شکلاتی، برش" },
   },
 ];

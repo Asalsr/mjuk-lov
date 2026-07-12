@@ -27,6 +27,7 @@ import {
   rebalanceFillings,
   includedToolsFor,
   includedToolsForParty,
+  includedColoursFor,
   includedColoursForParty,
   colourCount,
   fillingCount,
@@ -187,8 +188,9 @@ export function Configurator({
     ? includedToolsForParty((config as PartyConfig).cakes)
     : includedToolsFor(product.id);
   // Party colours scale per guest (INCLUDED_COLOURS per cake); kits get the flat
-  // included trio. Used by the colour step and the review extras line.
-  const includedColours = isParty ? includedColoursForParty((config as PartyConfig).cakes) : INCLUDED_COLOURS;
+  // included set (grande gets a larger one). Used by the colour step and the
+  // review extras line.
+  const includedColours = isParty ? includedColoursForParty((config as PartyConfig).cakes) : includedColoursFor(product.id);
 
   // Earliest reservable date for this product's lead time.
   const minDate = useMemo(() => {
@@ -262,7 +264,7 @@ export function Configurator({
     const c = config as KitConfig;
     const has = c.colours.includes(key);
     if (has) {
-      if (c.colours.length <= INCLUDED_COLOURS) return; // can't drop below the included count
+      if (c.colours.length <= includedColoursFor(c.productId)) return; // can't drop below the included count
       setKit({ colours: c.colours.filter((k) => k !== key) });
     } else {
       if (c.colours.length >= MAX_COLOURS) return; // cap at included + 6
@@ -449,7 +451,8 @@ export function Configurator({
   };
 
   const renderColours = (c: KitConfig) => {
-    const extra = Math.max(0, c.colours.length - INCLUDED_COLOURS);
+    const included = includedColoursFor(c.productId);
+    const extra = Math.max(0, c.colours.length - included);
     return (
       <div>
         <div role="group" aria-label={t.cfgColoursTitle} className="grid grid-cols-2 gap-3">
@@ -485,7 +488,7 @@ export function Configurator({
         <p className="type-caps mt-4" style={{ color: extra > 0 ? "var(--dusty-wine)" : undefined }}>
           {extra > 0
             ? `+${locNum(extra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(extra, lang)} ${t.cfgReasonColour}`
-            : `${locNum(c.colours.length, lang)} ${t.cfgOfWord} ${locNum(INCLUDED_COLOURS, lang)} ${t.cfgIncludedWord}`}
+            : `${locNum(c.colours.length, lang)} ${t.cfgOfWord} ${locNum(included, lang)} ${t.cfgIncludedWord}`}
         </p>
       </div>
     );
@@ -625,7 +628,7 @@ export function Configurator({
       extras.push(`+${locNum(toolExtra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(toolExtra, lang)} ${t.cfgReasonTool}`);
     const colExtra = isParty
       ? Math.max(0, colourCount((config as PartyConfig).colours) - includedColours)
-      : Math.max(0, (config as KitConfig).colours.length - INCLUDED_COLOURS);
+      : Math.max(0, (config as KitConfig).colours.length - includedColours);
     if (colExtra > 0)
       extras.push(`+${locNum(colExtra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(colExtra, lang)} ${t.cfgReasonColour}`);
     return (

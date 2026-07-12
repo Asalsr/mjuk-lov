@@ -27,34 +27,58 @@ import {
 
 describe("priceLineSek — kits", () => {
   it("default kit is the base price (nothing extra)", () => {
-    expect(priceLineSek(defaultKitConfig("kit-medio"))).toBe(604);
+    expect(priceLineSek(defaultKitConfig("kit-medio"))).toBe(590);
   });
 
   it("a second filling adds one extra-item fee", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), fillings: ["berries", "caramel"] };
-    expect(priceLineSek(cfg)).toBe(604 + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(590 + EXTRA_ITEM_SEK);
   });
 
   it("a third tool (beyond the 2 included) adds one fee", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), tools: { piping: 1, brush: 1, knife: 1 } };
     expect(extraTools(cfg)).toBe(1);
-    expect(priceLineSek(cfg)).toBe(604 + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(590 + EXTRA_ITEM_SEK);
   });
 
-  it("grande includes three tools — no fee for the third", () => {
-    const cfg: KitConfig = { ...defaultKitConfig("kit-grande"), tools: { piping: 1, brush: 1, knife: 1 } };
+  it("grande includes four tools — no fee for the fourth", () => {
+    const cfg: KitConfig = { ...defaultKitConfig("kit-grande"), tools: { piping: 2, brush: 1, knife: 1 } };
     expect(extraTools(cfg)).toBe(0);
-    expect(priceLineSek(cfg)).toBe(824);
+    expect(priceLineSek(cfg)).toBe(849);
+  });
+
+  it("a fifth tool on grande adds one fee", () => {
+    const cfg: KitConfig = { ...defaultKitConfig("kit-grande"), tools: { piping: 2, brush: 2, knife: 1 } };
+    expect(extraTools(cfg)).toBe(1);
+    expect(priceLineSek(cfg)).toBe(849 + EXTRA_ITEM_SEK);
   });
 
   it("three chosen colours are included — no fee", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), colours: ["blush", "sky", "sage"] };
-    expect(priceLineSek(cfg)).toBe(604);
+    expect(priceLineSek(cfg)).toBe(590);
   });
 
   it("a fourth colour adds one fee", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), colours: ["blush", "sky", "sage", "butter"] };
-    expect(priceLineSek(cfg)).toBe(604 + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(590 + EXTRA_ITEM_SEK);
+  });
+
+  it("grande includes five colours — no fee for the fifth", () => {
+    const cfg: KitConfig = {
+      ...defaultKitConfig("kit-grande"),
+      colours: ["blush", "sky", "sage", "butter", "terracotta"],
+    };
+    expect(extraColours(cfg)).toBe(0);
+    expect(priceLineSek(cfg)).toBe(849);
+  });
+
+  it("a sixth colour on grande adds one fee", () => {
+    const cfg: KitConfig = {
+      ...defaultKitConfig("kit-grande"),
+      colours: ["blush", "sky", "sage", "butter", "terracotta", "lilac"],
+    };
+    expect(extraColours(cfg)).toBe(1);
+    expect(priceLineSek(cfg)).toBe(849 + EXTRA_ITEM_SEK);
   });
 });
 
