@@ -296,6 +296,24 @@ export const MENU: Product[] = [
       { id: "box17", priceSek: 549, label: { sv: "Hel tårta · 25 cm · 17 bitar", en: "Whole cake · 25 cm · 17 slices", fa: "کیک کامل · ۲۵ سانتی‌متر · ۱۷ برش" } },
     ],
   },
+  {
+    id: "menu-chocolate",
+    size: "",
+    priceSek: 449,
+    kind: "menu",
+    leadDays: 2,
+    images: ["/gallery/chocolate cake (1).svg", "/gallery/chocolate cake (2) (1).svg"],
+    name: { sv: "Chokladtårta", en: "Chocolate cake", fa: "کیک شکلاتی" },
+    description: {
+      sv: "Chokladtårta, hel. Välj 17 cm eller 25 cm.",
+      en: "Chocolate cake, whole. Choose 17 cm or 25 cm.",
+      fa: "کیک شکلاتی، کامل. ۱۷ یا ۲۵ سانتی‌متر.",
+    },
+    variants: [
+      { id: "box8", priceSek: 449, label: { sv: "Hel tårta · 17 cm · 8 bitar", en: "Whole cake · 17 cm · 8 slices", fa: "کیک کامل · ۱۷ سانتی‌متر · ۸ برش" } },
+      { id: "box17", priceSek: 549, label: { sv: "Hel tårta · 25 cm · 17 bitar", en: "Whole cake · 25 cm · 17 slices", fa: "کیک کامل · ۲۵ سانتی‌متر · ۱۷ برش" } },
+    ],
+  },
 ];
 
 // Each menu variant as its own orderable product (id `<menu>-<variant>`), so a
