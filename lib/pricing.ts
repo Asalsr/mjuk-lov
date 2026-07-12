@@ -9,8 +9,9 @@ import { getProduct } from "@/lib/products";
 export const EXTRA_ITEM_SEK = 29; // flat price for one extra filling / tool / colour
 export const INCLUDED_FILLINGS = 1; // one filling is always included
 export const INCLUDED_COLOURS = 3; // three colours are always included (kits)
+export const INCLUDED_COLOURS_GRANDE = 5; // the large DIY kit (grande) includes five
 export const INCLUDED_TOOLS_DEFAULT = 2; // two tools included
-export const INCLUDED_TOOLS_GRANDE = 3; // the large DIY kit (grande) includes three
+export const INCLUDED_TOOLS_GRANDE = 4; // the large DIY kit (grande) includes four
 
 export const PARTY_BASE_SEK = 390; // covers PARTY_BASE_CAKES cakes
 export const PARTY_BASE_CAKES = 2;
@@ -109,6 +110,11 @@ export function includedToolsFor(productId: string): number {
   return productId === "kit-grande" ? INCLUDED_TOOLS_GRANDE : INCLUDED_TOOLS_DEFAULT;
 }
 
+/** Grande's larger colour allowance mirrors its larger tool allowance. */
+export function includedColoursFor(productId: string): number {
+  return productId === "kit-grande" ? INCLUDED_COLOURS_GRANDE : INCLUDED_COLOURS;
+}
+
 /** A Party Pack is one DIY cake per guest, so each guest gets a kit's worth of
  *  decorating: INCLUDED_TOOLS_DEFAULT tools per cake. The included allowance
  *  therefore scales with the cake count (10 cakes → 20 tools, not a flat 2). */
@@ -159,10 +165,12 @@ export function defaultKitConfig(productId: string): KitConfig {
     return { kind: "kit", productId, flavour: "vanilla", fillings: ["berries"], tools: { piping: 0, brush: 0, knife: 0 }, colours: [] };
   }
   const included = includedToolsFor(productId);
-  // Spread the included tools across piping + brush (and knife on grande).
-  const tools: Tools = { piping: 1, brush: 1, knife: included >= 3 ? 1 : 0 };
-  // Default to the first INCLUDED_COLOURS curated shades (an even, pretty trio).
-  const colours = COLOURS.slice(0, INCLUDED_COLOURS).map((c) => c.key);
+  // Spread the included tools across piping + brush (and knife, plus a second
+  // piping bag on grande).
+  const tools: Tools =
+    included >= 4 ? { piping: 2, brush: 1, knife: 1 } : { piping: 1, brush: 1, knife: included >= 3 ? 1 : 0 };
+  // Default to the first N curated shades (an even, pretty set).
+  const colours = COLOURS.slice(0, includedColoursFor(productId)).map((c) => c.key);
   return { kind: "kit", productId, flavour: "vanilla", fillings: ["berries"], tools, colours };
 }
 
@@ -245,7 +253,7 @@ export function extraTools(cfg: LineConfig): number {
 }
 
 export function extraColours(cfg: LineConfig): number {
-  if (cfg.kind === "kit") return Math.max(0, cfg.colours.length - INCLUDED_COLOURS);
+  if (cfg.kind === "kit") return Math.max(0, cfg.colours.length - includedColoursFor(cfg.productId));
   return Math.max(0, colourCount(cfg.colours) - includedColoursForParty(cfg.cakes));
 }
 

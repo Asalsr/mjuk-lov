@@ -53,7 +53,7 @@ export const DELIVERY_FEE_SEK = 79;
 // The three sizes come in two formats that share the same cakes: DIY kits
 // (KITS, below — the Mjuk Lov signature: you decorate) and ready-made cakes
 // (CAKES — we bake and decorate). Names piccolo/medio/grande are proper names,
-// never translated. DIY is priced 10% above the ready-made base.
+// never translated. DIY is priced above the ready-made base (see per-tier prices below).
 //
 // Display order on /kit and /butik: piccolo, medio, grande. `popular` marks the
 // recommended tier — medio (the versatile middle) only.
@@ -63,7 +63,7 @@ export const KITS: Product[] = [
     allergens: SPONGE_ALLERGENS,
     ingredients: SPONGE_INGREDIENTS,
     size: "10 cm",
-    priceSek: 384,
+    priceSek: 390,
     kind: "kit",
     configurable: true,
     leadDays: 3,
@@ -79,7 +79,7 @@ export const KITS: Product[] = [
     allergens: SPONGE_ALLERGENS,
     ingredients: SPONGE_INGREDIENTS,
     size: "17 cm",
-    priceSek: 604,
+    priceSek: 590,
     popular: true,
     kind: "kit",
     configurable: true,
@@ -96,7 +96,7 @@ export const KITS: Product[] = [
     allergens: SPONGE_ALLERGENS,
     ingredients: SPONGE_INGREDIENTS,
     size: "25 cm",
-    priceSek: 824,
+    priceSek: 849,
     kind: "kit",
     configurable: true,
     leadDays: 3,
@@ -325,7 +325,7 @@ export const MENU: Product[] = [
     priceSek: 499,
     kind: "menu",
     leadDays: 2,
-    images: ["/gallery/brownies.svg", "/gallery/brownies (2).svg"],
+    images: ["/gallery/brownies (2).svg", "/gallery/brownies cut.svg"],
     name: { sv: "Brownie", en: "Brownie", fa: "براونی" },
     description: {
       sv: "Seg, mörk brownie, toppad med grädde och chokladbitar. Säljs hel.",
