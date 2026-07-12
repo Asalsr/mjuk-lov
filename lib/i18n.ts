@@ -235,6 +235,8 @@ export const ui = {
     kitDetailAlt: (title: string) => `Närbild av ${title}`,
     corporatePhotoAlt: "En kontorslåda med desserter från Mjuk Lov",
     kitIllustrationAlt: (name: string) => `Illustration av tårtkitet ${name}`,
+    cakeIllustrationAlt: (name: string) => `Illustration av tårtan ${name}`,
+    partyIllustrationAlt: "Illustration av festpaketet: en liten tårta per gäst, var och en dekorerad av dem",
     craftIllustrationAlt: (label: string) => `Illustration: ${label}`,
     // Cake-kit landing page (/[lang]/kit).
     kitHeroKicker: "Tårtkitet",
@@ -578,6 +580,8 @@ export const ui = {
     kitDetailAlt: (title: string) => `Close-up of ${title}`,
     corporatePhotoAlt: "An office dessert box from Mjuk Lov",
     kitIllustrationAlt: (name: string) => `Illustration of the ${name} cake kit`,
+    cakeIllustrationAlt: (name: string) => `Illustration of the ${name} cake`,
+    partyIllustrationAlt: "Illustration of the Party Pack: one little cake per guest, each decorated by them",
     craftIllustrationAlt: (label: string) => `Illustration: ${label}`,
     // Cake-kit landing page (/[lang]/kit).
     kitHeroKicker: "The cake kit",
@@ -921,6 +925,8 @@ export const ui = {
     kitDetailAlt: (title: string) => `نمای نزدیک ${title}`,
     corporatePhotoAlt: "جعبه دسر اداری از Mjuk Lov",
     kitIllustrationAlt: (name: string) => `تصویرسازی کیت کیک ${name}`,
+    cakeIllustrationAlt: (name: string) => `تصویرسازی کیک ${name}`,
+    partyIllustrationAlt: "تصویرسازی بسته جشن: یک کیک کوچک برای هر مهمان، هرکدام تزیین‌شده به دست خودشان",
     craftIllustrationAlt: (label: string) => `تصویرسازی: ${label}`,
     // Cake-kit landing page (/[lang]/kit).
     kitHeroKicker: "کیت کیک",

@@ -6,7 +6,12 @@ import { AddToCartButton } from "@/app/components/shop/AddToCartButton";
 import { MakeItYoursButton } from "@/app/components/shop/MakeItYoursButton";
 import { MenuLineCard } from "@/app/components/shop/MenuLineCard";
 import { PhotoDisclaimer } from "@/app/components/PhotoDisclaimer";
+import { ProductGallery } from "@/app/components/media/ProductGallery";
+import { Piccolo, Medio, Grande } from "@/app/components/Icons";
 import { Party } from "@/app/components/Party";
+
+// Finished-cake illustration per ready-made cake id — one mark per size.
+const cakeIcon = (id: string) => (id === "cake-grande" ? Grande : id === "cake-medio" ? Medio : Piccolo);
 
 export const dynamic = "force-dynamic"; // reads ?paid
 
@@ -19,6 +24,14 @@ function ProductCard({ p, lang, comingSoon }: { p: Product; lang: Lang; comingSo
       className="relative p-6 md:p-8 flex flex-col"
       style={{ backgroundColor: "var(--vanilla-cream)", boxShadow: "0 4px 20px rgba(61, 42, 34, 0.05)" }}
     >
+      {isCake && (
+        <ProductGallery
+          items={[{ kind: "illustration", Icon: cakeIcon(p.id), alt: t.cakeIllustrationAlt(p.name[lang]) }]}
+          aspect="4/5"
+          className="mb-6"
+          sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+        />
+      )}
       <div className="type-caps ink-muted mb-2">{p.unit ? p.unit[lang] : p.size}</div>
       <h3 className="type-product mb-3" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}>{p.name[lang]}</h3>
       {comingSoon ? (

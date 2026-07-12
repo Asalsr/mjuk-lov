@@ -125,6 +125,7 @@ export const Personal = (p: IconProps) => (
   <Illustration src="/icons/PERSONAL.svg" alt="" {...p} />
 );
 // Watercolour marks per cake size (piccolo 10 cm / medio 15 cm / grande 25 cm).
+// These depict the finished, decorated cake — used for the ready-made cakes.
 export const Piccolo = (p: IconProps) => (
   <Illustration src="/icons/piccolo.svg" alt="" {...p} />
 );
@@ -133,4 +134,22 @@ export const Medio = (p: IconProps) => (
 );
 export const Grande = (p: IconProps) => (
   <Illustration src="/icons/grande.svg" alt="" {...p} />
+);
+
+// Watercolour marks per DIY kit — the kit itself (not a finished cake). Used on
+// the DIY kit cards. Files live in /public/gallery/ (spaces intentional).
+export const KitPiccolo = (p: IconProps) => (
+  <Illustration src="/gallery/DIY kit - piccolo.svg" alt="" {...p} />
+);
+export const KitMedio = (p: IconProps) => (
+  <Illustration src="/gallery/DIY kit - medio.svg" alt="" {...p} />
+);
+export const KitGrande = (p: IconProps) => (
+  <Illustration src="/gallery/DIY kit - grande.svg" alt="" {...p} />
+);
+
+// The Party Pack scene — one little cake per guest, each decorated by them.
+// Meaningful (not decorative), so it takes a real `alt`.
+export const DiyParty = ({ alt = "", ...p }: IconProps & { alt?: string }) => (
+  <Illustration src="/gallery/dyi party.svg" alt={alt} {...p} />
 );
