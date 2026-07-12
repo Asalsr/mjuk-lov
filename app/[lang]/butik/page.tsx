@@ -5,6 +5,7 @@ import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { AddToCartButton } from "@/app/components/shop/AddToCartButton";
 import { MakeItYoursButton } from "@/app/components/shop/MakeItYoursButton";
 import { MenuLineCard } from "@/app/components/shop/MenuLineCard";
+import { IngredientsDisclosure } from "@/app/components/shop/IngredientsDisclosure";
 import { PhotoDisclaimer } from "@/app/components/PhotoDisclaimer";
 import { ProductGallery } from "@/app/components/media/ProductGallery";
 import { Piccolo, Medio, Grande } from "@/app/components/Icons";
@@ -73,6 +74,15 @@ function ProductCard({ p, lang, comingSoon }: { p: Product; lang: Lang; comingSo
           </div>
         </>
       )}
+      {/* Allergen line (always visible where present, EU 1169/2011) + ingredients
+          panel. Sits below the buy area; renders nothing for products with no
+          allergen data (e.g. coming-soon subscriptions). */}
+      <IngredientsDisclosure
+        lang={lang}
+        allergens={p.allergens}
+        ingredients={p.ingredients}
+        className="mt-4"
+      />
     </div>
   );
 }

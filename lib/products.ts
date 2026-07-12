@@ -1,5 +1,7 @@
 // DIY cake kits + corporate subscriptions — the products sold. Prices from the
 // handbook (§ Kits / § Corporate).
+import type { AllergenCode } from "@/lib/recipes/schema";
+
 export type Product = {
   id: string;
   name: { sv: string; en: string; fa: string };
@@ -24,6 +26,25 @@ export type Product = {
   // single framed photo; several become a slideshow. Filenames may contain spaces
   // and are SVG, so they render via a plain <img> (encodeURI'd), not next/image.
   images?: string[];
+  // Allergen disclosure (EU FIC 1169/2011). `allergens` is the subset of the 14
+  // major allergens this product contains — the shop card declares it on every
+  // card by default, before purchase (never behind a toggle). `ingredients` is
+  // the full list as bilingual, comma-separated prose for the expandable panel.
+  // DRAFT DATA pending human sign-off (house rule §2: allergen labels are legal
+  // drafts). All our bakes share one recipe across sizes, so this lives on the
+  // product, not per variant; split to the variant only if a size ever differs.
+  allergens?: AllergenCode[];
+  ingredients?: { sv: string; en: string; fa: string };
+};
+
+// Shared draft ingredient/allergen prose, authored EU/metric and comma-separated
+// (house rule §2b palette/copy; no em dashes per lib/i18n.test.ts). DRAFT: needs
+// the baker's sign-off before it counts as an approved 1169/2011 declaration.
+const SPONGE_ALLERGENS: AllergenCode[] = ["gluten", "egg", "milk"];
+const SPONGE_INGREDIENTS = {
+  sv: "vetemjöl, socker, ägg, smör, mjölk, bakpulver, vanilj",
+  en: "wheat flour, sugar, egg, butter, milk, baking powder, vanilla",
+  fa: "آرد گندم، شکر، تخم‌مرغ، کره، شیر، بکینگ‌پودر، وانیل",
 };
 
 // Flat delivery fee in kronor (pickup is free).
@@ -39,6 +60,8 @@ export const DELIVERY_FEE_SEK = 79;
 export const KITS: Product[] = [
   {
     id: "kit-piccolo",
+    allergens: SPONGE_ALLERGENS,
+    ingredients: SPONGE_INGREDIENTS,
     size: "10 cm",
     priceSek: 384,
     kind: "kit",
@@ -53,6 +76,8 @@ export const KITS: Product[] = [
   },
   {
     id: "kit-medio",
+    allergens: SPONGE_ALLERGENS,
+    ingredients: SPONGE_INGREDIENTS,
     size: "17 cm",
     priceSek: 604,
     popular: true,
@@ -68,6 +93,8 @@ export const KITS: Product[] = [
   },
   {
     id: "kit-grande",
+    allergens: SPONGE_ALLERGENS,
+    ingredients: SPONGE_INGREDIENTS,
     size: "25 cm",
     priceSek: 824,
     kind: "kit",
@@ -88,6 +115,8 @@ export const KITS: Product[] = [
 export const CAKES: Product[] = [
   {
     id: "cake-piccolo",
+    allergens: SPONGE_ALLERGENS,
+    ingredients: SPONGE_INGREDIENTS,
     size: "10 cm",
     priceSek: 349,
     kind: "cake",
@@ -102,6 +131,8 @@ export const CAKES: Product[] = [
   },
   {
     id: "cake-medio",
+    allergens: SPONGE_ALLERGENS,
+    ingredients: SPONGE_INGREDIENTS,
     size: "17 cm",
     priceSek: 549,
     popular: true,
@@ -117,6 +148,8 @@ export const CAKES: Product[] = [
   },
   {
     id: "cake-grande",
+    allergens: SPONGE_ALLERGENS,
+    ingredients: SPONGE_INGREDIENTS,
     size: "25 cm",
     priceSek: 749,
     kind: "cake",
@@ -137,6 +170,8 @@ export const CAKES: Product[] = [
 export const PARTY: Product[] = [
   {
     id: "party-pack",
+    allergens: SPONGE_ALLERGENS,
+    ingredients: SPONGE_INGREDIENTS,
     size: "",
     priceSek: 390,
     kind: "party",
@@ -210,6 +245,12 @@ export const SUBSCRIPTIONS: Product[] = [
 export const MENU: Product[] = [
   {
     id: "menu-blusmisu",
+    allergens: ["gluten", "egg", "milk"],
+    ingredients: {
+      sv: "savoiardikex (vetemjöl, ägg), mascarpone, grädde, ägg, socker, blåbär",
+      en: "ladyfingers (wheat flour, egg), mascarpone, cream, egg, sugar, blueberry",
+      fa: "بیسکویت لیدی‌فینگر (آرد گندم، تخم‌مرغ)، ماسکارپونه، خامه، تخم‌مرغ، شکر، بلوبری",
+    },
     size: "",
     priceSek: 294,
     kind: "menu",
@@ -227,6 +268,12 @@ export const MENU: Product[] = [
   },
   {
     id: "menu-lemomisu",
+    allergens: ["gluten", "egg", "milk"],
+    ingredients: {
+      sv: "savoiardikex (vetemjöl, ägg), mascarpone, grädde, ägg, socker, citron",
+      en: "ladyfingers (wheat flour, egg), mascarpone, cream, egg, sugar, lemon",
+      fa: "بیسکویت لیدی‌فینگر (آرد گندم، تخم‌مرغ)، ماسکارپونه، خامه، تخم‌مرغ، شکر، لیمو",
+    },
     size: "",
     priceSek: 294,
     kind: "menu",
@@ -244,6 +291,12 @@ export const MENU: Product[] = [
   },
   {
     id: "menu-lemon",
+    allergens: ["gluten", "egg", "milk"],
+    ingredients: {
+      sv: "vetemjöl, socker, ägg, smör, mjölk, citron, blåbär, bakpulver",
+      en: "wheat flour, sugar, egg, butter, milk, lemon, blueberry, baking powder",
+      fa: "آرد گندم، شکر، تخم‌مرغ، کره، شیر، لیمو، بلوبری، بکینگ‌پودر",
+    },
     size: "",
     priceSek: 399,
     kind: "menu",
@@ -262,6 +315,12 @@ export const MENU: Product[] = [
   },
   {
     id: "menu-brownie",
+    allergens: ["gluten", "egg", "milk", "soy"],
+    ingredients: {
+      sv: "vetemjöl, socker, ägg, smör, mörk choklad (soja), grädde, kakao",
+      en: "wheat flour, sugar, egg, butter, dark chocolate (soy), cream, cocoa",
+      fa: "آرد گندم، شکر، تخم‌مرغ، کره، شکلات تلخ (سویا)، خامه، کاکائو",
+    },
     size: "",
     priceSek: 499,
     kind: "menu",
@@ -280,6 +339,12 @@ export const MENU: Product[] = [
   },
   {
     id: "menu-lotus",
+    allergens: ["gluten", "egg", "milk", "soy"],
+    ingredients: {
+      sv: "vetemjöl, socker, ägg, smör, mjölk, Lotus Biscoff-kakor (vetemjöl, soja), grädde",
+      en: "wheat flour, sugar, egg, butter, milk, Lotus Biscoff biscuits (wheat flour, soy), cream",
+      fa: "آرد گندم، شکر، تخم‌مرغ، کره، شیر، بیسکویت لوتوس بیسکاف (آرد گندم، سویا)، خامه",
+    },
     size: "",
     priceSek: 449,
     kind: "menu",
@@ -298,6 +363,12 @@ export const MENU: Product[] = [
   },
   {
     id: "menu-chocolate",
+    allergens: ["gluten", "egg", "milk", "soy"],
+    ingredients: {
+      sv: "vetemjöl, socker, ägg, smör, mjölk, mörk choklad (soja), kakao, bakpulver",
+      en: "wheat flour, sugar, egg, butter, milk, dark chocolate (soy), cocoa, baking powder",
+      fa: "آرد گندم، شکر، تخم‌مرغ، کره، شیر، شکلات تلخ (سویا)، کاکائو، بکینگ‌پودر",
+    },
     size: "",
     priceSek: 449,
     kind: "menu",

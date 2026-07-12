@@ -4,6 +4,7 @@ import { useCart, addToCart, setQty } from "@/lib/cart/store";
 import { ui, locNum, type Lang } from "@/lib/i18n";
 import type { Product } from "@/lib/products";
 import { ProductImageCarousel } from "@/app/components/shop/ProductImageCarousel";
+import { IngredientsDisclosure } from "@/app/components/shop/IngredientsDisclosure";
 
 /** A Cakes & Bakes menu card. Each box-size variant is its own orderable
  *  product (`<menu>-<variant>`) with an independent quantity — a customer can
@@ -106,6 +107,16 @@ export function MenuLineCard({ product, lang }: { product: Product; lang: Lang }
           );
         })}
       </div>
+
+      {/* Allergen line (always visible, EU 1169/2011) + ingredients panel,
+          directly below the size list. One panel per card: every size shares the
+          same recipe. */}
+      <IngredientsDisclosure
+        lang={lang}
+        allergens={product.allergens}
+        ingredients={product.ingredients}
+        className="mt-3"
+      />
     </div>
   );
 }
