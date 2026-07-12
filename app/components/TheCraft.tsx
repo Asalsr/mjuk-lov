@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Leaf, Pour, Packing, CakeStand } from './Icons';
-import { ProductGallery } from './media/ProductGallery';
 import { ui, type Lang } from '@/lib/i18n';
 
 interface TheCraftProps {
@@ -77,15 +76,6 @@ const content = {
 
 const icons = [Leaf, Pour, Packing, CakeStand];
 
-// Photo per step, parallel to icons. Placeholder-backed until the real
-// process shots land in /public/photos/.
-const stepPhotos = [
-  '/photos/craft-season.jpg',
-  '/photos/craft-bake.jpg',
-  '/photos/craft-package.jpg',
-  '/photos/craft-enjoy.jpg',
-];
-
 export const TheCraft = ({ lang }: TheCraftProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -112,7 +102,7 @@ export const TheCraft = ({ lang }: TheCraftProps) => {
     >
       <div className="max-w-[1200px] mx-auto">
         <h2
-          className={`text-center mb-16 md:mb-24 transition-all duration-700 ${
+          className={`text-center mb-[2.8rem] md:mb-24 transition-all duration-700 ${
             isVisible ? 'opacity-80 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
           style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: '#a85d4e', fontWeight: 600 }}
@@ -120,7 +110,7 @@ export const TheCraft = ({ lang }: TheCraftProps) => {
           {t.heading}
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-[2.1rem] md:gap-8 relative">
           <div className="hidden md:block absolute top-1/2 left-0 right-0 h-px opacity-20">
             <svg className="w-full h-full" preserveAspectRatio="none">
               <line
@@ -145,18 +135,16 @@ export const TheCraft = ({ lang }: TheCraftProps) => {
                 }`}
                 style={{ transitionDelay: `${(i + 1) * 150}ms` }}
               >
-                {/* Watercolor illustration first, then the (placeholder-backed)
-                    process photo — one gallery with a thumbnail strip. */}
-                <ProductGallery
-                  items={[
-                    { kind: 'illustration', Icon, alt: ui[lang].craftIllustrationAlt(step.label) },
-                    { kind: 'photo', src: stepPhotos[i], alt: ui[lang].craftPhotoAlt(step.label) },
-                  ]}
-                  aspect="4/5"
-                  sizes="(min-width: 768px) 25vw, (min-width: 640px) 50vw, 50vw"
-                  className="mb-5 w-1/2 mx-auto sm:w-full"
-                  illustrationBg="transparent"
-                />
+                <div className="mb-5 w-1/2 mx-auto sm:w-full">
+                  <div
+                    role="img"
+                    aria-label={ui[lang].craftIllustrationAlt(step.label)}
+                    className="relative w-full overflow-hidden flex items-center justify-center"
+                    style={{ aspectRatio: '4/5', backgroundColor: 'transparent' }}
+                  >
+                    <Icon className="w-full h-full" />
+                  </div>
+                </div>
 
                 <div className="type-caps mb-3 opacity-30 group-hover:opacity-60 transition-opacity duration-300">
                   {String(i + 1).padStart(2, '0')}

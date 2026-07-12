@@ -10,6 +10,7 @@ import { Kits } from '@/app/components/Kits';
 import { Bakes } from '@/app/components/Bakes';
 import { Corporate } from '@/app/components/Corporate';
 import { TheCraft } from '@/app/components/TheCraft';
+import { PhotoDisclaimer } from '@/app/components/PhotoDisclaimer';
 import { About } from '@/app/components/About';
 import { Order } from '@/app/components/Order';
 import { Footer } from '@/app/components/Footer';
@@ -118,6 +119,7 @@ export default function Page() {
               <h2 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)' }}>{ui[lang].gallery}</h2>
             </div>
             <Gallery lang={lang} limit={6} seeAllHref={`/${lang}/galleri`} />
+            <PhotoDisclaimer lang={lang} className="mt-6" />
           </div>
         </section>
         <SectionDivider fromColor="var(--soft-peach)" toColor="var(--vanilla-cream)" />

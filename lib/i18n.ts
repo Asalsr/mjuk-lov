@@ -230,7 +230,6 @@ export const ui = {
     closeDialog: "Stäng",
     // Alt text for product photography (the ProductImage slots).
     kitPhotoAlt: (name: string) => `Foto av tårtkitet ${name}`,
-    craftPhotoAlt: (label: string) => `Foto av steget: ${label}`,
     kitHeroAlt: (title: string) => `Foto av ${title}`,
     kitDetailAlt: (title: string) => `Närbild av ${title}`,
     corporatePhotoAlt: "En kontorslåda med desserter från Mjuk Lov",
@@ -575,7 +574,6 @@ export const ui = {
     closeDialog: "Close",
     // Alt text for product photography (the ProductImage slots).
     kitPhotoAlt: (name: string) => `Photo of the ${name} cake kit`,
-    craftPhotoAlt: (label: string) => `Photo of the step: ${label}`,
     kitHeroAlt: (title: string) => `Photo of ${title}`,
     kitDetailAlt: (title: string) => `Close-up of ${title}`,
     corporatePhotoAlt: "An office dessert box from Mjuk Lov",
@@ -920,7 +918,6 @@ export const ui = {
     closeDialog: "بستن",
     // Alt text for product photography (the ProductImage slots).
     kitPhotoAlt: (name: string) => `عکس کیت کیک ${name}`,
-    craftPhotoAlt: (label: string) => `عکس مرحله: ${label}`,
     kitHeroAlt: (title: string) => `عکس ${title}`,
     kitDetailAlt: (title: string) => `نمای نزدیک ${title}`,
     corporatePhotoAlt: "جعبه دسر اداری از Mjuk Lov",
