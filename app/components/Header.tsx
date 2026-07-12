@@ -18,6 +18,11 @@ interface HeaderProps {
 // Short codes keep the switcher compact and aligned with the rest of the caps
 // nav (the old toggle showed "SV"/"EN"); full names would widen the control.
 const LANG_LABELS: Record<Lang, string> = { sv: 'SV', en: 'EN', fa: 'فا' };
+// The switcher TRIGGER shows an alternate language, not the current one, so it
+// reads as "there are other languages" rather than a static label of where you
+// already are (sv shows EN, en shows SV; fa falls back to EN). The dropdown
+// still lists all three with the current one marked.
+const LANG_ALT: Record<Lang, Lang> = { sv: 'en', en: 'sv', fa: 'en' };
 
 const content = {
   sv: {
@@ -287,7 +292,7 @@ export const Header = ({ lang, onSelectLang }: HeaderProps) => {
               className="type-caps tap cursor-pointer transition-colors hover:text-[var(--dusty-terracotta)]"
               style={{ background: 'transparent', border: 'none', color: 'inherit' }}
             >
-              {LANG_LABELS[lang]}
+              {LANG_LABELS[LANG_ALT[lang]]}
             </button>
             {isLangOpen && (
               <ul
