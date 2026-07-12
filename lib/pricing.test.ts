@@ -27,34 +27,34 @@ import {
 
 describe("priceLineSek — kits", () => {
   it("default kit is the base price (nothing extra)", () => {
-    expect(priceLineSek(defaultKitConfig("kit-medio"))).toBe(480);
+    expect(priceLineSek(defaultKitConfig("kit-medio"))).toBe(604);
   });
 
   it("a second filling adds one extra-item fee", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), fillings: ["berries", "caramel"] };
-    expect(priceLineSek(cfg)).toBe(480 + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(604 + EXTRA_ITEM_SEK);
   });
 
   it("a third tool (beyond the 2 included) adds one fee", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), tools: { piping: 1, brush: 1, knife: 1 } };
     expect(extraTools(cfg)).toBe(1);
-    expect(priceLineSek(cfg)).toBe(480 + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(604 + EXTRA_ITEM_SEK);
   });
 
   it("grande includes three tools — no fee for the third", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-grande"), tools: { piping: 1, brush: 1, knife: 1 } };
     expect(extraTools(cfg)).toBe(0);
-    expect(priceLineSek(cfg)).toBe(540);
+    expect(priceLineSek(cfg)).toBe(824);
   });
 
   it("three chosen colours are included — no fee", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), colours: ["blush", "sky", "sage"] };
-    expect(priceLineSek(cfg)).toBe(480);
+    expect(priceLineSek(cfg)).toBe(604);
   });
 
   it("a fourth colour adds one fee", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), colours: ["blush", "sky", "sage", "butter"] };
-    expect(priceLineSek(cfg)).toBe(480 + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(604 + EXTRA_ITEM_SEK);
   });
 });
 
@@ -63,12 +63,12 @@ describe("priceLineSek — ready-made cakes", () => {
     const cfg = defaultKitConfig("cake-piccolo");
     expect(cfg.tools).toEqual({ piping: 0, brush: 0, knife: 0 });
     expect(cfg.colours).toEqual([]);
-    expect(priceLineSek(cfg)).toBe(300);
+    expect(priceLineSek(cfg)).toBe(349);
   });
 
   it("a second filling still adds one fee on a ready-made cake", () => {
     const cfg: KitConfig = { ...defaultKitConfig("cake-medio"), fillings: ["berries", "caramel"] };
-    expect(priceLineSek(cfg)).toBe(400 + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(549 + EXTRA_ITEM_SEK);
   });
 });
 

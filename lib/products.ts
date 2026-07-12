@@ -3,7 +3,7 @@
 export type Product = {
   id: string;
   name: { sv: string; en: string; fa: string };
-  size: string; // e.g. "15 cm" — empty for subscriptions, which use `unit`
+  size: string; // e.g. "17 cm" — empty for subscriptions, which use `unit`
   unit?: { sv: string; en: string; fa: string }; // e.g. "12 portions/month" (subscriptions)
   description: { sv: string; en: string; fa: string };
   priceSek: number; // kronor — for the party pack this is the "from" base price
@@ -32,7 +32,7 @@ export const DELIVERY_FEE_SEK = 79;
 // The three sizes come in two formats that share the same cakes: DIY kits
 // (KITS, below — the Mjuk Lov signature: you decorate) and ready-made cakes
 // (CAKES — we bake and decorate). Names piccolo/medio/grande are proper names,
-// never translated. DIY is priced 20% above the ready-made base.
+// never translated. DIY is priced 10% above the ready-made base.
 //
 // Display order on /kit and /butik: piccolo, medio, grande. `popular` marks the
 // recommended tier — medio (the versatile middle) only.
@@ -40,7 +40,7 @@ export const KITS: Product[] = [
   {
     id: "kit-piccolo",
     size: "10 cm",
-    priceSek: 360,
+    priceSek: 384,
     kind: "kit",
     configurable: true,
     leadDays: 3,
@@ -53,8 +53,8 @@ export const KITS: Product[] = [
   },
   {
     id: "kit-medio",
-    size: "15 cm",
-    priceSek: 480,
+    size: "17 cm",
+    priceSek: 604,
     popular: true,
     kind: "kit",
     configurable: true,
@@ -69,7 +69,7 @@ export const KITS: Product[] = [
   {
     id: "kit-grande",
     size: "25 cm",
-    priceSek: 540,
+    priceSek: 824,
     kind: "kit",
     configurable: true,
     leadDays: 3,
@@ -89,7 +89,7 @@ export const CAKES: Product[] = [
   {
     id: "cake-piccolo",
     size: "10 cm",
-    priceSek: 300,
+    priceSek: 349,
     kind: "cake",
     configurable: true,
     leadDays: 3,
@@ -102,8 +102,8 @@ export const CAKES: Product[] = [
   },
   {
     id: "cake-medio",
-    size: "15 cm",
-    priceSek: 400,
+    size: "17 cm",
+    priceSek: 549,
     popular: true,
     kind: "cake",
     configurable: true,
@@ -118,7 +118,7 @@ export const CAKES: Product[] = [
   {
     id: "cake-grande",
     size: "25 cm",
-    priceSek: 450,
+    priceSek: 749,
     kind: "cake",
     configurable: true,
     leadDays: 3,
