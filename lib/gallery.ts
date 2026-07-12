@@ -35,22 +35,6 @@ export interface GalleryImage {
  */
 export const GALLERY_IMAGES: GalleryImage[] = [
   {
-    src: "/gallery/DIY kit - piccolo.svg",
-    alt: { sv: "DIY Piccolo, ett litet tårtkit att dekorera själv", en: "DIY Piccolo, a little cake kit to decorate yourself", fa: "کیت DIY Piccolo، کیک کوچکی برای تزیین توسط خودتان" },
-  },
-  {
-    src: "/gallery/DIY kit - medio.svg",
-    alt: { sv: "DIY Medio, tårtkitet för sex till åtta", en: "DIY Medio, the cake kit for six to eight", fa: "کیت DIY Medio، برای شش تا هشت نفر" },
-  },
-  {
-    src: "/gallery/DIY kit - grande.svg",
-    alt: { sv: "DIY Grande, det stora tårtkitet", en: "DIY Grande, the big cake kit", fa: "کیت DIY Grande، کیت بزرگ کیک" },
-  },
-  {
-    src: "/gallery/dyi party.svg",
-    alt: { sv: "DIY-festpaket, en liten tårta per gäst", en: "DIY party pack, one little cake per guest", fa: "بسته جشن DIY، یک کیک کوچک برای هر مهمان" },
-  },
-  {
     src: "/gallery/lotus cake (1).svg",
     alt: { sv: "Lotustårta, hel", en: "Lotus cake, whole", fa: "کیک لوتوس، کامل" },
   },
