@@ -230,3 +230,47 @@ export function mergeCarts(a: CartItem[], b: CartItem[]): CartItem[] {
   }
   return Array.from(byId.values());
 }
+
+// --- Login-time reconciliation (once per account, per device) ---------------
+// mergeCarts SUMS quantities — correct the first time a guest cart meets an
+// account's server cart, wrong every time after: once local and remote agree
+// (post-sync), summing them again doubles the cart. A plain in-memory "have we
+// merged this session" flag doesn't survive a page reload (a fresh mount is a
+// fresh closure), so a signed-in customer who simply refreshes the page would
+// re-run the sum and double their cart on every reload. Persisting the flag in
+// localStorage — keyed to the account, not the component instance — is what
+// actually makes "merge at most once per account on this device" true.
+const SYNCED_KEY = "mjuklov_cart_synced_uid";
+
+function readSyncedUid(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return localStorage.getItem(SYNCED_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function writeSyncedUid(uid: string) {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(SYNCED_KEY, uid);
+  } catch {
+    /* ignore */
+  }
+}
+
+/**
+ * Decide how to reconcile the local cart with an account's server cart on
+ * login. Returns the merged cart the first time this device syncs this
+ * account (claiming that fact in localStorage *before* the caller awaits
+ * anything, so a concurrent duplicate call — e.g. React Strict Mode's double
+ * effect invocation — sees the claim and backs off too); returns null on
+ * every subsequent call for the same account, since local and remote are
+ * already reconciled and re-summing them would double the cart.
+ */
+export function resolveLoginCart(userId: string, remote: CartItem[]): CartItem[] | null {
+  if (readSyncedUid() === userId) return null;
+  writeSyncedUid(userId);
+  return mergeCarts(read(), remote);
+}
