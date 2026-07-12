@@ -20,7 +20,9 @@ import {
   toolCount,
   EXTRA_ITEM_SEK,
   PARTY_BASE_SEK,
+  PARTY_BASE_CAKES,
   PARTY_PER_CAKE_SEK,
+  PARTY_MIN_CAKES,
   type KitConfig,
   type PartyConfig,
 } from "./pricing";
@@ -97,13 +99,13 @@ describe("priceLineSek — ready-made cakes", () => {
 });
 
 describe("priceLineSek — party", () => {
-  it("base price covers two cakes", () => {
-    expect(priceLineSek(defaultPartyConfig())).toBe(PARTY_BASE_SEK);
+  it("base price covers one cake; the minimum order (two cakes) bills one extra", () => {
+    expect(priceLineSek(defaultPartyConfig())).toBe(PARTY_BASE_SEK + (PARTY_MIN_CAKES - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK);
   });
 
-  it("each cake beyond two adds the per-cake price", () => {
+  it("each cake beyond the base adds the per-cake price", () => {
     const cfg: PartyConfig = { ...defaultPartyConfig(), cakes: 5, vanilla: 3 };
-    expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + 3 * PARTY_PER_CAKE_SEK);
+    expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + (5 - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK);
   });
 
   it("extras stack on top of the per-cake price", () => {
@@ -116,7 +118,7 @@ describe("priceLineSek — party", () => {
       tools: defaultPartyTools(4),
       colours: defaultPartyColours(4),
     };
-    expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + 2 * PARTY_PER_CAKE_SEK + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + (4 - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK + EXTRA_ITEM_SEK);
   });
 });
 
@@ -138,7 +140,7 @@ describe("party tools scale with the number of cakes", () => {
       expect(colourCount(cfg.colours)).toBe(3 * cakes);
       expect(extraTools(cfg)).toBe(0);
       expect(extraColours(cfg)).toBe(0);
-      expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + (cakes - 2) * PARTY_PER_CAKE_SEK);
+      expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + (cakes - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK);
     }
   });
 
@@ -147,7 +149,7 @@ describe("party tools scale with the number of cakes", () => {
     expect(extraTools(base)).toBe(0);
     const oneMore: PartyConfig = { ...base, tools: { ...base.tools, knife: 1 } };
     expect(extraTools(oneMore)).toBe(1);
-    expect(priceLineSek(oneMore)).toBe(PARTY_BASE_SEK + 8 * PARTY_PER_CAKE_SEK + EXTRA_ITEM_SEK);
+    expect(priceLineSek(oneMore)).toBe(PARTY_BASE_SEK + (10 - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK + EXTRA_ITEM_SEK);
   });
 });
 
@@ -170,7 +172,7 @@ describe("party colours scale with the number of cakes", () => {
     expect(extraColours(base)).toBe(0);
     const oneMore: PartyConfig = { ...base, colours: { ...base.colours, terracotta: 1 } };
     expect(extraColours(oneMore)).toBe(1);
-    expect(priceLineSek(oneMore)).toBe(PARTY_BASE_SEK + 8 * PARTY_PER_CAKE_SEK + EXTRA_ITEM_SEK);
+    expect(priceLineSek(oneMore)).toBe(PARTY_BASE_SEK + (10 - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK + EXTRA_ITEM_SEK);
   });
 });
 
@@ -185,7 +187,7 @@ describe("party fillings are bucketed by sponge", () => {
     expect(fillingCount(cfg.fillings.vanilla)).toBe(4);
     expect(fillingCount(cfg.fillings.chocolate)).toBe(4);
     expect(extraFillings(cfg)).toBe(0);
-    expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + 6 * PARTY_PER_CAKE_SEK);
+    expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + (8 - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK);
   });
 
   it("a second filling in one cake bills once, and only in that sponge bucket", () => {
@@ -197,7 +199,7 @@ describe("party fillings are bucketed by sponge", () => {
       fillings: { vanilla: { berries: 4, caramel: 1 }, chocolate: { berries: 2, biscoff: 2 } },
     };
     expect(extraFillings(cfg)).toBe(1);
-    expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + 6 * PARTY_PER_CAKE_SEK + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + (8 - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK + EXTRA_ITEM_SEK);
   });
 
   it("an empty sponge bucket never offsets an overfilled one", () => {
