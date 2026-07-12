@@ -4,58 +4,7 @@ import { useRef, useState } from 'react';
 import Link from 'next/link';
 import { ui, isRtl, type Lang } from '@/lib/i18n';
 import { GALLERY_IMAGES, type GalleryImage } from '@/lib/gallery';
-
-/** Square gallery tile. Gallery photos are Adobe-exported SVGs, and
- *  `next/image` refuses to optimize SVG, so — like `ProductImageCarousel` —
- *  this renders a plain `<img src={encodeURI(...)}>` rather than
- *  `next/image`, with the same --soft-peach + camera-glyph fallback as
- *  `ProductImage` for a src that 404s. */
-function GalleryTile({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
-  const [failed, setFailed] = useState(false);
-  const boxClass = 'relative w-full overflow-hidden';
-  const boxStyle = { aspectRatio: '1/1', backgroundColor: 'var(--soft-peach)' };
-
-  if (failed) {
-    return (
-      <div role="img" aria-label={alt} className={`${boxClass} flex items-center justify-center`} style={boxStyle}>
-        <CameraGlyph />
-      </div>
-    );
-  }
-
-  return (
-    <div className={boxClass} style={boxStyle}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- next/image refuses SVG */}
-      <img
-        src={encodeURI(src)}
-        alt={alt}
-        loading="lazy"
-        onError={() => setFailed(true)}
-        className={`absolute inset-0 h-full w-full object-cover ${className}`}
-      />
-    </div>
-  );
-}
-
-/** "Photo pending" mark in --dusty-terracotta, matching ProductImage's fallback. */
-function CameraGlyph() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="h-8 w-8"
-      style={{ color: 'var(--dusty-terracotta)' }}
-    >
-      <path d="M3 7h3l1.5-2h9L18 7h3v12H3z" />
-      <circle cx="12" cy="13" r="3.5" />
-    </svg>
-  );
-}
+import { GalleryTile } from '@/app/components/GalleryTile';
 
 interface GalleryProps {
   lang: Lang;
@@ -72,7 +21,7 @@ interface GalleryProps {
  *  lightweight, accessible lightbox built on the native <dialog> element — it
  *  traps focus, closes on Escape and on a backdrop click, and restores focus to
  *  the trigger, with no extra dependencies. In teaser mode (seeAllHref set) the
- *  tiles link straight to the full gallery. Square corners + brand tokens. */
+ *  tiles link straight to the full gallery. Uniform 1:1 GalleryTile + brand tokens. */
 export function Gallery({ lang, images = GALLERY_IMAGES, limit, seeAllHref }: GalleryProps) {
   const t = ui[lang];
   const shown = typeof limit === 'number' ? images.slice(0, limit) : images;
@@ -97,7 +46,9 @@ export function Gallery({ lang, images = GALLERY_IMAGES, limit, seeAllHref }: Ga
 
   return (
     <div>
-      <ul className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 list-none p-0 m-0">
+      {/* True CSS grid: equal columns (2 mobile/tablet, 3 desktop), each tile a
+          1:1 square via GalleryTile, consistent 12/16px gap. No masonry. */}
+      <ul className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 list-none p-0 m-0">
         {shown.map((img, i) => (
           <li key={img.src}>
             {teaser ? (

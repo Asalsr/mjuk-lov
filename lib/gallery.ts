@@ -95,10 +95,6 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     alt: { sv: "Chokladtårta", en: "Chocolate cake", fa: "کیک شکلاتی" },
   },
   {
-    src: "/gallery/chocolate cake (1).svg",
-    alt: { sv: "Chokladtårta, närbild", en: "Chocolate cake, close-up", fa: "کیک شکلاتی، نمای نزدیک" },
-  },
-  {
     src: "/gallery/chocolate cake (2) (1).svg",
     alt: { sv: "Chokladtårta, hel", en: "Chocolate cake, whole", fa: "کیک شکلاتی، کامل" },
   },
