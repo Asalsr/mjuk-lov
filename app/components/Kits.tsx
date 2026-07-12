@@ -97,7 +97,7 @@ export const Kits = ({ lang }: KitsProps) => {
 
         {/* The Party Pack, sold by occasion — a first-class option here. */}
         <div className="mt-16 md:mt-20">
-          <Party lang={lang} />
+          <Party lang={lang} illustrated />
         </div>
       </div>
     </section>
