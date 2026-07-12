@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ui, isLang, LANGS, type Lang } from "@/lib/i18n";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { Gallery } from "@/app/components/Gallery";
+import { PhotoDisclaimer } from "@/app/components/PhotoDisclaimer";
 import { GALLERY_IMAGES } from "@/lib/gallery";
 
 export const dynamicParams = false;
@@ -50,6 +51,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             <p className="type-body ink-muted mt-4 max-w-xl mx-auto">{t.galleryIntro}</p>
           </div>
           <Gallery lang={lang} images={GALLERY_IMAGES} />
+          <PhotoDisclaimer lang={lang} className="mt-8" />
         </div>
       </section>
     </RecipeShell>

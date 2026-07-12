@@ -2,10 +2,60 @@
 
 import { useRef, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { ProductImage } from './ProductImage';
 import { ui, isRtl, type Lang } from '@/lib/i18n';
 import { GALLERY_IMAGES, type GalleryImage } from '@/lib/gallery';
+
+/** Square gallery tile. Gallery photos are Adobe-exported SVGs, and
+ *  `next/image` refuses to optimize SVG, so — like `ProductImageCarousel` —
+ *  this renders a plain `<img src={encodeURI(...)}>` rather than
+ *  `next/image`, with the same --soft-peach + camera-glyph fallback as
+ *  `ProductImage` for a src that 404s. */
+function GalleryTile({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
+  const [failed, setFailed] = useState(false);
+  const boxClass = 'relative w-full overflow-hidden';
+  const boxStyle = { aspectRatio: '1/1', backgroundColor: 'var(--soft-peach)' };
+
+  if (failed) {
+    return (
+      <div role="img" aria-label={alt} className={`${boxClass} flex items-center justify-center`} style={boxStyle}>
+        <CameraGlyph />
+      </div>
+    );
+  }
+
+  return (
+    <div className={boxClass} style={boxStyle}>
+      {/* eslint-disable-next-line @next/next/no-img-element -- next/image refuses SVG */}
+      <img
+        src={encodeURI(src)}
+        alt={alt}
+        loading="lazy"
+        onError={() => setFailed(true)}
+        className={`absolute inset-0 h-full w-full object-cover ${className}`}
+      />
+    </div>
+  );
+}
+
+/** "Photo pending" mark in --dusty-terracotta, matching ProductImage's fallback. */
+function CameraGlyph() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-8 w-8"
+      style={{ color: 'var(--dusty-terracotta)' }}
+    >
+      <path d="M3 7h3l1.5-2h9L18 7h3v12H3z" />
+      <circle cx="12" cy="13" r="3.5" />
+    </svg>
+  );
+}
 
 interface GalleryProps {
   lang: Lang;
@@ -56,11 +106,9 @@ export function Gallery({ lang, images = GALLERY_IMAGES, limit, seeAllHref }: Ga
                 className="group block focus-visible:outline-none"
                 aria-label={t.gallery}
               >
-                <ProductImage
+                <GalleryTile
                   src={img.src}
                   alt={img.alt[lang]}
-                  aspect="1/1"
-                  sizes="(max-width: 768px) 50vw, 33vw"
                   className="transition-transform duration-500 md:group-hover:scale-105"
                 />
               </Link>
@@ -71,11 +119,9 @@ export function Gallery({ lang, images = GALLERY_IMAGES, limit, seeAllHref }: Ga
                 aria-label={t.viewImage}
                 className="group block w-full cursor-pointer focus-visible:outline-none"
               >
-                <ProductImage
+                <GalleryTile
                   src={img.src}
                   alt={img.alt[lang]}
-                  aspect="1/1"
-                  sizes="(max-width: 768px) 50vw, 33vw"
                   className="transition-transform duration-500 md:group-hover:scale-105"
                 />
               </button>
@@ -125,12 +171,11 @@ export function Gallery({ lang, images = GALLERY_IMAGES, limit, seeAllHref }: Ga
                 <span aria-hidden="true">×</span>
               </button>
               <div className="relative w-[90vw] max-w-3xl h-[70vh] max-h-[80vh]">
-                <Image
-                  src={shown[active].src}
+                {/* eslint-disable-next-line @next/next/no-img-element -- next/image refuses SVG */}
+                <img
+                  src={encodeURI(shown[active].src)}
                   alt={shown[active].alt[lang]}
-                  fill
-                  sizes="90vw"
-                  className="object-contain"
+                  className="absolute inset-0 h-full w-full object-contain"
                 />
               </div>
               <figcaption className="type-caps ink-muted text-center pt-3 px-8">
