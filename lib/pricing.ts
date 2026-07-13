@@ -13,9 +13,12 @@ export const INCLUDED_COLOURS_GRANDE = 5; // the large DIY kit (grande) includes
 export const INCLUDED_TOOLS_DEFAULT = 2; // two tools included
 export const INCLUDED_TOOLS_GRANDE = 4; // the large DIY kit (grande) includes four
 
-export const PARTY_BASE_SEK = 390; // covers PARTY_BASE_CAKES cakes
+export const PARTY_BASE_SEK = 400; // covers PARTY_BASE_CAKES cakes
 export const PARTY_BASE_CAKES = 1;
 export const PARTY_PER_CAKE_SEK = 290; // each cake beyond the base
+// The advertised floor: the minimum order is PARTY_MIN_CAKES cakes, so a party
+// starts at PARTY_BASE_SEK + (PARTY_MIN_CAKES - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK
+// = 400 + 290 = 690 kr (kept in sync with PARTY_PACK.priceSek in lib/products.ts).
 export const PARTY_MIN_CAKES = 2;
 export const PARTY_MAX_SELF_SERVE = 10; // 11+ → "contact us"
 

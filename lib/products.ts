@@ -165,16 +165,17 @@ export const CAKES: Product[] = [
 ];
 
 // Party Pack — the same kit, multiplied: one little cake per guest, each
-// decorated by them. `priceSek` is the "from" base (covers one cake); the
-// configurator adds a per-extra-cake fee (minimum order is two cakes) and any
-// extras. See lib/pricing for the maths.
+// decorated by them. `priceSek` is the displayed "from" price: the two-cake
+// minimum order (shown with the "from 2 cakes" unit), so it must equal the
+// configurator's floor = PARTY_BASE_SEK + PARTY_PER_CAKE_SEK = 690. The
+// configurator adds each further cake and any extras. See lib/pricing.
 export const PARTY: Product[] = [
   {
     id: "party-pack",
     allergens: SPONGE_ALLERGENS,
     ingredients: SPONGE_INGREDIENTS,
     size: "10 cm",
-    priceSek: 390,
+    priceSek: 690,
     kind: "party",
     configurable: true,
     leadDays: 7,
