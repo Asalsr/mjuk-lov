@@ -204,11 +204,8 @@ export const Header = ({ lang, onSelectLang }: HeaderProps) => {
               aria-label={`${t.cart} (${cartItems})`}
               className="relative tap transition-colors hover:text-[var(--dusty-terracotta)]"
             >
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
-                <path d="M3 6h18" />
-                <path d="M16 10a4 4 0 0 1-8 0" />
-              </svg>
+              {/* eslint-disable-next-line @next/next/no-img-element -- next/image refuses SVG */}
+              <img src={encodeURI('/icons/menu icons/Basket icon.svg')} alt="" width={26} height={26} style={{ display: 'block' }} aria-hidden="true" />
               <span
                 className="absolute -top-2 -right-2 min-w-[1.05rem] h-[1.05rem] px-1 flex items-center justify-center rounded-full text-[0.625rem] leading-none"
                 style={{ backgroundColor: 'var(--dusty-terracotta)', color: 'var(--vanilla-cream)' }}
@@ -227,10 +224,8 @@ export const Header = ({ lang, onSelectLang }: HeaderProps) => {
               aria-expanded={isAccountOpen}
               className="tap transition-colors hover:text-[var(--dusty-terracotta)]"
             >
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M4 20c0-4 4-6 8-6s8 2 8 6" strokeLinecap="round" />
-              </svg>
+              {/* eslint-disable-next-line @next/next/no-img-element -- next/image refuses SVG */}
+              <img src={encodeURI('/icons/menu icons/Account icon.svg')} alt="" width={26} height={26} style={{ display: 'block' }} aria-hidden="true" />
             </button>
 
             {isAccountOpen && (
