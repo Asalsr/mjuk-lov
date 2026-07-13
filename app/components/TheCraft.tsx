@@ -18,11 +18,11 @@ const content = {
       },
       {
         label: 'Vi bakar',
-        body: 'Från grunden, med tid. Inga genvägar, inga halvmesyrer.'
+        body: 'Vi börjar med mjöl och ägg, inte en färdig mix, och ger det tiden det behöver.'
       },
       {
         label: 'Vi paketerar',
-        body: 'Allt du behöver, noggrant förpackat. Instruktioner inkluderade.'
+        body: 'Vi lägger i allt du behöver, och en enkel guide så att du aldrig tappar tråden.'
       },
       {
         label: 'Du njuter',
@@ -39,11 +39,11 @@ const content = {
       },
       {
         label: 'We bake',
-        body: 'From scratch, with time. No shortcuts, no half measures.'
+        body: 'We start from flour and eggs, not a mix, and give it the time it needs.'
       },
       {
         label: 'We package',
-        body: 'Everything you need, carefully packed. Instructions included.'
+        body: 'We tuck in everything you\'ll need, and a simple guide so you can\'t get lost.'
       },
       {
         label: 'You enjoy',
@@ -60,11 +60,11 @@ const content = {
       },
       {
         label: 'ما می‌پزیم',
-        body: 'از پایه، با حوصله. بدون میان‌بر، بدون نیمه‌کاری.'
+        body: 'از آرد و تخم‌مرغ شروع می‌کنیم، نه یک پودر آماده، و وقتی که لازم دارد به آن می‌دهیم.'
       },
       {
         label: 'ما بسته‌بندی می‌کنیم',
-        body: 'هر آنچه نیاز دارید، با دقت بسته‌بندی‌شده. همراه با دستورالعمل.'
+        body: 'هر چه لازم دارید را می‌گذاریم، و یک راهنمای ساده که هیچ‌وقت گم نشوید.'
       },
       {
         label: 'شما لذت می‌برید',

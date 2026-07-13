@@ -11,17 +11,17 @@ interface CorporateProps {
 const content = {
   sv: {
     heading: 'Företagsprenumerationer',
-    pitch: 'Bjud teamet på nybakad fika varje vecka – vi levererar, ni njuter.',
+    pitch: 'Bjud teamet på nybakad fika varje vecka: vi kör hem det, ni ordnar bara bordet.',
     footnote: 'Leverans inom Göteborg. Faktura månadsvis.',
   },
   en: {
     heading: 'Corporate Subscriptions',
-    pitch: 'Treat the team to fresh-baked fika every week. We deliver, you enjoy.',
+    pitch: 'Treat the team to fresh-baked fika every week: we bring it, you just clear the table.',
     footnote: 'Delivery within Gothenburg. Monthly invoicing.',
   },
   fa: {
     heading: 'اشتراک‌های شرکتی',
-    pitch: 'هر هفته تیم را با فیکای تازه مهمان کنید، ما می‌رسانیم، شما لذت می‌برید.',
+    pitch: 'هر هفته تیم را با فیکای تازه‌پخته مهمان کنید: ما می‌رسانیم، شما فقط میز را آماده کنید.',
     footnote: 'ارسال در محدوده یوتبوری. صورت‌حساب ماهانه.',
   }
 };
