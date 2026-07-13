@@ -60,6 +60,7 @@ export function Gallery({ lang, images = GALLERY_IMAGES, limit, seeAllHref }: Ga
                 <GalleryTile
                   src={img.src}
                   alt={img.alt[lang]}
+                  scale={img.scale}
                   className="transition-transform duration-500 md:group-hover:scale-105"
                 />
               </Link>
@@ -73,6 +74,7 @@ export function Gallery({ lang, images = GALLERY_IMAGES, limit, seeAllHref }: Ga
                 <GalleryTile
                   src={img.src}
                   alt={img.alt[lang]}
+                  scale={img.scale}
                   className="transition-transform duration-500 md:group-hover:scale-105"
                 />
               </button>

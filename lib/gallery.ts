@@ -9,6 +9,13 @@ export interface GalleryImage {
   src: string;
   /** Accessible description per locale (sv / en / fa). */
   alt: Record<Lang, string>;
+  /** Escape hatch for a photo whose subject sits smaller/off-centre in its
+   *  frame than its neighbours (all tiles crop to the same 1:1 box, but a
+   *  loosely-framed source photo still reads as "smaller" next to a tightly
+   *  cropped one). Zooms the image within its tile without re-exporting the
+   *  file; 1 = no zoom. Prefer re-cropping the source photo when possible —
+   *  use this only when that isn't an option. */
+  scale?: number;
 }
 
 /**
@@ -17,6 +24,11 @@ export interface GalleryImage {
  *
  * To add a photo:
  *   1. Drop a roughly-square image into `public/gallery/` (tiles render 1:1).
+ *      Crop it so the cake fills the frame edge to edge, the same as its
+ *      neighbours — every tile is forced to the same box, so a photo shot
+ *      wider/looser than the others will still look smaller and lower once
+ *      it's cropped into that box. If the source can't be re-exported,
+ *      set `scale` on its entry instead of leaving it looking mismatched.
  *   2. Append an entry below with its path and a short bilingual `alt`.
  *
  * Order here is display order; the home teaser shows the first few (see
@@ -37,6 +49,7 @@ export const GALLERY_IMAGES: GalleryImage[] = [
   {
     src: "/gallery/lotus cake (1).svg",
     alt: { sv: "Lotustårta, hel", en: "Lotus cake, whole", fa: "کیک لوتوس، کامل" },
+    scale: 1.3,
   },
   {
     src: "/gallery/lotus cake (2) (1).svg",

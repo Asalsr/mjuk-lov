@@ -18,7 +18,18 @@ import { useState } from 'react';
  *  gallery grid specifically. */
 const TILE_RADIUS = '10px';
 
-export function GalleryTile({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
+export function GalleryTile({
+  src,
+  alt,
+  className = '',
+  scale = 1,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  /** Per-image zoom for a loosely-framed source photo — see `GalleryImage.scale`. */
+  scale?: number;
+}) {
   const [failed, setFailed] = useState(false);
   const boxClass = 'relative w-full overflow-hidden';
   const boxStyle = { aspectRatio: '1 / 1', backgroundColor: 'var(--soft-peach)', borderRadius: TILE_RADIUS };
@@ -33,14 +44,19 @@ export function GalleryTile({ src, alt, className = '' }: { src: string; alt: st
 
   return (
     <div className={boxClass} style={boxStyle}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- next/image refuses SVG */}
-      <img
-        src={encodeURI(src)}
-        alt={alt}
-        loading="lazy"
-        onError={() => setFailed(true)}
-        className={`absolute inset-0 h-full w-full object-cover ${className}`}
-      />
+      {/* The zoom correction lives on this wrapper, separate from the img's own
+          hover-scale transition, so the two transforms compose instead of
+          clobbering each other. */}
+      <div className="absolute inset-0" style={scale !== 1 ? { transform: `scale(${scale})` } : undefined}>
+        {/* eslint-disable-next-line @next/next/no-img-element -- next/image refuses SVG */}
+        <img
+          src={encodeURI(src)}
+          alt={alt}
+          loading="lazy"
+          onError={() => setFailed(true)}
+          className={`absolute inset-0 h-full w-full object-cover ${className}`}
+        />
+      </div>
     </div>
   );
 }
