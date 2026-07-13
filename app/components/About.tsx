@@ -12,7 +12,7 @@ interface AboutProps {
 const content = {
   sv: {
     eyebrow: 'Om oss',
-    heading: 'Ett kök. Ett löfte. Ett Göteborg.',
+    heading: 'Ett kök. Ett löfte. Hemma i Göteborg.',
     paragraphs: [
       'Mjuk Lov började i ett litet kök i Hissingen. Inte som ett företag, utan som ett svar på en fråga: vad händer när du ger bort något du bakat själv?',
       'Svaret var enkelt. Folk blir glada. Inte för att det är perfekt, utan för att det är personligt. För att någon tänkte på dem.',
@@ -21,7 +21,7 @@ const content = {
   },
   en: {
     eyebrow: 'About us',
-    heading: 'One kitchen. One promise. One Gothenburg.',
+    heading: 'One kitchen. One promise. Home in Gothenburg.',
     paragraphs: [
       'Mjuk Lov started in a small kitchen in Hissingen. Not as a business, but as an answer to a question: what happens when you give away something you baked yourself?',
       'The answer was simple. People become happy. Not because it is perfect, but because it is personal. Because someone thought of them.',
@@ -30,7 +30,7 @@ const content = {
   },
   fa: {
     eyebrow: 'درباره ما',
-    heading: 'یک آشپزخانه. یک وعده. یک یوتبوری.',
+    heading: 'یک آشپزخانه. یک وعده. خانه‌ای در یوتبوری.',
     paragraphs: [
       'Mjuk Lov در آشپزخانه‌ای کوچک در هیسینگن آغاز شد. نه به‌عنوان یک کسب‌وکار، بلکه پاسخی به یک پرسش: وقتی چیزی را که خودت پخته‌ای به کسی هدیه می‌دهی، چه اتفاقی می‌افتد؟',
       'پاسخ ساده بود. مردم خوشحال می‌شوند. نه چون بی‌نقص است، بلکه چون شخصی است. چون کسی به آن‌ها فکر کرده.',

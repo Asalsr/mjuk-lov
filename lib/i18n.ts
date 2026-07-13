@@ -115,6 +115,7 @@ export const ui = {
     autoSyncNote: "Dina data sparas automatiskt på ditt konto när du är inloggad.",
     shop: "Butik",
     kits: "Tårtkit",
+    kitsIntro: "Vi bakar botten: du dekorerar den själv hemma. Tårtor på 10 cm, en för varje två till tre som delar.",
     subscriptions: "Företagsprenumerationer",
     subscriptionsNote: "Leverans inom Göteborg. Faktura månadsvis.",
     comingSoon: "Snart här",
@@ -266,7 +267,7 @@ export const ui = {
     kitVariantsIntro: "De flesta av våra är gjorda för två, eller några få, de som betyder mest den dagen.",
     kitRecommended: "Rekommenderas",
     kitOccasions: {
-      "kit-piccolo": "För två, eller några få. Dejtkväll, en liten hälsning, när sällskapet är litet och stunden räknas.",
+      "kit-piccolo": "Ta en spritspåse, kladda ner dig, gör den till din. Fullt tillåtet att överdriva. Här får du gå loss.",
       "kit-medio": "För vännerna runt bordet. Sex till åtta, en födelsedag, ett återseende, mitt i veckan eller mitt i festen.",
       "kit-grande": "För hela gänget. Sexton till tjugo, den stora dagen: extra höjd, extra allt, lika enkelt att göra till sitt.",
     } as Record<string, string>,
@@ -303,7 +304,7 @@ export const ui = {
     kitFinalCta: "Gör din tårta",
     // Configurator (Make it yours) — shop cards + sequential step flow.
     makeItYours: "Gör det till ditt",
-    cardPromise: "Välj smak, fyllning, verktyg och din dag, ett lugnt steg i taget.",
+    cardPromise: "Välj smak, fyllning och dekoreringsverktyg, sen din dag, ett lugnt steg i taget.",
     partyPromise: "Antal, smaker, fyllning och din dag, ett lugnt steg i taget.",
     // Ready-made cakes (shop): shorter flow, we decorate.
     cakesHeading: "Färdiga tårtor",
@@ -354,7 +355,7 @@ export const ui = {
     cfgSplitAria: "Smakfördelning: dela tårtorna mellan vanilj och choklad",
     // Party Pack section (shown wherever kits are presented).
     partyEyebrow: "samlas",
-    partyBlockHeading: "En fest ni gör tillsammans.",
+    partyBlockHeading: "En fest ni dekorerar tillsammans.",
     partyBlockBody:
       "Alla får sin egen lilla tårta att dekorera: dekorerandet är festen. Gjort för dagarna som samlar människor: födelsedagar, bemärkelsedagar, babyshower, möhippor, eller en stilla helgeftermiddag med dem du tycker om.",
     partyBlockMeta: "Från 680 kr · minst 7 dagars framförhållning.",
@@ -461,6 +462,7 @@ export const ui = {
     autoSyncNote: "Your data saves to your account automatically while you're logged in.",
     shop: "Shop",
     kits: "Cake Kits",
+    kitsIntro: "We bake the base: you decorate it yourself at home. 10 cm cakes, one per two or three people to share.",
     subscriptions: "Corporate Subscriptions",
     subscriptionsNote: "Delivery within Gothenburg. Monthly invoicing.",
     comingSoon: "Coming soon",
@@ -612,7 +614,7 @@ export const ui = {
     kitVariantsIntro: "Most of ours are made for two, or a few, the people who matter most on the day.",
     kitRecommended: "Recommended",
     kitOccasions: {
-      "kit-piccolo": "For two, or a few. Date night, a small hello, when the group is little and the moment counts.",
+      "kit-piccolo": "Grab a piping bag, make a mess, make it yours. Full permission to overdo it. Get carried away.",
       "kit-medio": "For the friends round the table. Six to eight, a birthday, a reunion, midweek or mid party.",
       "kit-grande": "For the whole crowd. Sixteen to twenty, the big day: extra height, extra everything, just as easy to make your own.",
     } as Record<string, string>,
@@ -649,7 +651,7 @@ export const ui = {
     kitFinalCta: "Make your cake",
     // Configurator (Make it yours) — shop cards + sequential step flow.
     makeItYours: "Make it yours",
-    cardPromise: "Choose flavour, filling, tools and your date, one calm step at a time.",
+    cardPromise: "Choose flavour, filling and decorating tools, then your date, one calm step at a time.",
     partyPromise: "Cakes, flavours, filling and your day, one calm step at a time.",
     // Ready-made cakes (shop): shorter flow, we decorate.
     cakesHeading: "Ready-made cakes",
@@ -700,7 +702,7 @@ export const ui = {
     cfgSplitAria: "Flavour split: divide the cakes between vanilla and chocolate",
     // Party Pack section (shown wherever kits are presented).
     partyEyebrow: "gather round",
-    partyBlockHeading: "A party you make with your hands.",
+    partyBlockHeading: "A party you decorate together.",
     partyBlockBody:
       "Everyone gets their own little cake to decorate: the decorating is the party. Made for the days that bring people together: birthdays, anniversaries, baby showers, möhippor, or a slow weekend afternoon with the people you love.",
     partyBlockMeta: "From 680 kr · at least 7 days' notice.",
@@ -807,6 +809,7 @@ export const ui = {
     autoSyncNote: "داده‌های شما هنگام ورود به‌طور خودکار روی حساب‌تان ذخیره می‌شود.",
     shop: "فروشگاه",
     kits: "کیت‌های کیک",
+    kitsIntro: "پایه را ما می‌پزیم: تزیینش را خودت در خانه انجام می‌دهی. کیک‌های ۱۰ سانتی‌متری، یکی برای هر دو یا سه نفری که آن را با هم می‌خورند.",
     subscriptions: "اشتراک‌های شرکتی",
     subscriptionsNote: "ارسال در محدوده یوتبوری. صورت‌حساب ماهانه.",
     comingSoon: "به‌زودی",
@@ -958,7 +961,7 @@ export const ui = {
     kitVariantsIntro: "بیشترِ کیت‌های ما برای دو نفر، یا چند نفر ساخته شده‌اند، کسانی که آن روز بیش از همه مهم‌اند.",
     kitRecommended: "پیشنهاد ما",
     kitOccasions: {
-      "kit-piccolo": "برای دو نفر، یا چند نفر. شب قرار، یک سلامِ کوچک، وقتی جمع کوچک است و لحظه مهم است.",
+      "kit-piccolo": "یک قیف بردار، دستت را کثیف کن، مالِ خودت کن. کاملاً مجاز است زیاده‌روی کنی. بگذار خودت را رها کنی.",
       "kit-medio": "برای دوستان دور میز. شش تا هشت نفر، یک تولد، یک دیدار دوباره، وسط هفته یا وسط جشن.",
       "kit-grande": "برای کل جمع. شانزده تا بیست نفر، روز بزرگ: ارتفاع بیشتر، همه‌چیز بیشتر، به همان آسانی برای خودت کردن.",
     } as Record<string, string>,
@@ -995,7 +998,7 @@ export const ui = {
     kitFinalCta: "کیکت را بساز",
     // Configurator (Make it yours) — shop cards + sequential step flow.
     makeItYours: "خودت بسازش",
-    cardPromise: "طعم، فیلینگ، ابزار و روزِ خودت را انتخاب کن، هر بار یک قدمِ آرام.",
+    cardPromise: "طعم، فیلینگ، ابزار تزیین و روزِ خودت را انتخاب کن، هر بار یک قدمِ آرام.",
     partyPromise: "تعداد، طعم‌ها، فیلینگ و روزت، هر بار یک قدمِ آرام.",
     // Ready-made cakes (shop): shorter flow, we decorate.
     cakesHeading: "کیک‌های آماده",
@@ -1046,7 +1049,7 @@ export const ui = {
     cfgSplitAria: "تقسیم طعم: کیک‌ها را بین وانیل و شکلات تقسیم کن",
     // Party Pack section (shown wherever kits are presented).
     partyEyebrow: "دور هم",
-    partyBlockHeading: "جشنی که با دست‌های خودتان می‌سازید.",
+    partyBlockHeading: "جشنی که با هم تزیین می‌کنید.",
     partyBlockBody:
       "هر کس کیک کوچک خودش را برای تزیین دارد: تزیین کردن، خودِ جشن است. ساخته‌شده برای روزهایی که آدم‌ها را کنار هم می‌آورد: تولدها، سالگردها، بیبی‌شاور، مهمانی‌های پیش از عروسی، یا یک بعدازظهر آرامِ آخر هفته با کسانی که دوستشان داری.",
     partyBlockMeta: "از 680 کرون · دست‌کم ۷ روز فرصت.",

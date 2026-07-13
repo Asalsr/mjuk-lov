@@ -49,6 +49,14 @@ export const Kits = ({ lang }: KitsProps) => {
           {t.kits}
         </h2>
 
+        <p
+          className={`type-body text-center max-w-[640px] mx-auto mb-12 md:mb-16 ink-muted transition-all duration-700 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
+          {t.kitsIntro}
+        </p>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
           {KITS.map((p, i) => {
             const Icon = kitIcon(p.id);

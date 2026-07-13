@@ -22,7 +22,7 @@ const content = {
       },
       {
         label: 'Personligt',
-        body: 'Varje tårta, varje dessert är just din. Vi lyssnar, anpassar, levererar.'
+        body: 'Varje tårta, varje dessert är just din. Berätta vad du ser framför dig, så bakar vi mot det.'
       }
     ]
   },
@@ -39,7 +39,7 @@ const content = {
       },
       {
         label: 'Personal',
-        body: 'Every cake, every dessert is uniquely yours. We listen, adapt, deliver.'
+        body: 'Every cake, every dessert is uniquely yours. Tell us what you\'re picturing, and we\'ll bake toward it.'
       }
     ]
   },
@@ -56,7 +56,7 @@ const content = {
       },
       {
         label: 'شخصی',
-        body: 'هر کیک و هر دسر منحصراً مال شماست. گوش می‌دهیم، هماهنگ می‌کنیم، تحویل می‌دهیم.'
+        body: 'هر کیک و هر دسر منحصراً مال شماست. بگویید چه تصویری در ذهن دارید، ما به همان سمت می‌پزیم.'
       }
     ]
   }
