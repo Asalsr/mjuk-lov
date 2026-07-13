@@ -167,7 +167,7 @@ export const Header = ({ lang, onSelectLang }: HeaderProps) => {
           onClick={() => setIsMobileMenuOpen(false)}
           className="inline-flex items-center transition-opacity hover:opacity-80"
         >
-          <Logo className={isScrolled ? 'h-10 md:h-12 lg:h-14' : 'h-12 md:h-16 lg:h-20'} />
+          <Logo className={isScrolled ? 'h-15 md:h-18 lg:h-21' : 'h-18 md:h-24 lg:h-30'} />
         </Link>
 
         {/* Desktop nav. Marketing sections (scroll-to) and real destinations
@@ -344,21 +344,34 @@ export const Header = ({ lang, onSelectLang }: HeaderProps) => {
             className="md:hidden fixed inset-0 z-[-1] bg-transparent cursor-default"
           />
           <div className="md:hidden bg-[var(--vanilla-cream)] border-t border-[var(--warm-cocoa)]/10 max-h-[calc(100svh-4rem)] overflow-y-auto pb-[env(safe-area-inset-bottom)]">
-            {/* Mobile hamburger = the brand story. Real destinations live in
-                the MobileBottomBar; this sheet stays focused on marketing. */}
+            {/* Mobile hamburger. Real destinations (Recept / Butik / Galleri /
+                Kit) also live in the MobileBottomBar, but that bar can be missed,
+                so they're listed here too — as links — alongside the brand-story
+                sections, keeping the shop reliably reachable. */}
             <nav className="px-4 py-6 flex flex-col gap-1">
-              {NAV.filter((item): item is { id: string; sv: string; en: string; fa: string } => 'id' in item).map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => goToSection(item.id)}
-                  className="text-left min-h-11 flex flex-col justify-center py-2 transition-colors hover:text-[var(--dusty-terracotta)]"
-                >
-                  <span className="type-caps">{item[lang]}</span>
-                  <span className="type-body ink-muted" style={{ fontSize: '0.875rem' }}>
-                    {marketingTagline(item.id, lang)}
-                  </span>
-                </button>
-              ))}
+              {NAV.map((item) =>
+                'path' in item ? (
+                  <Link
+                    key={item.path}
+                    href={`/${lang}/${item.path}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="type-caps min-h-11 flex items-center py-2 transition-colors hover:text-[var(--dusty-terracotta)]"
+                  >
+                    {item[lang]}
+                  </Link>
+                ) : (
+                  <button
+                    key={item.id}
+                    onClick={() => goToSection(item.id)}
+                    className="text-left min-h-11 flex flex-col justify-center py-2 transition-colors hover:text-[var(--dusty-terracotta)]"
+                  >
+                    <span className="type-caps">{item[lang]}</span>
+                    <span className="type-body ink-muted" style={{ fontSize: '0.875rem' }}>
+                      {marketingTagline(item.id, lang)}
+                    </span>
+                  </button>
+                ),
+              )}
             </nav>
           </div>
         </>
