@@ -49,9 +49,11 @@ const MAX_COLOURS = INCLUDED_COLOURS + 6;
 const KIT_STEPS = ["flavour", "filling", "colour", "tools", "date", "review"] as const;
 // Ready-made cakes (kind "cake"): we decorate them, so no colours/tools steps.
 const CAKE_STEPS = ["flavour", "filling", "date", "review"] as const;
-// No separate "split" step: each cake's own flavour is chosen right alongside
-// its filling, on the "filling" step (see renderPartyFillings).
-const PARTY_STEPS = ["cakes", "filling", "colour", "tools", "date", "review"] as const;
+// "sponge" and "filling" are separate steps — each screen asks one question
+// with one kind of button grid, so it's never ambiguous which buttons are
+// choosing what. Both are per-cake (see renderPartySponge/renderPartyFillings),
+// unlike the old pooled-by-sponge model this replaced.
+const PARTY_STEPS = ["cakes", "sponge", "filling", "colour", "tools", "date", "review"] as const;
 
 const cardBtn = (selected: boolean): React.CSSProperties => ({
   border: "1px solid var(--warm-cocoa)",
@@ -457,41 +459,63 @@ export function Configurator({
     );
   };
 
-  // Party fillings, bucketed by sponge so which filling goes on which sponge is
-  // explicit. Each bucket's portions target its cake count; a second filling on
-  // a cake (portions beyond the count) is +29, like the kit.
-  // Each cake gets its own flavour toggle and filling picker — no pooling by
-  // sponge, so "two vanilla cakes with different fillings" is an explicit,
-  // visible choice per cake rather than an ambiguous shared count.
+  // Sponge and filling are deliberately separate screens (see PARTY_STEPS):
+  // one kind of button grid per step, so it's never ambiguous which buttons
+  // pick the cake's sponge and which pick its filling. Each cake keeps its
+  // own flavour and 1–2 fillings — no pooling by sponge, so "two vanilla
+  // cakes with different fillings" is an explicit, visible choice per cake
+  // rather than an ambiguous shared count.
+  const renderPartySponge = (c: PartyConfig) => (
+    <div className="flex flex-col gap-4">
+      {c.cakes.map((cake, i) => (
+        <div key={i}>
+          <div className="type-caps ink-muted mb-2">
+            {t.cfgCakeWord} {locNum(i + 1, lang)}
+          </div>
+          <div
+            role="radiogroup"
+            aria-label={`${t.cfgCakeWord} ${locNum(i + 1, lang)}: ${t.cfgFlavourTitle}`}
+            className="grid grid-cols-2 gap-2"
+          >
+            {FLAVOURS.map((f) => {
+              const selected = cake.flavour === f;
+              return (
+                <button
+                  key={f}
+                  type="button"
+                  role="radio"
+                  aria-checked={selected}
+                  onClick={() => setPartyCakeFlavour(i, f)}
+                  className="type-body px-3 py-2 text-start transition-all hover:bg-[var(--warm-peach)]"
+                  style={cardBtn(selected)}
+                >
+                  {selected && <span aria-hidden="true">✓ </span>}
+                  {FLAVOUR_LABELS[f][lang]}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
   const renderPartyFillings = (c: PartyConfig) => (
     <div className="flex flex-col gap-6">
       {c.cakes.map((cake, i) => {
         const twoChosen = cake.fillings.length >= 2;
         return (
           <div key={i}>
+            {/* Names the sponge chosen on the previous step — the filling
+                buttons below are the only interactive control on this card. */}
             <div className="type-caps ink-muted mb-2">
-              {t.cfgCakeWord} {locNum(i + 1, lang)}
+              {t.cfgCakeWord} {locNum(i + 1, lang)} · {FLAVOUR_LABELS[cake.flavour][lang]}
             </div>
-            <div role="radiogroup" aria-label={`${t.cfgCakeWord} ${locNum(i + 1, lang)}: ${t.cfgFlavourTitle}`} className="grid grid-cols-2 gap-2 mb-2">
-              {FLAVOURS.map((f) => {
-                const selected = cake.flavour === f;
-                return (
-                  <button
-                    key={f}
-                    type="button"
-                    role="radio"
-                    aria-checked={selected}
-                    onClick={() => setPartyCakeFlavour(i, f)}
-                    className="type-body px-3 py-2 text-start transition-all hover:bg-[var(--warm-peach)]"
-                    style={cardBtn(selected)}
-                  >
-                    {selected && <span aria-hidden="true">✓ </span>}
-                    {FLAVOUR_LABELS[f][lang]}
-                  </button>
-                );
-              })}
-            </div>
-            <div className="grid grid-cols-2 gap-2">
+            <div
+              role="group"
+              aria-label={`${t.cfgCakeWord} ${locNum(i + 1, lang)}: ${t.cfgFillingTitle}`}
+              className="grid grid-cols-2 gap-2"
+            >
               {FILLINGS.map((f) => {
                 const selected = cake.fillings.includes(f);
                 return (
@@ -712,6 +736,7 @@ export function Configurator({
 
   const titleFor: Record<string, string> = {
     flavour: t.cfgFlavourTitle,
+    sponge: t.cfgFlavourTitle,
     filling: t.cfgFillingTitle,
     colour: t.cfgColoursTitle,
     tools: t.cfgToolsTitle,
@@ -721,6 +746,7 @@ export function Configurator({
   };
   const includedFor: Record<string, string | null> = {
     flavour: t.cfgFlavourIncluded,
+    sponge: t.cfgSpongeIncluded,
     filling: isParty ? t.cfgFillingPartyIncluded : t.cfgFillingIncluded,
     colour: isParty
       ? t.cfgColoursPartyIncluded
@@ -805,6 +831,7 @@ export function Configurator({
             </h2>
             {includedFor[current] && <p className="type-body ink-muted mb-6">{includedFor[current]}</p>}
             {current === "flavour" && renderFlavour(config as KitConfig)}
+            {current === "sponge" && renderPartySponge(config as PartyConfig)}
             {current === "filling" && (isParty ? renderPartyFillings(config as PartyConfig) : renderFilling())}
             {current === "colour" && (isParty ? renderPartyColours(config as PartyConfig) : renderColours(config as KitConfig))}
             {current === "tools" && renderTools()}
