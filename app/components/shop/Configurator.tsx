@@ -670,7 +670,11 @@ export function Configurator({
   const includedFor: Record<string, string | null> = {
     flavour: t.cfgFlavourIncluded,
     filling: isParty ? t.cfgFillingPartyIncluded : t.cfgFillingIncluded,
-    colour: isParty ? t.cfgColoursPartyIncluded : t.cfgColoursPick,
+    colour: isParty
+      ? t.cfgColoursPartyIncluded
+      : product.id === "kit-grande"
+        ? t.cfgColoursPickDeluxe
+        : t.cfgColoursPick,
     tools: isParty
       ? t.cfgToolsIncludedParty
       : product.id === "kit-grande"
@@ -699,7 +703,12 @@ export function Configurator({
         dir={rtl ? "rtl" : "ltr"}
         lang={lang}
         onClick={(e) => e.stopPropagation()}
-        className="w-full sm:max-w-[34rem] max-h-[92vh] flex flex-col focus-visible:outline-none"
+        // Fixed height, not shrink-to-fit: every step renders at the same box
+        // size (sized for the tallest step in the flow, capped by viewport)
+        // instead of the sheet visibly growing/shrinking as you move between
+        // steps. Short steps just leave empty space above the footer; tall
+        // ones scroll internally (see the sticky footer below).
+        className="w-full sm:max-w-[34rem] h-[min(80vh,42rem)] flex flex-col focus-visible:outline-none"
         style={{ backgroundColor: "var(--vanilla-cream)", boxShadow: "0 -8px 40px rgba(61, 42, 34, 0.18)" }}
       >
         {/* Header: name + close */}

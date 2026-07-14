@@ -152,29 +152,24 @@ export function defaultPartyColours(cakes: number): ColourCounts {
   return { [COLOURS[0].key]: n, [COLOURS[1].key]: n, [COLOURS[2].key]: n };
 }
 
-/** Ready-made cakes (kind "cake") use the shorter flavour + filling flow — no
- *  decorating tools or colours. Everything else (DIY kits) is a full build. */
-export function isSimpleCake(productId: string): boolean {
-  return getProduct(productId)?.kind === "cake";
-}
-
 function evenSplit(count: number): { vanilla: number } {
   return { vanilla: Math.ceil(count / 2) };
 }
 
+/** Nothing pre-chosen beyond what's required to price the base cake (one
+ *  flavour, one filling — see house rule: a cake needs both to exist).
+ *  Tools and colours start empty for every kit, ready-made or DIY: picking
+ *  them is the point of the flow, not a default we've made on the
+ *  customer's behalf. */
 export function defaultKitConfig(productId: string): KitConfig {
-  // Ready-made cake: we decorate it, so no tools and no colours to pick.
-  if (isSimpleCake(productId)) {
-    return { kind: "kit", productId, flavour: "vanilla", fillings: ["berries"], tools: { piping: 0, brush: 0, knife: 0 }, colours: [] };
-  }
-  const included = includedToolsFor(productId);
-  // Spread the included tools across piping + brush (and knife, plus a second
-  // piping bag on grande).
-  const tools: Tools =
-    included >= 4 ? { piping: 2, brush: 1, knife: 1 } : { piping: 1, brush: 1, knife: included >= 3 ? 1 : 0 };
-  // Default to the first N curated shades (an even, pretty set).
-  const colours = COLOURS.slice(0, includedColoursFor(productId)).map((c) => c.key);
-  return { kind: "kit", productId, flavour: "vanilla", fillings: ["berries"], tools, colours };
+  return {
+    kind: "kit",
+    productId,
+    flavour: "vanilla",
+    fillings: ["berries"],
+    tools: { piping: 0, brush: 0, knife: 0 },
+    colours: [],
+  };
 }
 
 /** Total filling portions in a bucket. Tolerates a missing/legacy shape. */
@@ -229,8 +224,11 @@ export function defaultPartyConfig(productId = "party-pack"): PartyConfig {
     cakes,
     vanilla,
     fillings: defaultPartyFillings(vanilla, cakes - vanilla),
-    tools: defaultPartyTools(cakes),
-    colours: defaultPartyColours(cakes),
+    // Nothing pre-chosen for tools/colours — picking them is the point of the
+    // flow. defaultPartyTools/defaultPartyColours still exist for tests and
+    // any caller that wants a "fully allotted" starting point.
+    tools: { piping: 0, brush: 0, knife: 0 },
+    colours: {},
   };
 }
 
