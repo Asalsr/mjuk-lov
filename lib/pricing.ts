@@ -26,7 +26,7 @@ export const LEAD_DAYS_KIT = 3;
 export const LEAD_DAYS_PARTY = 7;
 
 // Cakes & Bakes: above this many of one bake, we ask for extra notice.
-export const MENU_BIG_ORDER_QTY = 30;
+export const MENU_BIG_ORDER_QTY = 10;
 
 // --- Option sets ----------------------------------------------------------
 export const FLAVOURS = ["vanilla", "chocolate"] as const;
