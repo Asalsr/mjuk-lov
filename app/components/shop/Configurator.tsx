@@ -21,16 +21,11 @@ import {
   PARTY_MAX_SELF_SERVE,
   defaultKitConfig,
   defaultPartyConfig,
-  defaultPartyTools,
-  defaultPartyColours,
-  defaultPartyFillings,
-  rebalanceFillings,
   includedToolsFor,
   includedToolsForParty,
   includedColoursFor,
   includedColoursForParty,
   colourCount,
-  fillingCount,
   toolCount,
   priceLineSek,
   leadDaysFor,
@@ -39,7 +34,9 @@ import {
   type LineConfig,
   type KitConfig,
   type PartyConfig,
+  type PartyCakeConfig,
   type Filling,
+  type Flavour,
   type ToolKey,
   type Tools,
   type ColourKey,
@@ -52,27 +49,87 @@ const MAX_COLOURS = INCLUDED_COLOURS + 6;
 const KIT_STEPS = ["flavour", "filling", "colour", "tools", "date", "review"] as const;
 // Ready-made cakes (kind "cake"): we decorate them, so no colours/tools steps.
 const CAKE_STEPS = ["flavour", "filling", "date", "review"] as const;
-const PARTY_STEPS = ["cakes", "split", "filling", "colour", "tools", "date", "review"] as const;
+// No separate "split" step: each cake's own flavour is chosen right alongside
+// its filling, on the "filling" step (see renderPartyFillings).
+const PARTY_STEPS = ["cakes", "filling", "colour", "tools", "date", "review"] as const;
 
 const cardBtn = (selected: boolean): React.CSSProperties => ({
   border: "1px solid var(--warm-cocoa)",
   backgroundColor: selected ? "var(--warm-peach)" : "transparent",
 });
 
-/** Repair a config seeded from an older persisted draft or cart line: a Party
- *  Pack saved before tools/colours scaled per guest may lack those maps, and one
- *  saved before fillings were bucketed by sponge carries a flat `Filling[]`. */
+/** One cake's worth of defaults, mirroring defaultKitConfig in lib/pricing. */
+function defaultPartyCake(flavour: Flavour = "vanilla"): PartyCakeConfig {
+  return { flavour, fillings: ["berries"] };
+}
+
+/** Repair a config seeded from an older persisted draft or cart line into the
+ *  current per-cake shape. Older shapes seen in the wild had `cakes` as a
+ *  count with a separate `vanilla` count, and fillings pooled by sponge
+ *  (`{ vanilla: FillingCounts, chocolate: FillingCounts }`) or, older still, a
+ *  flat `Filling[]` shared across the whole party. None of those tracked
+ *  which physical cake got which filling, so this is a best-effort, not a
+ *  literal, reconstruction — it preserves total counts (and therefore price)
+ *  exactly, distributing them deterministically across the cakes in each
+ *  sponge group. */
 function ensurePartyShape(cfg: LineConfig): LineConfig {
   if (cfg.kind !== "party") return cfg;
-  const fillings =
-    cfg.fillings && !Array.isArray(cfg.fillings)
-      ? cfg.fillings
-      : defaultPartyFillings(cfg.vanilla, cfg.cakes - cfg.vanilla);
+  const legacy = cfg as unknown as {
+    productId: string;
+    cakes: number | PartyCakeConfig[];
+    vanilla?: number;
+    fillings?: { vanilla?: Partial<Record<Filling, number>>; chocolate?: Partial<Record<Filling, number>> } | Filling[];
+    tools?: Tools;
+    colours?: ColourCounts;
+  };
+
+  if (Array.isArray(legacy.cakes)) {
+    // Already the current shape — just backfill tools/colours if missing.
+    return {
+      kind: "party",
+      productId: legacy.productId,
+      cakes: legacy.cakes,
+      tools: legacy.tools ?? { piping: 0, brush: 0, knife: 0 },
+      colours: legacy.colours ?? {},
+    };
+  }
+
+  const total = Math.max(PARTY_MIN_CAKES, legacy.cakes ?? PARTY_MIN_CAKES);
+  const vanillaCount = Math.min(total, Math.max(0, legacy.vanilla ?? Math.ceil(total / 2)));
+  const bucketFor = (flavour: "vanilla" | "chocolate"): Partial<Record<Filling, number>> => {
+    if (!legacy.fillings || Array.isArray(legacy.fillings)) return {}; // flat legacy array — no per-sponge data
+    return legacy.fillings[flavour] ?? {};
+  };
+  // Distribute a sponge bucket's portions across its n cakes, up to 2 each,
+  // in FILLINGS order — a plausible split, not the literal original.
+  const distribute = (bucket: Partial<Record<Filling, number>>, n: number): Filling[][] => {
+    const remaining = { ...bucket };
+    const perCake: Filling[][] = Array.from({ length: n }, () => []);
+    for (let i = 0; i < n; i++) {
+      for (const f of FILLINGS) {
+        if (perCake[i].length >= 2) break;
+        if ((remaining[f] || 0) > 0) {
+          perCake[i].push(f);
+          remaining[f] = (remaining[f] || 0) - 1;
+        }
+      }
+      if (perCake[i].length === 0) perCake[i].push("berries");
+    }
+    return perCake;
+  };
+  const vanillaFillings = distribute(bucketFor("vanilla"), vanillaCount);
+  const chocFillings = distribute(bucketFor("chocolate"), total - vanillaCount);
+  const cakes: PartyCakeConfig[] = [
+    ...vanillaFillings.map((fillings) => ({ flavour: "vanilla" as const, fillings })),
+    ...chocFillings.map((fillings) => ({ flavour: "chocolate" as const, fillings })),
+  ];
+
   return {
-    ...cfg,
-    fillings,
-    tools: cfg.tools ?? defaultPartyTools(cfg.cakes),
-    colours: cfg.colours ?? defaultPartyColours(cfg.cakes),
+    kind: "party",
+    productId: legacy.productId,
+    cakes,
+    tools: legacy.tools ?? { piping: 0, brush: 0, knife: 0 },
+    colours: legacy.colours ?? {},
   };
 }
 
@@ -185,12 +242,14 @@ export function Configurator({
   const setParty = (patch: Partial<PartyConfig>) => setConfig((c) => ({ ...(c as PartyConfig), ...patch }));
 
   const includedTools = isParty
-    ? includedToolsForParty((config as PartyConfig).cakes)
+    ? includedToolsForParty((config as PartyConfig).cakes.length)
     : includedToolsFor(product.id);
   // Party colours scale per guest (INCLUDED_COLOURS per cake); kits get the flat
   // included set (grande gets a larger one). Used by the colour step and the
   // review extras line.
-  const includedColours = isParty ? includedColoursForParty((config as PartyConfig).cakes) : includedColoursFor(product.id);
+  const includedColours = isParty
+    ? includedColoursForParty((config as PartyConfig).cakes.length)
+    : includedColoursFor(product.id);
 
   // Earliest reservable date for this product's lead time.
   const minDate = useMemo(() => {
@@ -237,15 +296,26 @@ export function Configurator({
     setParty({ colours: { ...c.colours, [key]: nextVal } });
   };
 
-  // Party fillings are counted per filling, bucketed by sponge. A bucket can hold
-  // up to two fillings per cake (2 × its cake count), matching the kit's cap.
-  const setPartyFilling = (group: "vanilla" | "chocolate", f: Filling, delta: number) => {
+  // Party: each cake owns its own flavour and 1–2 fillings, same rule as a
+  // kit. Only the cake at index i changes; the rest of the party is untouched.
+  const setPartyCakeFlavour = (i: number, flavour: Flavour) => {
     const c = config as PartyConfig;
-    const bucketCakes = group === "vanilla" ? c.vanilla : c.cakes - c.vanilla;
-    const bucket = c.fillings[group] ?? {};
-    const nextVal = Math.max(0, (bucket[f] || 0) + delta);
-    if (delta > 0 && fillingCount(bucket) >= 2 * bucketCakes) return; // no third filling on a cake
-    setParty({ fillings: { ...c.fillings, [group]: { ...bucket, [f]: nextVal } } });
+    setParty({ cakes: c.cakes.map((cake, idx) => (idx === i ? { ...cake, flavour } : cake)) });
+  };
+  const togglePartyCakeFilling = (i: number, f: Filling) => {
+    const c = config as PartyConfig;
+    setParty({
+      cakes: c.cakes.map((cake, idx) => {
+        if (idx !== i) return cake;
+        const has = cake.fillings.includes(f);
+        if (has) {
+          if (cake.fillings.length === 1) return cake; // one is always required
+          return { ...cake, fillings: cake.fillings.filter((x) => x !== f) };
+        }
+        if (cake.fillings.length >= 2) return cake; // cap at two
+        return { ...cake, fillings: [...cake.fillings, f] };
+      }),
+    });
   };
 
   // Kit / ready-made cake fillings stay a distinct 1–2 selection.
@@ -390,46 +460,66 @@ export function Configurator({
   // Party fillings, bucketed by sponge so which filling goes on which sponge is
   // explicit. Each bucket's portions target its cake count; a second filling on
   // a cake (portions beyond the count) is +29, like the kit.
-  const renderPartyFillings = (c: PartyConfig) => {
-    const groups: { key: "vanilla" | "chocolate"; cakes: number }[] = [
-      { key: "vanilla", cakes: c.vanilla },
-      { key: "chocolate", cakes: c.cakes - c.vanilla },
-    ];
-    return (
-      <div className="flex flex-col gap-6">
-        {groups
-          .filter((g) => g.cakes > 0)
-          .map((g) => {
-            const bucket = c.fillings[g.key] ?? {};
-            const used = fillingCount(bucket);
-            const extra = Math.max(0, used - g.cakes);
-            return (
-              <div key={g.key}>
-                <div className="type-caps ink-muted mb-1">
-                  {FLAVOUR_LABELS[g.key][lang]} {t.cfgSpongeWord} · {locNum(g.cakes, lang)} {t.cfgCakesWord}
-                </div>
-                {FILLINGS.map((f) => (
-                  <Stepper
+  // Each cake gets its own flavour toggle and filling picker — no pooling by
+  // sponge, so "two vanilla cakes with different fillings" is an explicit,
+  // visible choice per cake rather than an ambiguous shared count.
+  const renderPartyFillings = (c: PartyConfig) => (
+    <div className="flex flex-col gap-6">
+      {c.cakes.map((cake, i) => {
+        const twoChosen = cake.fillings.length >= 2;
+        return (
+          <div key={i}>
+            <div className="type-caps ink-muted mb-2">
+              {t.cfgCakeWord} {locNum(i + 1, lang)}
+            </div>
+            <div role="radiogroup" aria-label={`${t.cfgCakeWord} ${locNum(i + 1, lang)}: ${t.cfgFlavourTitle}`} className="grid grid-cols-2 gap-2 mb-2">
+              {FLAVOURS.map((f) => {
+                const selected = cake.flavour === f;
+                return (
+                  <button
                     key={f}
-                    label={FILLING_LABELS[f][lang]}
-                    value={bucket[f] || 0}
-                    onDec={() => setPartyFilling(g.key, f, -1)}
-                    onInc={() => setPartyFilling(g.key, f, +1)}
-                    decDisabled={(bucket[f] || 0) <= 0}
-                    incDisabled={used >= 2 * g.cakes}
-                  />
-                ))}
-                <p className="type-caps mt-3" style={{ color: extra > 0 ? "var(--dusty-wine)" : undefined }}>
-                  {extra > 0
-                    ? `+${locNum(extra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(extra, lang)} ${t.cfgReasonFilling}`
-                    : `${locNum(used, lang)} ${t.cfgOfWord} ${locNum(g.cakes, lang)} ${t.cfgAssignedWord}`}
-                </p>
-              </div>
-            );
-          })}
-      </div>
-    );
-  };
+                    type="button"
+                    role="radio"
+                    aria-checked={selected}
+                    onClick={() => setPartyCakeFlavour(i, f)}
+                    className="type-body px-3 py-2 text-start transition-all hover:bg-[var(--warm-peach)]"
+                    style={cardBtn(selected)}
+                  >
+                    {selected && <span aria-hidden="true">✓ </span>}
+                    {FLAVOUR_LABELS[f][lang]}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {FILLINGS.map((f) => {
+                const selected = cake.fillings.includes(f);
+                return (
+                  <button
+                    key={f}
+                    type="button"
+                    aria-pressed={selected}
+                    disabled={!selected && twoChosen}
+                    onClick={() => togglePartyCakeFilling(i, f)}
+                    className="type-body px-3 py-2 text-start transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
+                    style={cardBtn(selected)}
+                  >
+                    {selected && <span aria-hidden="true">✓ </span>}
+                    {FILLING_LABELS[f][lang]}
+                  </button>
+                );
+              })}
+            </div>
+            {twoChosen && (
+              <p className="type-caps mt-2" style={{ color: "var(--dusty-wine)" }}>
+                +{locNum(EXTRA_ITEM_SEK, lang)} kr · {t.cfgReasonFilling}
+              </p>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
 
   const renderTools = () => {
     const used = toolCount(config.tools);
@@ -529,38 +619,34 @@ export function Configurator({
   };
 
   const renderCakes = (c: PartyConfig) => {
-    const atMax = c.cakes >= PARTY_MAX_SELF_SERVE;
-    const setCakes = (n: number) => {
-      const cakes = Math.min(PARTY_MAX_SELF_SERVE, Math.max(PARTY_MIN_CAKES, n));
-      // Rescale the split proportionally and re-clamp so it still sums to cakes.
-      const vanilla =
-        c.cakes > 0 ? Math.min(cakes, Math.max(0, Math.round((c.vanilla / c.cakes) * cakes))) : Math.ceil(cakes / 2);
-      // Scale the tools and colours with the guest count too — each guest
-      // decorates their own cake, so the per-guest sets grow/shrink with cakes
-      // (keeps the 2 tools + 3 colours per guest default, and preserves any
-      // extra the customer added, per guest).
-      const scale = (v: number) => (c.cakes > 0 ? Math.round((v / c.cakes) * cakes) : v);
+    const total = c.cakes.length;
+    const atMax = total >= PARTY_MAX_SELF_SERVE;
+    const setCakeCount = (n: number) => {
+      const target = Math.min(PARTY_MAX_SELF_SERVE, Math.max(PARTY_MIN_CAKES, n));
+      const cakes =
+        target > total
+          ? [...c.cakes, ...Array.from({ length: target - total }, () => defaultPartyCake())]
+          : c.cakes.slice(0, target);
+      // Scale tools and colours with the guest count — each guest decorates
+      // their own cake, so the per-guest sets grow/shrink with the party size
+      // (preserves any extra the customer added, per guest).
+      const scale = (v: number) => (total > 0 ? Math.round((v / total) * target) : v);
       const tools: Tools = { piping: scale(c.tools.piping), brush: scale(c.tools.brush), knife: scale(c.tools.knife) };
       const colours: ColourCounts = {};
       for (const { key } of COLOURS) {
         const scaled = scale(c.colours[key] || 0);
         if (scaled > 0) colours[key] = scaled;
       }
-      // Keep each sponge bucket's fillings summing to its new cake count.
-      const fillings = {
-        vanilla: rebalanceFillings(c.fillings.vanilla ?? {}, vanilla),
-        chocolate: rebalanceFillings(c.fillings.chocolate ?? {}, cakes - vanilla),
-      };
-      setParty({ cakes, vanilla, tools, colours, fillings });
+      setParty({ cakes, tools, colours });
     };
     return (
       <div>
         <Stepper
           label={t.cfgCakesAria}
-          value={c.cakes}
-          onDec={() => setCakes(c.cakes - 1)}
-          onInc={() => setCakes(c.cakes + 1)}
-          decDisabled={c.cakes <= PARTY_MIN_CAKES}
+          value={total}
+          onDec={() => setCakeCount(total - 1)}
+          onInc={() => setCakeCount(total + 1)}
+          decDisabled={total <= PARTY_MIN_CAKES}
           incDisabled={atMax}
         />
         <p className="type-caps ink-muted mt-3">{t.cfgCakesPer}</p>
@@ -573,39 +659,6 @@ export function Configurator({
             {t.cfgCakesContact} <span aria-hidden="true">{arrow}</span>
           </a>
         )}
-      </div>
-    );
-  };
-
-  const renderSplit = (c: PartyConfig) => {
-    const choc = c.cakes - c.vanilla;
-    // One auto-balancing control: the divide always sums to the cake count, so
-    // there's no way to produce a wrong total and no error state.
-    const splitLabel = `${FLAVOUR_LABELS.vanilla[lang]} ${locNum(c.vanilla, lang)} · ${FLAVOUR_LABELS.chocolate[lang]} ${locNum(choc, lang)}`;
-    return (
-      <div>
-        <div className="type-serif text-center mb-5" style={{ fontSize: "1.3rem" }}>
-          {splitLabel}
-        </div>
-        <input
-          type="range"
-          className="flavour-slider w-full"
-          min={0}
-          max={c.cakes}
-          step={1}
-          value={c.vanilla}
-          onChange={(e) => {
-            const vanilla = Math.min(c.cakes, Math.max(0, Number(e.target.value)));
-            // Re-bucket the fillings so each sponge's fillings sum to its new count.
-            const fillings = {
-              vanilla: rebalanceFillings(c.fillings.vanilla ?? {}, vanilla),
-              chocolate: rebalanceFillings(c.fillings.chocolate ?? {}, c.cakes - vanilla),
-            };
-            setParty({ vanilla, fillings });
-          }}
-          aria-label={t.cfgSplitAria}
-          aria-valuetext={splitLabel}
-        />
       </div>
     );
   };
@@ -665,7 +718,6 @@ export function Configurator({
     date: t.cfgDateTitle,
     review: t.cfgReviewTitle,
     cakes: t.cfgCakesTitle,
-    split: t.cfgSplitTitle,
   };
   const includedFor: Record<string, string | null> = {
     flavour: t.cfgFlavourIncluded,
@@ -683,7 +735,6 @@ export function Configurator({
     date: isParty ? t.cfgDateIncludedParty : t.cfgDateIncludedKit,
     review: null,
     cakes: t.cfgCakesIncluded,
-    split: t.cfgSplitIncluded,
   };
 
   if (!mounted) return null;
@@ -758,7 +809,6 @@ export function Configurator({
             {current === "colour" && (isParty ? renderPartyColours(config as PartyConfig) : renderColours(config as KitConfig))}
             {current === "tools" && renderTools()}
             {current === "cakes" && renderCakes(config as PartyConfig)}
-            {current === "split" && renderSplit(config as PartyConfig)}
             {current === "date" && renderDate()}
             {current === "review" && renderReview()}
           </div>

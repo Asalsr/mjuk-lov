@@ -13,10 +13,7 @@ import {
   includedColoursForParty,
   defaultPartyTools,
   defaultPartyColours,
-  defaultPartyFillings,
-  rebalanceFillings,
   colourCount,
-  fillingCount,
   toolCount,
   EXTRA_ITEM_SEK,
   PARTY_BASE_SEK,
@@ -25,7 +22,18 @@ import {
   PARTY_MIN_CAKES,
   type KitConfig,
   type PartyConfig,
+  type PartyCakeConfig,
 } from "./pricing";
+
+// N individual cakes, alternating vanilla/chocolate, each with one filling —
+// the per-cake replacement for the old "cakes: number, vanilla: number"
+// pooled-by-sponge shape.
+function makeCakes(n: number, vanillaCount = Math.ceil(n / 2)): PartyCakeConfig[] {
+  return Array.from({ length: n }, (_, i) => ({
+    flavour: i < vanillaCount ? "vanilla" : "chocolate",
+    fillings: ["berries"],
+  }));
+}
 
 describe("priceLineSek — kits", () => {
   it("default kit is the base price (nothing extra)", () => {
@@ -104,17 +112,17 @@ describe("priceLineSek — party", () => {
   });
 
   it("each cake beyond the base adds the per-cake price", () => {
-    const cfg: PartyConfig = { ...defaultPartyConfig(), cakes: 5, vanilla: 3 };
+    const cfg: PartyConfig = { ...defaultPartyConfig(), cakes: makeCakes(5, 3) };
     expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + (5 - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK);
   });
 
   it("extras stack on top of the per-cake price", () => {
-    // A second filling on one of the two vanilla cakes is the one extra here.
+    // A second filling on one specific cake is the one extra here.
+    const cakes = makeCakes(4, 2);
+    cakes[0] = { ...cakes[0], fillings: ["berries", "biscoff"] };
     const cfg: PartyConfig = {
       ...defaultPartyConfig(),
-      cakes: 4,
-      vanilla: 2,
-      fillings: { vanilla: { berries: 2, biscoff: 1 }, chocolate: { berries: 2 } },
+      cakes,
       tools: defaultPartyTools(4),
       colours: defaultPartyColours(4),
     };
@@ -129,23 +137,23 @@ describe("party tools scale with the number of cakes", () => {
   });
 
   it("the default party gives each guest a set, so it never costs extra", () => {
-    for (const cakes of [2, 5, 10]) {
+    for (const n of [2, 5, 10]) {
       const cfg: PartyConfig = {
         ...defaultPartyConfig(),
-        cakes,
-        tools: defaultPartyTools(cakes),
-        colours: defaultPartyColours(cakes),
+        cakes: makeCakes(n),
+        tools: defaultPartyTools(n),
+        colours: defaultPartyColours(n),
       };
-      expect(toolCount(cfg.tools)).toBe(2 * cakes);
-      expect(colourCount(cfg.colours)).toBe(3 * cakes);
+      expect(toolCount(cfg.tools)).toBe(2 * n);
+      expect(colourCount(cfg.colours)).toBe(3 * n);
       expect(extraTools(cfg)).toBe(0);
       expect(extraColours(cfg)).toBe(0);
-      expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + (cakes - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK);
+      expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + (n - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK);
     }
   });
 
   it("a 10-cake party fits 20 tools with no fee, and bills the 21st", () => {
-    const base: PartyConfig = { ...defaultPartyConfig(), cakes: 10, vanilla: 5, tools: defaultPartyTools(10) };
+    const base: PartyConfig = { ...defaultPartyConfig(), cakes: makeCakes(10, 5), tools: defaultPartyTools(10) };
     expect(extraTools(base)).toBe(0);
     const oneMore: PartyConfig = { ...base, tools: { ...base.tools, knife: 1 } };
     expect(extraTools(oneMore)).toBe(1);
@@ -167,7 +175,7 @@ describe("party colours scale with the number of cakes", () => {
   });
 
   it("a 10-cake party fits 30 pots with no fee, and bills the 31st", () => {
-    const base: PartyConfig = { ...defaultPartyConfig(), cakes: 10, vanilla: 5, colours: defaultPartyColours(10) };
+    const base: PartyConfig = { ...defaultPartyConfig(), cakes: makeCakes(10, 5), colours: defaultPartyColours(10) };
     expect(colourCount(base.colours)).toBe(30);
     expect(extraColours(base)).toBe(0);
     const oneMore: PartyConfig = { ...base, colours: { ...base.colours, terracotta: 1 } };
@@ -176,55 +184,42 @@ describe("party colours scale with the number of cakes", () => {
   });
 });
 
-describe("party fillings are bucketed by sponge", () => {
-  it("the default fills every cake once, so nothing costs extra", () => {
-    const cfg: PartyConfig = {
-      ...defaultPartyConfig(),
-      cakes: 8,
-      vanilla: 4,
-      fillings: defaultPartyFillings(4, 4),
-    };
-    expect(fillingCount(cfg.fillings.vanilla)).toBe(4);
-    expect(fillingCount(cfg.fillings.chocolate)).toBe(4);
+describe("party fillings are per cake, not pooled by sponge", () => {
+  it("the default gives every cake exactly one filling, so nothing costs extra", () => {
+    const cfg: PartyConfig = { ...defaultPartyConfig(), cakes: makeCakes(8, 4) };
+    expect(cfg.cakes.every((c) => c.fillings.length === 1)).toBe(true);
     expect(extraFillings(cfg)).toBe(0);
     expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + (8 - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK);
   });
 
-  it("a second filling in one cake bills once, and only in that sponge bucket", () => {
-    const cfg: PartyConfig = {
-      ...defaultPartyConfig(),
-      cakes: 8,
-      vanilla: 4,
-      // Vanilla: 4 cakes, 5 portions (one double-filled) → 1 extra. Chocolate exact.
-      fillings: { vanilla: { berries: 4, caramel: 1 }, chocolate: { berries: 2, biscoff: 2 } },
-    };
+  it("a second filling on one specific cake bills once, for that cake only", () => {
+    const cakes = makeCakes(8, 4);
+    cakes[0] = { ...cakes[0], fillings: ["berries", "caramel"] };
+    const cfg: PartyConfig = { ...defaultPartyConfig(), cakes };
     expect(extraFillings(cfg)).toBe(1);
     expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + (8 - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK + EXTRA_ITEM_SEK);
   });
 
-  it("an empty sponge bucket never offsets an overfilled one", () => {
-    const cfg: PartyConfig = {
-      ...defaultPartyConfig(),
-      cakes: 8,
-      vanilla: 4,
-      fillings: { vanilla: { berries: 6 }, chocolate: {} }, // 2 extra in vanilla, 0 in chocolate
-    };
+  it("two vanilla cakes can each get a different single filling, at no extra cost", () => {
+    // Regression case: the old pooled-by-sponge model represented this as
+    // "2 vanilla cakes, 1 berries + 1 caramel", which was indistinguishable
+    // from "cake 1 gets both fillings, cake 2 gets neither" (a billable
+    // extra). Per-cake tracking makes the two cases genuinely different.
+    const cakes: PartyCakeConfig[] = [
+      { flavour: "vanilla", fillings: ["berries"] },
+      { flavour: "vanilla", fillings: ["caramel"] },
+    ];
+    const cfg: PartyConfig = { ...defaultPartyConfig(), cakes };
+    expect(extraFillings(cfg)).toBe(0);
+    expect(priceLineSek(cfg)).toBe(PARTY_BASE_SEK + (2 - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK);
+  });
+
+  it("multiple cakes billed extra sum correctly", () => {
+    const cakes = makeCakes(8, 4);
+    cakes[0] = { ...cakes[0], fillings: ["berries", "caramel"] }; // vanilla, +1
+    cakes[4] = { ...cakes[4], fillings: ["berries", "biscoff"] }; // chocolate, +1
+    const cfg: PartyConfig = { ...defaultPartyConfig(), cakes };
     expect(extraFillings(cfg)).toBe(2);
-  });
-
-  it("rebalanceFillings keeps the bucket summing to the new cake count", () => {
-    expect(fillingCount(rebalanceFillings({ berries: 2, caramel: 2 }, 10))).toBe(10);
-    expect(fillingCount(rebalanceFillings({ berries: 4 }, 3))).toBe(3);
-    expect(rebalanceFillings({}, 5)).toEqual({ berries: 5 });
-    expect(rebalanceFillings({ berries: 3 }, 0)).toEqual({});
-  });
-
-  it("tolerates a legacy party line whose fillings are still a flat array", () => {
-    const legacy = { ...defaultPartyConfig(), fillings: ["berries", "biscoff"] } as unknown as PartyConfig;
-    expect(extraFillings(legacy)).toBe(0);
-    expect(() => priceLineSek(legacy)).not.toThrow();
-    expect(() => describeLine(legacy, "en")).not.toThrow();
-    expect(() => configKey(legacy)).not.toThrow();
   });
 });
 
@@ -256,9 +251,47 @@ describe("describeLine", () => {
   });
 
   it("party line shows the flavour split", () => {
-    const cfg: PartyConfig = { ...defaultPartyConfig(), cakes: 4, vanilla: 3 };
+    const cfg: PartyConfig = { ...defaultPartyConfig(), cakes: makeCakes(4, 3) };
     const s = describeLine(cfg, "en");
     expect(s).toContain("4 cakes");
     expect(s).toContain("3 vanilla / 1 chocolate");
+  });
+
+  it("party line names each cake's own filling, not a pooled guess", () => {
+    const cakes: PartyCakeConfig[] = [
+      { flavour: "vanilla", fillings: ["berries"] },
+      { flavour: "vanilla", fillings: ["caramel"] },
+    ];
+    const cfg: PartyConfig = { ...defaultPartyConfig(), cakes };
+    const s = describeLine(cfg, "en");
+    expect(s).toContain("Vanilla: Berries");
+    expect(s).toContain("Vanilla: Caramel");
+  });
+});
+
+describe("configKey — party", () => {
+  it("identical per-cake configs share a key", () => {
+    const cakes = makeCakes(4, 2);
+    const a: PartyConfig = { ...defaultPartyConfig(), cakes };
+    const b: PartyConfig = { ...defaultPartyConfig(), cakes: makeCakes(4, 2) };
+    expect(configKey(a)).toBe(configKey(b));
+  });
+
+  it("two vanilla cakes with different fillings produce a different key than identical fillings", () => {
+    const mixed: PartyConfig = {
+      ...defaultPartyConfig(),
+      cakes: [
+        { flavour: "vanilla", fillings: ["berries"] },
+        { flavour: "vanilla", fillings: ["caramel"] },
+      ],
+    };
+    const uniform: PartyConfig = {
+      ...defaultPartyConfig(),
+      cakes: [
+        { flavour: "vanilla", fillings: ["berries"] },
+        { flavour: "vanilla", fillings: ["berries"] },
+      ],
+    };
+    expect(configKey(mixed)).not.toBe(configKey(uniform));
   });
 });
