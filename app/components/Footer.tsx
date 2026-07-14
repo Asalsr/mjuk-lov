@@ -149,7 +149,10 @@ export const Footer = ({ lang }: FooterProps) => {
       }}
     >
       <div className="max-w-[1200px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12">
+        {/* 2-col base (Logo | Follow, then Location | Contact) so the mobile
+            footer reads as two composed rows, not four disconnected full-width
+            blocks. Expands to the 4-across row at lg. */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12">
           <div>
             {/* Logo replaces the old text wordmark + tagline. Logo already includes "A SOFT PROMISE". */}
             <Logo className="h-28 md:h-36 lg:h-42" />
@@ -193,7 +196,7 @@ export const Footer = ({ lang }: FooterProps) => {
             <div className="type-body">
               <a
                 href={`mailto:${t.contact.email}`}
-                className="block mb-1 transition-all duration-300 hover:text-[var(--dusty-terracotta)] hover:translate-x-1"
+                className="block mb-1 break-words transition-all duration-300 hover:text-[var(--dusty-terracotta)] hover:translate-x-1"
               >
                 {t.contact.email}
               </a>
@@ -208,7 +211,7 @@ export const Footer = ({ lang }: FooterProps) => {
         </div>
 
         <div
-          className="type-body flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t ink-muted"
+          className="type-body flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-8 border-t ink-muted"
           style={{ borderColor: 'rgba(61, 42, 34, 0.1)' }}
         >
           <div>{t.allergen}</div>
