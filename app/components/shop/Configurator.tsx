@@ -118,10 +118,6 @@ export function Configurator({
     return loadDraft(product.id)?.date ?? "";
   });
   const [step, setStep] = useState(0);
-  // The furthest step reached so far — lets the progress dots act as tabs back
-  // to any already-visited step, without letting a click skip ahead past
-  // steps that haven't been validated yet (e.g. an empty date).
-  const [maxStep, setMaxStep] = useState(0);
   const dialogRef = useRef<HTMLDivElement>(null);
 
   // Render through a portal to document.body so no ancestor `transform` (the
@@ -208,17 +204,9 @@ export function Configurator({
   const onDateStep = current === "date";
   const canAdvance = !onDateStep || (!!date && date >= minDate);
 
-  const goToStep = (i: number) => {
-    if (i <= maxStep) setStep(i);
-  };
   const next = () => {
-    if (step < steps.length - 1) {
-      const s = step + 1;
-      setStep(s);
-      setMaxStep((m) => Math.max(m, s));
-    } else {
-      add();
-    }
+    if (step < steps.length - 1) setStep((s) => s + 1);
+    else add();
   };
   const prev = () => (step > 0 ? setStep((s) => s - 1) : onClose());
 
@@ -371,23 +359,25 @@ export function Configurator({
     const twoChosen = kit.fillings.length >= 2;
     return (
       <div className="flex flex-col gap-3">
-        {FILLINGS.map((f) => {
-          const selected = kit.fillings.includes(f);
-          return (
-            <button
-              key={f}
-              type="button"
-              aria-pressed={selected}
-              disabled={!selected && twoChosen}
-              onClick={() => toggleFilling(f)}
-              className="type-body px-4 py-3 text-start transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
-              style={cardBtn(selected)}
-            >
-              {selected && <span aria-hidden="true">✓ </span>}
-              {FILLING_LABELS[f][lang]}
-            </button>
-          );
-        })}
+        <div className="grid grid-cols-2 gap-3">
+          {FILLINGS.map((f) => {
+            const selected = kit.fillings.includes(f);
+            return (
+              <button
+                key={f}
+                type="button"
+                aria-pressed={selected}
+                disabled={!selected && twoChosen}
+                onClick={() => toggleFilling(f)}
+                className="type-body px-4 py-3 text-start transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
+                style={cardBtn(selected)}
+              >
+                {selected && <span aria-hidden="true">✓ </span>}
+                {FILLING_LABELS[f][lang]}
+              </button>
+            );
+          })}
+        </div>
         {twoChosen && (
           <p className="type-caps" style={{ color: "var(--dusty-wine)" }}>
             +{locNum(EXTRA_ITEM_SEK, lang)} kr · {t.cfgReasonFilling}
@@ -712,8 +702,8 @@ export function Configurator({
         className="w-full sm:max-w-[34rem] max-h-[92vh] flex flex-col focus-visible:outline-none"
         style={{ backgroundColor: "var(--vanilla-cream)", boxShadow: "0 -8px 40px rgba(61, 42, 34, 0.18)" }}
       >
-        {/* Header: name + close + progress dots */}
-        <div className="flex items-center justify-between gap-4 px-6 pt-6">
+        {/* Header: name + close */}
+        <div className="flex items-center justify-between gap-4 px-6 pt-6 shrink-0">
           <div className="type-caps ink-muted">
             {t.cfgStepWord} {locNum(step + 1, lang)} {t.cfgOfWord} {locNum(steps.length, lang)} ·{" "}
             <span className="type-product" style={{ textTransform: "none" }}>{product.name[lang]}</span>
@@ -727,79 +717,90 @@ export function Configurator({
             ✕
           </button>
         </div>
-        <div className="flex gap-1.5 px-6 mt-3">
-          {steps.map((s, i) => (
-            <button
-              key={s}
-              type="button"
-              onClick={() => goToStep(i)}
-              disabled={i > maxStep}
-              aria-label={`${t.cfgStepWord} ${locNum(i + 1, lang)}: ${titleFor[s]}`}
-              aria-current={i === step ? "step" : undefined}
-              className="h-1 flex-1 disabled:cursor-default"
-              style={{
-                backgroundColor: i <= step ? "var(--dusty-terracotta)" : "rgba(61, 42, 34, 0.15)",
-                cursor: i <= maxStep ? "pointer" : "default",
-              }}
+
+        {/* Progress: a single passive status line, not a control. It used to be
+            six segmented, tappable-looking buttons, but only already-visited
+            ones actually responded — that mismatch between shape and behaviour
+            is what read as broken. This is decorative only (the "Steg X av 6"
+            label above already states position in words), so no click handler
+            and no per-segment shapes that could imply one. */}
+        <div className="px-6 mt-3 shrink-0">
+          <div aria-hidden="true" className="h-1 relative overflow-hidden" style={{ backgroundColor: "rgba(61, 42, 34, 0.15)" }}>
+            <div
+              className="absolute inset-y-0 start-0 transition-all duration-300"
+              style={{ width: `${((step + 1) / steps.length) * 100}%`, backgroundColor: "var(--dusty-terracotta)" }}
             />
-          ))}
-        </div>
-
-        {/* Step body */}
-        <div className="px-6 py-6 overflow-y-auto">
-          <h2 id="cfg-heading" className="mb-1" style={{ fontSize: "clamp(1.4rem, 3vw, 1.9rem)" }}>
-            {titleFor[current]}
-          </h2>
-          {includedFor[current] && <p className="type-body ink-muted mb-6">{includedFor[current]}</p>}
-          {current === "flavour" && renderFlavour(config as KitConfig)}
-          {current === "filling" && (isParty ? renderPartyFillings(config as PartyConfig) : renderFilling())}
-          {current === "colour" && (isParty ? renderPartyColours(config as PartyConfig) : renderColours(config as KitConfig))}
-          {current === "tools" && renderTools()}
-          {current === "cakes" && renderCakes(config as PartyConfig)}
-          {current === "split" && renderSplit(config as PartyConfig)}
-          {current === "date" && renderDate()}
-          {current === "review" && renderReview()}
-        </div>
-
-        {/* Footer: single persistent price + Back/Next/Add */}
-        <div
-          className="mt-auto flex items-center justify-between gap-4 px-6 py-4"
-          style={{ borderTop: "1px solid rgba(61, 42, 34, 0.12)" }}
-        >
-          <div className="leading-tight">
-            <div className="type-caps ink-muted">{t.cfgPrice}</div>
-            <div className="type-price" style={{ fontSize: "1.35rem" }}>
-              {locNum(price, lang)} kr
-            </div>
           </div>
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={prev}
-              className="type-caps px-4 py-3 transition-colors hover:text-[var(--dusty-terracotta)]"
-            >
-              <span aria-hidden="true">{back}</span> {t.cfgBack}
-            </button>
-            {current === "review" ? (
+        </div>
+
+        {/* Step body — the sheet's own scrollable region. The nav footer lives
+            inside it (last child, sticky to its bottom), not fixed to the
+            window: a window-fixed bar jumps as the mobile browser's address bar
+            shows/hides and resizes the live viewport, but a bar sticky within
+            this internal scroll container is immune to that. */}
+        <div className="flex-1 min-h-0 overflow-y-auto flex flex-col px-6">
+          <div className="flex-1 py-6">
+            <h2 id="cfg-heading" className="mb-1" style={{ fontSize: "clamp(1.4rem, 3vw, 1.9rem)" }}>
+              {titleFor[current]}
+            </h2>
+            {includedFor[current] && <p className="type-body ink-muted mb-6">{includedFor[current]}</p>}
+            {current === "flavour" && renderFlavour(config as KitConfig)}
+            {current === "filling" && (isParty ? renderPartyFillings(config as PartyConfig) : renderFilling())}
+            {current === "colour" && (isParty ? renderPartyColours(config as PartyConfig) : renderColours(config as KitConfig))}
+            {current === "tools" && renderTools()}
+            {current === "cakes" && renderCakes(config as PartyConfig)}
+            {current === "split" && renderSplit(config as PartyConfig)}
+            {current === "date" && renderDate()}
+            {current === "review" && renderReview()}
+          </div>
+
+          {/* Footer: single persistent price + Back/Next/Add. Sticky to the
+              bottom of the scroll area above, with its own opaque background so
+              scrolled-under content doesn't show through, and safe-area padding
+              so it clears the home indicator on notched iPhones. */}
+          <div
+            className="sticky bottom-0 flex items-center justify-between gap-4 pt-4"
+            style={{
+              borderTop: "1px solid rgba(61, 42, 34, 0.12)",
+              backgroundColor: "var(--vanilla-cream)",
+              paddingBottom: "calc(1rem + env(safe-area-inset-bottom))",
+            }}
+          >
+            <div className="leading-tight">
+              <div className="type-caps ink-muted">{t.cfgPrice}</div>
+              <div className="type-price" style={{ fontSize: "1.35rem" }}>
+                {locNum(price, lang)} kr
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
               <button
                 type="button"
-                onClick={add}
-                className="type-caps px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
-                style={{ border: "1px solid var(--warm-cocoa)" }}
+                onClick={prev}
+                className="type-caps min-h-11 px-4 py-3 transition-colors hover:text-[var(--dusty-terracotta)]"
               >
-                {isEdit ? t.cfgSaveChanges : t.cfgAddWord} · {locNum(price, lang)} kr
+                <span aria-hidden="true">{back}</span> {t.cfgBack}
               </button>
-            ) : (
-              <button
-                type="button"
-                onClick={next}
-                disabled={!canAdvance}
-                className="type-caps px-5 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
-                style={{ border: "1px solid var(--warm-cocoa)" }}
-              >
-                {t.cfgNext} <span aria-hidden="true">{arrow}</span>
-              </button>
-            )}
+              {current === "review" ? (
+                <button
+                  type="button"
+                  onClick={add}
+                  className="type-caps min-h-11 px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
+                  style={{ border: "1px solid var(--warm-cocoa)" }}
+                >
+                  {isEdit ? t.cfgSaveChanges : t.cfgAddWord} · {locNum(price, lang)} kr
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={next}
+                  disabled={!canAdvance}
+                  className="type-caps min-h-11 px-5 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
+                  style={{ border: "1px solid var(--warm-cocoa)" }}
+                >
+                  {t.cfgNext} <span aria-hidden="true">{arrow}</span>
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
