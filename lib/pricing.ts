@@ -34,9 +34,6 @@ export type Flavour = (typeof FLAVOURS)[number];
 
 export const FILLINGS = ["berries", "chocolate-berry", "nuts-fruit", "biscoff", "caramel"] as const;
 export type Filling = (typeof FILLINGS)[number];
-/** Party fillings are counted per filling (portions), bucketed by sponge, so a
- *  party of N cakes gets INCLUDED_FILLINGS per cake. Kits pick a distinct list. */
-export type FillingCounts = Partial<Record<Filling, number>>;
 
 export const TOOLS = ["piping", "brush", "knife"] as const;
 export type ToolKey = (typeof TOOLS)[number];
@@ -72,14 +69,22 @@ export type KitConfig = {
   colours: ColourKey[]; // chosen shades; INCLUDED_COLOURS free, extras +EXTRA_ITEM_SEK each
 };
 
+// One physical cake in a Party Pack — its own flavour and fillings, same rule
+// as a kit (1–2 fillings, one always included). Pooling these by sponge type
+// used to make "two vanilla cakes, two different fillings" indistinguishable
+// from "one vanilla cake with both fillings" in the UI; tracking each cake
+// individually removes that ambiguity entirely.
+export type PartyCakeConfig = {
+  flavour: Flavour;
+  fillings: Filling[]; // 1–2
+};
+
 export type PartyConfig = {
   kind: "party";
   productId: string; // party-pack
-  cakes: number; // PARTY_MIN_CAKES..PARTY_MAX_SELF_SERVE
-  vanilla: number; // 0..cakes; chocolate = cakes - vanilla
-  // Fillings are bucketed by sponge so each cake's filling is unambiguous. Each
-  // bucket's portions sum to that sponge's cake count; INCLUDED_FILLINGS per cake.
-  fillings: { vanilla: FillingCounts; chocolate: FillingCounts };
+  // One entry per physical cake — length IS the cake count
+  // (PARTY_MIN_CAKES..PARTY_MAX_SELF_SERVE).
+  cakes: PartyCakeConfig[];
   tools: Tools; // total counts across the party; INCLUDED_TOOLS_DEFAULT per cake included
   colours: ColourCounts; // pots per shade; INCLUDED_COLOURS per cake included
 };
@@ -152,85 +157,47 @@ export function defaultPartyColours(cakes: number): ColourCounts {
   return { [COLOURS[0].key]: n, [COLOURS[1].key]: n, [COLOURS[2].key]: n };
 }
 
-/** Ready-made cakes (kind "cake") use the shorter flavour + filling flow — no
- *  decorating tools or colours. Everything else (DIY kits) is a full build. */
-export function isSimpleCake(productId: string): boolean {
-  return getProduct(productId)?.kind === "cake";
-}
-
 function evenSplit(count: number): { vanilla: number } {
   return { vanilla: Math.ceil(count / 2) };
 }
 
+/** Nothing pre-chosen beyond what's required to price the base cake (one
+ *  flavour, one filling — see house rule: a cake needs both to exist).
+ *  Tools and colours start empty for every kit, ready-made or DIY: picking
+ *  them is the point of the flow, not a default we've made on the
+ *  customer's behalf. */
 export function defaultKitConfig(productId: string): KitConfig {
-  // Ready-made cake: we decorate it, so no tools and no colours to pick.
-  if (isSimpleCake(productId)) {
-    return { kind: "kit", productId, flavour: "vanilla", fillings: ["berries"], tools: { piping: 0, brush: 0, knife: 0 }, colours: [] };
-  }
-  const included = includedToolsFor(productId);
-  // Spread the included tools across piping + brush (and knife, plus a second
-  // piping bag on grande).
-  const tools: Tools =
-    included >= 4 ? { piping: 2, brush: 1, knife: 1 } : { piping: 1, brush: 1, knife: included >= 3 ? 1 : 0 };
-  // Default to the first N curated shades (an even, pretty set).
-  const colours = COLOURS.slice(0, includedColoursFor(productId)).map((c) => c.key);
-  return { kind: "kit", productId, flavour: "vanilla", fillings: ["berries"], tools, colours };
-}
-
-/** Total filling portions in a bucket. Tolerates a missing/legacy shape. */
-export function fillingCount(fc: FillingCounts | undefined): number {
-  if (!fc) return 0;
-  return FILLINGS.reduce((n, f) => n + (fc[f] || 0), 0);
-}
-
-/** Default party fillings: every cake gets berries, bucketed by sponge, so the
- *  buckets sum to the split and nothing costs extra. */
-export function defaultPartyFillings(vanilla: number, chocolate: number): { vanilla: FillingCounts; chocolate: FillingCounts } {
   return {
-    vanilla: vanilla > 0 ? { berries: vanilla } : {},
-    chocolate: chocolate > 0 ? { berries: chocolate } : {},
+    kind: "kit",
+    productId,
+    flavour: "vanilla",
+    fillings: ["berries"],
+    tools: { piping: 0, brush: 0, knife: 0 },
+    colours: [],
   };
 }
 
-/** Rescale a filling bucket to a new sponge-cake count, preserving the rough
- *  distribution and keeping the bucket summing exactly to newCount. */
-export function rebalanceFillings(fc: FillingCounts, newCount: number): FillingCounts {
-  const n = Math.max(0, newCount);
-  if (n === 0) return {};
-  const total = fillingCount(fc);
-  if (total === 0) return { berries: n };
-  const out: FillingCounts = {};
-  let assigned = 0;
-  let maxKey: Filling = FILLINGS[0];
-  let maxVal = -1;
-  for (const f of FILLINGS) {
-    const v = fc[f] || 0;
-    if (v <= 0) continue;
-    const scaled = Math.round((v / total) * n);
-    if (scaled > 0) out[f] = scaled;
-    assigned += scaled;
-    if (v > maxVal) {
-      maxVal = v;
-      maxKey = f;
-    }
-  }
-  // Land the rounding remainder on the largest bucket so the total is exactly n.
-  const diff = n - assigned;
-  if (diff !== 0) out[maxKey] = Math.max(0, (out[maxKey] || 0) + diff);
-  return out;
+/** One cake's worth of defaults: vanilla, one filling — mirrors defaultKitConfig
+ *  so a Party Pack's per-cake starting point matches a standalone kit's. */
+function defaultPartyCake(flavour: Flavour = "vanilla"): PartyCakeConfig {
+  return { flavour, fillings: ["berries"] };
 }
 
 export function defaultPartyConfig(productId = "party-pack"): PartyConfig {
-  const cakes = PARTY_MIN_CAKES; // configurator always opens at the minimum order
-  const vanilla = evenSplit(cakes).vanilla;
+  const n = PARTY_MIN_CAKES; // configurator always opens at the minimum order
+  const vanillaCount = evenSplit(n).vanilla;
+  const cakes: PartyCakeConfig[] = Array.from({ length: n }, (_, i) =>
+    defaultPartyCake(i < vanillaCount ? "vanilla" : "chocolate"),
+  );
   return {
     kind: "party",
     productId,
     cakes,
-    vanilla,
-    fillings: defaultPartyFillings(vanilla, cakes - vanilla),
-    tools: defaultPartyTools(cakes),
-    colours: defaultPartyColours(cakes),
+    // Nothing pre-chosen for tools/colours — picking them is the point of the
+    // flow. defaultPartyTools/defaultPartyColours still exist for tests and
+    // any caller that wants a "fully allotted" starting point.
+    tools: { piping: 0, brush: 0, knife: 0 },
+    colours: {},
   };
 }
 
@@ -241,23 +208,19 @@ export function toolCount(tools: Tools): number {
 
 export function extraFillings(cfg: LineConfig): number {
   if (cfg.kind === "kit") return Math.max(0, cfg.fillings.length - INCLUDED_FILLINGS);
-  // Party: one filling per cake included, per sponge bucket. A cake with a
-  // second filling (bucket portions beyond its cake count) is one extra each.
-  const choc = cfg.cakes - cfg.vanilla;
-  return (
-    Math.max(0, fillingCount(cfg.fillings?.vanilla) - cfg.vanilla) +
-    Math.max(0, fillingCount(cfg.fillings?.chocolate) - choc)
-  );
+  // Party: each cake is its own kit-style filling list — one included, a
+  // second on that specific cake is one extra.
+  return cfg.cakes.reduce((n, c) => n + Math.max(0, c.fillings.length - INCLUDED_FILLINGS), 0);
 }
 
 export function extraTools(cfg: LineConfig): number {
-  const included = cfg.kind === "kit" ? includedToolsFor(cfg.productId) : includedToolsForParty(cfg.cakes);
+  const included = cfg.kind === "kit" ? includedToolsFor(cfg.productId) : includedToolsForParty(cfg.cakes.length);
   return Math.max(0, toolCount(cfg.tools) - included);
 }
 
 export function extraColours(cfg: LineConfig): number {
   if (cfg.kind === "kit") return Math.max(0, cfg.colours.length - includedColoursFor(cfg.productId));
-  return Math.max(0, colourCount(cfg.colours) - includedColoursForParty(cfg.cakes));
+  return Math.max(0, colourCount(cfg.colours) - includedColoursForParty(cfg.cakes.length));
 }
 
 // --- Price ----------------------------------------------------------------
@@ -266,7 +229,7 @@ export function extraColours(cfg: LineConfig): number {
 export function priceLineSek(cfg: LineConfig): number {
   const extras = (extraFillings(cfg) + extraTools(cfg) + extraColours(cfg)) * EXTRA_ITEM_SEK;
   if (cfg.kind === "party") {
-    const cakes = Math.max(PARTY_MIN_CAKES, cfg.cakes);
+    const cakes = Math.max(PARTY_MIN_CAKES, cfg.cakes.length);
     return PARTY_BASE_SEK + Math.max(0, cakes - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK + extras;
   }
   const base = getProduct(cfg.productId)?.priceSek ?? 0;
@@ -288,36 +251,35 @@ export function describeLine(cfg: LineConfig, lang: Lang): string {
   const name = getProduct(cfg.productId)?.name[lang] ?? cfg.productId;
 
   if (cfg.kind === "party") {
-    const choc = cfg.cakes - cfg.vanilla;
+    const vanillaCount = cfg.cakes.filter((c) => c.flavour === "vanilla").length;
+    const chocCount = cfg.cakes.length - vanillaCount;
     const split =
       lang === "sv"
-        ? `${cfg.vanilla} vanilj / ${choc} choklad`
+        ? `${vanillaCount} vanilj / ${chocCount} choklad`
         : lang === "fa"
-          ? `${cfg.vanilla} وانیل / ${choc} شکلات`
-          : `${cfg.vanilla} vanilla / ${choc} chocolate`;
+          ? `${vanillaCount} وانیل / ${chocCount} شکلات`
+          : `${vanillaCount} vanilla / ${chocCount} chocolate`;
     const cakesWord = lang === "sv" ? "tårtor" : lang === "fa" ? "کیک" : "cakes";
-    // Fillings named under each sponge so the pairing is explicit.
-    const fillBucket = (fc: FillingCounts | undefined) =>
-      FILLINGS.filter((f) => ((fc ?? {})[f] || 0) > 0)
-        .map((f) => {
-          const n = (fc ?? {})[f] || 0;
-          return n > 1 ? `${n}× ${FILLING_LABELS[f][lang]}` : FILLING_LABELS[f][lang];
-        })
-        .join(", ");
-    const vf = fillBucket(cfg.fillings?.vanilla);
-    const cf = fillBucket(cfg.fillings?.chocolate);
-    const fillingBits = [
-      vf && `${FLAVOUR_LABELS.vanilla[lang]}: ${vf}`,
-      cf && `${FLAVOUR_LABELS.chocolate[lang]}: ${cf}`,
-    ]
-      .filter(Boolean)
+    // Group cakes with an identical flavour+filling pick so the summary stays
+    // compact while still reflecting each cake's own choice, not a guess.
+    const groups = new Map<string, number>();
+    for (const c of cfg.cakes) {
+      const key = `${c.flavour}|${c.fillings.map((f) => FILLING_LABELS[f][lang]).join(", ")}`;
+      groups.set(key, (groups.get(key) || 0) + 1);
+    }
+    const fillingBits = Array.from(groups.entries())
+      .map(([key, n]) => {
+        const [flavourKey, fillingLabel] = key.split("|");
+        const flavourLabel = FLAVOUR_LABELS[flavourKey as Flavour][lang];
+        return n > 1 ? `${n}× ${flavourLabel}: ${fillingLabel}` : `${flavourLabel}: ${fillingLabel}`;
+      })
       .join(sep);
     const cc = cfg.colours ?? {};
     const colourBits = COLOURS.filter((c) => (cc[c.key] || 0) > 0).map((c) => {
       const n = cc[c.key] || 0;
       return n > 1 ? `${n}× ${c.label[lang]}` : c.label[lang];
     });
-    return [`${name}: ${cfg.cakes} ${cakesWord}`, split, fillingBits, toolBits.join(", "), colourBits.join(", ")]
+    return [`${name}: ${cfg.cakes.length} ${cakesWord}`, split, fillingBits, toolBits.join(", "), colourBits.join(", ")]
       .filter(Boolean)
       .join(sep);
   }
@@ -339,10 +301,7 @@ export function configKey(cfg: LineConfig): string {
     return [
       "party",
       cfg.productId,
-      cfg.cakes,
-      cfg.vanilla,
-      "fv:" + FILLINGS.map((f) => `${f}:${cfg.fillings?.vanilla?.[f] || 0}`).join(","),
-      "fc:" + FILLINGS.map((f) => `${f}:${cfg.fillings?.chocolate?.[f] || 0}`).join(","),
+      cfg.cakes.map((c) => `${c.flavour}:${c.fillings.slice().sort().join("+")}`).join(","),
       TOOLS.map((k) => `${k}:${cfg.tools[k] || 0}`).join(","),
       COLOURS.map((c) => `${c.key}:${cfg.colours?.[c.key] || 0}`).join(","),
     ].join("|");
