@@ -13,15 +13,15 @@ interface FooterProps {
 //  - email: confirm mjuklov.se@gmail.com / mjuklov.se@gmail.com inboxes are live
 //  - location.line1: neighborhood (Hissingen is a placeholder)
 //  - allergen: confirm full list once recipe range is fixed
-//  - social hrefs: PLACEHOLDER handles below. Instagram/TikTok come from the
-//    handles Asal gave (@mjuk.lov / mjuklov); the Facebook URL is a guess —
-//    swap in the real page before this goes live.
+//  - social hrefs: Instagram/TikTok/Facebook are the real handles Asal
+//    provided (@mjuk.lov / mjuklov / fb profile 61590793712182). Confirm
+//    they're the intended public accounts before launch.
 //  - follow.title (fa) + all three fa aria-labels: machine-drafted Persian,
 //    needs a native-speaker check before shipping.
 const social = {
   instagram: 'https://instagram.com/mjuk.lov', // handle: @mjuk.lov
   tiktok: 'https://tiktok.com/@mjuklov', // handle: mjuklov
-  facebook: 'https://facebook.com/mjuklov' // PLACEHOLDER — real page URL unknown
+  facebook: 'https://www.facebook.com/profile.php?id=61590793712182'
 };
 
 const content = {
