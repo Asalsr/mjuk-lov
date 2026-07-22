@@ -41,7 +41,7 @@ const content: Record<Lang, {
     pull1: 'Att skapa något med sina händer, och ge det till någon, är en av de finaste saker en människa kan göra.',
     placesIntro: 'Två olika hantverk, en tro vi hela tiden återvänder till. Och tre platser bor i allt vi bakar.',
     places: [
-      { name: 'Iran', line: '— rötterna. allt börjar i ett kök som doftar som hemma.' },
+      { name: 'Iran', line: 'rötterna. allt börjar i ett kök som doftar som hemma.' },
       { name: 'Italia', line: 'är där kunskapen fördjupades. Vi bar redan med oss en del hemifrån; sju år där, händerna i degen, lärde oss resten.' },
       { name: 'Göteborg', line: 'är där vi har landat, och där mjuk lov bakas i dag, i ett hemmakök.' }
     ],
@@ -64,7 +64,7 @@ const content: Record<Lang, {
     pull1: 'Making something with your hands, and giving it to someone, is one of the best things a person can do.',
     placesIntro: 'Two different crafts, one belief we keep returning to. And three places live in everything we bake.',
     places: [
-      { name: 'Iran', line: '— the roots. everything starts in a kitchen that smells like home.' },
+      { name: 'Iran', line: 'the roots. everything starts in a kitchen that smells like home.' },
       { name: 'Italia', line: 'is where the knowledge deepened. We already carried some from home; seven years there, hands in the dough, taught us the rest.' },
       { name: 'Göteborg', line: 'is where we’ve landed, and where mjuk lov is baked today, out of a home kitchen.' }
     ],
@@ -87,7 +87,7 @@ const content: Record<Lang, {
     pull1: 'چیزی را با دستان خود ساختن و به کسی بخشیدن، یکی از بهترین کارهایی است که آدم می‌تواند بکند.',
     placesIntro: 'دو هنرِ متفاوت، یک باور که همیشه به آن بازمی‌گردیم. و سه مکان در هر آنچه می‌پزیم زندگی می‌کنند.',
     places: [
-      { name: 'ایران', line: '— ریشه‌ها. همه‌چیز در آشپزخانه‌ای آغاز می‌شود که بوی خانه می‌دهد.' },
+      { name: 'ایران', line: 'ریشه‌ها. همه‌چیز در آشپزخانه‌ای آغاز می‌شود که بوی خانه می‌دهد.' },
       { name: 'ایتالیا', line: 'جایی است که دانش عمیق‌تر شد. بخشی را از خانه با خود داشتیم؛ هفت سال آنجا، با دست در خمیر، باقی را به ما آموخت.' },
       { name: 'یوتبوری', line: 'جایی است که به آن رسیده‌ایم، و جایی که Mjuk lov امروز در آن پخته می‌شود، در آشپزخانه‌ای خانگی.' }
     ],
