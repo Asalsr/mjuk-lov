@@ -11,7 +11,6 @@ import { Bakes } from '@/app/components/Bakes';
 import { Corporate } from '@/app/components/Corporate';
 import { TheCraft } from '@/app/components/TheCraft';
 import { PhotoDisclaimer } from '@/app/components/PhotoDisclaimer';
-import { About } from '@/app/components/About';
 import { Order } from '@/app/components/Order';
 import { Footer } from '@/app/components/Footer';
 import { FloatingElements } from '@/app/components/FloatingElements';
@@ -122,9 +121,7 @@ export default function Page() {
             <PhotoDisclaimer lang={lang} className="mt-6" />
           </div>
         </section>
-        <SectionDivider fromColor="var(--soft-peach)" toColor="var(--vanilla-cream)" />
-        <About lang={lang} />
-        <SectionDivider fromColor="var(--vanilla-cream)" toColor="var(--warm-cocoa)" />
+        <SectionDivider fromColor="var(--soft-peach)" toColor="var(--warm-cocoa)" />
         <Order lang={lang} />
         <WaveDivider fromColor="var(--warm-cocoa)" toColor="var(--vanilla-cream)" />
         </main>

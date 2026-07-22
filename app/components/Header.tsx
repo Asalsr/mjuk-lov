@@ -69,7 +69,7 @@ const NAV: ({ id: string; sv: string; en: string; fa: string } | { path: string;
   { path: 'butik', sv: 'Butik', en: 'Shop', fa: 'فروشگاه' },
   { path: 'galleri', sv: 'Galleri', en: 'Gallery', fa: 'گالری' },
   { path: 'kit', sv: 'Tårtkit', en: 'Kits', fa: 'کیت‌های کیک' },
-  { id: 'about', sv: 'Om', en: 'About', fa: 'درباره ما' },
+  { path: 'om-oss', sv: 'Om', en: 'About', fa: 'درباره ما' },
   { id: 'order', sv: 'Kontakt', en: 'Contact', fa: 'تماس با ما' },
 ];
 
@@ -80,7 +80,6 @@ const marketingTagline = (id: string, lang: Lang) => {
   const map: Record<string, { sv: string; en: string; fa: string }> = {
     idea: { sv: 'Vår berättelse', en: 'Our story', fa: 'داستان ما' },
     kits: { sv: 'Tårtkit & tillbehör', en: 'Cake kits & extras', fa: 'کیت کیک و لوازم' },
-    about: { sv: 'Om Mjuk Lov', en: 'About Mjuk Lov', fa: 'درباره Mjuk Lov' },
     order: { sv: 'Hör av dig', en: 'Get in touch', fa: 'با ما در تماس باشید' },
   };
   return map[id]?.[lang] ?? '';
