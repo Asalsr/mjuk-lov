@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from "react";
-import { configKey, type LineConfig } from "@/lib/pricing";
+import { configKey, normalizeLineConfig, type LineConfig } from "@/lib/pricing";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/client";
 
@@ -24,8 +24,14 @@ let cache: CartItem[] | null = null;
 // call makes useSyncExternalStore loop ("getServerSnapshot should be cached").
 const EMPTY: CartItem[] = [];
 
-// Tolerate carts written by an older build: items used to be keyed by productId
-// with no lineId. Backfill lineId so the rest of the app can assume it.
+// Tolerate carts written by an older build. Two kinds of drift are repaired
+// here, at the single read boundary (localStorage AND the server `carts` row,
+// which flows through `hydrateCart` → `migrate`):
+//   1. items used to be keyed by productId with no lineId — backfill lineId.
+//   2. a configured line's `config` may be an older/foreign shape (e.g. a party
+//      pack saved as `cakes: number` before the per-cake rework) — run it
+//      through normalizeLineConfig so pricing/rendering can assume the current
+//      shape. Without this, one legacy line crashed the whole basket on render.
 function migrate(raw: unknown): CartItem[] {
   if (!Array.isArray(raw)) return [];
   const out: CartItem[] = [];
@@ -39,7 +45,7 @@ function migrate(raw: unknown): CartItem[] {
       lineId,
       productId,
       qty: Number(r.qty) || 1,
-      config: r.config,
+      config: r.config ? normalizeLineConfig(r.config) : undefined,
       date: r.date,
       message: r.message,
     });

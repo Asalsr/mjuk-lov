@@ -12,7 +12,7 @@ import {
   hydrateCart,
   type CartItem,
 } from "./store";
-import { defaultKitConfig, type KitConfig } from "@/lib/pricing";
+import { defaultKitConfig, priceLineSek, type KitConfig, type PartyConfig } from "@/lib/pricing";
 
 // This module keeps its state in a module-level `cache`, not localStorage,
 // when `window` is undefined (the vitest node environment) — so every store
@@ -172,6 +172,34 @@ describe("hydrateCart — migrating legacy/server cart shapes (via migrate())", 
   it("preserves an explicit lineId when already present", () => {
     hydrateCart([{ lineId: "custom-id", productId: "kit-medio", qty: 2 } as CartItem]);
     expect(getCart()[0].lineId).toBe("custom-id");
+  });
+
+  // The bug that motivated all of this: a legacy party line (`cakes` a number)
+  // reached the basket un-normalized and crashed the render. migrate() must now
+  // normalize configs to the current per-cake shape at the read boundary — so
+  // this is what fires when a legacy line arrives from the server `carts` row.
+  it("normalizes a legacy party config (cakes:number) to the current per-cake shape", () => {
+    hydrateCart([
+      {
+        productId: "party-pack",
+        qty: 1,
+        config: {
+          kind: "party",
+          productId: "party-pack",
+          cakes: 4,
+          vanilla: 2,
+          tools: { brush: 2, knife: 1, piping: 2 },
+          colours: { sky: 5, blush: 5 },
+          fillings: { vanilla: { "chocolate-berry": 1 }, chocolate: { berries: 1 } },
+        },
+      } as unknown as CartItem,
+    ]);
+    const cfg = getCart()[0].config as PartyConfig;
+    expect(cfg.kind).toBe("party");
+    expect(Array.isArray(cfg.cakes)).toBe(true);
+    expect(cfg.cakes.length).toBe(4);
+    // And it's now safe to price — the exact call that used to throw on render.
+    expect(() => priceLineSek(cfg)).not.toThrow();
   });
 });
 

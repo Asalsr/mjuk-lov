@@ -56,7 +56,10 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
     if (data.profile.fullName) setName((n) => n || data.profile.fullName);
     if (data.profile.phone) setPhone((p) => p || data.profile.phone);
     if (data.profile.allergies.length)
-      setDietary((d) => d || data.profile.allergies.map((c) => LABELS[c][lang]).join(", "));
+      // Guard the lookup: an allergen code persisted under an older vocabulary
+      // (localStorage or the synced profile) must not `undefined[lang]`-throw
+      // and take the whole basket down — skip anything not in the label table.
+      setDietary((d) => d || data.profile.allergies.map((c) => LABELS[c]?.[lang]).filter(Boolean).join(", "));
     /* eslint-enable react-hooks/set-state-in-effect */
     if (isSupabaseConfigured) {
       createClient()

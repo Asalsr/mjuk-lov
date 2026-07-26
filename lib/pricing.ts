@@ -201,35 +201,168 @@ export function defaultPartyConfig(productId = "party-pack"): PartyConfig {
   };
 }
 
+// --- Runtime validation of persisted configs ------------------------------
+// Cart and draft configs are persisted (localStorage + the Supabase `carts`
+// JSONB column) and outlive the code that wrote them. Everything below treats
+// a deserialized config as UNTRUSTED: normalizeLineConfig coerces any drifted
+// or foreign shape back to the current one so the pricing/summary functions
+// can assume a valid config, and those functions additionally guard their own
+// inputs (belt-and-suspenders) so a stray shape degrades instead of throwing.
+// This is the fix for the class of bug where an old cart line (e.g. a party
+// pack saved as `cakes: number` before the per-cake rework) crashed the whole
+// basket on render. See lib/pricing.test.ts for the fixtures this locks down.
+const FLAVOUR_SET = new Set<string>(FLAVOURS);
+const FILLING_SET = new Set<string>(FILLINGS);
+const COLOUR_SET = new Set<string>(COLOURS.map((c) => c.key));
+
+/** A config must at least be a non-null object before any field access. The
+ *  public pricing/summary functions call this first so a null/primitive that
+ *  somehow reaches them yields a safe default instead of a thrown page. */
+function isConfigObject(cfg: unknown): cfg is LineConfig {
+  return !!cfg && typeof cfg === "object";
+}
+
+function asFlavour(v: unknown): Flavour {
+  return typeof v === "string" && FLAVOUR_SET.has(v) ? (v as Flavour) : "vanilla";
+}
+/** A valid 1–2 filling list; drops unknown/duplicate codes and guarantees the
+ *  one always-included filling so a cake is never filling-less. */
+function asFillings(v: unknown): Filling[] {
+  const arr = Array.isArray(v) ? v.filter((f): f is Filling => typeof f === "string" && FILLING_SET.has(f)) : [];
+  const unique = Array.from(new Set(arr)).slice(0, 2);
+  return unique.length ? unique : ["berries"];
+}
+function asToolCount(n: unknown): number {
+  return typeof n === "number" && Number.isFinite(n) && n > 0 ? Math.floor(n) : 0;
+}
+function asTools(v: unknown): Tools {
+  const t = (v ?? {}) as Partial<Record<ToolKey, unknown>>;
+  return { piping: asToolCount(t.piping), brush: asToolCount(t.brush), knife: asToolCount(t.knife) };
+}
+function asColourCounts(v: unknown): ColourCounts {
+  const src = (v ?? {}) as Record<string, unknown>;
+  const out: ColourCounts = {};
+  for (const c of COLOURS) {
+    const n = asToolCount(src[c.key]);
+    if (n > 0) out[c.key] = n;
+  }
+  return out;
+}
+function asColourKeys(v: unknown): ColourKey[] {
+  const arr = Array.isArray(v) ? v.filter((k): k is ColourKey => typeof k === "string" && COLOUR_SET.has(k)) : [];
+  return Array.from(new Set(arr));
+}
+
+/** Coerce any persisted or foreign value into a valid, current-shape
+ *  LineConfig. TOTAL: never throws, always returns something the pricing and
+ *  summary functions can consume. The single boundary the cart store runs
+ *  every deserialized line through (see lib/cart/store `migrate`), and what
+ *  the Configurator seeds from. Older party shapes seen in the wild carried
+ *  `cakes` as a count with a separate `vanilla` count and fillings pooled by
+ *  sponge (`{ vanilla, chocolate }`) or, older still, a flat `Filling[]`. None
+ *  tracked which physical cake got which filling, so the per-cake
+ *  reconstruction is best-effort — it preserves cake count, flavour split and
+ *  total filling count (and therefore price) exactly, not the literal original. */
+export function normalizeLineConfig(input: unknown): LineConfig {
+  const cfg = (input ?? {}) as Record<string, unknown>;
+  if (cfg.kind === "party") return normalizeParty(cfg);
+  const productId = typeof cfg.productId === "string" && cfg.productId ? cfg.productId : "kit-medio";
+  return {
+    kind: "kit",
+    productId,
+    flavour: asFlavour(cfg.flavour),
+    fillings: asFillings(cfg.fillings),
+    tools: asTools(cfg.tools),
+    colours: asColourKeys(cfg.colours),
+  };
+}
+
+function normalizeParty(cfg: Record<string, unknown>): PartyConfig {
+  const productId = typeof cfg.productId === "string" && cfg.productId ? cfg.productId : "party-pack";
+  const tools = asTools(cfg.tools);
+  const colours = asColourCounts(cfg.colours);
+
+  if (Array.isArray(cfg.cakes)) {
+    const cakes = cfg.cakes.map((c) => {
+      const cc = (c ?? {}) as Record<string, unknown>;
+      return { flavour: asFlavour(cc.flavour), fillings: asFillings(cc.fillings) };
+    });
+    return { kind: "party", productId, cakes: cakes.length ? cakes : defaultPartyConfig(productId).cakes, tools, colours };
+  }
+
+  // Legacy: `cakes` a count, a separate `vanilla` count, fillings pooled by sponge.
+  const total = Math.max(PARTY_MIN_CAKES, typeof cfg.cakes === "number" ? Math.floor(cfg.cakes) : PARTY_MIN_CAKES);
+  const vanillaCount = Math.min(
+    total,
+    Math.max(0, typeof cfg.vanilla === "number" ? Math.floor(cfg.vanilla) : Math.ceil(total / 2)),
+  );
+  const pooled = cfg.fillings;
+  const bucketFor = (flavour: "vanilla" | "chocolate"): Partial<Record<Filling, number>> => {
+    if (!pooled || Array.isArray(pooled) || typeof pooled !== "object") return {}; // flat/legacy array — no per-sponge data
+    return ((pooled as Record<string, unknown>)[flavour] ?? {}) as Partial<Record<Filling, number>>;
+  };
+  // Distribute a sponge bucket's portions across its n cakes, up to 2 each, in
+  // FILLINGS order — a plausible split, not the literal original.
+  const distribute = (bucket: Partial<Record<Filling, number>>, n: number): Filling[][] => {
+    const remaining: Partial<Record<Filling, number>> = {};
+    for (const f of FILLINGS) remaining[f] = asToolCount(bucket[f]);
+    const perCake: Filling[][] = Array.from({ length: Math.max(0, n) }, () => []);
+    for (let i = 0; i < perCake.length; i++) {
+      for (const f of FILLINGS) {
+        if (perCake[i].length >= 2) break;
+        if ((remaining[f] || 0) > 0) {
+          perCake[i].push(f);
+          remaining[f] = (remaining[f] || 0) - 1;
+        }
+      }
+      if (perCake[i].length === 0) perCake[i].push("berries");
+    }
+    return perCake;
+  };
+  const cakes: PartyCakeConfig[] = [
+    ...distribute(bucketFor("vanilla"), vanillaCount).map((fillings) => ({ flavour: "vanilla" as const, fillings })),
+    ...distribute(bucketFor("chocolate"), total - vanillaCount).map((fillings) => ({ flavour: "chocolate" as const, fillings })),
+  ];
+  return { kind: "party", productId, cakes, tools, colours };
+}
+
 // --- Derived counts -------------------------------------------------------
-export function toolCount(tools: Tools): number {
-  return TOOLS.reduce((n, k) => n + (tools[k] || 0), 0);
+// All counts guard their inputs so a config that slipped past normalization
+// (e.g. a legacy party line with `cakes` as a number) degrades instead of
+// throwing — never `.reduce`/`.length` on a value that might not be an array.
+export function toolCount(tools: Tools | undefined): number {
+  return TOOLS.reduce((n, k) => n + (tools?.[k] || 0), 0);
 }
 
 export function extraFillings(cfg: LineConfig): number {
-  if (cfg.kind === "kit") return Math.max(0, cfg.fillings.length - INCLUDED_FILLINGS);
+  if (cfg.kind === "kit") return Math.max(0, (Array.isArray(cfg.fillings) ? cfg.fillings.length : 0) - INCLUDED_FILLINGS);
   // Party: each cake is its own kit-style filling list — one included, a
   // second on that specific cake is one extra.
-  return cfg.cakes.reduce((n, c) => n + Math.max(0, c.fillings.length - INCLUDED_FILLINGS), 0);
+  const cakes = Array.isArray(cfg.cakes) ? cfg.cakes : [];
+  return cakes.reduce((n, c) => n + Math.max(0, (Array.isArray(c?.fillings) ? c.fillings.length : 0) - INCLUDED_FILLINGS), 0);
 }
 
 export function extraTools(cfg: LineConfig): number {
-  const included = cfg.kind === "kit" ? includedToolsFor(cfg.productId) : includedToolsForParty(cfg.cakes.length);
+  const cakeCount = cfg.kind === "party" && Array.isArray(cfg.cakes) ? cfg.cakes.length : 0;
+  const included = cfg.kind === "kit" ? includedToolsFor(cfg.productId) : includedToolsForParty(cakeCount);
   return Math.max(0, toolCount(cfg.tools) - included);
 }
 
 export function extraColours(cfg: LineConfig): number {
-  if (cfg.kind === "kit") return Math.max(0, cfg.colours.length - includedColoursFor(cfg.productId));
-  return Math.max(0, colourCount(cfg.colours) - includedColoursForParty(cfg.cakes.length));
+  if (cfg.kind === "kit") return Math.max(0, (Array.isArray(cfg.colours) ? cfg.colours.length : 0) - includedColoursFor(cfg.productId));
+  const cakeCount = Array.isArray(cfg.cakes) ? cfg.cakes.length : 0;
+  return Math.max(0, colourCount(cfg.colours) - includedColoursForParty(cakeCount));
 }
 
 // --- Price ----------------------------------------------------------------
 /** Price of a single unit of this configuration (kronor). Cart quantity is
  *  applied separately. */
 export function priceLineSek(cfg: LineConfig): number {
+  if (!isConfigObject(cfg)) return 0;
   const extras = (extraFillings(cfg) + extraTools(cfg) + extraColours(cfg)) * EXTRA_ITEM_SEK;
   if (cfg.kind === "party") {
-    const cakes = Math.max(PARTY_MIN_CAKES, cfg.cakes.length);
+    const cakeCount = Array.isArray(cfg.cakes) ? cfg.cakes.length : 0;
+    const cakes = Math.max(PARTY_MIN_CAKES, cakeCount);
     return PARTY_BASE_SEK + Math.max(0, cakes - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK + extras;
   }
   const base = getProduct(cfg.productId)?.priceSek ?? 0;
@@ -237,22 +370,27 @@ export function priceLineSek(cfg: LineConfig): number {
 }
 
 export function leadDaysFor(cfg: LineConfig): number {
-  return cfg.kind === "party" ? LEAD_DAYS_PARTY : LEAD_DAYS_KIT;
+  return isConfigObject(cfg) && cfg.kind === "party" ? LEAD_DAYS_PARTY : LEAD_DAYS_KIT;
 }
 
 // --- Human-readable summary ----------------------------------------------
 /** One-line summary for the review step, cart row and order email. */
 export function describeLine(cfg: LineConfig, lang: Lang): string {
+  if (!isConfigObject(cfg)) return "";
   const sep = " · ";
-  const toolBits = TOOLS.filter((k) => cfg.tools[k] > 0).map((k) => {
-    const n = cfg.tools[k];
-    return n > 1 ? `${n}× ${TOOL_LABELS[k][lang]}` : TOOL_LABELS[k][lang];
+  // Label lookups fall back to the raw key (never `undefined[lang]`) so a
+  // drifted/unknown code can't throw while building a human summary.
+  const toolBits = TOOLS.filter((k) => (cfg.tools?.[k] ?? 0) > 0).map((k) => {
+    const n = cfg.tools?.[k] ?? 0;
+    const label = TOOL_LABELS[k]?.[lang] ?? k;
+    return n > 1 ? `${n}× ${label}` : label;
   });
   const name = getProduct(cfg.productId)?.name[lang] ?? cfg.productId;
 
   if (cfg.kind === "party") {
-    const vanillaCount = cfg.cakes.filter((c) => c.flavour === "vanilla").length;
-    const chocCount = cfg.cakes.length - vanillaCount;
+    const cakes = Array.isArray(cfg.cakes) ? cfg.cakes : [];
+    const vanillaCount = cakes.filter((c) => c?.flavour === "vanilla").length;
+    const chocCount = cakes.length - vanillaCount;
     const split =
       lang === "sv"
         ? `${vanillaCount} vanilj / ${chocCount} choklad`
@@ -263,14 +401,15 @@ export function describeLine(cfg: LineConfig, lang: Lang): string {
     // Group cakes with an identical flavour+filling pick so the summary stays
     // compact while still reflecting each cake's own choice, not a guess.
     const groups = new Map<string, number>();
-    for (const c of cfg.cakes) {
-      const key = `${c.flavour}|${c.fillings.map((f) => FILLING_LABELS[f][lang]).join(", ")}`;
+    for (const c of cakes) {
+      const fills = Array.isArray(c?.fillings) ? c.fillings : [];
+      const key = `${c?.flavour ?? "vanilla"}|${fills.map((f) => FILLING_LABELS[f]?.[lang] ?? f).join(", ")}`;
       groups.set(key, (groups.get(key) || 0) + 1);
     }
     const fillingBits = Array.from(groups.entries())
       .map(([key, n]) => {
         const [flavourKey, fillingLabel] = key.split("|");
-        const flavourLabel = FLAVOUR_LABELS[flavourKey as Flavour][lang];
+        const flavourLabel = FLAVOUR_LABELS[flavourKey as Flavour]?.[lang] ?? flavourKey;
         return n > 1 ? `${n}× ${flavourLabel}: ${fillingLabel}` : `${flavourLabel}: ${fillingLabel}`;
       })
       .join(sep);
@@ -279,17 +418,20 @@ export function describeLine(cfg: LineConfig, lang: Lang): string {
       const n = cc[c.key] || 0;
       return n > 1 ? `${n}× ${c.label[lang]}` : c.label[lang];
     });
-    return [`${name}: ${cfg.cakes.length} ${cakesWord}`, split, fillingBits, toolBits.join(", "), colourBits.join(", ")]
+    return [`${name}: ${cakes.length} ${cakesWord}`, split, fillingBits, toolBits.join(", "), colourBits.join(", ")]
       .filter(Boolean)
       .join(sep);
   }
 
-  const fillings = cfg.fillings.map((f) => FILLING_LABELS[f][lang]).join(", ");
+  const fillings = (Array.isArray(cfg.fillings) ? cfg.fillings : [])
+    .map((f) => FILLING_LABELS[f]?.[lang] ?? f)
+    .join(", ");
   // List chosen shades in palette order for a stable, readable summary.
-  const colours = COLOURS.filter((c) => cfg.colours.includes(c.key))
+  const chosenColours = Array.isArray(cfg.colours) ? cfg.colours : [];
+  const colours = COLOURS.filter((c) => chosenColours.includes(c.key))
     .map((c) => c.label[lang])
     .join(", ");
-  return [name, FLAVOUR_LABELS[cfg.flavour][lang], fillings, toolBits.join(", "), colours]
+  return [name, FLAVOUR_LABELS[cfg.flavour]?.[lang] ?? cfg.flavour, fillings, toolBits.join(", "), colours]
     .filter(Boolean)
     .join(sep);
 }
@@ -297,12 +439,14 @@ export function describeLine(cfg: LineConfig, lang: Lang): string {
 /** Stable key for a configuration — two identical configs collapse to one cart
  *  line (and bump quantity) instead of stacking duplicates. */
 export function configKey(cfg: LineConfig): string {
+  if (!isConfigObject(cfg)) return "invalid";
   if (cfg.kind === "party") {
+    const cakes = Array.isArray(cfg.cakes) ? cfg.cakes : [];
     return [
       "party",
       cfg.productId,
-      cfg.cakes.map((c) => `${c.flavour}:${c.fillings.slice().sort().join("+")}`).join(","),
-      TOOLS.map((k) => `${k}:${cfg.tools[k] || 0}`).join(","),
+      cakes.map((c) => `${c?.flavour ?? ""}:${(Array.isArray(c?.fillings) ? c.fillings : []).slice().sort().join("+")}`).join(","),
+      TOOLS.map((k) => `${k}:${cfg.tools?.[k] || 0}`).join(","),
       COLOURS.map((c) => `${c.key}:${cfg.colours?.[c.key] || 0}`).join(","),
     ].join("|");
   }
@@ -310,8 +454,8 @@ export function configKey(cfg: LineConfig): string {
     "kit",
     cfg.productId,
     cfg.flavour,
-    cfg.fillings.slice().sort().join("+"),
-    TOOLS.map((k) => `${k}:${cfg.tools[k] || 0}`).join(","),
-    `c:${cfg.colours.slice().sort().join("+")}`,
+    (Array.isArray(cfg.fillings) ? cfg.fillings : []).slice().sort().join("+"),
+    TOOLS.map((k) => `${k}:${cfg.tools?.[k] || 0}`).join(","),
+    `c:${(Array.isArray(cfg.colours) ? cfg.colours : []).slice().sort().join("+")}`,
   ].join("|");
 }
