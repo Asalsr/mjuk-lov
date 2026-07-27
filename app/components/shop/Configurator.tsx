@@ -30,6 +30,7 @@ import {
   priceLineSek,
   leadDaysFor,
   describeLine,
+  normalizeLineConfig,
   extraFillings,
   type LineConfig,
   type KitConfig,
@@ -65,76 +66,6 @@ function defaultPartyCake(flavour: Flavour = "vanilla"): PartyCakeConfig {
   return { flavour, fillings: ["berries"] };
 }
 
-/** Repair a config seeded from an older persisted draft or cart line into the
- *  current per-cake shape. Older shapes seen in the wild had `cakes` as a
- *  count with a separate `vanilla` count, and fillings pooled by sponge
- *  (`{ vanilla: FillingCounts, chocolate: FillingCounts }`) or, older still, a
- *  flat `Filling[]` shared across the whole party. None of those tracked
- *  which physical cake got which filling, so this is a best-effort, not a
- *  literal, reconstruction — it preserves total counts (and therefore price)
- *  exactly, distributing them deterministically across the cakes in each
- *  sponge group. */
-function ensurePartyShape(cfg: LineConfig): LineConfig {
-  if (cfg.kind !== "party") return cfg;
-  const legacy = cfg as unknown as {
-    productId: string;
-    cakes: number | PartyCakeConfig[];
-    vanilla?: number;
-    fillings?: { vanilla?: Partial<Record<Filling, number>>; chocolate?: Partial<Record<Filling, number>> } | Filling[];
-    tools?: Tools;
-    colours?: ColourCounts;
-  };
-
-  if (Array.isArray(legacy.cakes)) {
-    // Already the current shape — just backfill tools/colours if missing.
-    return {
-      kind: "party",
-      productId: legacy.productId,
-      cakes: legacy.cakes,
-      tools: legacy.tools ?? { piping: 0, brush: 0, knife: 0 },
-      colours: legacy.colours ?? {},
-    };
-  }
-
-  const total = Math.max(PARTY_MIN_CAKES, legacy.cakes ?? PARTY_MIN_CAKES);
-  const vanillaCount = Math.min(total, Math.max(0, legacy.vanilla ?? Math.ceil(total / 2)));
-  const bucketFor = (flavour: "vanilla" | "chocolate"): Partial<Record<Filling, number>> => {
-    if (!legacy.fillings || Array.isArray(legacy.fillings)) return {}; // flat legacy array — no per-sponge data
-    return legacy.fillings[flavour] ?? {};
-  };
-  // Distribute a sponge bucket's portions across its n cakes, up to 2 each,
-  // in FILLINGS order — a plausible split, not the literal original.
-  const distribute = (bucket: Partial<Record<Filling, number>>, n: number): Filling[][] => {
-    const remaining = { ...bucket };
-    const perCake: Filling[][] = Array.from({ length: n }, () => []);
-    for (let i = 0; i < n; i++) {
-      for (const f of FILLINGS) {
-        if (perCake[i].length >= 2) break;
-        if ((remaining[f] || 0) > 0) {
-          perCake[i].push(f);
-          remaining[f] = (remaining[f] || 0) - 1;
-        }
-      }
-      if (perCake[i].length === 0) perCake[i].push("berries");
-    }
-    return perCake;
-  };
-  const vanillaFillings = distribute(bucketFor("vanilla"), vanillaCount);
-  const chocFillings = distribute(bucketFor("chocolate"), total - vanillaCount);
-  const cakes: PartyCakeConfig[] = [
-    ...vanillaFillings.map((fillings) => ({ flavour: "vanilla" as const, fillings })),
-    ...chocFillings.map((fillings) => ({ flavour: "chocolate" as const, fillings })),
-  ];
-
-  return {
-    kind: "party",
-    productId: legacy.productId,
-    cakes,
-    tools: legacy.tools ?? { piping: 0, brush: 0, knife: 0 },
-    colours: legacy.colours ?? {},
-  };
-}
-
 /** Sequential "Make it yours" flow — one decision per screen, a single
  *  persistent price, and "included vs +29 kr" stated in words. Rendered as a
  *  modal over the shop. RTL-safe, keyboard-operable. */
@@ -168,9 +99,9 @@ export function Configurator({
   // draft (a draft is a partial new build, not a snapshot of the line being
   // edited). Add mode keeps the in-progress draft restore.
   const [config, setConfig] = useState<LineConfig>(() => {
-    if (initialConfig) return ensurePartyShape(initialConfig);
+    if (initialConfig) return normalizeLineConfig(initialConfig);
     const seed = loadDraft(product.id)?.config ?? (isParty ? defaultPartyConfig(product.id) : defaultKitConfig(product.id));
-    return ensurePartyShape(seed);
+    return normalizeLineConfig(seed);
   });
   const [date, setDate] = useState(() => {
     if (isEdit) return initialDate ?? "";

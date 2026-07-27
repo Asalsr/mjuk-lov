@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
 import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
-import { priceLineSek, leadDaysFor, describeLine, type LineConfig } from "@/lib/pricing";
+import { priceLineSek, leadDaysFor, describeLine, normalizeLineConfig, type LineConfig } from "@/lib/pricing";
 import { OWNER_EMAIL } from "@/lib/owner";
 import { bilingualSubject, bilingualHtml } from "@/lib/email/bilingual";
 
@@ -78,13 +78,17 @@ export async function POST(req: Request) {
   // price the browser sent.
   const items = rawItems.map((i) => {
     const p = getProduct(i.productId);
+    // Coerce the browser-sent config to the current shape before pricing or
+    // storing it — the client may be on an older build, or replaying a legacy
+    // saved cart. normalizeLineConfig is total, so this never throws.
+    const cfg = i.config ? normalizeLineConfig(i.config) : null;
     return {
       productId: i.productId,
-      name: i.config ? describeLine(i.config, "en") : p?.name.en ?? i.productId,
-      nameSv: i.config ? describeLine(i.config, "sv") : p?.name.sv ?? i.productId,
+      name: cfg ? describeLine(cfg, "en") : p?.name.en ?? i.productId,
+      nameSv: cfg ? describeLine(cfg, "sv") : p?.name.sv ?? i.productId,
       qty: Number(i.qty) || 1,
-      priceSek: i.config ? priceLineSek(i.config) : p?.priceSek ?? null,
-      config: i.config ?? null,
+      priceSek: cfg ? priceLineSek(cfg) : p?.priceSek ?? null,
+      config: cfg,
       date: i.date ?? null,
       message: i.message ?? "",
     };
