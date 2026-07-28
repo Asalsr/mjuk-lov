@@ -4,6 +4,7 @@ import { useCart, addToCart, setQty } from "@/lib/cart/store";
 import { ui, locNum, type Lang } from "@/lib/i18n";
 import type { Product } from "@/lib/products";
 import { ProductImageCarousel } from "@/app/components/shop/ProductImageCarousel";
+import { PriceTag } from "@/app/components/shop/PriceTag";
 import { IngredientsDisclosure } from "@/app/components/shop/IngredientsDisclosure";
 
 /** A Cakes & Bakes menu card. Each box-size variant is its own orderable
@@ -63,7 +64,9 @@ export function MenuLineCard({ product, lang }: { product: Product; lang: Lang }
                   own line under the price (via flex-wrap) when it doesn't. */}
               <span className="type-caps flex-1 min-w-[9rem]">
                 {v.label[lang]}
-                <span className="type-price ink-muted ms-2">{locNum(v.priceSek, lang)} kr</span>
+                <span className="type-price ms-2">
+                  <PriceTag sek={v.priceSek} lang={lang} compact />
+                </span>
               </span>
               {qty === 0 ? (
                 <button

@@ -9,6 +9,8 @@ import { createClient } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
 import { priceLineSek, leadDaysFor, describeLine } from "@/lib/pricing";
+import { openingOfferActive, openingOfferPriceSek } from "@/lib/opening-offer";
+import { PriceTag } from "./PriceTag";
 import { LABELS } from "@/lib/allergen/labels";
 import { AddressAutocomplete, type Address } from "./AddressAutocomplete";
 import { Configurator } from "./Configurator";
@@ -93,7 +95,21 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
     [items],
   );
   const deliveryFee = fulfilment === "delivery" ? DELIVERY_FEE_SEK : 0;
-  const total = subtotal + deliveryFee;
+  // The launch-wide opening offer is automatic while live: every product line is
+  // discounted 30% (delivery is a fee, not a product, so it's untouched). Summing
+  // the per-line discounted prices keeps the cart total equal to what each row
+  // shows, and the server recomputes the same discount from the offer's end date.
+  const offerLive = openingOfferActive();
+  const discountedSubtotal = useMemo(
+    () =>
+      items.reduce((s, i) => {
+        const unit = i.config ? priceLineSek(i.config) : getProduct(i.productId)?.priceSek ?? 0;
+        return s + (offerLive ? openingOfferPriceSek(unit) : unit) * i.qty;
+      }, 0),
+    [items, offerLive],
+  );
+  const saving = subtotal - discountedSubtotal;
+  const total = discountedSubtotal + deliveryFee;
 
   // Earliest selectable date: today + the longest lead time in the cart. A party
   // pack (7 days) raises the floor for the whole order above a kit's 3 days.
@@ -213,7 +229,9 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
                 <div>
                   <div className="type-product" style={{ fontSize: "1.25rem" }}>{label}</div>
                   <div className="type-caps ink-muted">
-                    <span className="type-price" style={{ textTransform: "none" }}>{locNum(lineUnitPrice(i), lang)} kr</span>
+                    <span className="type-price" style={{ textTransform: "none" }}>
+                      <PriceTag sek={lineUnitPrice(i)} lang={lang} compact />
+                    </span>
                     {i.date && <span> · {locNum(i.date, lang)}</span>}
                   </div>
                 </div>
@@ -249,6 +267,12 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
             <span>{t.subtotal}</span>
             <span className="type-price">{locNum(subtotal, lang)} kr</span>
           </div>
+          {saving > 0 && (
+            <div className="flex justify-between type-body">
+              <span>{t.openingOffer}</span>
+              <span className="type-price">−{locNum(saving, lang)} kr</span>
+            </div>
+          )}
           {deliveryFee > 0 && (
             <div className="flex justify-between type-body ink-muted">
               <span>{t.deliveryFee}</span>
