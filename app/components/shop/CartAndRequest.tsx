@@ -9,6 +9,7 @@ import { createClient } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
 import { priceLineSek, leadDaysFor, describeLine } from "@/lib/pricing";
+import { openingOfferActive, openingOfferDiscountSek } from "@/lib/opening-offer";
 import { LABELS } from "@/lib/allergen/labels";
 import { AddressAutocomplete, type Address } from "./AddressAutocomplete";
 import { Configurator } from "./Configurator";
@@ -34,6 +35,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
   const [fulfilment, setFulfilment] = useState<"pickup" | "delivery">("pickup");
+  const [openingOffer, setOpeningOffer] = useState(false);
   const [dietary, setDietary] = useState("");
   const [notes, setNotes] = useState("");
   const [sending, setSending] = useState(false);
@@ -93,7 +95,12 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
     [items],
   );
   const deliveryFee = fulfilment === "delivery" ? DELIVERY_FEE_SEK : 0;
-  const total = subtotal + deliveryFee;
+  // The launch-wide opening offer: an opt-in 30% off the whole order. Only live
+  // through its end date (openingOfferActive), and the server recomputes the same
+  // discount on submit — the checkbox never sets the price on its own.
+  const offerLive = openingOfferActive();
+  const discount = openingOffer && offerLive ? openingOfferDiscountSek(subtotal + deliveryFee) : 0;
+  const total = subtotal + deliveryFee - discount;
 
   // Earliest selectable date: today + the longest lead time in the cart. A party
   // pack (7 days) raises the floor for the whole order above a kit's 3 days.
@@ -177,7 +184,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
       const res = await fetch("/api/order-request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items, name, email, phone, desiredDate: date || null, fulfilment, address, receiverName, receiverPhone, dietary, notes }),
+        body: JSON.stringify({ items, name, email, phone, desiredDate: date || null, fulfilment, address, receiverName, receiverPhone, dietary, notes, openingOffer }),
       });
       const out = await res.json();
       if (out.ok) {
@@ -253,6 +260,26 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
             <div className="flex justify-between type-body ink-muted">
               <span>{t.deliveryFee}</span>
               <span className="type-price">{locNum(deliveryFee, lang)} kr</span>
+            </div>
+          )}
+          {offerLive && (
+            <div className="mt-2">
+              <label className="flex items-center gap-2 type-body cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={openingOffer}
+                  onChange={(e) => setOpeningOffer(e.target.checked)}
+                  className="tap"
+                />
+                {t.openingOffer}
+              </label>
+              <p className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>{t.openingOfferHint}</p>
+            </div>
+          )}
+          {discount > 0 && (
+            <div className="flex justify-between type-body">
+              <span>{t.openingOffer}</span>
+              <span className="type-price">−{locNum(discount, lang)} kr</span>
             </div>
           )}
           <div className="flex justify-between type-price mt-1" style={{ fontSize: "1.25rem" }}>

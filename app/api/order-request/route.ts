@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
 import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
 import { priceLineSek, leadDaysFor, describeLine, normalizeLineConfig, type LineConfig } from "@/lib/pricing";
+import { openingOfferActive, openingOfferDiscountSek, OPENING_OFFER_CODE } from "@/lib/opening-offer";
 import { OWNER_EMAIL } from "@/lib/owner";
 import { bilingualSubject, bilingualHtml } from "@/lib/email/bilingual";
 
@@ -106,6 +107,11 @@ export async function POST(req: Request) {
   const db = admin ?? (userId ? sb : null);
   if (!db) return json({ error: "not_configured" }, 500);
 
+  // Opening offer: honour the checkbox only if the offer is still live *here* —
+  // the browser can send the flag past the end date (stale tab, tampering), so
+  // the server's clock is the authority on whether 30% actually comes off.
+  const applyOpeningOffer = body.openingOffer === true && openingOfferActive();
+
   const fulfilment = body.fulfilment === "delivery" ? "delivery" : "pickup";
   // Recipient may differ from the orderer; "—" suffix keeps it in the single
   // address column (no schema change) and in the notification.
@@ -132,6 +138,7 @@ export async function POST(req: Request) {
       notes: (body.notes as string) || null,
       status: "requested",
       currency: "sek",
+      discount_code: applyOpeningOffer ? OPENING_OFFER_CODE : null,
     })
     .select("id, order_number")
     .single();
@@ -146,12 +153,13 @@ export async function POST(req: Request) {
     .join("<br>");
   const subtotal = items.reduce((s, li) => s + (li.priceSek ?? 0) * li.qty, 0);
   const deliveryFee = fulfilment === "delivery" ? DELIVERY_FEE_SEK : 0;
-  const total = subtotal + deliveryFee;
+  const discount = applyOpeningOffer ? openingOfferDiscountSek(subtotal + deliveryFee) : 0;
+  const total = subtotal + deliveryFee - discount;
   const summary =
     `<h2>New order request</h2>` +
     `<p><b>${name}</b> — ${email} ${phone}</p>` +
     `<p>${lines}</p>` +
-    `<p>Subtotal: ${subtotal} kr${deliveryFee ? ` · Delivery: ${deliveryFee} kr` : ""} · <b>Total (est.): ${total} kr</b></p>` +
+    `<p>Subtotal: ${subtotal} kr${deliveryFee ? ` · Delivery: ${deliveryFee} kr` : ""}${discount ? ` · Opening offer (${OPENING_OFFER_CODE}): −${discount} kr` : ""} · <b>Total (est.): ${total} kr</b></p>` +
     `<p>Date: ${desiredDate} · ${fulfilment}${fullAddress ? ` · ${fullAddress}` : ""}</p>` +
     `<p>Dietary: ${(body.dietary as string) || "—"}</p>` +
     `<p>Notes: ${(body.notes as string) || "—"}</p>` +
