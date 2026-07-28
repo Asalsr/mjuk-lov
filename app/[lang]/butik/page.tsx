@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
-import { isLang, ui, locNum, type Lang } from "@/lib/i18n";
+import { isLang, ui, type Lang } from "@/lib/i18n";
 import { KITS, CAKES, MENU, PARTY_PACK, SUBSCRIPTIONS, type Product } from "@/lib/products";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { AddToCartButton } from "@/app/components/shop/AddToCartButton";
 import { MakeItYoursButton } from "@/app/components/shop/MakeItYoursButton";
 import { MenuLineCard } from "@/app/components/shop/MenuLineCard";
+import { PriceTag } from "@/app/components/shop/PriceTag";
 import { IngredientsDisclosure } from "@/app/components/shop/IngredientsDisclosure";
 import { PhotoDisclaimer } from "@/app/components/PhotoDisclaimer";
 import { ProductGallery } from "@/app/components/media/ProductGallery";
@@ -53,8 +54,11 @@ function ProductCard({ p, lang, comingSoon }: { p: Product; lang: Lang; comingSo
         // quiet line naming what's ahead. No options on the card.
         <>
           <div className="type-price mb-6" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)" }}>
-            {fromLabel && <span className="type-caps ink-muted">{t.kitFrom} </span>}
-            {locNum(p.priceSek, lang)} kr
+            <PriceTag
+              sek={p.priceSek}
+              lang={lang}
+              prefix={fromLabel ? <span className="type-caps ink-muted">{t.kitFrom} </span> : undefined}
+            />
           </div>
           <div className="mt-auto">
             <MakeItYoursButton product={p} lang={lang} label={isCake ? t.chooseCake : undefined} />
@@ -67,7 +71,11 @@ function ProductCard({ p, lang, comingSoon }: { p: Product; lang: Lang; comingSo
         <>
           <p className="type-body ink-muted mb-4">{p.description[lang]}</p>
           <div className="type-price mb-6" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)" }}>
-            {locNum(p.priceSek, lang)} kr{p.recurring && <span className="type-caps ink-muted"> {t.perMonth}</span>}
+            <PriceTag
+              sek={p.priceSek}
+              lang={lang}
+              suffix={p.recurring ? <span className="type-caps ink-muted"> {t.perMonth}</span> : undefined}
+            />
           </div>
           <div className="mt-auto">
             <AddToCartButton productId={p.id} lang={lang} />

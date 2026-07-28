@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ui, locNum, isLang, isRtl, LANGS, type Lang } from "@/lib/i18n";
+import { ui, isLang, isRtl, LANGS, type Lang } from "@/lib/i18n";
 import { KITS } from "@/lib/products";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { ProductImage } from "@/app/components/ProductImage";
@@ -9,6 +9,7 @@ import { HowItWorks } from "@/app/components/kit/HowItWorks";
 import { Gallery } from "@/app/components/Gallery";
 import { GALLERY_IMAGES } from "@/lib/gallery";
 import { MakeItYoursButton } from "@/app/components/shop/MakeItYoursButton";
+import { PriceTag } from "@/app/components/shop/PriceTag";
 import { Party } from "@/app/components/Party";
 
 export const dynamicParams = false;
@@ -171,7 +172,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
                     </Link>
                     <p className="type-body ink-muted mb-4">{t.kitOccasions[p.id] ?? p.description[lang]}</p>
                     <div className="type-price mb-5" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)" }}>
-                      {locNum(p.priceSek, lang)} kr
+                      <PriceTag sek={p.priceSek} lang={lang} />
                     </div>
                     <Link
                       href={`/${lang}/kit/${p.id}`}
@@ -325,7 +326,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
         <div className="leading-tight">
           <div className="type-product" style={{ fontSize: "1.1rem" }}>{leadKit.name[lang]}</div>
           <div className="type-price" style={{ fontSize: "1.1rem" }}>
-            {t.kitFrom} {locNum(leadKit.priceSek, lang)} kr
+            <PriceTag sek={leadKit.priceSek} lang={lang} prefix={`${t.kitFrom} `} compact />
           </div>
         </div>
         <div className="min-w-[8.5rem]">

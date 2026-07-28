@@ -5,6 +5,8 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { ui, locNum, isRtl, type Lang } from "@/lib/i18n";
 import type { Product } from "@/lib/products";
+import { PriceTag } from "@/app/components/shop/PriceTag";
+import { openingOfferActive, openingOfferPriceSek } from "@/lib/opening-offer";
 import { addLine, updateLine } from "@/lib/cart/store";
 import { loadDraft, saveDraft, clearDraft } from "@/lib/cart/draft";
 import {
@@ -192,6 +194,9 @@ export function Configurator({
   }, [config]);
 
   const price = priceLineSek(config);
+  // What the line actually costs while the opening offer is live — used on the
+  // add/save button; the PriceTag spots show the struck original alongside it.
+  const shownPrice = openingOfferActive() ? openingOfferPriceSek(price) : price;
   const current = steps[step];
   const onDateStep = current === "date";
   const canAdvance = !onDateStep || (!!date && date >= minDate);
@@ -659,7 +664,7 @@ export function Configurator({
           </ul>
         )}
         <div className="type-price" style={{ fontSize: "1.5rem" }}>
-          {locNum(price, lang)} kr
+          <PriceTag sek={price} lang={lang} />
         </div>
       </div>
     );
@@ -786,7 +791,7 @@ export function Configurator({
             <div className="leading-tight">
               <div className="type-caps ink-muted">{t.cfgPrice}</div>
               <div className="type-price" style={{ fontSize: "1.35rem" }}>
-                {locNum(price, lang)} kr
+                <PriceTag sek={price} lang={lang} compact />
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -804,7 +809,7 @@ export function Configurator({
                   className="type-caps min-h-11 px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
                   style={{ border: "1px solid var(--warm-cocoa)" }}
                 >
-                  {isEdit ? t.cfgSaveChanges : t.cfgAddWord} · {locNum(price, lang)} kr
+                  {isEdit ? t.cfgSaveChanges : t.cfgAddWord} · {locNum(shownPrice, lang)} kr
                 </button>
               ) : (
                 <button

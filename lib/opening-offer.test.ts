@@ -4,6 +4,7 @@ import {
   OPENING_OFFER_PERCENT,
   openingOfferActive,
   openingOfferDiscountSek,
+  openingOfferPriceSek,
 } from "./opening-offer";
 
 describe("opening offer", () => {
@@ -34,5 +35,14 @@ describe("opening offer", () => {
     expect(openingOfferDiscountSek(0)).toBe(0);
     expect(openingOfferDiscountSek(-100)).toBe(0);
     expect(openingOfferDiscountSek(Number.NaN)).toBe(0);
+  });
+
+  it("the offer price is the original minus the discount, exactly", () => {
+    for (const n of [349, 390, 449, 590, 690, 849, 890, 1590]) {
+      expect(openingOfferPriceSek(n)).toBe(n - openingOfferDiscountSek(n));
+    }
+    expect(openingOfferPriceSek(590)).toBe(413); // 590 − 177
+    expect(openingOfferPriceSek(0)).toBe(0);
+    expect(openingOfferPriceSek(-5)).toBe(0);
   });
 });

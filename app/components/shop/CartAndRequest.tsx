@@ -9,7 +9,8 @@ import { createClient } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
 import { priceLineSek, leadDaysFor, describeLine } from "@/lib/pricing";
-import { openingOfferActive, openingOfferDiscountSek } from "@/lib/opening-offer";
+import { openingOfferActive, openingOfferPriceSek } from "@/lib/opening-offer";
+import { PriceTag } from "./PriceTag";
 import { LABELS } from "@/lib/allergen/labels";
 import { AddressAutocomplete, type Address } from "./AddressAutocomplete";
 import { Configurator } from "./Configurator";
@@ -35,7 +36,6 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
   const [fulfilment, setFulfilment] = useState<"pickup" | "delivery">("pickup");
-  const [openingOffer, setOpeningOffer] = useState(false);
   const [dietary, setDietary] = useState("");
   const [notes, setNotes] = useState("");
   const [sending, setSending] = useState(false);
@@ -95,12 +95,21 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
     [items],
   );
   const deliveryFee = fulfilment === "delivery" ? DELIVERY_FEE_SEK : 0;
-  // The launch-wide opening offer: an opt-in 30% off the whole order. Only live
-  // through its end date (openingOfferActive), and the server recomputes the same
-  // discount on submit — the checkbox never sets the price on its own.
+  // The launch-wide opening offer is automatic while live: every product line is
+  // discounted 30% (delivery is a fee, not a product, so it's untouched). Summing
+  // the per-line discounted prices keeps the cart total equal to what each row
+  // shows, and the server recomputes the same discount from the offer's end date.
   const offerLive = openingOfferActive();
-  const discount = openingOffer && offerLive ? openingOfferDiscountSek(subtotal + deliveryFee) : 0;
-  const total = subtotal + deliveryFee - discount;
+  const discountedSubtotal = useMemo(
+    () =>
+      items.reduce((s, i) => {
+        const unit = i.config ? priceLineSek(i.config) : getProduct(i.productId)?.priceSek ?? 0;
+        return s + (offerLive ? openingOfferPriceSek(unit) : unit) * i.qty;
+      }, 0),
+    [items, offerLive],
+  );
+  const saving = subtotal - discountedSubtotal;
+  const total = discountedSubtotal + deliveryFee;
 
   // Earliest selectable date: today + the longest lead time in the cart. A party
   // pack (7 days) raises the floor for the whole order above a kit's 3 days.
@@ -184,7 +193,7 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
       const res = await fetch("/api/order-request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items, name, email, phone, desiredDate: date || null, fulfilment, address, receiverName, receiverPhone, dietary, notes, openingOffer }),
+        body: JSON.stringify({ items, name, email, phone, desiredDate: date || null, fulfilment, address, receiverName, receiverPhone, dietary, notes }),
       });
       const out = await res.json();
       if (out.ok) {
@@ -220,7 +229,9 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
                 <div>
                   <div className="type-product" style={{ fontSize: "1.25rem" }}>{label}</div>
                   <div className="type-caps ink-muted">
-                    <span className="type-price" style={{ textTransform: "none" }}>{locNum(lineUnitPrice(i), lang)} kr</span>
+                    <span className="type-price" style={{ textTransform: "none" }}>
+                      <PriceTag sek={lineUnitPrice(i)} lang={lang} compact />
+                    </span>
                     {i.date && <span> · {locNum(i.date, lang)}</span>}
                   </div>
                 </div>
@@ -256,30 +267,16 @@ export function CartAndRequest({ lang }: { lang: Lang }) {
             <span>{t.subtotal}</span>
             <span className="type-price">{locNum(subtotal, lang)} kr</span>
           </div>
+          {saving > 0 && (
+            <div className="flex justify-between type-body">
+              <span>{t.openingOffer}</span>
+              <span className="type-price">−{locNum(saving, lang)} kr</span>
+            </div>
+          )}
           {deliveryFee > 0 && (
             <div className="flex justify-between type-body ink-muted">
               <span>{t.deliveryFee}</span>
               <span className="type-price">{locNum(deliveryFee, lang)} kr</span>
-            </div>
-          )}
-          {offerLive && (
-            <div className="mt-2">
-              <label className="flex items-center gap-2 type-body cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={openingOffer}
-                  onChange={(e) => setOpeningOffer(e.target.checked)}
-                  className="tap"
-                />
-                {t.openingOffer}
-              </label>
-              <p className="type-caps ink-muted" style={{ fontSize: "0.75rem" }}>{t.openingOfferHint}</p>
-            </div>
-          )}
-          {discount > 0 && (
-            <div className="flex justify-between type-body">
-              <span>{t.openingOffer}</span>
-              <span className="type-price">−{locNum(discount, lang)} kr</span>
             </div>
           )}
           <div className="flex justify-between type-price mt-1" style={{ fontSize: "1.25rem" }}>

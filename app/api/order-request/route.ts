@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
 import { getProduct, DELIVERY_FEE_SEK } from "@/lib/products";
 import { priceLineSek, leadDaysFor, describeLine, normalizeLineConfig, type LineConfig } from "@/lib/pricing";
-import { openingOfferActive, openingOfferDiscountSek, OPENING_OFFER_CODE } from "@/lib/opening-offer";
+import { openingOfferActive, openingOfferPriceSek, OPENING_OFFER_CODE } from "@/lib/opening-offer";
 import { OWNER_EMAIL } from "@/lib/owner";
 import { bilingualSubject, bilingualHtml } from "@/lib/email/bilingual";
 
@@ -75,6 +75,13 @@ export async function POST(req: Request) {
   const desiredDate = String(body.desiredDate ?? "").trim();
   if (!desiredDate || desiredDate < minDesiredDate(leadDays)) return json({ error: "date_too_soon" }, 400);
 
+  // The opening offer is automatic while live, and the server's clock — not the
+  // browser — decides that: a stale tab past the end date must not still get 30%
+  // off. When live, every product line is stored already discounted, so every
+  // reader (order history, receipt, this email) shows the offer price with no
+  // per-reader logic.
+  const offerActive = openingOfferActive();
+
   // Names + prices are recomputed server-side from the config — never trust the
   // price the browser sent.
   const items = rawItems.map((i) => {
@@ -83,12 +90,13 @@ export async function POST(req: Request) {
     // storing it — the client may be on an older build, or replaying a legacy
     // saved cart. normalizeLineConfig is total, so this never throws.
     const cfg = i.config ? normalizeLineConfig(i.config) : null;
+    const listPrice = cfg ? priceLineSek(cfg) : p?.priceSek ?? null;
     return {
       productId: i.productId,
       name: cfg ? describeLine(cfg, "en") : p?.name.en ?? i.productId,
       nameSv: cfg ? describeLine(cfg, "sv") : p?.name.sv ?? i.productId,
       qty: Number(i.qty) || 1,
-      priceSek: cfg ? priceLineSek(cfg) : p?.priceSek ?? null,
+      priceSek: listPrice == null ? null : offerActive ? openingOfferPriceSek(listPrice) : listPrice,
       config: cfg,
       date: i.date ?? null,
       message: i.message ?? "",
@@ -106,11 +114,6 @@ export async function POST(req: Request) {
   const admin = isAdminConfigured ? createAdminClient() : null;
   const db = admin ?? (userId ? sb : null);
   if (!db) return json({ error: "not_configured" }, 500);
-
-  // Opening offer: honour the checkbox only if the offer is still live *here* —
-  // the browser can send the flag past the end date (stale tab, tampering), so
-  // the server's clock is the authority on whether 30% actually comes off.
-  const applyOpeningOffer = body.openingOffer === true && openingOfferActive();
 
   const fulfilment = body.fulfilment === "delivery" ? "delivery" : "pickup";
   // Recipient may differ from the orderer; "—" suffix keeps it in the single
@@ -138,7 +141,7 @@ export async function POST(req: Request) {
       notes: (body.notes as string) || null,
       status: "requested",
       currency: "sek",
-      discount_code: applyOpeningOffer ? OPENING_OFFER_CODE : null,
+      discount_code: offerActive ? OPENING_OFFER_CODE : null,
     })
     .select("id, order_number")
     .single();
@@ -151,15 +154,16 @@ export async function POST(req: Request) {
   const lines = items
     .map((li) => `${li.qty}× ${li.name}${li.priceSek ? ` (${li.priceSek} kr)` : ""}${li.message ? ` — “${li.message}”` : ""}`)
     .join("<br>");
+  // Line prices above are already the offer prices when the offer is live, so the
+  // subtotal is the discounted subtotal; the note just tells the baker why.
   const subtotal = items.reduce((s, li) => s + (li.priceSek ?? 0) * li.qty, 0);
   const deliveryFee = fulfilment === "delivery" ? DELIVERY_FEE_SEK : 0;
-  const discount = applyOpeningOffer ? openingOfferDiscountSek(subtotal + deliveryFee) : 0;
-  const total = subtotal + deliveryFee - discount;
+  const total = subtotal + deliveryFee;
   const summary =
     `<h2>New order request</h2>` +
     `<p><b>${name}</b> — ${email} ${phone}</p>` +
     `<p>${lines}</p>` +
-    `<p>Subtotal: ${subtotal} kr${deliveryFee ? ` · Delivery: ${deliveryFee} kr` : ""}${discount ? ` · Opening offer (${OPENING_OFFER_CODE}): −${discount} kr` : ""} · <b>Total (est.): ${total} kr</b></p>` +
+    `<p>Subtotal: ${subtotal} kr${offerActive ? ` (opening offer ${OPENING_OFFER_CODE}, −30% applied)` : ""}${deliveryFee ? ` · Delivery: ${deliveryFee} kr` : ""} · <b>Total (est.): ${total} kr</b></p>` +
     `<p>Date: ${desiredDate} · ${fulfilment}${fullAddress ? ` · ${fullAddress}` : ""}</p>` +
     `<p>Dietary: ${(body.dietary as string) || "—"}</p>` +
     `<p>Notes: ${(body.notes as string) || "—"}</p>` +

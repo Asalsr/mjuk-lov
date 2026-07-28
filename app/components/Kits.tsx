@@ -4,8 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 import { KitPiccolo, KitMedio, KitGrande } from './Icons';
 import { ProductGallery } from './media/ProductGallery';
 import { MakeItYoursButton } from './shop/MakeItYoursButton';
+import { PriceTag } from './shop/PriceTag';
 import { Party } from './Party';
-import { ui, locNum, type Lang } from '@/lib/i18n';
+import { ui, type Lang } from '@/lib/i18n';
 import { KITS } from '@/lib/products';
 
 interface KitsProps {
@@ -92,7 +93,7 @@ export const Kits = ({ lang }: KitsProps) => {
 
                   {/* mt-auto pins price + CTA to the bottom so they line up across cards. */}
                   <div className="type-price mt-auto mb-2" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)' }}>
-                    {t.kitFrom} {locNum(p.priceSek, lang)} kr
+                    <PriceTag sek={p.priceSek} lang={lang} prefix={`${t.kitFrom} `} />
                   </div>
 
                   <MakeItYoursButton product={p} lang={lang} />

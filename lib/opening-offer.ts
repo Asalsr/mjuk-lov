@@ -31,3 +31,12 @@ export function openingOfferDiscountSek(amountSek: number): number {
   if (!(amountSek > 0)) return 0;
   return Math.round(amountSek * (OPENING_OFFER_PERCENT / 100));
 }
+
+/** The price actually paid under the offer: the original minus the discount, so
+ *  discount + discounted always reconstitutes the original exactly. Non-negative;
+ *  a zero/negative input passes through as 0. Used everywhere a discounted price
+ *  is shown or stored (product cards, the configurator, the cart, saved orders). */
+export function openingOfferPriceSek(amountSek: number): number {
+  if (!(amountSek > 0)) return 0;
+  return amountSek - openingOfferDiscountSek(amountSek);
+}
