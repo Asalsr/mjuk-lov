@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { setProfile } from "@/lib/userdata/store";
-import type { Offer } from "@/lib/offers";
 import { ui, locNum, type Lang } from "@/lib/i18n";
 
 export function MyPageClient({
@@ -20,8 +19,6 @@ export function MyPageClient({
   orders,
   memoryConsent,
   memoryCount,
-  marketingConsent,
-  offers,
   isOwner = false,
   titles,
 }: {
@@ -36,8 +33,6 @@ export function MyPageClient({
   made: string[];
   memoryConsent: boolean;
   memoryCount: number;
-  marketingConsent: boolean;
-  offers: Offer[];
   orders: {
     id: string;
     status: string;
@@ -63,7 +58,6 @@ export function MyPageClient({
   const [delPassword, setDelPassword] = useState("");
   const [delError, setDelError] = useState<string | null>(null);
   const [delBusy, setDelBusy] = useState(false);
-  const [marketOn, setMarketOn] = useState(marketingConsent);
   const savedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => {
     if (savedTimerRef.current) clearTimeout(savedTimerRef.current);
@@ -140,24 +134,6 @@ export function MyPageClient({
         { onConflict: "user_id,kind" },
       );
   };
-
-  // Personalized-offers consent. Refresh so the server can mint/clear the
-  // offer on the next render (offers are minted server-side on this page).
-  const toggleMarketing = async (on: boolean) => {
-    setMarketOn(on);
-    await createClient()
-      .from("consents")
-      .upsert(
-        { user_id: userId, kind: "marketing", granted: on, updated_at: new Date().toISOString() },
-        { onConflict: "user_id,kind" },
-      );
-    router.refresh();
-  };
-
-  const offerValue = (o: Offer) =>
-    o.kind === "percent" ? t.offerPercentOff(o.value) : t.offerFixedOff(Math.round(o.value / 100));
-  const offerReason = (key: string | null) =>
-    key === "returning" ? t.offerReasonReturning : key === "firstKit" ? t.offerReasonFirstKit : "";
 
   const clearAiMemory = async () => {
     const db = createClient();
@@ -259,25 +235,6 @@ export function MyPageClient({
         </button>
       </form>
       <p className="type-caps ink-muted mb-12" style={{ fontSize: "0.75rem" }}>{t.autoSyncNote}</p>
-
-      <h2 className="type-caps ink-muted mb-3">{t.offersHeading}</h2>
-      <label className="flex items-start gap-3 mb-4 cursor-pointer max-w-[420px]">
-        <input type="checkbox" checked={marketOn} onChange={(e) => toggleMarketing(e.target.checked)} className="mt-1" />
-        <span className="type-body ink-muted" style={{ fontSize: "0.85rem" }}>{t.marketingConsent}</span>
-      </label>
-      {marketOn && offers.length > 0 && (
-        <ul className="mb-12 flex flex-col gap-3 max-w-[420px]">
-          {offers.map((o) => (
-            <li key={o.code} className="p-4" style={{ border: "1px solid var(--warm-cocoa)" }}>
-              <div className="type-caps" style={{ color: "var(--dusty-terracotta)" }}>{offerValue(o)}</div>
-              {offerReason(o.reasonKey) && (
-                <p className="type-body ink-muted" style={{ fontSize: "0.85rem" }}>{offerReason(o.reasonKey)}</p>
-              )}
-              <div className="type-caps mt-2" style={{ letterSpacing: "0.05em" }}>{o.code}</div>
-            </li>
-          ))}
-        </ul>
-      )}
 
       <h2 className="type-caps ink-muted mb-3">{t.aiMemoryHeading}</h2>
       <label className="flex items-start gap-3 mb-3 cursor-pointer max-w-[420px]">

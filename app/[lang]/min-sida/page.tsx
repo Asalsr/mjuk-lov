@@ -2,8 +2,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { isLang, ui, type Lang } from "@/lib/i18n";
 import { createClient } from "@/lib/supabase/server";
-import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
-import { ensurePersonalOffer, type Offer } from "@/lib/offers";
 import { OWNER_EMAIL } from "@/lib/owner";
 import { getPublishedRecipes } from "@/lib/recipes";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
@@ -42,8 +40,6 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   let orders: OrderRow[] = [];
   let memoryConsent = false;
   let memoryCount = 0;
-  let marketingConsent = false;
-  let offers: Offer[] = [];
 
   if (user) {
     const [f, w, n, h, p, o, c, m] = await Promise.all([
@@ -65,17 +61,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
     orders = (o.data ?? []) as OrderRow[];
     const consents = (c.data ?? []) as { kind: string; granted: boolean }[];
     memoryConsent = consents.some((r) => r.kind === "ai_memory" && r.granted);
-    marketingConsent = consents.some((r) => r.kind === "marketing" && r.granted);
     memoryCount = m.count ?? 0;
-
-    // Personalized offers are opt-in (marketing consent) and minted server-side.
-    if (marketingConsent && isAdminConfigured) {
-      offers = await ensurePersonalOffer(createAdminClient(), user.id, {
-        orders: orders.length,
-        favorites: favorites.length,
-        history: made.length,
-      });
-    }
   }
 
   const titles: Record<string, string> = Object.fromEntries(
@@ -103,8 +89,6 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               orders={orders}
               memoryConsent={memoryConsent}
               memoryCount={memoryCount}
-              marketingConsent={marketingConsent}
-              offers={offers}
               isOwner={user.email === OWNER_EMAIL}
               titles={titles}
             />
