@@ -58,7 +58,7 @@ export async function POST(req: Request) {
   }
 
   const rawItems = Array.isArray(body.items)
-    ? (body.items as { productId: string; qty: number; config?: LineConfig; date?: string; message?: string }[])
+    ? (body.items as { productId: string; qty: number; config?: LineConfig; message?: string }[])
     : [];
   if (rawItems.length === 0) return json({ error: "empty_cart" }, 400);
 
@@ -98,7 +98,6 @@ export async function POST(req: Request) {
       qty: Number(i.qty) || 1,
       priceSek: listPrice == null ? null : offerActive ? openingOfferPriceSek(listPrice) : listPrice,
       config: cfg,
-      date: i.date ?? null,
       message: i.message ?? "",
     };
   });

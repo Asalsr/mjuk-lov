@@ -9,12 +9,13 @@ import { createClient } from "@/lib/supabase/client";
 // A line is keyed by `lineId`: for a configured kit/party that's a hash of the
 // configuration (so two Standard kits with different flavours stay separate),
 // and for a plain product it's just the productId (so they merge and bump qty).
+// The pickup date is NOT part of a line — it's a single order-level choice made
+// once at checkout (see lib/cart/orderDate + CartAndRequest); one order, one date.
 export type CartItem = {
   lineId: string;
   productId: string;
   qty: number;
   config?: LineConfig; // present for configurable kit/party lines
-  date?: string; // reservation date chosen in the configurator (YYYY-MM-DD)
   message?: string;
 };
 
@@ -24,7 +25,7 @@ let cache: CartItem[] | null = null;
 // call makes useSyncExternalStore loop ("getServerSnapshot should be cached").
 const EMPTY: CartItem[] = [];
 
-// Tolerate carts written by an older build. Two kinds of drift are repaired
+// Tolerate carts written by an older build. Three kinds of drift are repaired
 // here, at the single read boundary (localStorage AND the server `carts` row,
 // which flows through `hydrateCart` → `migrate`):
 //   1. items used to be keyed by productId with no lineId — backfill lineId.
@@ -32,25 +33,39 @@ const EMPTY: CartItem[] = [];
 //      pack saved as `cakes: number` before the per-cake rework) — run it
 //      through normalizeLineConfig so pricing/rendering can assume the current
 //      shape. Without this, one legacy line crashed the whole basket on render.
+//   3. the pickup date used to live on the line and was baked into its lineId
+//      (`…@2026-07-24`). That's gone (one order = one date). Recompute the
+//      canonical lineId from the config so a legacy dated line loses its date
+//      suffix, and merge any duplicates the un-dating collapses (two lines that
+//      differed only by date are now the same line).
 function migrate(raw: unknown): CartItem[] {
   if (!Array.isArray(raw)) return [];
-  const out: CartItem[] = [];
+  const byId = new Map<string, CartItem>();
   for (const it of raw) {
     if (!it || typeof it !== "object") continue;
-    const r = it as Partial<CartItem>;
+    const r = it as Partial<CartItem> & { date?: unknown };
     const productId = typeof r.productId === "string" ? r.productId : null;
     if (!productId) continue;
-    const lineId = typeof r.lineId === "string" && r.lineId ? r.lineId : productId;
-    out.push({
-      lineId,
-      productId,
-      qty: Number(r.qty) || 1,
-      config: r.config ? normalizeLineConfig(r.config) : undefined,
-      date: r.date,
-      message: r.message,
-    });
+    const config = r.config ? normalizeLineConfig(r.config) : undefined;
+    // Regenerate the id from the config (drops any legacy `@date` suffix); plain
+    // products keep an explicit lineId if present, else fall back to productId.
+    const lineId = config
+      ? configKey(config)
+      : typeof r.lineId === "string" && r.lineId
+        ? stripDateSuffix(r.lineId)
+        : productId;
+    const qty = Number(r.qty) || 1;
+    const existing = byId.get(lineId);
+    if (existing) existing.qty += qty;
+    else byId.set(lineId, { lineId, productId, qty, config, message: r.message });
   }
-  return out;
+  return Array.from(byId.values());
+}
+
+// Legacy plain-product lines were never dated, but be defensive: strip a
+// trailing `@YYYY-MM-DD` from any explicit lineId carried over from an old cart.
+function stripDateSuffix(lineId: string): string {
+  return lineId.replace(/@\d{4}-\d{2}-\d{2}$/, "");
 }
 
 function read(): CartItem[] {
@@ -106,35 +121,34 @@ export function getCart(): CartItem[] {
   return read();
 }
 
-/** Add a configured line (kit/party). Identical configurations on the same
- *  reserved date merge and bump quantity rather than stacking duplicate rows. */
-export function addLine(config: LineConfig, opts?: { date?: string; message?: string }) {
-  const date = opts?.date;
-  const lineId = date ? `${configKey(config)}@${date}` : configKey(config);
+/** Add a configured line (kit/party). Identical configurations merge and bump
+ *  quantity rather than stacking duplicate rows. The pickup date is chosen once
+ *  at checkout, so it plays no part in a line's identity. */
+export function addLine(config: LineConfig, opts?: { message?: string }) {
+  const lineId = configKey(config);
   const items = read();
   const existing = items.find((i) => i.lineId === lineId);
   if (existing) {
     write(items.map((i) => (i.lineId === lineId ? { ...i, qty: i.qty + 1 } : i)));
   } else {
-    write([...items, { lineId, productId: config.productId, qty: 1, config, date, message: opts?.message }]);
+    write([...items, { lineId, productId: config.productId, qty: 1, config, message: opts?.message }]);
   }
 }
 
 /** Update an existing configured line. Recomputes the lineId from the new
- *  config + date (same rule as `addLine`); if it collides with another line
- *  already in the cart, quantities merge into that line and the old row is
- *  dropped. Quantity and message carry over unless explicitly overridden. */
+ *  config (same rule as `addLine`); if it collides with another line already in
+ *  the cart, quantities merge into that line and the old row is dropped.
+ *  Quantity and message carry over unless explicitly overridden. */
 export function updateLine(
   oldLineId: string,
   config: LineConfig,
-  opts?: { date?: string; message?: string },
+  opts?: { message?: string },
 ) {
   const items = read();
   const old = items.find((i) => i.lineId === oldLineId);
   if (!old) return;
-  const date = opts?.date;
   const message = opts && "message" in opts ? opts.message : old.message;
-  const newLineId = date ? `${configKey(config)}@${date}` : configKey(config);
+  const newLineId = configKey(config);
   const without = items.filter((i) => i.lineId !== oldLineId);
   const collision = without.find((i) => i.lineId === newLineId);
   if (collision) {
@@ -147,7 +161,7 @@ export function updateLine(
       .filter((i) => i.lineId !== newLineId || i.lineId === oldLineId)
       .map((i) =>
         i.lineId === oldLineId
-          ? { lineId: newLineId, productId: config.productId, qty: old.qty, config, date, message }
+          ? { lineId: newLineId, productId: config.productId, qty: old.qty, config, message }
           : i,
       ),
   );

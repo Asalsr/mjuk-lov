@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { ui, locNum, isRtl, type Lang } from "@/lib/i18n";
@@ -30,7 +30,6 @@ import {
   colourCount,
   toolCount,
   priceLineSek,
-  leadDaysFor,
   describeLine,
   normalizeLineConfig,
   extraFillings,
@@ -49,14 +48,16 @@ import {
 // Max shades a customer can pick: the included trio plus six extras.
 const MAX_COLOURS = INCLUDED_COLOURS + 6;
 
-const KIT_STEPS = ["flavour", "filling", "colour", "tools", "date", "review"] as const;
+// No date step: the pickup date is chosen once at checkout (one order, one
+// date), not per line. Personalizing a cake ends at review/add-to-cart.
+const KIT_STEPS = ["flavour", "filling", "colour", "tools", "review"] as const;
 // Ready-made cakes (kind "cake"): we decorate them, so no colours/tools steps.
-const CAKE_STEPS = ["flavour", "filling", "date", "review"] as const;
+const CAKE_STEPS = ["flavour", "filling", "review"] as const;
 // "sponge" and "filling" are separate steps — each screen asks one question
 // with one kind of button grid, so it's never ambiguous which buttons are
 // choosing what. Both are per-cake (see renderPartySponge/renderPartyFillings),
 // unlike the old pooled-by-sponge model this replaced.
-const PARTY_STEPS = ["cakes", "sponge", "filling", "colour", "tools", "date", "review"] as const;
+const PARTY_STEPS = ["cakes", "sponge", "filling", "colour", "tools", "review"] as const;
 
 const cardBtn = (selected: boolean): React.CSSProperties => ({
   border: "1px solid var(--warm-cocoa)",
@@ -76,14 +77,12 @@ export function Configurator({
   lang,
   onClose,
   initialConfig,
-  initialDate,
   editLineId,
 }: {
   product: Product;
   lang: Lang;
   onClose: () => void;
   initialConfig?: LineConfig;
-  initialDate?: string;
   editLineId?: string;
 }) {
   const t = ui[lang];
@@ -104,10 +103,6 @@ export function Configurator({
     if (initialConfig) return normalizeLineConfig(initialConfig);
     const seed = loadDraft(product.id)?.config ?? (isParty ? defaultPartyConfig(product.id) : defaultKitConfig(product.id));
     return normalizeLineConfig(seed);
-  });
-  const [date, setDate] = useState(() => {
-    if (isEdit) return initialDate ?? "";
-    return loadDraft(product.id)?.date ?? "";
   });
   const [step, setStep] = useState(0);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -169,9 +164,9 @@ export function Configurator({
   // an open edit to overwrite an unrelated in-progress draft for the same product.
   useEffect(() => {
     if (isEdit) return;
-    const id = setTimeout(() => saveDraft(product.id, { config, date: date || undefined }), 400);
+    const id = setTimeout(() => saveDraft(product.id, { config }), 400);
     return () => clearTimeout(id);
-  }, [config, date, product.id, isEdit]);
+  }, [config, product.id, isEdit]);
 
   const setKit = (patch: Partial<KitConfig>) => setConfig((c) => ({ ...(c as KitConfig), ...patch }));
   const setParty = (patch: Partial<PartyConfig>) => setConfig((c) => ({ ...(c as PartyConfig), ...patch }));
@@ -186,20 +181,11 @@ export function Configurator({
     ? includedColoursForParty((config as PartyConfig).cakes.length)
     : includedColoursFor(product.id);
 
-  // Earliest reservable date for this product's lead time.
-  const minDate = useMemo(() => {
-    const d = new Date();
-    d.setDate(d.getDate() + leadDaysFor(config));
-    return d.toISOString().slice(0, 10);
-  }, [config]);
-
   const price = priceLineSek(config);
   // What the line actually costs while the opening offer is live — used on the
   // add/save button; the PriceTag spots show the struck original alongside it.
   const shownPrice = openingOfferActive() ? openingOfferPriceSek(price) : price;
   const current = steps[step];
-  const onDateStep = current === "date";
-  const canAdvance = !onDateStep || (!!date && date >= minDate);
 
   const next = () => {
     if (step < steps.length - 1) setStep((s) => s + 1);
@@ -209,11 +195,11 @@ export function Configurator({
 
   const add = () => {
     if (isEdit) {
-      updateLine(editLineId, config, { date: date || undefined });
+      updateLine(editLineId, config);
       onClose();
       return; // already on the cart page; let it re-render in place
     }
-    addLine(config, { date: date || undefined });
+    addLine(config);
     clearDraft(product.id); // committed to cart — drop the in-progress draft
     onClose();
     router.push(`/${lang}/varukorg`);
@@ -623,20 +609,6 @@ export function Configurator({
     );
   };
 
-  const renderDate = () => (
-    <div>
-      <input
-        type="date"
-        value={date}
-        min={minDate}
-        onChange={(e) => setDate(e.target.value)}
-        aria-label={t.cfgDateTitle}
-        className="p-3 type-body bg-transparent w-full"
-        style={{ border: "1px solid rgba(61, 42, 34, 0.2)" }}
-      />
-    </div>
-  );
-
   const renderReview = () => {
     const extras: string[] = [];
     const fillExtra = extraFillings(config);
@@ -653,7 +625,6 @@ export function Configurator({
     return (
       <div className="flex flex-col gap-4">
         <p className="type-body">{describeLine(config, lang)}</p>
-        {date && <p className="type-caps ink-muted">{locNum(date, lang)}</p>}
         {extras.length > 0 && (
           <ul className="list-none p-0 m-0 flex flex-col gap-1">
             {extras.map((x, i) => (
@@ -676,7 +647,6 @@ export function Configurator({
     filling: t.cfgFillingTitle,
     colour: t.cfgColoursTitle,
     tools: t.cfgToolsTitle,
-    date: t.cfgDateTitle,
     review: t.cfgReviewTitle,
     cakes: t.cfgCakesTitle,
   };
@@ -694,7 +664,6 @@ export function Configurator({
       : product.id === "kit-grande"
         ? t.cfgToolsIncludedDeluxe
         : t.cfgToolsIncluded,
-    date: isParty ? t.cfgDateIncludedParty : t.cfgDateIncludedKit,
     review: null,
     cakes: t.cfgCakesIncluded,
   };
@@ -772,7 +741,6 @@ export function Configurator({
             {current === "colour" && (isParty ? renderPartyColours(config as PartyConfig) : renderColours(config as KitConfig))}
             {current === "tools" && renderTools()}
             {current === "cakes" && renderCakes(config as PartyConfig)}
-            {current === "date" && renderDate()}
             {current === "review" && renderReview()}
           </div>
 
@@ -815,8 +783,7 @@ export function Configurator({
                 <button
                   type="button"
                   onClick={next}
-                  disabled={!canAdvance}
-                  className="type-caps min-h-11 px-5 py-3 transition-all hover:bg-[var(--warm-peach)] disabled:opacity-40"
+                  className="type-caps min-h-11 px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
                   style={{ border: "1px solid var(--warm-cocoa)" }}
                 >
                   {t.cfgNext} <span aria-hidden="true">{arrow}</span>
