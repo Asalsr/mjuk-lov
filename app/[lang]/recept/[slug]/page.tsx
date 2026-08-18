@@ -30,6 +30,10 @@ function isoDuration(min: number): string {
   return `PT${h ? `${h}H` : ""}${m ? `${m}M` : ""}` || "PT0M";
 }
 
+/** BCP-47 language tag for a locale (schema.org `inLanguage`, hreflang). Swedish
+ *  is unambiguously Sweden (sv-SE); en/fa stay region-neutral. */
+const LOCALE_TAG: Record<Lang, string> = { sv: "sv-SE", en: "en", fa: "fa" };
+
 export async function generateMetadata({
   params,
 }: {
@@ -43,7 +47,15 @@ export async function generateMetadata({
     description: recipe.headnote[lang],
     alternates: {
       canonical: `/${lang}/recept/${slug}`,
-      languages: { sv: `/sv/recept/${slug}`, en: `/en/recept/${slug}` },
+      // All three locales are statically generated for every published recipe
+      // (see generateStaticParams), so every declared URL resolves. x-default
+      // points at the Swedish page (the site's default locale).
+      languages: {
+        "sv-SE": `/sv/recept/${slug}`,
+        en: `/en/recept/${slug}`,
+        fa: `/fa/recept/${slug}`,
+        "x-default": `/sv/recept/${slug}`,
+      },
     },
     openGraph: {
       title: `${recipe.title[lang]}, Mjuk Lov`,
@@ -81,6 +93,7 @@ export default async function Page({
     "@type": "Recipe",
     name: recipe.title[lang],
     description: recipe.headnote[lang],
+    author: { "@type": "Organization", name: "Mjuk Lov" },
     recipeYield: recipe.yieldNote ? [`${recipe.servings}`, recipe.yieldNote[lang]] : `${recipe.servings}`,
     totalTime: isoDuration(recipe.time.totalMin),
     prepTime: isoDuration(recipe.time.prepMin),
@@ -95,7 +108,7 @@ export default async function Page({
       ...(s.durationMin ? { timeRequired: isoDuration(s.durationMin) } : {}),
       ...(s.image ? { image: s.image } : {}),
     })),
-    inLanguage: lang,
+    inLanguage: LOCALE_TAG[lang],
     ...(recipe.youtubeId
       ? { video: { "@type": "VideoObject", embedUrl: `https://www.youtube.com/embed/${recipe.youtubeId}` } }
       : {}),

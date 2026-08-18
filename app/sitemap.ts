@@ -16,7 +16,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE}/${lang}/recept`,
       changeFrequency: "weekly",
       priority: 0.8,
-      alternates: { languages: { sv: `${BASE}/sv/recept`, en: `${BASE}/en/recept` } },
+      alternates: {
+        languages: {
+          "sv-SE": `${BASE}/sv/recept`,
+          en: `${BASE}/en/recept`,
+          fa: `${BASE}/fa/recept`,
+          "x-default": `${BASE}/sv/recept`,
+        },
+      },
     });
   }
 
@@ -30,8 +37,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.7,
         alternates: {
           languages: {
-            sv: `${BASE}/sv/recept/${r.slug}`,
+            "sv-SE": `${BASE}/sv/recept/${r.slug}`,
             en: `${BASE}/en/recept/${r.slug}`,
+            fa: `${BASE}/fa/recept/${r.slug}`,
+            "x-default": `${BASE}/sv/recept/${r.slug}`,
           },
         },
       });
