@@ -12,7 +12,7 @@ import {
   hydrateCart,
   type CartItem,
 } from "./store";
-import { defaultKitConfig, priceLineSek, type KitConfig, type PartyConfig } from "@/lib/pricing";
+import { defaultKitConfig, configKey, priceLineSek, type KitConfig, type PartyConfig } from "@/lib/pricing";
 
 // This module keeps its state in a module-level `cache`, not localStorage,
 // when `window` is undefined (the vitest node environment) — so every store
@@ -45,20 +45,21 @@ describe("addLine — configured kit/party lines", () => {
     expect(cart[0].qty).toBe(1);
   });
 
-  it("merges two identical configs (same date) into one line, bumping qty", () => {
+  it("merges two identical configs into one line, bumping qty", () => {
     const cfg = defaultKitConfig("kit-medio");
-    addLine(cfg, { date: "2026-08-01" });
-    addLine(cfg, { date: "2026-08-01" });
+    addLine(cfg);
+    addLine(cfg);
     const cart = getCart();
     expect(cart).toHaveLength(1);
     expect(cart[0].qty).toBe(2);
   });
 
-  it("keeps identical configs on different dates as separate lines", () => {
+  it("does not carry a date on the line (pickup date is order-level)", () => {
     const cfg = defaultKitConfig("kit-medio");
-    addLine(cfg, { date: "2026-08-01" });
-    addLine(cfg, { date: "2026-08-02" });
-    expect(getCart()).toHaveLength(2);
+    addLine(cfg);
+    const cart = getCart();
+    expect(cart[0].lineId).not.toContain("@");
+    expect((cart[0] as Record<string, unknown>).date).toBeUndefined();
   });
 
   it("keeps different configs (e.g. flavour) as separate lines", () => {
@@ -149,7 +150,7 @@ describe("cartCount", () => {
 describe("hydrateCart — migrating legacy/server cart shapes (via migrate())", () => {
   it("backfills a missing lineId from productId (pre-lineId carts)", () => {
     hydrateCart([{ productId: "kit-medio" } as unknown as CartItem]);
-    expect(getCart()).toEqual([{ lineId: "kit-medio", productId: "kit-medio", qty: 1, config: undefined, date: undefined, message: undefined }]);
+    expect(getCart()).toEqual([{ lineId: "kit-medio", productId: "kit-medio", qty: 1, config: undefined, message: undefined }]);
   });
 
   it("coerces a missing/invalid qty to 1", () => {
@@ -172,6 +173,20 @@ describe("hydrateCart — migrating legacy/server cart shapes (via migrate())", 
   it("preserves an explicit lineId when already present", () => {
     hydrateCart([{ lineId: "custom-id", productId: "kit-medio", qty: 2 } as CartItem]);
     expect(getCart()[0].lineId).toBe("custom-id");
+  });
+
+  it("strips a legacy `@date` suffix and merges lines that differed only by date", () => {
+    const cfg = defaultKitConfig("kit-medio");
+    const base = configKey(cfg);
+    hydrateCart([
+      { lineId: `${base}@2026-07-24`, productId: "kit-medio", qty: 1, config: cfg } as unknown as CartItem,
+      { lineId: `${base}@2026-08-28`, productId: "kit-medio", qty: 2, config: cfg } as unknown as CartItem,
+    ]);
+    const cart = getCart();
+    expect(cart).toHaveLength(1);
+    expect(cart[0].lineId).toBe(base);
+    expect(cart[0].lineId).not.toContain("@");
+    expect(cart[0].qty).toBe(3);
   });
 
   // The bug that motivated all of this: a legacy party line (`cakes` a number)
