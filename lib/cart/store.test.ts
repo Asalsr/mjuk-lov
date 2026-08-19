@@ -85,7 +85,9 @@ describe("updateLine", () => {
   });
 
   it("merges into an existing line when the new config collides with one already in the cart", () => {
-    const a = defaultKitConfig("kit-medio");
+    // Explicit flavours: a fresh config has none pre-selected, so the two
+    // lines here have to differ on a choice actually made.
+    const a: KitConfig = { ...defaultKitConfig("kit-medio"), flavour: "vanilla" };
     const b: KitConfig = { ...a, flavour: "chocolate" };
     addLine(a); // qty 1
     addLine(b); // qty 1

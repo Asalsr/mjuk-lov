@@ -334,6 +334,15 @@ export const ui = {
     cfgFillingIncluded: "Välj en fyllning. Den ingår i priset, en till kostar 29 kr.",
     cfgSpongeIncluded: "Välj sockerkaka för varje tårta: vanilj eller choklad.",
     cfgFillingPartyIncluded: "Välj fyllning för varje tårta nedan. En fyllning per tårta ingår i priset, en andra kostar 29 kr.",
+    // Inget är förvalt i konfiguratorn, så varje steg som saknar ett val
+    // stoppas här med sitt eget meddelande.
+    cfgRequireFlavour: "Välj en smak för att gå vidare.",
+    cfgRequireSponge: "Välj sockerkaka för varje tårta för att gå vidare.",
+    cfgRequireFilling: "Välj minst en fyllning för att gå vidare.",
+    cfgRequireFillingParty: "Välj minst en fyllning till varje tårta för att gå vidare.",
+    cfgRequireColour: "Välj minst en färg för att gå vidare.",
+    cfgRequireTool: "Välj minst ett verktyg för att gå vidare.",
+    cfgNotChosen: "Ej valt",
     cfgCakeWord: "Tårta",
     cfgToolsTitle: "Verktyg",
     cfgToolsIncluded: "Välj upp till två verktyg, de ingår i priset. Extra verktyg kostar 29 kr styck.",
@@ -343,6 +352,10 @@ export const ui = {
     cfgColoursPick: "Välj upp till tre färger, de ingår i priset. Extra nyanser kostar 29 kr styck.",
     cfgColoursPickDeluxe: "Välj upp till fem färger, de ingår i priset. Extra nyanser kostar 29 kr styck.",
     cfgColoursPartyIncluded: "Upp till tre färgburkar per gäst ingår i priset. Fördela nyanserna som du vill, extra burkar kostar 29 kr styck.",
+    // Vad kunden får veta om att nyansen varierar. Prickarna i konfiguratorn är
+    // ungefärliga prover, aldrig en exakt färgmatchning.
+    cfgColourBatchNote:
+      "Nyanserna kan skilja sig något från gång till gång. Vi blandar färgen för hand i små satser, och gelfärgen tar olika beroende på hur gul smörkrämen är den dagen och hur länge den vispas, så samma färg blir aldrig exakt likadan två gånger. Färgprickarna här är ungefärliga prover, inte en exakt färgmatchning.",
     cfgDateTitle: "Datum",
     cfgDateIncludedKit: "Boka din dag. Kit behöver 3 dagars framförhållning.",
     cfgDateIncludedParty: "Boka din dag. Festpaket behöver minst 7 dagar.",
@@ -681,6 +694,15 @@ export const ui = {
     cfgFillingIncluded: "Pick one filling. It's included in the price, add a second for 29 kr.",
     cfgSpongeIncluded: "Choose each cake's sponge: vanilla or chocolate.",
     cfgFillingPartyIncluded: "Choose the filling for each cake below. One filling per cake is included in the price, a second is 29 kr.",
+    // Nothing is pre-selected in the configurator, so a step with no choice
+    // made stops here with its own message.
+    cfgRequireFlavour: "Choose a flavour to continue.",
+    cfgRequireSponge: "Choose a sponge for every cake to continue.",
+    cfgRequireFilling: "Choose at least one filling to continue.",
+    cfgRequireFillingParty: "Choose at least one filling for every cake to continue.",
+    cfgRequireColour: "Choose at least one colour to continue.",
+    cfgRequireTool: "Choose at least one tool to continue.",
+    cfgNotChosen: "Not chosen",
     cfgCakeWord: "Cake",
     cfgToolsTitle: "Tools",
     cfgToolsIncluded: "Pick up to two tools, included in the price. Extra tools are 29 kr each.",
@@ -690,6 +712,10 @@ export const ui = {
     cfgColoursPick: "Pick up to three colours, included in the price. Extra shades are 29 kr each.",
     cfgColoursPickDeluxe: "Pick up to five colours, included in the price. Extra shades are 29 kr each.",
     cfgColoursPartyIncluded: "Up to three colour pots per guest are included in the price. Spread the shades however you like, extra pots are 29 kr each.",
+    // What the customer is told about shade variation. The dots in the
+    // configurator are rough samples, never an exact colour match.
+    cfgColourBatchNote:
+      "Shades can vary a little from batch to batch. We mix the colour by hand in small batches, and the gel takes differently depending on how yellow the buttercream is that day and how long it is whipped, so the same colour is never mixed exactly the same way twice. The dots here are rough samples, not an exact colour match.",
     cfgDateTitle: "Date",
     cfgDateIncludedKit: "Reserve your day. Kits need 3 days' notice.",
     cfgDateIncludedParty: "Reserve your day. Party packs need at least 7 days.",
@@ -1028,6 +1054,15 @@ export const ui = {
     cfgFillingIncluded: "یک فیلینگ را انتخاب کن. در قیمت پایه است، دومی ۲۹ کرون.",
     cfgSpongeIncluded: "برای هر کیک نوع کیک را انتخاب کن: وانیل یا شکلات.",
     cfgFillingPartyIncluded: "فیلینگ هر کیک را در پایین انتخاب کن. یک فیلینگ برای هر کیک در قیمت پایه است، دومی ۲۹ کرون است.",
+    // هیچ گزینه‌ای از پیش انتخاب نشده است، پس هر مرحله بدون انتخاب با پیام
+    // خودش متوقف می‌شود.
+    cfgRequireFlavour: "برای ادامه یک طعم انتخاب کن.",
+    cfgRequireSponge: "برای ادامه برای هر کیک نوع کیک را انتخاب کن.",
+    cfgRequireFilling: "برای ادامه حداقل یک فیلینگ انتخاب کن.",
+    cfgRequireFillingParty: "برای ادامه برای هر کیک حداقل یک فیلینگ انتخاب کن.",
+    cfgRequireColour: "برای ادامه حداقل یک رنگ انتخاب کن.",
+    cfgRequireTool: "برای ادامه حداقل یک ابزار انتخاب کن.",
+    cfgNotChosen: "انتخاب نشده",
     cfgCakeWord: "کیک",
     cfgToolsTitle: "ابزار",
     cfgToolsIncluded: "تا دو ابزار انتخاب کن، در قیمت پایه است. هر ابزار اضافه ۲۹ کرون است.",
@@ -1037,6 +1072,10 @@ export const ui = {
     cfgColoursPick: "تا سه رنگ انتخاب کن، در قیمت پایه است. هر رنگ اضافه ۲۹ کرون است.",
     cfgColoursPickDeluxe: "تا پنج رنگ انتخاب کن، در قیمت پایه است. هر رنگ اضافه ۲۹ کرون است.",
     cfgColoursPartyIncluded: "تا سه قوطی رنگ برای هر مهمان در قیمت پایه است. رنگ‌ها را هرجور دوست داری تقسیم کن، هر قوطی اضافه ۲۹ کرون است.",
+    // آنچه به مشتری درباره تفاوت سایه‌ها گفته می‌شود. دایره‌های رنگی در
+    // پیکربندی نمونه تقریبی هستند، نه تطابق دقیق رنگ.
+    cfgColourBatchNote:
+      "سایه‌ها ممکن است از هر بار تا بار دیگر کمی فرق کنند. ما رنگ را دستی و در مقدار کم مخلوط می‌کنیم و جذب ژل به این بستگی دارد که کرم کره آن روز چقدر زرد است و چقدر هم زده می‌شود، بنابراین یک رنگ هرگز دقیقاً دو بار یکسان ساخته نمی‌شود. دایره‌های رنگی اینجا نمونه تقریبی هستند، نه تطابق دقیق رنگ.",
     cfgDateTitle: "تاریخ",
     cfgDateIncludedKit: "روزت را رزرو کن. کیت‌ها ۳ روز فرصت لازم دارند.",
     cfgDateIncludedParty: "روزت را رزرو کن. بسته‌های جشن دست‌کم ۷ روز فرصت لازم دارند.",
