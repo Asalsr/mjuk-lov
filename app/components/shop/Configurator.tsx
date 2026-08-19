@@ -25,6 +25,8 @@ import {
   defaultPartyConfig,
   blankPartyCake,
   isStepChosen,
+  requiredColours,
+  requiredTools,
   type ChoiceStep,
   CHOICE_STEPS,
   includedToolsFor,
@@ -728,12 +730,15 @@ export function Configurator({
     cakes: t.cfgCakesIncluded,
   };
   // What we say when Next is pressed with this step's choice still unmade.
+  // Colours and tools name the number still needed: their floor is the whole
+  // allowance already in the price (a decorating set per guest on a party), so
+  // "at least one" would understate what the customer actually has to pick.
   const requireMessageFor: Record<ChoiceStep, string> = {
     flavour: t.cfgRequireFlavour,
     sponge: t.cfgRequireSponge,
     filling: isParty ? t.cfgRequireFillingParty : t.cfgRequireFilling,
-    colour: t.cfgRequireColour,
-    tools: t.cfgRequireTool,
+    colour: (isParty ? t.cfgRequireColourParty : t.cfgRequireColour)(requiredColours(config)),
+    tools: (isParty ? t.cfgRequireToolParty : t.cfgRequireTool)(requiredTools(config)),
   };
   // Shown only while the choice is still missing: making it clears the message
   // without a second click, so the customer never sees a stale complaint.
@@ -815,65 +820,77 @@ export function Configurator({
             {current === "review" && renderReview()}
           </div>
 
-          {/* The gate's message. Lives just above the footer so it sits right
-              next to the Next button that triggered it, and is announced on
-              appearance (role="alert") rather than only being visible. */}
-          <div role="alert" aria-live="assertive" className="empty:hidden">
-            {requireMessage && (
-              <p
-                className="type-body px-4 py-3 mb-2"
-                style={{ color: "var(--dusty-wine)", border: "1px solid var(--dusty-wine)" }}
-              >
-                {requireMessage}
-              </p>
-            )}
-          </div>
-
-          {/* Footer: single persistent price + Back/Next/Add. Sticky to the
-              bottom of the scroll area above, with its own opaque background so
-              scrolled-under content doesn't show through, and safe-area padding
-              so it clears the home indicator on notched iPhones. */}
+          {/* Footer: the gate's message, then the persistent price and
+              Back/Next/Add, as ONE sticky block pinned to the bottom of the
+              scroll area. The message has to live INSIDE the sticky block
+              rather than above it in the scrolling flow: a step listing ten
+              cakes or twenty-three shades is far taller than the sheet, so a
+              message anchored to the content scrolls out of sight and leaves
+              the customer with a Next button that silently refuses. Pinned
+              here it stays beside the button that triggered it at any scroll
+              position. Opaque background so scrolled-under content doesn't
+              show through, and safe-area padding so it clears the home
+              indicator on notched iPhones. */}
           <div
-            className="sticky bottom-0 flex items-center justify-between gap-4 pt-4"
+            className="sticky bottom-0"
             style={{
-              borderTop: "1px solid rgba(61, 42, 34, 0.12)",
               backgroundColor: "var(--vanilla-cream)",
               paddingBottom: "calc(1rem + env(safe-area-inset-bottom))",
             }}
           >
-            <div className="leading-tight">
-              <div className="type-caps ink-muted">{t.cfgPrice}</div>
-              <div className="type-price" style={{ fontSize: "1.35rem" }}>
-                <PriceTag sek={price} lang={lang} compact />
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={prev}
-                className="type-caps min-h-11 px-4 py-3 transition-colors hover:text-[var(--dusty-terracotta)]"
-              >
-                <span aria-hidden="true">{back}</span> {t.cfgBack}
-              </button>
-              {current === "review" ? (
-                <button
-                  type="button"
-                  onClick={add}
-                  className="type-caps min-h-11 px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
-                  style={{ border: "1px solid var(--warm-cocoa)" }}
+            {/* Announced on appearance (role="alert"), not merely visible. */}
+            <div role="alert" aria-live="assertive">
+              {requireMessage && (
+                <p
+                  className="type-body px-4 py-3 mb-3"
+                  style={{
+                    color: "var(--dusty-wine)",
+                    border: "1px solid var(--dusty-wine)",
+                    backgroundColor: "var(--vanilla-cream)",
+                  }}
                 >
-                  {isEdit ? t.cfgSaveChanges : t.cfgAddWord} · {locNum(shownPrice, lang)} kr
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={next}
-                  className="type-caps min-h-11 px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
-                  style={{ border: "1px solid var(--warm-cocoa)" }}
-                >
-                  {t.cfgNext} <span aria-hidden="true">{arrow}</span>
-                </button>
+                  {requireMessage}
+                </p>
               )}
+            </div>
+            <div
+              className="flex items-center justify-between gap-4 pt-4"
+              style={{ borderTop: "1px solid rgba(61, 42, 34, 0.12)" }}
+            >
+              <div className="leading-tight">
+                <div className="type-caps ink-muted">{t.cfgPrice}</div>
+                <div className="type-price" style={{ fontSize: "1.35rem" }}>
+                  <PriceTag sek={price} lang={lang} compact />
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={prev}
+                  className="type-caps min-h-11 px-4 py-3 transition-colors hover:text-[var(--dusty-terracotta)]"
+                >
+                  <span aria-hidden="true">{back}</span> {t.cfgBack}
+                </button>
+                {current === "review" ? (
+                  <button
+                    type="button"
+                    onClick={add}
+                    className="type-caps min-h-11 px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
+                    style={{ border: "1px solid var(--warm-cocoa)" }}
+                  >
+                    {isEdit ? t.cfgSaveChanges : t.cfgAddWord} · {locNum(shownPrice, lang)} kr
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={next}
+                    className="type-caps min-h-11 px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
+                    style={{ border: "1px solid var(--warm-cocoa)" }}
+                  >
+                    {t.cfgNext} <span aria-hidden="true">{arrow}</span>
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

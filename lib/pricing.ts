@@ -418,11 +418,37 @@ export function extraColours(cfg: LineConfig): number {
 export const CHOICE_STEPS = ["flavour", "sponge", "filling", "colour", "tools"] as const;
 export type ChoiceStep = (typeof CHOICE_STEPS)[number];
 
+/** How many colour pots this configuration must actually carry, and how many
+ *  tools. This is the allowance ALREADY IN THE PRICE, so it is a floor, not a
+ *  suggestion: a Party Pack allots a decorating set per guest, and ordering
+ *  four tools for a party of four leaves half the guests with nothing while
+ *  the customer still pays for the full eight. Extras above this are the paid
+ *  ones (see extraColours/extraTools). */
+export function requiredColours(cfg: LineConfig): number {
+  if (!isConfigObject(cfg)) return 0;
+  if (cfg.kind === "kit") return includedColoursFor(cfg.productId);
+  return includedColoursForParty(Array.isArray(cfg.cakes) ? cfg.cakes.length : 0);
+}
+export function requiredTools(cfg: LineConfig): number {
+  if (!isConfigObject(cfg)) return 0;
+  if (cfg.kind === "kit") return includedToolsFor(cfg.productId);
+  return includedToolsForParty(Array.isArray(cfg.cakes) ? cfg.cakes.length : 0);
+}
+
+/** What the customer has picked for a countable step, for comparison against
+ *  the floor above. Kits pick distinct shades; parties count pots per shade. */
+export function chosenColours(cfg: LineConfig): number {
+  if (!isConfigObject(cfg)) return 0;
+  if (cfg.kind === "kit") return Array.isArray(cfg.colours) ? cfg.colours.length : 0;
+  return colourCount(cfg.colours);
+}
+
 /** Has the customer actually made the choice this step owns? Nothing is
  *  pre-selected (see defaultKitConfig), so this is what stands between an
  *  unmade decision and a cart line: the configurator refuses to advance and
  *  shows the step's message instead of quietly carrying a default forward.
- *  Party steps require the choice on EVERY cake, not just one. */
+ *  Party sponge/filling need the choice on EVERY cake, not just one, and
+ *  colours/tools need the whole included allowance, not merely one of each. */
 export function isStepChosen(cfg: LineConfig, step: ChoiceStep): boolean {
   if (!isConfigObject(cfg)) return false;
   const cakes = cfg.kind === "party" && Array.isArray(cfg.cakes) ? cfg.cakes : [];
@@ -435,10 +461,14 @@ export function isStepChosen(cfg: LineConfig, step: ChoiceStep): boolean {
       return cfg.kind === "kit" ? !!cfg.flavour : everyCake((c) => !!c.flavour);
     case "filling":
       return cfg.kind === "kit" ? listLen(cfg.fillings) > 0 : everyCake((c) => listLen(c.fillings) > 0);
+    // Math.max(1, ...) so a malformed config can never satisfy the gate by
+    // having a floor of zero: a party whose `cakes` didn't survive
+    // deserialization allots nothing per guest, and 0 >= 0 would wave it
+    // through with no colours and no tools at all.
     case "colour":
-      return cfg.kind === "kit" ? listLen(cfg.colours) > 0 : colourCount(cfg.colours) > 0;
+      return chosenColours(cfg) >= Math.max(1, requiredColours(cfg));
     case "tools":
-      return toolCount(cfg.tools) > 0;
+      return toolCount(cfg.tools) >= Math.max(1, requiredTools(cfg));
   }
 }
 

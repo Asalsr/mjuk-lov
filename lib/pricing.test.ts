@@ -16,6 +16,8 @@ import {
   colourCount,
   toolCount,
   isStepChosen,
+  requiredColours,
+  requiredTools,
   CHOICE_STEPS,
   EXTRA_ITEM_SEK,
   PARTY_BASE_SEK,
@@ -255,12 +257,59 @@ describe("isStepChosen — the gate that replaces pre-selection", () => {
     for (const step of CHOICE_STEPS) expect(isStepChosen(cfg, step)).toBe(false);
   });
 
-  it("a step flips to chosen as soon as the customer picks something", () => {
+  it("sponge and filling flip to chosen on the first pick", () => {
     const cfg = defaultKitConfig("kit-medio");
     expect(isStepChosen({ ...cfg, flavour: "chocolate" }, "flavour")).toBe(true);
     expect(isStepChosen({ ...cfg, fillings: ["caramel"] }, "filling")).toBe(true);
-    expect(isStepChosen({ ...cfg, colours: ["light-green"] }, "colour")).toBe(true);
-    expect(isStepChosen({ ...cfg, tools: { piping: 1, brush: 0, knife: 0 } }, "tools")).toBe(true);
+  });
+
+  // The floor for colours and tools is the allowance already in the price, not
+  // one of each: picking fewer means paying for a set the customer never gets
+  // and, on a party, leaving a guest with nothing to decorate with.
+  it("colours and tools need the WHOLE included allowance, not just one", () => {
+    const cfg = defaultKitConfig("kit-medio"); // 3 colours, 2 tools included
+    expect(requiredColours(cfg)).toBe(3);
+    expect(requiredTools(cfg)).toBe(2);
+    expect(isStepChosen({ ...cfg, colours: ["light-green"] }, "colour")).toBe(false);
+    expect(isStepChosen({ ...cfg, colours: ["light-green", "pink"] }, "colour")).toBe(false);
+    expect(isStepChosen({ ...cfg, colours: ["light-green", "pink", "red"] }, "colour")).toBe(true);
+    expect(isStepChosen({ ...cfg, tools: { piping: 1, brush: 0, knife: 0 } }, "tools")).toBe(false);
+    expect(isStepChosen({ ...cfg, tools: { piping: 1, brush: 1, knife: 0 } }, "tools")).toBe(true);
+  });
+
+  it("grande's larger allowance raises its floor too", () => {
+    const cfg = defaultKitConfig("kit-grande"); // 5 colours, 4 tools included
+    expect(requiredColours(cfg)).toBe(5);
+    expect(requiredTools(cfg)).toBe(4);
+    expect(isStepChosen({ ...cfg, colours: ["pink", "red", "green", "black"] }, "colour")).toBe(false);
+    expect(isStepChosen({ ...cfg, tools: { piping: 2, brush: 1, knife: 0 } }, "tools")).toBe(false);
+    expect(isStepChosen({ ...cfg, tools: { piping: 2, brush: 1, knife: 1 } }, "tools")).toBe(true);
+  });
+
+  it("a party's floor scales with the guest count", () => {
+    const four: PartyConfig = { ...defaultPartyConfig(), cakes: makeCakes(4) };
+    expect(requiredColours(four)).toBe(12); // 3 pots per guest
+    expect(requiredTools(four)).toBe(8); // 2 tools per guest
+    // The exact case reported: 8 of 12 pots and 4 of 8 tools were waved through.
+    expect(isStepChosen({ ...four, colours: { pink: 5, red: 3 } }, "colour")).toBe(false);
+    expect(isStepChosen({ ...four, colours: { pink: 5, red: 7 } }, "colour")).toBe(true);
+    expect(isStepChosen({ ...four, tools: { piping: 4, brush: 0, knife: 0 } }, "tools")).toBe(false);
+    expect(isStepChosen({ ...four, tools: { piping: 4, brush: 4, knife: 0 } }, "tools")).toBe(true);
+  });
+
+  it("the fully-allotted party helpers sit exactly on the floor", () => {
+    for (const n of [2, 5, 10]) {
+      const cfg: PartyConfig = {
+        ...defaultPartyConfig(),
+        cakes: makeCakes(n),
+        tools: defaultPartyTools(n),
+        colours: defaultPartyColours(n),
+      };
+      expect(isStepChosen(cfg, "colour")).toBe(true);
+      expect(isStepChosen(cfg, "tools")).toBe(true);
+      expect(extraColours(cfg)).toBe(0); // sitting on the floor costs nothing extra
+      expect(extraTools(cfg)).toBe(0);
+    }
   });
 
   it("a party needs the sponge and a filling on EVERY cake, not just the first", () => {
@@ -280,10 +329,12 @@ describe("isStepChosen — the gate that replaces pre-selection", () => {
   });
 
   it("party colours and tools count across the whole party", () => {
-    const cfg = defaultPartyConfig();
+    const cfg = defaultPartyConfig(); // 2 cakes: 6 pots, 4 tools required
     expect(isStepChosen(cfg, "colour")).toBe(false);
-    expect(isStepChosen({ ...cfg, colours: { pink: 1 } }, "colour")).toBe(true);
-    expect(isStepChosen({ ...cfg, tools: { piping: 1, brush: 0, knife: 0 } }, "tools")).toBe(true);
+    expect(isStepChosen({ ...cfg, colours: { pink: 1 } }, "colour")).toBe(false);
+    expect(isStepChosen({ ...cfg, colours: { pink: 4, red: 2 } }, "colour")).toBe(true);
+    expect(isStepChosen({ ...cfg, tools: { piping: 1, brush: 0, knife: 0 } }, "tools")).toBe(false);
+    expect(isStepChosen({ ...cfg, tools: { piping: 2, brush: 2, knife: 0 } }, "tools")).toBe(true);
   });
 
   it("garbage never reports a choice as made", () => {
