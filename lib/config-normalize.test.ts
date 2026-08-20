@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   normalizeLineConfig,
+  colourCount,
   priceLineSek,
   describeLine,
   configKey,
@@ -117,6 +118,8 @@ describe("production regression: asal.sr89's legacy cart no longer crashes", () 
       expect(Array.isArray(cfg.cakes)).toBe(true);
       expect(cfg.cakes.length).toBe(expectedCounts[i]);
       for (const cake of cfg.cakes) {
+        // Legacy lines carry a flavour (reconstructed from the vanilla count),
+        // so these must not degrade to "unchosen".
         expect(FLAVOURS).toContain(cake.flavour);
         expect(cake.fillings.length).toBeGreaterThanOrEqual(1);
         expect(cake.fillings.length).toBeLessThanOrEqual(2);
@@ -166,35 +169,92 @@ describe("normalizeLineConfig — legacy & drifted party shapes", () => {
     expect(cfg.cakes.length).toBe(PARTY_MIN_CAKES);
   });
 
-  it("unknown enum values are sanitized to valid ones", () => {
+  it("unknown enum values are dropped, never swapped for a default", () => {
     const cfg = normalizeLineConfig({
       kind: "party",
       productId: "party-pack",
       cakes: [{ flavour: "strawberry", fillings: ["jam", "berries", "berries", "biscoff"] }],
     });
     if (cfg.kind !== "party") throw new Error("expected party");
-    expect(cfg.cakes[0].flavour).toBe("vanilla"); // unknown flavour → default
+    expect(cfg.cakes[0].flavour).toBeNull(); // unknown flavour → unchosen, NOT "vanilla"
     expect(cfg.cakes[0].fillings).toEqual(["berries", "biscoff"]); // 'jam' dropped, dedup, capped at 2
   });
 });
 
 describe("normalizeLineConfig — kit shapes", () => {
-  it("a bare kit config is filled with valid defaults", () => {
+  // The contract normalization must NOT break: it sanitizes, it never decides.
+  // Inventing a "sensible" flavour/filling here is how a pre-selected option
+  // sneaks back into a restored draft, which is precisely what the configurator
+  // no longer does (it gates each step instead — see isStepChosen).
+  it("a bare kit config stays unchosen — no flavour, no filling invented", () => {
     const cfg = normalizeLineConfig({ kind: "kit", productId: "kit-medio" });
     if (cfg.kind !== "kit") throw new Error("expected kit");
-    expect(cfg.fillings).toEqual(["berries"]); // a cake always has ≥1 filling
+    expect(cfg.flavour).toBeNull();
+    expect(cfg.fillings).toEqual([]);
     expect(cfg.tools).toEqual({ piping: 0, brush: 0, knife: 0 });
     expect(cfg.colours).toEqual([]);
     expectConsumable(cfg);
   });
 
-  it("garbage kit fields are coerced (fillings not an array, unknown colours)", () => {
-    const cfg = normalizeLineConfig({ kind: "kit", productId: "kit-medio", fillings: "nope", colours: ["blush", "fuchsia"], flavour: 7 });
+  it("garbage kit fields are dropped (fillings not an array, unknown colours)", () => {
+    const cfg = normalizeLineConfig({ kind: "kit", productId: "kit-medio", fillings: "nope", colours: ["pink", "chartreuse"], flavour: 7 });
     if (cfg.kind !== "kit") throw new Error("expected kit");
-    expect(cfg.fillings).toEqual(["berries"]);
-    expect(cfg.colours).toEqual(["blush"]); // 'fuchsia' dropped
-    expect(cfg.flavour).toBe("vanilla");
+    expect(cfg.fillings).toEqual([]);
+    expect(cfg.colours).toEqual(["pink"]); // 'chartreuse' is not a stocked gel, dropped
+    expect(cfg.flavour).toBeNull();
     expectConsumable(cfg);
+  });
+
+  it("a real choice survives normalization untouched", () => {
+    const cfg = normalizeLineConfig({
+      kind: "kit",
+      productId: "kit-medio",
+      flavour: "chocolate",
+      fillings: ["caramel"],
+      colours: ["light-green"],
+      tools: { piping: 1, brush: 0, knife: 0 },
+    });
+    if (cfg.kind !== "kit") throw new Error("expected kit");
+    expect(cfg.flavour).toBe("chocolate");
+    expect(cfg.fillings).toEqual(["caramel"]);
+    expect(cfg.colours).toEqual(["light-green"]);
+  });
+});
+
+// A saved cart outlives the palette that wrote it. The curated 8-shade palette
+// was replaced by the gel colours actually in stock, so every old key has to
+// land on a stocked shade rather than silently vanishing from the customer's
+// line (which would also re-price it).
+describe("legacy colour keys map onto the stocked palette", () => {
+  it("a kit's old shade names survive as their stocked equivalents", () => {
+    const cfg = normalizeLineConfig({
+      kind: "kit",
+      productId: "kit-medio",
+      colours: ["blush", "sky", "sage", "butter", "terracotta", "lilac", "cocoa", "natural"],
+    });
+    if (cfg.kind !== "kit") throw new Error("expected kit");
+    expect(cfg.colours).toEqual([
+      "pink",
+      "sky-blue",
+      "light-green",
+      "lemon-yellow",
+      "orange-red",
+      "taro-purple",
+      "brown",
+      "natural",
+    ]);
+  });
+
+  it("a party's pot counts are preserved, and summed when two old keys share a shade", () => {
+    const cfg = normalizeLineConfig({
+      kind: "party",
+      productId: "party-pack",
+      cakes: 2,
+      colours: { blush: 2, sky: 3, cocoa: 1, brown: 4 }, // cocoa aliases onto brown
+    });
+    if (cfg.kind !== "party") throw new Error("expected party");
+    expect(cfg.colours).toEqual({ pink: 2, "sky-blue": 3, brown: 5 });
+    expect(colourCount(cfg.colours)).toBe(10); // no pot lost in translation
   });
 });
 

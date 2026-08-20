@@ -23,6 +23,12 @@ import {
   PARTY_MAX_SELF_SERVE,
   defaultKitConfig,
   defaultPartyConfig,
+  blankPartyCake,
+  isStepChosen,
+  requiredColours,
+  requiredTools,
+  type ChoiceStep,
+  CHOICE_STEPS,
   includedToolsFor,
   includedToolsForParty,
   includedColoursFor,
@@ -36,7 +42,6 @@ import {
   type LineConfig,
   type KitConfig,
   type PartyConfig,
-  type PartyCakeConfig,
   type Filling,
   type Flavour,
   type ToolKey,
@@ -63,11 +68,6 @@ const cardBtn = (selected: boolean): React.CSSProperties => ({
   border: "1px solid var(--warm-cocoa)",
   backgroundColor: selected ? "var(--warm-peach)" : "transparent",
 });
-
-/** One cake's worth of defaults, mirroring defaultKitConfig in lib/pricing. */
-function defaultPartyCake(flavour: Flavour = "vanilla"): PartyCakeConfig {
-  return { flavour, fillings: ["berries"] };
-}
 
 /** Sequential "Make it yours" flow — one decision per screen, a single
  *  persistent price, and "included vs +29 kr" stated in words. Rendered as a
@@ -105,6 +105,10 @@ export function Configurator({
     return normalizeLineConfig(seed);
   });
   const [step, setStep] = useState(0);
+  // Set when the customer presses Next on a step whose choice is still unmade.
+  // Nothing is pre-selected anywhere (see defaultKitConfig), so this message is
+  // what tells them WHICH choice is missing instead of a silently dead button.
+  const [blockedStep, setBlockedStep] = useState<ChoiceStep | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
 
   // Render through a portal to document.body so no ancestor `transform` (the
@@ -187,13 +191,50 @@ export function Configurator({
   const shownPrice = openingOfferActive() ? openingOfferPriceSek(price) : price;
   const current = steps[step];
 
+  // A step only gates if it owns a required choice ("cakes"/"review" don't).
+  const requiredChoice = (CHOICE_STEPS as readonly string[]).includes(current) ? (current as ChoiceStep) : null;
+  const currentUnchosen = !!requiredChoice && !isStepChosen(config, requiredChoice);
+  // True while the gate's message is on screen. A party step lists up to ten
+  // cakes, so this also flags the individual cakes still missing the choice —
+  // "choose a sponge for every cake" alone doesn't say which one.
+  const gateShowing = !!blockedStep && blockedStep === requiredChoice && currentUnchosen;
+  // Every gated step this flow contains, so review can't be reached (or an edit
+  // saved) with a choice left unmade on a step the customer skipped past.
+  const firstUnchosen = (): { index: number; choice: ChoiceStep } | null => {
+    for (let i = 0; i < steps.length; i++) {
+      const s = steps[i];
+      if (!(CHOICE_STEPS as readonly string[]).includes(s)) continue;
+      if (!isStepChosen(config, s as ChoiceStep)) return { index: i, choice: s as ChoiceStep };
+    }
+    return null;
+  };
+
   const next = () => {
+    // Stay put and say what's missing rather than carrying an unmade choice
+    // forward. The button stays enabled on purpose: a disabled one explains
+    // nothing, and screen readers skip it entirely.
+    if (currentUnchosen && requiredChoice) {
+      setBlockedStep(requiredChoice);
+      return;
+    }
+    setBlockedStep(null);
     if (step < steps.length - 1) setStep((s) => s + 1);
     else add();
   };
-  const prev = () => (step > 0 ? setStep((s) => s - 1) : onClose());
+  const prev = () => {
+    setBlockedStep(null);
+    return step > 0 ? setStep((s) => s - 1) : onClose();
+  };
 
   const add = () => {
+    // Last line of defence: a config can only reach the cart with every
+    // required choice made. Sends the customer back to the first gap.
+    const gap = firstUnchosen();
+    if (gap) {
+      setBlockedStep(gap.choice);
+      setStep(gap.index);
+      return;
+    }
     if (isEdit) {
       updateLine(editLineId, config);
       onClose();
@@ -232,10 +273,10 @@ export function Configurator({
       cakes: c.cakes.map((cake, idx) => {
         if (idx !== i) return cake;
         const has = cake.fillings.includes(f);
-        if (has) {
-          if (cake.fillings.length === 1) return cake; // one is always required
-          return { ...cake, fillings: cake.fillings.filter((x) => x !== f) };
-        }
+        // Deselecting down to none is allowed: nothing was pre-selected, so a
+        // tick is always the customer's own and must be undoable. The step gate
+        // is what stops an empty cake from moving on.
+        if (has) return { ...cake, fillings: cake.fillings.filter((x) => x !== f) };
         if (cake.fillings.length >= 2) return cake; // cap at two
         return { ...cake, fillings: [...cake.fillings, f] };
       }),
@@ -248,8 +289,7 @@ export function Configurator({
     const has = c.fillings.includes(f);
     let fillings: Filling[];
     if (has) {
-      if (c.fillings.length === 1) return; // one is always required
-      fillings = c.fillings.filter((x) => x !== f);
+      fillings = c.fillings.filter((x) => x !== f); // always undoable — see togglePartyCakeFilling
     } else {
       if (c.fillings.length >= 2) return; // cap at two
       fillings = [...c.fillings, f];
@@ -261,7 +301,10 @@ export function Configurator({
     const c = config as KitConfig;
     const has = c.colours.includes(key);
     if (has) {
-      if (c.colours.length <= includedColoursFor(c.productId)) return; // can't drop below the included count
+      // Any shade can be unticked, including the last one. The included
+      // allowance is a ceiling on what's free, never a floor on what must be
+      // picked, and colours start empty — so a floor here made the first shade
+      // chosen impossible to undo.
       setKit({ colours: c.colours.filter((k) => k !== key) });
     } else {
       if (c.colours.length >= MAX_COLOURS) return; // cap at included + 6
@@ -393,6 +436,9 @@ export function Configurator({
         <div key={i}>
           <div className="type-caps ink-muted mb-2">
             {t.cfgCakeWord} {locNum(i + 1, lang)}
+            {gateShowing && !cake.flavour && (
+              <span style={{ color: "var(--dusty-wine)" }}> · {t.cfgNotChosen}</span>
+            )}
           </div>
           <div
             role="radiogroup"
@@ -431,7 +477,12 @@ export function Configurator({
             {/* Names the sponge chosen on the previous step — the filling
                 buttons below are the only interactive control on this card. */}
             <div className="type-caps ink-muted mb-2">
-              {t.cfgCakeWord} {locNum(i + 1, lang)} · {FLAVOUR_LABELS[cake.flavour][lang]}
+              {[`${t.cfgCakeWord} ${locNum(i + 1, lang)}`, cake.flavour && FLAVOUR_LABELS[cake.flavour][lang]]
+                .filter(Boolean)
+                .join(" · ")}
+              {gateShowing && cake.fillings.length === 0 && (
+                <span style={{ color: "var(--dusty-wine)" }}> · {t.cfgNotChosen}</span>
+              )}
             </div>
             <div
               role="group"
@@ -531,9 +582,19 @@ export function Configurator({
             ? `+${locNum(extra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(extra, lang)} ${t.cfgReasonColour}`
             : `${locNum(c.colours.length, lang)} ${t.cfgOfWord} ${locNum(included, lang)} ${t.cfgIncludedWord}`}
         </p>
+        <ColourBatchNote />
       </div>
     );
   };
+
+  /** Said once per colour step, under the swatches: the shade the customer
+   *  picks is hand-mixed, so it moves a little between batches, and the dots
+   *  are samples rather than a match. Stated before they choose, not after. */
+  const ColourBatchNote = () => (
+    <p className="type-body ink-muted mt-4 pt-4" style={{ borderTop: "1px solid rgba(61, 42, 34, 0.12)" }}>
+      {t.cfgColourBatchNote}
+    </p>
+  );
 
   // Party colours are pots per shade (like tools), so guests can share or spread
   // shades freely across the party. Included allowance scales per guest.
@@ -560,6 +621,7 @@ export function Configurator({
             ? `+${locNum(extra * EXTRA_ITEM_SEK, lang)} kr · ${locNum(extra, lang)} ${t.cfgReasonColour}`
             : `${locNum(used, lang)} ${t.cfgOfWord} ${locNum(includedColours, lang)} ${t.cfgIncludedWord}`}
         </p>
+        <ColourBatchNote />
       </div>
     );
   };
@@ -571,7 +633,7 @@ export function Configurator({
       const target = Math.min(PARTY_MAX_SELF_SERVE, Math.max(PARTY_MIN_CAKES, n));
       const cakes =
         target > total
-          ? [...c.cakes, ...Array.from({ length: target - total }, () => defaultPartyCake())]
+          ? [...c.cakes, ...Array.from({ length: target - total }, blankPartyCake)]
           : c.cakes.slice(0, target);
       // Scale tools and colours with the guest count — each guest decorates
       // their own cake, so the per-guest sets grow/shrink with the party size
@@ -667,6 +729,20 @@ export function Configurator({
     review: null,
     cakes: t.cfgCakesIncluded,
   };
+  // What we say when Next is pressed with this step's choice still unmade.
+  // Colours and tools name the number still needed: their floor is the whole
+  // allowance already in the price (a decorating set per guest on a party), so
+  // "at least one" would understate what the customer actually has to pick.
+  const requireMessageFor: Record<ChoiceStep, string> = {
+    flavour: t.cfgRequireFlavour,
+    sponge: t.cfgRequireSponge,
+    filling: isParty ? t.cfgRequireFillingParty : t.cfgRequireFilling,
+    colour: (isParty ? t.cfgRequireColourParty : t.cfgRequireColour)(requiredColours(config)),
+    tools: (isParty ? t.cfgRequireToolParty : t.cfgRequireTool)(requiredTools(config)),
+  };
+  // Shown only while the choice is still missing: making it clears the message
+  // without a second click, so the customer never sees a stale complaint.
+  const requireMessage = gateShowing && blockedStep ? requireMessageFor[blockedStep] : null;
 
   if (!mounted) return null;
 
@@ -744,51 +820,77 @@ export function Configurator({
             {current === "review" && renderReview()}
           </div>
 
-          {/* Footer: single persistent price + Back/Next/Add. Sticky to the
-              bottom of the scroll area above, with its own opaque background so
-              scrolled-under content doesn't show through, and safe-area padding
-              so it clears the home indicator on notched iPhones. */}
+          {/* Footer: the gate's message, then the persistent price and
+              Back/Next/Add, as ONE sticky block pinned to the bottom of the
+              scroll area. The message has to live INSIDE the sticky block
+              rather than above it in the scrolling flow: a step listing ten
+              cakes or twenty-three shades is far taller than the sheet, so a
+              message anchored to the content scrolls out of sight and leaves
+              the customer with a Next button that silently refuses. Pinned
+              here it stays beside the button that triggered it at any scroll
+              position. Opaque background so scrolled-under content doesn't
+              show through, and safe-area padding so it clears the home
+              indicator on notched iPhones. */}
           <div
-            className="sticky bottom-0 flex items-center justify-between gap-4 pt-4"
+            className="sticky bottom-0"
             style={{
-              borderTop: "1px solid rgba(61, 42, 34, 0.12)",
               backgroundColor: "var(--vanilla-cream)",
               paddingBottom: "calc(1rem + env(safe-area-inset-bottom))",
             }}
           >
-            <div className="leading-tight">
-              <div className="type-caps ink-muted">{t.cfgPrice}</div>
-              <div className="type-price" style={{ fontSize: "1.35rem" }}>
-                <PriceTag sek={price} lang={lang} compact />
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={prev}
-                className="type-caps min-h-11 px-4 py-3 transition-colors hover:text-[var(--dusty-terracotta)]"
-              >
-                <span aria-hidden="true">{back}</span> {t.cfgBack}
-              </button>
-              {current === "review" ? (
-                <button
-                  type="button"
-                  onClick={add}
-                  className="type-caps min-h-11 px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
-                  style={{ border: "1px solid var(--warm-cocoa)" }}
+            {/* Announced on appearance (role="alert"), not merely visible. */}
+            <div role="alert" aria-live="assertive">
+              {requireMessage && (
+                <p
+                  className="type-body px-4 py-3 mb-3"
+                  style={{
+                    color: "var(--dusty-wine)",
+                    border: "1px solid var(--dusty-wine)",
+                    backgroundColor: "var(--vanilla-cream)",
+                  }}
                 >
-                  {isEdit ? t.cfgSaveChanges : t.cfgAddWord} · {locNum(shownPrice, lang)} kr
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={next}
-                  className="type-caps min-h-11 px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
-                  style={{ border: "1px solid var(--warm-cocoa)" }}
-                >
-                  {t.cfgNext} <span aria-hidden="true">{arrow}</span>
-                </button>
+                  {requireMessage}
+                </p>
               )}
+            </div>
+            <div
+              className="flex items-center justify-between gap-4 pt-4"
+              style={{ borderTop: "1px solid rgba(61, 42, 34, 0.12)" }}
+            >
+              <div className="leading-tight">
+                <div className="type-caps ink-muted">{t.cfgPrice}</div>
+                <div className="type-price" style={{ fontSize: "1.35rem" }}>
+                  <PriceTag sek={price} lang={lang} compact />
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={prev}
+                  className="type-caps min-h-11 px-4 py-3 transition-colors hover:text-[var(--dusty-terracotta)]"
+                >
+                  <span aria-hidden="true">{back}</span> {t.cfgBack}
+                </button>
+                {current === "review" ? (
+                  <button
+                    type="button"
+                    onClick={add}
+                    className="type-caps min-h-11 px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
+                    style={{ border: "1px solid var(--warm-cocoa)" }}
+                  >
+                    {isEdit ? t.cfgSaveChanges : t.cfgAddWord} · {locNum(shownPrice, lang)} kr
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={next}
+                    className="type-caps min-h-11 px-5 py-3 transition-all hover:bg-[var(--warm-peach)]"
+                    style={{ border: "1px solid var(--warm-cocoa)" }}
+                  >
+                    {t.cfgNext} <span aria-hidden="true">{arrow}</span>
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

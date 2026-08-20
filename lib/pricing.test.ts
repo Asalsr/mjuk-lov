@@ -15,6 +15,10 @@ import {
   defaultPartyColours,
   colourCount,
   toolCount,
+  isStepChosen,
+  requiredColours,
+  requiredTools,
+  CHOICE_STEPS,
   EXTRA_ITEM_SEK,
   PARTY_BASE_SEK,
   PARTY_BASE_CAKES,
@@ -64,19 +68,19 @@ describe("priceLineSek — kits", () => {
   });
 
   it("three chosen colours are included — no fee", () => {
-    const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), colours: ["blush", "sky", "sage"] };
+    const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), colours: ["pink", "sky-blue", "light-green"] };
     expect(priceLineSek(cfg)).toBe(590);
   });
 
   it("a fourth colour adds one fee", () => {
-    const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), colours: ["blush", "sky", "sage", "butter"] };
+    const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), colours: ["pink", "sky-blue", "light-green", "lemon-yellow"] };
     expect(priceLineSek(cfg)).toBe(590 + EXTRA_ITEM_SEK);
   });
 
   it("grande includes five colours — no fee for the fifth", () => {
     const cfg: KitConfig = {
       ...defaultKitConfig("kit-grande"),
-      colours: ["blush", "sky", "sage", "butter", "terracotta"],
+      colours: ["pink", "sky-blue", "light-green", "lemon-yellow", "orange-red"],
     };
     expect(extraColours(cfg)).toBe(0);
     expect(priceLineSek(cfg)).toBe(849);
@@ -85,7 +89,7 @@ describe("priceLineSek — kits", () => {
   it("a sixth colour on grande adds one fee", () => {
     const cfg: KitConfig = {
       ...defaultKitConfig("kit-grande"),
-      colours: ["blush", "sky", "sage", "butter", "terracotta", "lilac"],
+      colours: ["pink", "sky-blue", "light-green", "lemon-yellow", "orange-red", "taro-purple"],
     };
     expect(extraColours(cfg)).toBe(1);
     expect(priceLineSek(cfg)).toBe(849 + EXTRA_ITEM_SEK);
@@ -178,7 +182,7 @@ describe("party colours scale with the number of cakes", () => {
     const base: PartyConfig = { ...defaultPartyConfig(), cakes: makeCakes(10, 5), colours: defaultPartyColours(10) };
     expect(colourCount(base.colours)).toBe(30);
     expect(extraColours(base)).toBe(0);
-    const oneMore: PartyConfig = { ...base, colours: { ...base.colours, terracotta: 1 } };
+    const oneMore: PartyConfig = { ...base, colours: { ...base.colours, "orange-red": 1 } };
     expect(extraColours(oneMore)).toBe(1);
     expect(priceLineSek(oneMore)).toBe(PARTY_BASE_SEK + (10 - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK + EXTRA_ITEM_SEK);
   });
@@ -223,6 +227,123 @@ describe("party fillings are per cake, not pooled by sponge", () => {
   });
 });
 
+describe("nothing is pre-selected", () => {
+  it("a fresh kit config has no flavour, no filling, no colours and no tools", () => {
+    const cfg = defaultKitConfig("kit-medio");
+    expect(cfg.flavour).toBeNull();
+    expect(cfg.fillings).toEqual([]);
+    expect(cfg.colours).toEqual([]);
+    expect(toolCount(cfg.tools)).toBe(0);
+  });
+
+  it("a fresh party config has no sponge and no filling on any cake", () => {
+    const cfg = defaultPartyConfig();
+    expect(cfg.cakes).toHaveLength(PARTY_MIN_CAKES);
+    expect(cfg.cakes.every((c) => c.flavour === null)).toBe(true);
+    expect(cfg.cakes.every((c) => c.fillings.length === 0)).toBe(true);
+    expect(colourCount(cfg.colours)).toBe(0);
+    expect(toolCount(cfg.tools)).toBe(0);
+  });
+
+  it("a blank config still prices as the plain base (nothing unchosen is billed)", () => {
+    expect(priceLineSek(defaultKitConfig("kit-medio"))).toBe(590);
+    expect(priceLineSek(defaultPartyConfig())).toBe(PARTY_BASE_SEK + (PARTY_MIN_CAKES - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK);
+  });
+});
+
+describe("isStepChosen — the gate that replaces pre-selection", () => {
+  it("every required step of a blank kit is unchosen", () => {
+    const cfg = defaultKitConfig("kit-medio");
+    for (const step of CHOICE_STEPS) expect(isStepChosen(cfg, step)).toBe(false);
+  });
+
+  it("sponge and filling flip to chosen on the first pick", () => {
+    const cfg = defaultKitConfig("kit-medio");
+    expect(isStepChosen({ ...cfg, flavour: "chocolate" }, "flavour")).toBe(true);
+    expect(isStepChosen({ ...cfg, fillings: ["caramel"] }, "filling")).toBe(true);
+  });
+
+  // The floor for colours and tools is the allowance already in the price, not
+  // one of each: picking fewer means paying for a set the customer never gets
+  // and, on a party, leaving a guest with nothing to decorate with.
+  it("colours and tools need the WHOLE included allowance, not just one", () => {
+    const cfg = defaultKitConfig("kit-medio"); // 3 colours, 2 tools included
+    expect(requiredColours(cfg)).toBe(3);
+    expect(requiredTools(cfg)).toBe(2);
+    expect(isStepChosen({ ...cfg, colours: ["light-green"] }, "colour")).toBe(false);
+    expect(isStepChosen({ ...cfg, colours: ["light-green", "pink"] }, "colour")).toBe(false);
+    expect(isStepChosen({ ...cfg, colours: ["light-green", "pink", "red"] }, "colour")).toBe(true);
+    expect(isStepChosen({ ...cfg, tools: { piping: 1, brush: 0, knife: 0 } }, "tools")).toBe(false);
+    expect(isStepChosen({ ...cfg, tools: { piping: 1, brush: 1, knife: 0 } }, "tools")).toBe(true);
+  });
+
+  it("grande's larger allowance raises its floor too", () => {
+    const cfg = defaultKitConfig("kit-grande"); // 5 colours, 4 tools included
+    expect(requiredColours(cfg)).toBe(5);
+    expect(requiredTools(cfg)).toBe(4);
+    expect(isStepChosen({ ...cfg, colours: ["pink", "red", "green", "black"] }, "colour")).toBe(false);
+    expect(isStepChosen({ ...cfg, tools: { piping: 2, brush: 1, knife: 0 } }, "tools")).toBe(false);
+    expect(isStepChosen({ ...cfg, tools: { piping: 2, brush: 1, knife: 1 } }, "tools")).toBe(true);
+  });
+
+  it("a party's floor scales with the guest count", () => {
+    const four: PartyConfig = { ...defaultPartyConfig(), cakes: makeCakes(4) };
+    expect(requiredColours(four)).toBe(12); // 3 pots per guest
+    expect(requiredTools(four)).toBe(8); // 2 tools per guest
+    // The exact case reported: 8 of 12 pots and 4 of 8 tools were waved through.
+    expect(isStepChosen({ ...four, colours: { pink: 5, red: 3 } }, "colour")).toBe(false);
+    expect(isStepChosen({ ...four, colours: { pink: 5, red: 7 } }, "colour")).toBe(true);
+    expect(isStepChosen({ ...four, tools: { piping: 4, brush: 0, knife: 0 } }, "tools")).toBe(false);
+    expect(isStepChosen({ ...four, tools: { piping: 4, brush: 4, knife: 0 } }, "tools")).toBe(true);
+  });
+
+  it("the fully-allotted party helpers sit exactly on the floor", () => {
+    for (const n of [2, 5, 10]) {
+      const cfg: PartyConfig = {
+        ...defaultPartyConfig(),
+        cakes: makeCakes(n),
+        tools: defaultPartyTools(n),
+        colours: defaultPartyColours(n),
+      };
+      expect(isStepChosen(cfg, "colour")).toBe(true);
+      expect(isStepChosen(cfg, "tools")).toBe(true);
+      expect(extraColours(cfg)).toBe(0); // sitting on the floor costs nothing extra
+      expect(extraTools(cfg)).toBe(0);
+    }
+  });
+
+  it("a party needs the sponge and a filling on EVERY cake, not just the first", () => {
+    const half: PartyConfig = {
+      ...defaultPartyConfig(),
+      cakes: [
+        { flavour: "vanilla", fillings: ["berries"] },
+        { flavour: null, fillings: [] },
+      ],
+    };
+    expect(isStepChosen(half, "sponge")).toBe(false);
+    expect(isStepChosen(half, "filling")).toBe(false);
+
+    const whole: PartyConfig = { ...half, cakes: makeCakes(2) };
+    expect(isStepChosen(whole, "sponge")).toBe(true);
+    expect(isStepChosen(whole, "filling")).toBe(true);
+  });
+
+  it("party colours and tools count across the whole party", () => {
+    const cfg = defaultPartyConfig(); // 2 cakes: 6 pots, 4 tools required
+    expect(isStepChosen(cfg, "colour")).toBe(false);
+    expect(isStepChosen({ ...cfg, colours: { pink: 1 } }, "colour")).toBe(false);
+    expect(isStepChosen({ ...cfg, colours: { pink: 4, red: 2 } }, "colour")).toBe(true);
+    expect(isStepChosen({ ...cfg, tools: { piping: 1, brush: 0, knife: 0 } }, "tools")).toBe(false);
+    expect(isStepChosen({ ...cfg, tools: { piping: 2, brush: 2, knife: 0 } }, "tools")).toBe(true);
+  });
+
+  it("garbage never reports a choice as made", () => {
+    for (const g of [null, undefined, 42, {}, { kind: "kit" }, { kind: "party", cakes: 3 }]) {
+      for (const step of CHOICE_STEPS) expect(isStepChosen(g as never, step)).toBe(false);
+    }
+  });
+});
+
 describe("leadDaysFor", () => {
   it("kits need 3 days, parties 7", () => {
     expect(leadDaysFor(defaultKitConfig("kit-medio"))).toBe(3);
@@ -244,10 +365,18 @@ describe("configKey", () => {
 
 describe("describeLine", () => {
   it("names the kit, flavour and fillings", () => {
-    const s = describeLine(defaultKitConfig("kit-medio"), "en");
+    const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), flavour: "vanilla", fillings: ["berries"] };
+    const s = describeLine(cfg, "en");
     expect(s).toContain("Medio");
     expect(s).toContain("Vanilla");
     expect(s).toContain("Berries");
+  });
+
+  it("a blank config names no flavour and no filling — it does not guess one", () => {
+    const s = describeLine(defaultKitConfig("kit-medio"), "en");
+    expect(s).toContain("Medio");
+    expect(s).not.toContain("Vanilla");
+    expect(s).not.toContain("Berries");
   });
 
   it("party line shows the flavour split", () => {

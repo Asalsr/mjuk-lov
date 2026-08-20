@@ -39,32 +39,75 @@ export const TOOLS = ["piping", "brush", "knife"] as const;
 export type ToolKey = (typeof TOOLS)[number];
 export type Tools = Record<ToolKey, number>;
 
-// Curated gel colours we stock. The swatch hex is decorative only — the name is
-// always shown alongside (accessibility), so the fill never carries meaning.
+// The gel colours actually in stock, in the supplier's own family order
+// (yellows, reds, pinks, purples, blues, greens, neutrals) so the grid reads
+// top to bottom. "natural" is the odd one out and deliberately last: it is
+// undyed buttercream, i.e. the choice to add no colour at all.
+//
+// The swatch hex is decorative ONLY. It is a rough sample of the mixed shade,
+// never a colour-match, and the name is always shown alongside it
+// (accessibility: the fill never carries meaning on its own). See
+// colourBatchNote in lib/i18n.ts for what the customer is told about this.
 export const COLOURS = [
-  { key: "blush", hex: "#F4C2C2", label: { sv: "Rosa", en: "Blush pink", fa: "صورتی" } },
-  { key: "sky", hex: "#AFCBE3", label: { sv: "Himmelsblå", en: "Sky blue", fa: "آبی آسمانی" } },
-  { key: "sage", hex: "#B7C4A6", label: { sv: "Salviagrön", en: "Sage green", fa: "سبز مریم‌گلی" } },
-  { key: "butter", hex: "#F3DFA2", label: { sv: "Smörgul", en: "Butter yellow", fa: "زرد کره‌ای" } },
-  { key: "terracotta", hex: "#A85D4E", label: { sv: "Terrakotta", en: "Terracotta", fa: "تراکوتا" } },
-  { key: "lilac", hex: "#C9B6D6", label: { sv: "Lila", en: "Lilac", fa: "یاسی" } },
-  { key: "cocoa", hex: "#6B4A39", label: { sv: "Kakao", en: "Cocoa", fa: "کاکائو" } },
+  { key: "lemon-yellow", hex: "#F5DE3B", label: { sv: "Citrongul", en: "Lemon yellow", fa: "زرد لیمویی" } },
+  { key: "orange", hex: "#F28E1C", label: { sv: "Orange", en: "Orange", fa: "نارنجی" } },
+  { key: "dark-yellow", hex: "#E8B00C", label: { sv: "Mörkgul", en: "Dark yellow", fa: "زرد پررنگ" } },
+  { key: "orange-red", hex: "#E9541F", label: { sv: "Orangeröd", en: "Orange red", fa: "نارنجی قرمز" } },
+  { key: "red", hex: "#D4232B", label: { sv: "Röd", en: "Red", fa: "قرمز" } },
+  { key: "dark-red", hex: "#8C1A23", label: { sv: "Mörkröd", en: "Dark red", fa: "قرمز تیره" } },
+  { key: "cherry-red", hex: "#AE1E3C", label: { sv: "Körsbärsröd", en: "Cherry red", fa: "قرمز گیلاسی" } },
+  { key: "pink", hex: "#EE6AA9", label: { sv: "Rosa", en: "Pink", fa: "صورتی" } },
+  { key: "rose", hex: "#DE3781", label: { sv: "Rosé", en: "Rose", fa: "رز" } },
+  { key: "fuchsia", hex: "#C0286D", label: { sv: "Fuchsia", en: "Fuchsia", fa: "سرخابی" } },
+  { key: "taro-purple", hex: "#8B5AA4", label: { sv: "Tarolila", en: "Taro purple", fa: "بنفش تارو" } },
+  { key: "grape-purple", hex: "#5A2C8C", label: { sv: "Druvlila", en: "Grape purple", fa: "بنفش انگوری" } },
+  { key: "sky-blue", hex: "#3CA6DE", label: { sv: "Himmelsblå", en: "Sky blue", fa: "آبی آسمانی" } },
+  { key: "blue-green", hex: "#1A8C88", label: { sv: "Blågrön", en: "Blue green", fa: "آبی سبز" } },
+  { key: "light-green", hex: "#5CC43A", label: { sv: "Ljusgrön", en: "Light green", fa: "سبز روشن" } },
+  { key: "grass-green", hex: "#7CB92E", label: { sv: "Gräsgrön", en: "Grass green", fa: "سبز چمنی" } },
+  { key: "navy-blue", hex: "#1E2C6B", label: { sv: "Marinblå", en: "Navy blue", fa: "آبی سرمه‌ای" } },
+  { key: "green", hex: "#1D9949", label: { sv: "Grön", en: "Green", fa: "سبز" } },
+  { key: "dark-green", hex: "#0F4E2B", label: { sv: "Mörkgrön", en: "Dark green", fa: "سبز تیره" } },
+  { key: "black", hex: "#1A1A1A", label: { sv: "Svart", en: "Black", fa: "مشکی" } },
+  { key: "brown", hex: "#6B4A39", label: { sv: "Brun", en: "Brown", fa: "قهوه‌ای" } },
+  { key: "coffee", hex: "#482D21", label: { sv: "Kaffebrun", en: "Coffee", fa: "قهوه‌ای تیره" } },
   { key: "natural", hex: "#F3ECE0", label: { sv: "Naturvit", en: "Natural", fa: "طبیعی" } },
 ] as const;
 export type ColourKey = (typeof COLOURS)[number]["key"];
+
+/** Shades from the earlier curated palette, mapped to their nearest stocked
+ *  gel. A saved cart (localStorage or the `carts` JSONB column) outlives the
+ *  palette that wrote it, so without this a customer's chosen colours would be
+ *  silently dropped on their next visit and the line would re-price. Two old
+ *  keys can land on one stocked shade, so counts are summed, never overwritten
+ *  (see asColourCounts). */
+const LEGACY_COLOUR_ALIASES: Record<string, ColourKey> = {
+  blush: "pink",
+  sky: "sky-blue",
+  sage: "light-green",
+  butter: "lemon-yellow",
+  terracotta: "orange-red",
+  lilac: "taro-purple",
+  cocoa: "brown",
+};
 /** Party colours are counted per shade (pots), like tools — a party of N guests
  *  gets INCLUDED_COLOURS pots per cake. Kits, by contrast, pick a distinct set. */
 export type ColourCounts = Partial<Record<ColourKey, number>>;
 
 // --- Config shapes --------------------------------------------------------
+// NOTHING is pre-selected anywhere in a configuration. `null` / an empty list
+// means "the customer has not chosen yet", and the configurator refuses to
+// advance past the step that owns that choice (see isStepChosen below). A
+// pre-ticked option reads as a decision already made, which is how people end
+// up ordering a sponge or filling they never picked.
 export type KitConfig = {
   kind: "kit";
   // DIY kits (kit-piccolo | kit-medio | kit-grande) or ready-made cakes
   // (cake-piccolo | cake-medio | cake-grande). Both use this shape; a ready-made
   // cake simply carries no tools and no colours (see defaultKitConfig).
   productId: string;
-  flavour: Flavour;
-  fillings: Filling[]; // 1–2
+  flavour: Flavour | null; // null = not chosen yet
+  fillings: Filling[]; // 0–2; empty = not chosen yet
   tools: Tools; // counts per tool
   colours: ColourKey[]; // chosen shades; INCLUDED_COLOURS free, extras +EXTRA_ITEM_SEK each
 };
@@ -75,8 +118,8 @@ export type KitConfig = {
 // from "one vanilla cake with both fillings" in the UI; tracking each cake
 // individually removes that ambiguity entirely.
 export type PartyCakeConfig = {
-  flavour: Flavour;
-  fillings: Filling[]; // 1–2
+  flavour: Flavour | null; // null = not chosen yet
+  fillings: Filling[]; // 0–2; empty = not chosen yet
 };
 
 export type PartyConfig = {
@@ -130,8 +173,9 @@ export function includedToolsForParty(cakes: number): number {
   return INCLUDED_TOOLS_DEFAULT * Math.max(0, cakes);
 }
 
-/** Default party tools: a starter set per guest — one piping bag and one brush
- *  each (= INCLUDED_TOOLS_DEFAULT per cake), so the default never costs extra. */
+/** A fully-allotted party tool set: one piping bag and one brush per guest
+ *  (= INCLUDED_TOOLS_DEFAULT per cake), so it never costs extra. NOT a default
+ *  the configurator applies — see defaultPartyColours. */
 export function defaultPartyTools(cakes: number): Tools {
   const n = Math.max(0, cakes);
   return { piping: n, brush: n, knife: 0 };
@@ -150,52 +194,47 @@ export function colourCount(colours: ColourCounts | undefined): number {
   return COLOURS.reduce((n, c) => n + (colours[c.key] || 0), 0);
 }
 
-/** Default party colours: a starter trio per guest — one pot each of the first
- *  three curated shades (= INCLUDED_COLOURS per cake), so it never costs extra. */
+/** A fully-allotted party palette: one pot each of the first three stocked
+ *  shades per guest (= INCLUDED_COLOURS per cake), so it never costs extra.
+ *  NOT a default the configurator applies — nothing is pre-selected there.
+ *  Kept for tests and any caller that wants a "spend the whole allowance"
+ *  starting point. */
 export function defaultPartyColours(cakes: number): ColourCounts {
   const n = Math.max(0, cakes);
   return { [COLOURS[0].key]: n, [COLOURS[1].key]: n, [COLOURS[2].key]: n };
 }
 
-function evenSplit(count: number): { vanilla: number } {
-  return { vanilla: Math.ceil(count / 2) };
-}
-
-/** Nothing pre-chosen beyond what's required to price the base cake (one
- *  flavour, one filling — see house rule: a cake needs both to exist).
- *  Tools and colours start empty for every kit, ready-made or DIY: picking
- *  them is the point of the flow, not a default we've made on the
- *  customer's behalf. */
+/** A blank configuration: NOTHING pre-selected. Not the sponge flavour, not the
+ *  filling, not the colours, not the tools — every one of those is a decision
+ *  the customer makes in the configurator, and a pre-ticked option is
+ *  indistinguishable from one they chose. The flow gates each step on
+ *  isStepChosen instead, so an unmade choice stops the customer with a message
+ *  rather than shipping our guess. */
 export function defaultKitConfig(productId: string): KitConfig {
   return {
     kind: "kit",
     productId,
-    flavour: "vanilla",
-    fillings: ["berries"],
+    flavour: null,
+    fillings: [],
     tools: { piping: 0, brush: 0, knife: 0 },
     colours: [],
   };
 }
 
-/** One cake's worth of defaults: vanilla, one filling — mirrors defaultKitConfig
- *  so a Party Pack's per-cake starting point matches a standalone kit's. */
-function defaultPartyCake(flavour: Flavour = "vanilla"): PartyCakeConfig {
-  return { flavour, fillings: ["berries"] };
+/** One blank cake — mirrors defaultKitConfig, so a Party Pack's per-cake
+ *  starting point matches a standalone kit's: nothing chosen. */
+export function blankPartyCake(): PartyCakeConfig {
+  return { flavour: null, fillings: [] };
 }
 
 export function defaultPartyConfig(productId = "party-pack"): PartyConfig {
   const n = PARTY_MIN_CAKES; // configurator always opens at the minimum order
-  const vanillaCount = evenSplit(n).vanilla;
-  const cakes: PartyCakeConfig[] = Array.from({ length: n }, (_, i) =>
-    defaultPartyCake(i < vanillaCount ? "vanilla" : "chocolate"),
-  );
   return {
     kind: "party",
     productId,
-    cakes,
-    // Nothing pre-chosen for tools/colours — picking them is the point of the
-    // flow. defaultPartyTools/defaultPartyColours still exist for tests and
-    // any caller that wants a "fully allotted" starting point.
+    cakes: Array.from({ length: n }, blankPartyCake),
+    // defaultPartyTools/defaultPartyColours still exist for tests and any
+    // caller that wants a "fully allotted" starting point.
     tools: { piping: 0, brush: 0, knife: 0 },
     colours: {},
   };
@@ -222,15 +261,17 @@ function isConfigObject(cfg: unknown): cfg is LineConfig {
   return !!cfg && typeof cfg === "object";
 }
 
-function asFlavour(v: unknown): Flavour {
-  return typeof v === "string" && FLAVOUR_SET.has(v) ? (v as Flavour) : "vanilla";
+/** A known flavour, or null for "not chosen". Anything unrecognised becomes
+ *  null rather than a default — normalization must never invent a choice the
+ *  customer didn't make (that is exactly the pre-selection this flow removed). */
+function asFlavour(v: unknown): Flavour | null {
+  return typeof v === "string" && FLAVOUR_SET.has(v) ? (v as Flavour) : null;
 }
-/** A valid 1–2 filling list; drops unknown/duplicate codes and guarantees the
- *  one always-included filling so a cake is never filling-less. */
+/** A valid 0–2 filling list; drops unknown/duplicate codes. An empty result is
+ *  legitimate — it means "not chosen yet", not "broken". */
 function asFillings(v: unknown): Filling[] {
   const arr = Array.isArray(v) ? v.filter((f): f is Filling => typeof f === "string" && FILLING_SET.has(f)) : [];
-  const unique = Array.from(new Set(arr)).slice(0, 2);
-  return unique.length ? unique : ["berries"];
+  return Array.from(new Set(arr)).slice(0, 2);
 }
 function asToolCount(n: unknown): number {
   return typeof n === "number" && Number.isFinite(n) && n > 0 ? Math.floor(n) : 0;
@@ -239,17 +280,27 @@ function asTools(v: unknown): Tools {
   const t = (v ?? {}) as Partial<Record<ToolKey, unknown>>;
   return { piping: asToolCount(t.piping), brush: asToolCount(t.brush), knife: asToolCount(t.knife) };
 }
+/** A stocked shade for this key, following a legacy alias if that's what the
+ *  saved line carries. Unknown keys yield null and are dropped. */
+function asColourKey(v: unknown): ColourKey | null {
+  if (typeof v !== "string") return null;
+  if (COLOUR_SET.has(v)) return v as ColourKey;
+  return LEGACY_COLOUR_ALIASES[v] ?? null;
+}
 function asColourCounts(v: unknown): ColourCounts {
   const src = (v ?? {}) as Record<string, unknown>;
   const out: ColourCounts = {};
-  for (const c of COLOURS) {
-    const n = asToolCount(src[c.key]);
-    if (n > 0) out[c.key] = n;
+  // Summed, not assigned: two legacy keys can alias onto one stocked shade, and
+  // dropping either would quietly reduce the pot count the customer paid for.
+  for (const raw of Object.keys(src)) {
+    const key = asColourKey(raw);
+    const n = asToolCount(src[raw]);
+    if (key && n > 0) out[key] = (out[key] || 0) + n;
   }
   return out;
 }
 function asColourKeys(v: unknown): ColourKey[] {
-  const arr = Array.isArray(v) ? v.filter((k): k is ColourKey => typeof k === "string" && COLOUR_SET.has(k)) : [];
+  const arr = Array.isArray(v) ? v.map(asColourKey).filter((k): k is ColourKey => k !== null) : [];
   return Array.from(new Set(arr));
 }
 
@@ -302,7 +353,12 @@ function normalizeParty(cfg: Record<string, unknown>): PartyConfig {
     return ((pooled as Record<string, unknown>)[flavour] ?? {}) as Partial<Record<Filling, number>>;
   };
   // Distribute a sponge bucket's portions across its n cakes, up to 2 each, in
-  // FILLINGS order — a plausible split, not the literal original.
+  // FILLINGS order — a plausible split, not the literal original. This path is
+  // reconstruction of an ALREADY-COMMITTED legacy line (the pooled shape the
+  // configurator stopped writing long ago), so the "berries" backfill below
+  // stays: it keeps an old saved cart rendering as it always did. Nothing the
+  // configurator produces today reaches here, so it can't re-introduce a
+  // pre-selected filling in the live flow.
   const distribute = (bucket: Partial<Record<Filling, number>>, n: number): Filling[][] => {
     const remaining: Partial<Record<Filling, number>> = {};
     for (const f of FILLINGS) remaining[f] = asToolCount(bucket[f]);
@@ -354,6 +410,68 @@ export function extraColours(cfg: LineConfig): number {
   return Math.max(0, colourCount(cfg.colours) - includedColoursForParty(cakeCount));
 }
 
+// --- Required choices -----------------------------------------------------
+/** The configurator steps that own a choice the customer MUST make. "cakes"
+ *  (a count that always starts at the minimum) and "review" are not here —
+ *  they carry no unmade decision. "flavour" and "sponge" ask the same
+ *  question, on a kit and on a party respectively. */
+export const CHOICE_STEPS = ["flavour", "sponge", "filling", "colour", "tools"] as const;
+export type ChoiceStep = (typeof CHOICE_STEPS)[number];
+
+/** How many colour pots this configuration must actually carry, and how many
+ *  tools. This is the allowance ALREADY IN THE PRICE, so it is a floor, not a
+ *  suggestion: a Party Pack allots a decorating set per guest, and ordering
+ *  four tools for a party of four leaves half the guests with nothing while
+ *  the customer still pays for the full eight. Extras above this are the paid
+ *  ones (see extraColours/extraTools). */
+export function requiredColours(cfg: LineConfig): number {
+  if (!isConfigObject(cfg)) return 0;
+  if (cfg.kind === "kit") return includedColoursFor(cfg.productId);
+  return includedColoursForParty(Array.isArray(cfg.cakes) ? cfg.cakes.length : 0);
+}
+export function requiredTools(cfg: LineConfig): number {
+  if (!isConfigObject(cfg)) return 0;
+  if (cfg.kind === "kit") return includedToolsFor(cfg.productId);
+  return includedToolsForParty(Array.isArray(cfg.cakes) ? cfg.cakes.length : 0);
+}
+
+/** What the customer has picked for a countable step, for comparison against
+ *  the floor above. Kits pick distinct shades; parties count pots per shade. */
+export function chosenColours(cfg: LineConfig): number {
+  if (!isConfigObject(cfg)) return 0;
+  if (cfg.kind === "kit") return Array.isArray(cfg.colours) ? cfg.colours.length : 0;
+  return colourCount(cfg.colours);
+}
+
+/** Has the customer actually made the choice this step owns? Nothing is
+ *  pre-selected (see defaultKitConfig), so this is what stands between an
+ *  unmade decision and a cart line: the configurator refuses to advance and
+ *  shows the step's message instead of quietly carrying a default forward.
+ *  Party sponge/filling need the choice on EVERY cake, not just one, and
+ *  colours/tools need the whole included allowance, not merely one of each. */
+export function isStepChosen(cfg: LineConfig, step: ChoiceStep): boolean {
+  if (!isConfigObject(cfg)) return false;
+  const cakes = cfg.kind === "party" && Array.isArray(cfg.cakes) ? cfg.cakes : [];
+  const everyCake = (ok: (c: PartyCakeConfig) => boolean) => cakes.length > 0 && cakes.every((c) => ok(c ?? blankPartyCake()));
+  const listLen = (v: unknown) => (Array.isArray(v) ? v.length : 0);
+
+  switch (step) {
+    case "flavour":
+    case "sponge":
+      return cfg.kind === "kit" ? !!cfg.flavour : everyCake((c) => !!c.flavour);
+    case "filling":
+      return cfg.kind === "kit" ? listLen(cfg.fillings) > 0 : everyCake((c) => listLen(c.fillings) > 0);
+    // Math.max(1, ...) so a malformed config can never satisfy the gate by
+    // having a floor of zero: a party whose `cakes` didn't survive
+    // deserialization allots nothing per guest, and 0 >= 0 would wave it
+    // through with no colours and no tools at all.
+    case "colour":
+      return chosenColours(cfg) >= Math.max(1, requiredColours(cfg));
+    case "tools":
+      return toolCount(cfg.tools) >= Math.max(1, requiredTools(cfg));
+  }
+}
+
 // --- Price ----------------------------------------------------------------
 /** Price of a single unit of this configuration (kronor). Cart quantity is
  *  applied separately. */
@@ -390,7 +508,9 @@ export function describeLine(cfg: LineConfig, lang: Lang): string {
   if (cfg.kind === "party") {
     const cakes = Array.isArray(cfg.cakes) ? cfg.cakes : [];
     const vanillaCount = cakes.filter((c) => c?.flavour === "vanilla").length;
-    const chocCount = cakes.length - vanillaCount;
+    // Counted, not derived by subtraction: a cake whose sponge is still
+    // unchosen is neither, and must not be tallied as chocolate.
+    const chocCount = cakes.filter((c) => c?.flavour === "chocolate").length;
     const split =
       lang === "sv"
         ? `${vanillaCount} vanilj / ${chocCount} choklad`
@@ -403,15 +523,17 @@ export function describeLine(cfg: LineConfig, lang: Lang): string {
     const groups = new Map<string, number>();
     for (const c of cakes) {
       const fills = Array.isArray(c?.fillings) ? c.fillings : [];
-      const key = `${c?.flavour ?? "vanilla"}|${fills.map((f) => FILLING_LABELS[f]?.[lang] ?? f).join(", ")}`;
+      const key = `${c?.flavour ?? ""}|${fills.map((f) => FILLING_LABELS[f]?.[lang] ?? f).join(", ")}`;
       groups.set(key, (groups.get(key) || 0) + 1);
     }
     const fillingBits = Array.from(groups.entries())
       .map(([key, n]) => {
         const [flavourKey, fillingLabel] = key.split("|");
         const flavourLabel = FLAVOUR_LABELS[flavourKey as Flavour]?.[lang] ?? flavourKey;
-        return n > 1 ? `${n}× ${flavourLabel}: ${fillingLabel}` : `${flavourLabel}: ${fillingLabel}`;
+        const bits = [flavourLabel, fillingLabel].filter(Boolean).join(": ");
+        return n > 1 ? `${n}× ${bits}` : bits;
       })
+      .filter(Boolean)
       .join(sep);
     const cc = cfg.colours ?? {};
     const colourBits = COLOURS.filter((c) => (cc[c.key] || 0) > 0).map((c) => {
@@ -431,9 +553,9 @@ export function describeLine(cfg: LineConfig, lang: Lang): string {
   const colours = COLOURS.filter((c) => chosenColours.includes(c.key))
     .map((c) => c.label[lang])
     .join(", ");
-  return [name, FLAVOUR_LABELS[cfg.flavour]?.[lang] ?? cfg.flavour, fillings, toolBits.join(", "), colours]
-    .filter(Boolean)
-    .join(sep);
+  // An unchosen flavour contributes nothing rather than a stand-in name.
+  const flavour = cfg.flavour ? (FLAVOUR_LABELS[cfg.flavour]?.[lang] ?? cfg.flavour) : "";
+  return [name, flavour, fillings, toolBits.join(", "), colours].filter(Boolean).join(sep);
 }
 
 /** Stable key for a configuration — two identical configs collapse to one cart
@@ -445,7 +567,9 @@ export function configKey(cfg: LineConfig): string {
     return [
       "party",
       cfg.productId,
-      cakes.map((c) => `${c?.flavour ?? ""}:${(Array.isArray(c?.fillings) ? c.fillings : []).slice().sort().join("+")}`).join(","),
+      cakes
+        .map((c) => `${c?.flavour ?? ""}:${(Array.isArray(c?.fillings) ? c.fillings : []).slice().sort().join("+")}`)
+        .join(","),
       TOOLS.map((k) => `${k}:${cfg.tools?.[k] || 0}`).join(","),
       COLOURS.map((c) => `${c.key}:${cfg.colours?.[c.key] || 0}`).join(","),
     ].join("|");
@@ -453,7 +577,7 @@ export function configKey(cfg: LineConfig): string {
   return [
     "kit",
     cfg.productId,
-    cfg.flavour,
+    cfg.flavour ?? "",
     (Array.isArray(cfg.fillings) ? cfg.fillings : []).slice().sort().join("+"),
     TOOLS.map((k) => `${k}:${cfg.tools?.[k] || 0}`).join(","),
     `c:${(Array.isArray(cfg.colours) ? cfg.colours : []).slice().sort().join("+")}`,
