@@ -5,12 +5,16 @@ name: Supabase keep-alive
 # calling the public.keepalive() RPC, so the project is never paused for
 # inactivity. See supabase/migrations/20260809120000_keepalive.sql.
 #
-# Setup (one time): add two repository secrets under
-# Settings → Secrets and variables → Actions:
-#   SUPABASE_URL       e.g. https://ahmnjnpjhxlbevfhwwpw.supabase.co
-#   SUPABASE_ANON_KEY  the anon / publishable key (Settings → API)
-# Both are public-safe values (the anon key is the same NEXT_PUBLIC key the
-# browser uses), but keeping them in secrets avoids committing them.
+# No setup required: the project URL and anon key are committed below as
+# defaults. Both are public-safe by design — they are the same NEXT_PUBLIC
+# values the browser already downloads on mjuklov.se, and row-level security
+# (not their secrecy) is what protects the data. The anon role can only call
+# keepalive(), which returns now() and touches no user data.
+#
+# To override — after rotating the key, or to point at another project — add
+# repository secrets named SUPABASE_URL / SUPABASE_ANON_KEY under
+# Settings → Secrets and variables → Actions. A secret always wins over the
+# default below. A publishable key (sb_publishable_...) works there too.
 #
 # Note: GitHub disables scheduled workflows in a repo with no commits for 60
 # days. Any normal push re-enables it; you can also run it manually below.
@@ -26,11 +30,11 @@ jobs:
     steps:
       - name: Ping Supabase keepalive RPC
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ahmnjnpjhxlbevfhwwpw.supabase.co' }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFobW5qbnBqaHhsYmV2Zmh3d3B3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0ODYyMTgsImV4cCI6MjA5NjA2MjIxOH0.edgLc5I1lOjxfJcWEF-gI2mY-WyDAfsVJXk1cvIvCM4' }}
         run: |
           if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
-            echo "::error::SUPABASE_URL and SUPABASE_ANON_KEY secrets must be set."
+            echo "::error::SUPABASE_URL / SUPABASE_ANON_KEY resolved to empty. Either unset the empty repository secret of that name, or give it a real value."
             exit 1
           fi
           code=$(curl -sS -o /tmp/body.txt -w "%{http_code}" \
@@ -43,6 +47,10 @@ jobs:
           cat /tmp/body.txt
           # 2xx means the database served the request (activity registered).
           if [ "$code" -lt 200 ] || [ "$code" -ge 300 ]; then
+            case "$code" in
+              401|403) echo "::notice::401/403 usually means the anon key is stale — rotate it and set the SUPABASE_ANON_KEY secret." ;;
+              404) echo "::notice::404 usually means the keepalive() function is missing — apply supabase/migrations/20260809120000_keepalive.sql." ;;
+            esac
             echo "::error::Keep-alive ping failed (HTTP $code)."
             exit 1
           fi
