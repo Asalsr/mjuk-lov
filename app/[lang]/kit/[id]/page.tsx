@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getKitGuide, getKitGuides } from "@/lib/kits";
 import { annotateTemps } from "@/lib/units/temps";
 import { ui, isLang, LANGS, type Lang } from "@/lib/i18n";
+import { pageAlternates } from "@/lib/seo";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { YouTubeEmbed } from "@/app/components/recipe/YouTubeEmbed";
 import { ProductImage } from "@/app/components/ProductImage";
@@ -27,10 +28,7 @@ export async function generateMetadata({
   return {
     title: `${guide.title[lang]}, Mjuk Lov`,
     description: guide.intro[lang],
-    alternates: {
-      canonical: `/${lang}/kit/${id}`,
-      languages: { sv: `/sv/kit/${id}`, en: `/en/kit/${id}` },
-    },
+    alternates: pageAlternates(lang, `/kit/${id}`),
   };
 }
 

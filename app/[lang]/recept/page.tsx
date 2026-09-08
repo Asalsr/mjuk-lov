@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPublishedRecipes } from "@/lib/recipes";
 import { ui, isLang, LANGS, type Lang } from "@/lib/i18n";
+import { pageAlternates } from "@/lib/seo";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { RecipeList } from "@/app/components/recipe/RecipeList";
 import { DietFilter } from "@/app/components/personal/DietFilter";
@@ -20,18 +21,21 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const title = lang === "sv" ? "Recept, Mjuk Lov" : "Recipes, Mjuk Lov";
+  const l: Lang = isLang(lang) ? lang : "sv";
+  // Persian used to fall through to the English string here, which is how a
+  // locale ends up indexed under the wrong language.
+  const title =
+    l === "sv" ? "Recept, Mjuk Lov" : l === "fa" ? "دستورها, Mjuk Lov" : "Recipes, Mjuk Lov";
   const description =
-    lang === "sv"
+    l === "sv"
       ? "Desserter och bakverk från Mjuk Lov, med teknikvideor och allergeninformation."
-      : "Desserts and bakes from Mjuk Lov, with technique videos and allergen information.";
+      : l === "fa"
+        ? "دسرها و شیرینی‌های Mjuk Lov، همراه با ویدیوهای تکنیک و اطلاعات آلرژن."
+        : "Desserts and bakes from Mjuk Lov, with technique videos and allergen information.";
   return {
     title,
     description,
-    alternates: {
-      canonical: `/${lang}/recept`,
-      languages: { sv: "/sv/recept", en: "/en/recept" },
-    },
+    alternates: pageAlternates(l, "/recept"),
   };
 }
 
