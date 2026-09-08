@@ -5,6 +5,7 @@ import { getPublishedRecipes, getRecipe } from "@/lib/recipes";
 import { quantityToString } from "@/lib/recipes/qty";
 import { annotateTemps } from "@/lib/units/temps";
 import { ui, isLang, LANGS, type Lang } from "@/lib/i18n";
+import { SITE_URL, LOCALE_TAG, pageAlternates } from "@/lib/seo";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { YouTubeEmbed } from "@/app/components/recipe/YouTubeEmbed";
 import { IngredientList } from "@/app/components/recipe/IngredientList";
@@ -30,9 +31,18 @@ function isoDuration(min: number): string {
   return `PT${h ? `${h}H` : ""}${m ? `${m}M` : ""}` || "PT0M";
 }
 
-/** BCP-47 language tag for a locale (schema.org `inLanguage`, hreflang). Swedish
- *  is unambiguously Sweden (sv-SE); en/fa stay region-neutral. */
-const LOCALE_TAG: Record<Lang, string> = { sv: "sv-SE", en: "en", fa: "fa" };
+/** Absolute URL for the recipe's hero image. Google will not show a Recipe
+ *  rich result without `image`, and every recipe currently has `image: null`,
+ *  so the video thumbnail is what makes the markup usable at all. Same source
+ *  and same size the recipe cards already use, so the schema promises exactly
+ *  the picture a visitor sees. A recipe with neither gets no `image` key, which
+ *  is correct: better to declare nothing than to point at a 404. */
+function recipeImageUrl(recipe: { image: string | null; youtubeId: string | null }): string | null {
+  if (recipe.image) {
+    return recipe.image.startsWith("http") ? recipe.image : `${SITE_URL}${recipe.image}`;
+  }
+  return recipe.youtubeId ? `https://i.ytimg.com/vi/${recipe.youtubeId}/hqdefault.jpg` : null;
+}
 
 export async function generateMetadata({
   params,
@@ -45,18 +55,9 @@ export async function generateMetadata({
   return {
     title: `${recipe.title[lang]}, Mjuk Lov`,
     description: recipe.headnote[lang],
-    alternates: {
-      canonical: `/${lang}/recept/${slug}`,
-      // All three locales are statically generated for every published recipe
-      // (see generateStaticParams), so every declared URL resolves. x-default
-      // points at the Swedish page (the site's default locale).
-      languages: {
-        "sv-SE": `/sv/recept/${slug}`,
-        en: `/en/recept/${slug}`,
-        fa: `/fa/recept/${slug}`,
-        "x-default": `/sv/recept/${slug}`,
-      },
-    },
+    // All three locales are statically generated for every published recipe
+    // (see generateStaticParams), so every declared URL resolves.
+    alternates: pageAlternates(lang, `/recept/${slug}`),
     openGraph: {
       title: `${recipe.title[lang]}, Mjuk Lov`,
       description: recipe.headnote[lang],
@@ -88,12 +89,20 @@ export default async function Page({
   if (!isVegan) adaptTargets.push("vegan");
   if (recipe.allergens.codes.includes("gluten")) adaptTargets.push("gluten-free");
 
+  const heroImage = recipeImageUrl(recipe);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Recipe",
     name: recipe.title[lang],
     description: recipe.headnote[lang],
     author: { "@type": "Organization", name: "Mjuk Lov" },
+    ...(heroImage ? { image: [heroImage] } : {}),
+    // Where the recipe came from, in the machine-readable form of the credit
+    // the page already shows. schema.org's own way of saying "this is our
+    // version of someone else's recipe" rather than implying it originated here.
+    ...(recipe.inspiredBy
+      ? { isBasedOn: { "@type": "Recipe", name: recipe.inspiredBy.channel, url: recipe.inspiredBy.url } }
+      : {}),
     recipeYield: recipe.yieldNote ? [`${recipe.servings}`, recipe.yieldNote[lang]] : `${recipe.servings}`,
     totalTime: isoDuration(recipe.time.totalMin),
     prepTime: isoDuration(recipe.time.prepMin),

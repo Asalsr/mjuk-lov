@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ui, isLang, isRtl, LANGS, type Lang } from "@/lib/i18n";
+import { pageAlternates } from "@/lib/seo";
 import { KITS } from "@/lib/products";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { ProductImage } from "@/app/components/ProductImage";
@@ -29,10 +30,7 @@ export async function generateMetadata({
   return {
     title: `${t.kits}, Mjuk Lov`,
     description: t.kitHeroLede,
-    alternates: {
-      canonical: `/${l}/kit`,
-      languages: { sv: "/sv/kit", en: "/en/kit" },
-    },
+    alternates: pageAlternates(l, "/kit"),
   };
 }
 

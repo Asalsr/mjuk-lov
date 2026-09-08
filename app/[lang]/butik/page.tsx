@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLang, ui, type Lang } from "@/lib/i18n";
+import { pageAlternates } from "@/lib/seo";
 import { KITS, CAKES, MENU, PARTY_PACK, SUBSCRIPTIONS, type Product } from "@/lib/products";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { AddToCartButton } from "@/app/components/shop/AddToCartButton";
@@ -16,6 +18,25 @@ import { Party } from "@/app/components/Party";
 const cakeIcon = (id: string) => (id === "cake-grande" ? Grande : id === "cake-medio" ? Medio : Piccolo);
 
 export const dynamic = "force-dynamic"; // reads ?paid
+
+// The shop had no metadata of its own, so it inherited the site default: every
+// locale served the brand-only title and one description that mixed Swedish and
+// English in a single string. This is the page that takes the order, so it is
+// the last one that should be introducing itself as "ett mjukt löfte".
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const l: Lang = isLang(lang) ? lang : "sv";
+  const t = ui[l];
+  return {
+    title: `${t.shopMetaTitle}, Mjuk Lov`,
+    description: t.shopMetaDescription,
+    alternates: pageAlternates(l, "/butik"),
+  };
+}
 
 function ProductCard({ p, lang, comingSoon }: { p: Product; lang: Lang; comingSoon?: boolean }) {
   const t = ui[lang];

@@ -114,6 +114,14 @@ export const ui = {
     myWishlist: "Önskelista",
     autoSyncNote: "Dina data sparas automatiskt på ditt konto när du är inloggad.",
     shop: "Butik",
+    // Sid-metadata for butik och om-oss. Titeln leder med produkten och orten,
+    // inte med varumärket: ingen söker ännu på "Mjuk Lov".
+    shopMetaTitle: "Beställ tårta och tårtkit i Göteborg",
+    shopMetaDescription:
+      "Hembakade tårtor, DIY-tårtkit och festpaket, bakade på beställning i Göteborg. Välj storlek, smak och fyllning. Fri upphämtning eller hemleverans.",
+    aboutMetaTitle: "Om oss",
+    aboutMetaDescription:
+      "Mjuk Lov är ett litet hembageri i Göteborg. Vi bakar tårtor, tårtkit och desserter på beställning, för hand och i små satser.",
     kits: "Tårtkit",
     kitsIntro: "Vi bakar botten: du dekorerar den själv hemma. Tårtor på 10 cm, en för varje två till tre som delar.",
     subscriptions: "Företagsprenumerationer",
@@ -476,6 +484,14 @@ export const ui = {
     myWishlist: "Wishlist",
     autoSyncNote: "Your data saves to your account automatically while you're logged in.",
     shop: "Shop",
+    // Page metadata for the shop and about pages. The title leads with the
+    // product and the place, not the brand: nobody searches "Mjuk Lov" yet.
+    shopMetaTitle: "Order cakes and DIY cake kits in Gothenburg",
+    shopMetaDescription:
+      "Hand baked cakes, DIY cake kits and party packs, made to order in Gothenburg. Choose your size, flavour and filling. Free pickup or home delivery.",
+    aboutMetaTitle: "About us",
+    aboutMetaDescription:
+      "Mjuk Lov is a small home bakery in Gothenburg. We bake cakes, DIY cake kits and desserts to order, by hand and in small batches.",
     kits: "Cake Kits",
     kitsIntro: "We bake the base: you decorate it yourself at home. 10 cm cakes, one per two or three people to share.",
     subscriptions: "Corporate Subscriptions",
@@ -838,6 +854,14 @@ export const ui = {
     myWishlist: "علاقه‌مندی‌ها",
     autoSyncNote: "داده‌های شما هنگام ورود به‌طور خودکار روی حساب‌تان ذخیره می‌شود.",
     shop: "فروشگاه",
+    // متادیتای صفحه فروشگاه و درباره ما. عنوان با محصول و شهر شروع می‌شود،
+    // نه با نام برند، چون هنوز کسی "Mjuk Lov" را جستجو نمی‌کند.
+    shopMetaTitle: "سفارش کیک و کیت کیک در گوتنبرگ",
+    shopMetaDescription:
+      "کیک‌های خانگی، کیت کیک DIY و بسته‌های جشن، پخته به سفارش در گوتنبرگ. اندازه، طعم و فیلینگ را انتخاب کن. تحویل حضوری رایگان یا ارسال به خانه.",
+    aboutMetaTitle: "درباره ما",
+    aboutMetaDescription:
+      "Mjuk Lov یک شیرینی‌پزی خانگی کوچک در گوتنبرگ است. ما کیک، کیت کیک و دسر را دستی، در مقدار کم و به سفارش می‌پزیم.",
     kits: "کیت‌های کیک",
     kitsIntro: "پایه را ما می‌پزیم: تزیینش را خودت در خانه انجام می‌دهی. کیک‌های ۱۰ سانتی‌متری، یکی برای هر دو یا سه نفری که آن را با هم می‌خورند.",
     subscriptions: "اشتراک‌های شرکتی",

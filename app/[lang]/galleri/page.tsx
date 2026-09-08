@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ui, isLang, LANGS, type Lang } from "@/lib/i18n";
+import { pageAlternates } from "@/lib/seo";
 import { RecipeShell } from "@/app/components/recipe/RecipeShell";
 import { Gallery } from "@/app/components/Gallery";
 import { PhotoDisclaimer } from "@/app/components/PhotoDisclaimer";
@@ -25,10 +26,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: {
-      canonical: `/${l}/galleri`,
-      languages: { sv: "/sv/galleri", en: "/en/galleri" },
-    },
+    alternates: pageAlternates(l, "/galleri"),
   };
 }
 
