@@ -63,7 +63,7 @@ export const KITS: Product[] = [
     allergens: SPONGE_ALLERGENS,
     ingredients: SPONGE_INGREDIENTS,
     size: "10 cm",
-    priceSek: 390,
+    priceSek: 351,
     kind: "kit",
     configurable: true,
     leadDays: 3,
@@ -79,7 +79,7 @@ export const KITS: Product[] = [
     allergens: SPONGE_ALLERGENS,
     ingredients: SPONGE_INGREDIENTS,
     size: "17 cm",
-    priceSek: 590,
+    priceSek: 531,
     popular: true,
     kind: "kit",
     configurable: true,
@@ -96,7 +96,7 @@ export const KITS: Product[] = [
     allergens: SPONGE_ALLERGENS,
     ingredients: SPONGE_INGREDIENTS,
     size: "25 cm",
-    priceSek: 849,
+    priceSek: 764,
     kind: "kit",
     configurable: true,
     leadDays: 3,
@@ -118,7 +118,7 @@ export const CAKES: Product[] = [
     allergens: SPONGE_ALLERGENS,
     ingredients: SPONGE_INGREDIENTS,
     size: "10 cm",
-    priceSek: 349,
+    priceSek: 314,
     kind: "cake",
     configurable: true,
     leadDays: 3,
@@ -134,7 +134,7 @@ export const CAKES: Product[] = [
     allergens: SPONGE_ALLERGENS,
     ingredients: SPONGE_INGREDIENTS,
     size: "17 cm",
-    priceSek: 549,
+    priceSek: 494,
     popular: true,
     kind: "cake",
     configurable: true,
@@ -151,7 +151,7 @@ export const CAKES: Product[] = [
     allergens: SPONGE_ALLERGENS,
     ingredients: SPONGE_INGREDIENTS,
     size: "25 cm",
-    priceSek: 749,
+    priceSek: 674,
     kind: "cake",
     configurable: true,
     leadDays: 3,
@@ -167,7 +167,7 @@ export const CAKES: Product[] = [
 // Party Pack — the same kit, multiplied: one little cake per guest, each
 // decorated by them. `priceSek` is the displayed "from" price: the two-cake
 // minimum order (shown with the "from 2 cakes" unit), so it must equal the
-// configurator's floor = PARTY_BASE_SEK + PARTY_PER_CAKE_SEK = 690. The
+// configurator's floor = PARTY_BASE_SEK + PARTY_PER_CAKE_SEK = 621. The
 // configurator adds each further cake and any extras. See lib/pricing.
 export const PARTY: Product[] = [
   {
@@ -175,7 +175,7 @@ export const PARTY: Product[] = [
     allergens: SPONGE_ALLERGENS,
     ingredients: SPONGE_INGREDIENTS,
     size: "10 cm",
-    priceSek: 690,
+    priceSek: 621,
     kind: "party",
     configurable: true,
     leadDays: 7,
@@ -195,7 +195,7 @@ export const SUBSCRIPTIONS: Product[] = [
   {
     id: "sub-small",
     size: "",
-    priceSek: 890,
+    priceSek: 801,
     recurring: true,
     name: { sv: "Liten", en: "Small", fa: "کوچک" },
     unit: { sv: "12 portioner/månad", en: "12 portions/month", fa: "۱۲ پرس در ماه" },
@@ -208,7 +208,7 @@ export const SUBSCRIPTIONS: Product[] = [
   {
     id: "sub-medium",
     size: "",
-    priceSek: 1590,
+    priceSek: 1431,
     recurring: true,
     popular: true,
     name: { sv: "Medium", en: "Medium", fa: "متوسط" },
@@ -222,7 +222,7 @@ export const SUBSCRIPTIONS: Product[] = [
   {
     id: "sub-large",
     size: "",
-    priceSek: 2390,
+    priceSek: 2151,
     recurring: true,
     name: { sv: "Stor", en: "Large", fa: "بزرگ" },
     unit: { sv: "40 portioner/månad", en: "40 portions/month", fa: "۴۰ پرس در ماه" },
@@ -254,7 +254,7 @@ export const MENU: Product[] = [
       fa: "بلوبری، آب، شکر، چای سیاه، خامه غلیظ، دانه وانیل، ماسکارپونه، بیسکویت لیدی‌فینگر (آرد گندم، تخم‌مرغ، سویا). حاوی کافئین (چای سیاه) است.",
     },
     size: "",
-    priceSek: 294,
+    priceSek: 265,
     kind: "menu",
     leadDays: 2,
     images: ["/gallery/blue berry tiramisu - blumisu (1).svg"],
@@ -265,7 +265,7 @@ export const MENU: Product[] = [
       fa: "تیرامیسوی بلوبری در شیشه. در جعبه‌های شش‌تایی.",
     },
     variants: [
-      { id: "box6", priceSek: 294, label: { sv: "Ask om 6 burkar", en: "Box of 6 jars", fa: "جعبه ۶ تایی" } },
+      { id: "box6", priceSek: 265, label: { sv: "Ask om 6 burkar", en: "Box of 6 jars", fa: "جعبه ۶ تایی" } },
     ],
   },
   {
@@ -277,7 +277,7 @@ export const MENU: Product[] = [
       fa: "بیسکویت لیدی‌فینگر (آرد گندم، تخم‌مرغ)، ماسکارپونه، خامه، تخم‌مرغ، شکر، لیمو",
     },
     size: "",
-    priceSek: 294,
+    priceSek: 265,
     kind: "menu",
     leadDays: 2,
     images: ["/gallery/lemon tiramisu - lemomisu (1).svg", "/gallery/lemon tiramisu - lemomisu (2).svg"],
@@ -288,7 +288,7 @@ export const MENU: Product[] = [
       fa: "تیرامیسوی لیمو در شیشه. در جعبه‌های شش‌تایی.",
     },
     variants: [
-      { id: "box6", priceSek: 294, label: { sv: "Ask om 6 burkar", en: "Box of 6 jars", fa: "جعبه ۶ تایی" } },
+      { id: "box6", priceSek: 265, label: { sv: "Ask om 6 burkar", en: "Box of 6 jars", fa: "جعبه ۶ تایی" } },
     ],
   },
   {
@@ -300,7 +300,7 @@ export const MENU: Product[] = [
       fa: "آرد گندم، شکر، تخم‌مرغ، کره، شیر، لیمو، بلوبری، بکینگ‌پودر",
     },
     size: "",
-    priceSek: 399,
+    priceSek: 359,
     kind: "menu",
     leadDays: 2,
     images: ["/gallery/lemon cake (3).svg", "/gallery/lemon cake (2).svg"],
@@ -311,8 +311,8 @@ export const MENU: Product[] = [
       fa: "کیک لطیف لیمو با تزیین بلوبری و لیمو. به‌صورت کامل.",
     },
     variants: [
-      { id: "box9", priceSek: 399, label: { sv: "Hel kaka · 18×28 cm · 9 bitar", en: "Whole cake · 18×28 cm · serves 9", fa: "کیک کامل · ۱۸×۲۸ سانتی‌متر · ۹ برش" } },
-      { id: "box15", priceSek: 499, label: { sv: "Hel kaka · 30×28 cm · 15 bitar", en: "Whole cake · 30×28 cm · serves 15", fa: "کیک کامل · ۳۰×۲۸ سانتی‌متر · ۱۵ برش" } },
+      { id: "box9", priceSek: 359, label: { sv: "Hel kaka · 18×28 cm · 9 bitar", en: "Whole cake · 18×28 cm · serves 9", fa: "کیک کامل · ۱۸×۲۸ سانتی‌متر · ۹ برش" } },
+      { id: "box15", priceSek: 449, label: { sv: "Hel kaka · 30×28 cm · 15 bitar", en: "Whole cake · 30×28 cm · serves 15", fa: "کیک کامل · ۳۰×۲۸ سانتی‌متر · ۱۵ برش" } },
     ],
   },
   {
@@ -324,7 +324,7 @@ export const MENU: Product[] = [
       fa: "شکلات تلخ (سویا)، کره، تخم‌مرغ، شکر، آرد گندم، نمک، پوست پرتقال، گردوی کمی برشته (آجیل درختی)، قهوه فوری. حاوی کافئین (قهوه، شکلات) است.",
     },
     size: "",
-    priceSek: 499,
+    priceSek: 449,
     kind: "menu",
     leadDays: 2,
     images: ["/gallery/brownies (2).svg", "/gallery/brownies cut.svg"],
@@ -335,8 +335,8 @@ export const MENU: Product[] = [
       fa: "براونی نرم و تیره با تزیین خامه و تکه‌های شکلات. به‌صورت کامل.",
     },
     variants: [
-      { id: "box9", priceSek: 499, label: { sv: "Hel kaka · 18×28 cm · 9 bitar", en: "Whole cake · 18×28 cm · serves 9", fa: "کیک کامل · ۱۸×۲۸ سانتی‌متر · ۹ برش" } },
-      { id: "box15", priceSek: 599, label: { sv: "Hel kaka · 30×28 cm · 15 bitar", en: "Whole cake · 30×28 cm · serves 15", fa: "کیک کامل · ۳۰×۲۸ سانتی‌متر · ۱۵ برش" } },
+      { id: "box9", priceSek: 449, label: { sv: "Hel kaka · 18×28 cm · 9 bitar", en: "Whole cake · 18×28 cm · serves 9", fa: "کیک کامل · ۱۸×۲۸ سانتی‌متر · ۹ برش" } },
+      { id: "box15", priceSek: 539, label: { sv: "Hel kaka · 30×28 cm · 15 bitar", en: "Whole cake · 30×28 cm · serves 15", fa: "کیک کامل · ۳۰×۲۸ سانتی‌متر · ۱۵ برش" } },
     ],
   },
   {
@@ -348,7 +348,7 @@ export const MENU: Product[] = [
       fa: "آرد گندم، شکر، تخم‌مرغ، کره، شیر، بیسکویت لوتوس بیسکاف (آرد گندم، سویا)، خامه",
     },
     size: "",
-    priceSek: 449,
+    priceSek: 404,
     kind: "menu",
     leadDays: 2,
     images: ["/gallery/lotus cake (1).svg", "/gallery/lotus cake (2) (1).svg"],
@@ -359,8 +359,8 @@ export const MENU: Product[] = [
       fa: "کیک لوتوس، کامل. ۱۷ یا ۲۵ سانتی‌متر.",
     },
     variants: [
-      { id: "box8", priceSek: 449, label: { sv: "Hel tårta · 17 cm · 8 bitar", en: "Whole cake · 17 cm · 8 slices", fa: "کیک کامل · ۱۷ سانتی‌متر · ۸ برش" } },
-      { id: "box17", priceSek: 549, label: { sv: "Hel tårta · 25 cm · 17 bitar", en: "Whole cake · 25 cm · 17 slices", fa: "کیک کامل · ۲۵ سانتی‌متر · ۱۷ برش" } },
+      { id: "box8", priceSek: 404, label: { sv: "Hel tårta · 17 cm · 8 bitar", en: "Whole cake · 17 cm · 8 slices", fa: "کیک کامل · ۱۷ سانتی‌متر · ۸ برش" } },
+      { id: "box17", priceSek: 494, label: { sv: "Hel tårta · 25 cm · 17 bitar", en: "Whole cake · 25 cm · 17 slices", fa: "کیک کامل · ۲۵ سانتی‌متر · ۱۷ برش" } },
     ],
   },
   {
@@ -372,7 +372,7 @@ export const MENU: Product[] = [
       fa: "تخم‌مرغ، شکر، آرد گندم، کاکائو (سویا)، کره، وانیل، خامه غلیظ، شکر پودر",
     },
     size: "",
-    priceSek: 449,
+    priceSek: 404,
     kind: "menu",
     leadDays: 2,
     images: ["/gallery/chocolate cake (1).svg", "/gallery/chocolate cake (2) (1).svg"],
@@ -383,8 +383,8 @@ export const MENU: Product[] = [
       fa: "کیک شکلاتی، کامل. ۱۷ یا ۲۵ سانتی‌متر.",
     },
     variants: [
-      { id: "box8", priceSek: 449, label: { sv: "Hel tårta · 17 cm · 8 bitar", en: "Whole cake · 17 cm · 8 slices", fa: "کیک کامل · ۱۷ سانتی‌متر · ۸ برش" } },
-      { id: "box17", priceSek: 549, label: { sv: "Hel tårta · 25 cm · 17 bitar", en: "Whole cake · 25 cm · 17 slices", fa: "کیک کامل · ۲۵ سانتی‌متر · ۱۷ برش" } },
+      { id: "box8", priceSek: 404, label: { sv: "Hel tårta · 17 cm · 8 bitar", en: "Whole cake · 17 cm · 8 slices", fa: "کیک کامل · ۱۷ سانتی‌متر · ۸ برش" } },
+      { id: "box17", priceSek: 494, label: { sv: "Hel tårta · 25 cm · 17 bitar", en: "Whole cake · 25 cm · 17 slices", fa: "کیک کامل · ۲۵ سانتی‌متر · ۱۷ برش" } },
     ],
   },
 ];
