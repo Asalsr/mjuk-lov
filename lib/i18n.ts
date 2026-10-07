@@ -373,7 +373,7 @@ export const ui = {
     cfgCakesTitle: "Hur många tårtor",
     cfgCakesIncluded: "En liten tårta per gäst, var och en dekorerad av dem.",
     cfgCakesAria: "Antal tårtor",
-    cfgCakesPer: "+290 kr per extra tårta",
+    cfgCakesPer: "+261 kr per extra tårta",
     cfgCakesSize: "Varje liten tårta bakas till 10 cm.",
     cfgCakesContact: "Fler än 10? Kontakta oss",
     // Party Pack section (shown wherever kits are presented).
@@ -381,7 +381,7 @@ export const ui = {
     partyBlockHeading: "En fest ni dekorerar tillsammans.",
     partyBlockBody:
       "Alla får sin egen lilla tårta att dekorera: dekorerandet är festen. Gjort för dagarna som samlar människor: födelsedagar, bemärkelsedagar, babyshower, möhippor, eller en stilla helgeftermiddag med dem du tycker om.",
-    partyBlockMeta: "Från 690 kr · minst 7 dagars framförhållning.",
+    partyBlockMeta: "Från 621 kr · minst 7 dagars framförhållning.",
     partyBlockCta: "Planera din fest",
     // Cakes & Bakes (menu line) — shop section.
     menuHeading: "Kakor & bakverk",
@@ -743,7 +743,7 @@ export const ui = {
     cfgCakesTitle: "How many cakes",
     cfgCakesIncluded: "One little cake per guest, each decorated by them.",
     cfgCakesAria: "Number of cakes",
-    cfgCakesPer: "+290 kr per extra cake",
+    cfgCakesPer: "+261 kr per extra cake",
     cfgCakesSize: "Each little cake is baked to 10 cm.",
     cfgCakesContact: "More than 10? Contact us",
     // Party Pack section (shown wherever kits are presented).
@@ -751,7 +751,7 @@ export const ui = {
     partyBlockHeading: "A party you decorate together.",
     partyBlockBody:
       "Everyone gets their own little cake to decorate: the decorating is the party. Made for the days that bring people together: birthdays, anniversaries, baby showers, möhippor, or a slow weekend afternoon with the people you love.",
-    partyBlockMeta: "From 690 kr · at least 7 days' notice.",
+    partyBlockMeta: "From 621 kr · at least 7 days' notice.",
     partyBlockCta: "Plan your party",
     // Cakes & Bakes (menu line) — shop section.
     menuHeading: "Cakes & bakes",
@@ -1113,7 +1113,7 @@ export const ui = {
     cfgCakesTitle: "چند کیک",
     cfgCakesIncluded: "یک کیک کوچک برای هر مهمان، هرکدام تزیین‌شده به دست خودشان.",
     cfgCakesAria: "تعداد کیک‌ها",
-    cfgCakesPer: "۲۹۰ کرون برای هر کیک اضافه",
+    cfgCakesPer: "۲۶۱ کرون برای هر کیک اضافه",
     cfgCakesSize: "هر کیک کوچک به قطر ۱۰ سانتی‌متر پخته می‌شود.",
     cfgCakesContact: "بیشتر از ۱۰؟ با ما تماس بگیر",
     // Party Pack section (shown wherever kits are presented).
@@ -1121,7 +1121,7 @@ export const ui = {
     partyBlockHeading: "جشنی که با هم تزیین می‌کنید.",
     partyBlockBody:
       "هر کس کیک کوچک خودش را برای تزیین دارد: تزیین کردن، خودِ جشن است. ساخته‌شده برای روزهایی که آدم‌ها را کنار هم می‌آورد: تولدها، سالگردها، بیبی‌شاور، مهمانی‌های پیش از عروسی، یا یک بعدازظهر آرامِ آخر هفته با کسانی که دوستشان داری.",
-    partyBlockMeta: "از ۶۹۰ کرون · دست‌کم ۷ روز فرصت.",
+    partyBlockMeta: "از ۶۲۱ کرون · دست‌کم ۷ روز فرصت.",
     partyBlockCta: "جشنت را برنامه‌ریزی کن",
     // Cakes & Bakes (menu line) — shop section.
     menuHeading: "کیک و شیرینی",

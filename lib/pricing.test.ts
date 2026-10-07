@@ -41,40 +41,40 @@ function makeCakes(n: number, vanillaCount = Math.ceil(n / 2)): PartyCakeConfig[
 
 describe("priceLineSek — kits", () => {
   it("default kit is the base price (nothing extra)", () => {
-    expect(priceLineSek(defaultKitConfig("kit-medio"))).toBe(590);
+    expect(priceLineSek(defaultKitConfig("kit-medio"))).toBe(531);
   });
 
   it("a second filling adds one extra-item fee", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), fillings: ["berries", "caramel"] };
-    expect(priceLineSek(cfg)).toBe(590 + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(531 + EXTRA_ITEM_SEK);
   });
 
   it("a third tool (beyond the 2 included) adds one fee", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), tools: { piping: 1, brush: 1, knife: 1 } };
     expect(extraTools(cfg)).toBe(1);
-    expect(priceLineSek(cfg)).toBe(590 + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(531 + EXTRA_ITEM_SEK);
   });
 
   it("grande includes four tools — no fee for the fourth", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-grande"), tools: { piping: 2, brush: 1, knife: 1 } };
     expect(extraTools(cfg)).toBe(0);
-    expect(priceLineSek(cfg)).toBe(849);
+    expect(priceLineSek(cfg)).toBe(764);
   });
 
   it("a fifth tool on grande adds one fee", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-grande"), tools: { piping: 2, brush: 2, knife: 1 } };
     expect(extraTools(cfg)).toBe(1);
-    expect(priceLineSek(cfg)).toBe(849 + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(764 + EXTRA_ITEM_SEK);
   });
 
   it("three chosen colours are included — no fee", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), colours: ["pink", "sky-blue", "light-green"] };
-    expect(priceLineSek(cfg)).toBe(590);
+    expect(priceLineSek(cfg)).toBe(531);
   });
 
   it("a fourth colour adds one fee", () => {
     const cfg: KitConfig = { ...defaultKitConfig("kit-medio"), colours: ["pink", "sky-blue", "light-green", "lemon-yellow"] };
-    expect(priceLineSek(cfg)).toBe(590 + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(531 + EXTRA_ITEM_SEK);
   });
 
   it("grande includes five colours — no fee for the fifth", () => {
@@ -83,7 +83,7 @@ describe("priceLineSek — kits", () => {
       colours: ["pink", "sky-blue", "light-green", "lemon-yellow", "orange-red"],
     };
     expect(extraColours(cfg)).toBe(0);
-    expect(priceLineSek(cfg)).toBe(849);
+    expect(priceLineSek(cfg)).toBe(764);
   });
 
   it("a sixth colour on grande adds one fee", () => {
@@ -92,7 +92,7 @@ describe("priceLineSek — kits", () => {
       colours: ["pink", "sky-blue", "light-green", "lemon-yellow", "orange-red", "taro-purple"],
     };
     expect(extraColours(cfg)).toBe(1);
-    expect(priceLineSek(cfg)).toBe(849 + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(764 + EXTRA_ITEM_SEK);
   });
 });
 
@@ -101,12 +101,12 @@ describe("priceLineSek — ready-made cakes", () => {
     const cfg = defaultKitConfig("cake-piccolo");
     expect(cfg.tools).toEqual({ piping: 0, brush: 0, knife: 0 });
     expect(cfg.colours).toEqual([]);
-    expect(priceLineSek(cfg)).toBe(349);
+    expect(priceLineSek(cfg)).toBe(314);
   });
 
   it("a second filling still adds one fee on a ready-made cake", () => {
     const cfg: KitConfig = { ...defaultKitConfig("cake-medio"), fillings: ["berries", "caramel"] };
-    expect(priceLineSek(cfg)).toBe(549 + EXTRA_ITEM_SEK);
+    expect(priceLineSek(cfg)).toBe(494 + EXTRA_ITEM_SEK);
   });
 });
 
@@ -246,7 +246,7 @@ describe("nothing is pre-selected", () => {
   });
 
   it("a blank config still prices as the plain base (nothing unchosen is billed)", () => {
-    expect(priceLineSek(defaultKitConfig("kit-medio"))).toBe(590);
+    expect(priceLineSek(defaultKitConfig("kit-medio"))).toBe(531);
     expect(priceLineSek(defaultPartyConfig())).toBe(PARTY_BASE_SEK + (PARTY_MIN_CAKES - PARTY_BASE_CAKES) * PARTY_PER_CAKE_SEK);
   });
 });
